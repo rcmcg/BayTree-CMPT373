@@ -3,6 +3,7 @@ import { IconContext } from 'react-icons';
 import {FaBars, FaTimes} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import "./Navbar.css"
+import baytreeLogo from "./baytree-logo.svg"
 
 const NavigationBar = () => {
     const [click, setClick] = useState(false)
@@ -16,7 +17,7 @@ const NavigationBar = () => {
             <nav className={"navbar"}>
                 <div className={"navbar-container container"}>
                     <img className={"brand-logo"}
-                         src={"baytree-logo.svg"}
+                         src={baytreeLogo}
                          alt={"Baytree-logo"}/>
                 </div>
 
