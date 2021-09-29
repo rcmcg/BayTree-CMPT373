@@ -12,8 +12,7 @@ const NavigationBar = () => {
     const closeMobileMenu = () => setClick(false)
 
     return (
-        <>
-            <IconContext.Provider value={{ color: '#fff' }}>
+        <IconContext.Provider value={{ color: '#fff' }}>
             <nav className={"navbar"}>
                 <div className={"navbar-container container"}>
                     <img className={"brand-logo"}
@@ -44,8 +43,7 @@ const NavigationBar = () => {
                 </ul>
             </nav>
             <section className="header-background"/>
-            </IconContext.Provider>
-        </>
+        </IconContext.Provider>
     );
 };
 
