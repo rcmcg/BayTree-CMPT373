@@ -5,7 +5,7 @@ body {
 }
 section.header-background {
     width: 100%;
-    height: 300px;
+    height: 64px;
     background-color: #76CC4D;
 }
 
@@ -70,8 +70,5 @@ ul li a:focus {
         width: 120px;
         height: 80px;
         padding-left: 0;
-    }
-    section.header-background {
-        height: 250px;
     }
 }
