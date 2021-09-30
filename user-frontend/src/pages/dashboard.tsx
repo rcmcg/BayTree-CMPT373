@@ -4,13 +4,6 @@ import * as React from 'react';
 export const Dashboard = () => {
     return (
         <main>
-            {/*TODO: Move this style to a CSS file*/}
-            <div style={{
-                display: "flex",
-                justifyContent: "center"
-            }}>
-
-            </div>
             <h1>Dashboard</h1>
             <h2>Session information</h2>
             <h3>Test</h3>
