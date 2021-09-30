@@ -10,6 +10,12 @@
     display: none;
 }
 
+.nav-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
 @media screen and (max-width: 800px) {
     .menu-icon {
         display: block;
@@ -54,6 +60,7 @@
         text-align: center;
         padding: 2rem;
         width: 100%;
+        font-weight: bold;
         display: table;
     }
 
@@ -68,6 +75,7 @@
     }
 
     .nav-item {
+        height: 10%;
         width: 100%;
     }
 }
