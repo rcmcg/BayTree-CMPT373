@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { IconContext } from 'react-icons';
 import {FaBars, FaTimes} from "react-icons/fa";
 import {Link} from "react-router-dom";
-import "./Navbar.css"
+import "../css/Navbar.css"
 import baytreeLogo from "../resources/baytree-logo.svg"
 
 const NavigationBar = () => {
