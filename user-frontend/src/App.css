@@ -23,33 +23,13 @@ nav{
     box-sizing: border-box;
 }
 
-ul {
-    float: right;
-    display: flex;
-    margin:0;
-    /*padding-top: 20px;*/
-    padding-right: 0;
-}
 ul li {
     list-style:none;
-}
-ul li a {
-    position: relative;
-    display: block;
-    height: 70px;
-    line-height: 70px;
-    padding: 0 40px;
-    color: #fff;
-    opacity: 0.7;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.5s;
 }
 
 ul li a:focus {
     opacity: 1;
     text-decoration: underline;
-
 }
 
 @media screen and (max-width: 800px) {
