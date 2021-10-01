@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import * as AiIcons from 'react-icons/ai';
 import {Link} from 'react-router-dom';
-import './Navbar.css'
-import { SideNavbar } from './SideNavbarData';
-import baytreeLogo from '../assets/baytree-logo.svg'
+import './styles/Navbar.css'
+import { SideNavbar } from './NavbarData';
+import baytreeLogo from '../../assets/baytree-logo.svg'
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
