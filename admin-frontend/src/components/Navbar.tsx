@@ -12,11 +12,13 @@ function Navbar() {
 
   return (
     <>
-        <div className='navbar'>
+        <div className='logo'>
             <img className = 'baytreeLogo'
                 src = {baytreeLogo}
                 alt = {'Baytree-logo'} 
                 width = '60px'/>
+        </div>
+        <div className = 'navbar'>
             <Link to='#' className='menu-bars'>
                 <AiIcons.AiOutlineBars onClick={showSidebar} />
             </Link>
