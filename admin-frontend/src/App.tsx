@@ -8,9 +8,10 @@ import Mentees from './pages/Mentees/Mentees';
 import Settings from './pages/Settings/Settings'
 import AddMentor from './pages/AddMentor/AddMentor';
 
+
 function App() {
   return (
-    <>
+    <div>
       <Router>
         <Navbar />
         <Switch>
@@ -21,7 +22,7 @@ function App() {
           <Route path='/settings' component={Settings} />
         </Switch>
       </Router>
-    </>
+    </div>
   );
 }
 
