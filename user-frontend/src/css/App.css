@@ -46,3 +46,19 @@ ul li a:focus {
         padding-left: 0;
     }
 }
+
+.bottom-wrapper{
+
+}
+.left{
+    width: 25%;
+    float: left;
+}
+.right{
+    margin-left: 5%;
+}
+.header-component {
+    text-decoration: underline;
+    font-size: 15px;
+}
+

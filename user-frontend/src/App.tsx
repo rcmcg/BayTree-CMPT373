@@ -9,12 +9,14 @@ import {Resources} from "./pages/resources";
 function App() {
     return(
         <Router>
+
             <NavigationBar/>
             <Switch>
                 <Route path={"/"} exact component={Dashboard} />
                 <Route path={"/profile"} exact component={Profile}/>
                 <Route path={"/resources"} exact component={Resources}/>
             </Switch>
+
         </Router>
     )
 }

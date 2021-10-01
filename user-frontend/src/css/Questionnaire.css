@@ -1,0 +1,34 @@
+.questionnaire {
+    width: 60%;
+    height: 250px;
+    box-shadow: 0 3px 10px rgb(0 0 0 );
+    padding-top: 1px;
+    padding-left: 15px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    float: right;
+}
+
+.body-questionnaire {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.questionnaire-box span{
+    border-radius: 20px;
+    background-color: #76CC4D;
+}
+
+.body-questionnaire span{
+    display: inline-block;
+    width: 25%;
+    height: 80px;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
