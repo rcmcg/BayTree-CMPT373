@@ -3,7 +3,7 @@ import * as AiIcons from 'react-icons/ai';
 import {Link} from 'react-router-dom';
 import './Navbar.css'
 import { SideNavbar } from './SideNavbarData';
-import baytreeLogo from '../assets/baytree-logo.png'
+import baytreeLogo from '../assets/baytree-logo.svg'
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -13,7 +13,6 @@ function Navbar() {
   return (
     <>
         <div className='navbar'>
-            {/* <img src = '../assets/baytree-logo.svg' alt = 'baytree-logo'/> */}
             <img className = 'baytreeLogo'
                 src = {baytreeLogo}
                 alt = {'Baytree-logo'} 
