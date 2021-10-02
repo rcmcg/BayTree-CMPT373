@@ -17,9 +17,9 @@ function Mentor() {
                 {mentor1Data.map((data, key) => {
                     return (
                         <div key={key}>
-                            {data.sessions.map( (session) => {
+                            {data.sessions.map((session, sessionKey) => {
                                 return (
-                                    <div key={key}>
+                                    <div key={sessionKey}>
                                         {session.date +
                                         ", " +
                                         session.mentee +
@@ -27,8 +27,7 @@ function Mentor() {
                                         session.notes}
                                     </div>
                                 )
-                            }
-                        )}
+                            })}
                         </div>
                     );
                 })}
@@ -37,14 +36,13 @@ function Mentor() {
                 {mentor1Data.map((data, key) => {
                     return (
                         <div key={key}>
-                        {data.questionnaires.map( (questionnaire) => {
+                        {data.questionnaires.map((questionnaire, questionnaireKey) => {
                                 return (
-                                    <div key={key}>
+                                    <div key={questionnaireKey}>
                                         {questionnaire.month}
                                     </div>
                                 )
-                            }
-                        )}
+                            })}
                         </div>
                     );
                 })}
