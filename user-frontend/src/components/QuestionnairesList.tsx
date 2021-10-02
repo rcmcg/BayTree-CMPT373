@@ -1,19 +1,29 @@
 import {IState as Props} from "./Questionnaire"
 import React from "react";
+import {useHistory} from "react-router-dom";
 
 interface IProps {
     questionnaires: Props["questionnaires"]
 }
 
 export const ListBody: React.FC<IProps> = ({questionnaires}) => {
+    const history = useHistory();
 
     const renderList = () : JSX.Element[] => {
         return questionnaires.map(questionnaire => {
+
+            function routeChange() {
+                let month = questionnaire.month;
+                history.push(`/SingleQuestionnaire/${month}`);
+            }
+
             return (
-                <span key={questionnaire.id.toString()}>
+                <span key={questionnaire.id.toString()}
+                    onClick={routeChange}>
                     {questionnaire.id}
                 </span>
             )
+
         })
     }
 

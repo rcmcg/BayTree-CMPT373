@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import "../css/Questionnaire.css"
 import {ListBody, ListMonth} from "./QuestionnairesList"
 
+// dummy objects
 export interface IState {
     questionnaires: {
         id: number
