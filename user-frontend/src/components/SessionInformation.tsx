@@ -22,12 +22,37 @@ class ClockOut extends React.Component {
     }
 }
 
+class SessionNotes extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="sessionNotes">Session notes</label>
+                <input type="text" id="sessionNotesId" name="sessionNotesForm" required/>
+            </div>
+        )
+    }
+}
+
+class SessionSubmit extends React.Component {
+    render() {
+        return (
+            <div>
+                <input type="submit" value="Submit"/>
+            </div>
+        )
+    }
+}
+
 export class SessionInformation extends React.Component {
     render () {
         return (
             <main>
-                <ClockIn />
-                <ClockOut />
+                <form>
+                    <ClockIn />
+                    <ClockOut />
+                    <SessionNotes />
+                    <SessionSubmit />
+                </form>
             </main>
         );
     }
