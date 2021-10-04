@@ -2,6 +2,13 @@ import * as React from 'react';
 
 const axios = require('axios').default;
 
+interface SessionState {
+    menteeId: number,
+    clockInTimeLocal: string,
+    clockOutTimeLocal: string,
+    sessionNotes?: string
+}
+
 class SelectMentee extends React.Component {
     render () {
         return (
@@ -56,11 +63,42 @@ class SessionSubmit extends React.Component {
     }
 }
 
-export class SessionInformation extends React.Component {
+export class SessionForm extends React.Component<{}, SessionState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            menteeId: -1,
+            clockInTimeLocal: '',
+            clockOutTimeLocal: '',
+            sessionNotes: ''
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event: any) {
+        this.setState({
+            menteeId: event.target.selectMenteeId.value,
+            clockInTimeLocal: event.target.clockInId.value,
+            clockOutTimeLocal: event.target.clockOutId.value,
+            sessionNotes: event.target.sessionNotesId.value
+        }, this.processUserSubmission)
+        event.preventDefault()
+    }
+
+    processUserSubmission() {
+        // This function is called only after the state has been updated
+        // TODO: Create and send POST request to backend, interpret and display response
+        console.log('State has finished updating')
+        let message:string = this.state.menteeId + ' ' + this.state.clockInTimeLocal + this.state.clockOutTimeLocal
+            + ' ' + this.state.sessionNotes
+        alert('Information was submitted: ' + message)
+    }
+
     render () {
         return (
             <main>
-                <form action={"http://localhost:8080/session/add"} method={"post"}>
+                {/*<form action={"http://localhost:8080/session/add"} method={"post"}>*/}
+                <form onSubmit={this.handleSubmit}>
                     <SelectMentee />
                     <ClockIn />
                     <ClockOut />
