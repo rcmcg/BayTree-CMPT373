@@ -6,6 +6,7 @@ import {Dashboard} from "./pages/dashboard";
 import {Profile} from "./pages/profile";
 import {Resources} from "./pages/resources";
 import {SingleQuestionnaire} from "./pages/SingleQuestionnaire";
+import {SingleNotification} from "./pages/SingleNotification";
 
 function App() {
     return(
@@ -14,6 +15,7 @@ function App() {
             <NavigationBar/>
             <Switch>
                 <Route path={"/"} exact component={Dashboard} />
+                <Route path={`SingleNotification/:notificationId`} component={SingleNotification}/>
                 <Route path={`/SingleQuestionnaire/:month`} component={SingleQuestionnaire} />
 
                 <Route path={"/profile"} exact component={Profile}/>

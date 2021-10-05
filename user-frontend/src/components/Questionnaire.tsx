@@ -12,6 +12,7 @@ export interface IState {
 
 function Questionnaire() {
 
+    // dummy data
     const [questionnaires] = useState<IState["questionnaires"]>([
         {   id: 7, month: "July"},
         {   id: 8, month: "August"},

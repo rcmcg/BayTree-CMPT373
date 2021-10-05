@@ -2,11 +2,40 @@
     width: 100%;
     height: 350px;
     box-shadow: 0 3px 10px rgb(0 0 0 );
-    padding-top: 1px;
+    padding-top: 0;
     padding-left: 15px;
     margin-left: 17%;
     margin-right: 5%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-radius: 20px;
     float: left;
+}
+
+.body{
+    overflow-y: scroll;
+    height: 80%;
+}
+
+.messages span{
+    border-radius: 20px;
+    background-color: #76CC4D;
+}
+
+.body div {
+    margin-right: 5px;
+}
+
+.body span{
+    display: inline-block;
+    width: 90%;
+    height: 80px;
+    padding: 5px;
+    text-decoration: none;
+    margin-top: 7px;
+    cursor: pointer;
+}
+
+.messages p {
+    margin: 5px 0 0;
+    padding: 0;
 }
