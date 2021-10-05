@@ -2,18 +2,24 @@
 import * as React from 'react';
 import Notifications from "../components/Notifications";
 import Questionnaire from "../components/Questionnaire";
+import HistoricalRecord from "../components/HistoricalRecord";
 
 export const Dashboard = () => {
 
     return (
         <main>
-            <div style={{height: "10vh"}}/>
+            <div style={{height: "20vh"}}/>
 
-            <h1>Dashboard</h1>
-            <h2>Session information</h2>
-            <h3>Test</h3>
+            <section className={"wrapper"}>
+                <div className={"left"}>
+                    <div> Clock in</div>
+                </div>
+                <div className={"right"}>
+                    <HistoricalRecord />
+                </div>
+            </section>
 
-            <section className={"bottom-wrapper"}>
+            <section className={"wrapper"}>
                 <div className={"left"}>
                     <Notifications />
                 </div>

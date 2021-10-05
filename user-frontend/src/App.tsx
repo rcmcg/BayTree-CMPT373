@@ -7,6 +7,7 @@ import {Profile} from "./pages/profile";
 import {Resources} from "./pages/resources";
 import {SingleQuestionnaire} from "./pages/SingleQuestionnaire";
 import {SingleNotification} from "./pages/SingleNotification";
+import {FullHistoricalRecord} from "./pages/FullHistoricalRecord"
 
 function App() {
     return(
@@ -18,6 +19,7 @@ function App() {
                 <Route path={`SingleNotification/:notificationId`} component={SingleNotification}/>
                 <Route path={`/SingleQuestionnaire/:month`} component={SingleQuestionnaire} />
 
+                <Route path={`/HistoricalRecord`} component={FullHistoricalRecord} />
                 <Route path={"/profile"} exact component={Profile}/>
                 <Route path={"/resources"} exact component={Resources}/>
             </Switch>

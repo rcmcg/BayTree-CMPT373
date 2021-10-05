@@ -23,7 +23,7 @@ export const ListNotifications: React.FC<IProps> = ({messages}) => {
             return (
                 <span key={message.id.toString()}
                       onClick={routeChange}>
-                    <p>{message.subject}</p>
+                    <p className={"subject"}>{message.subject}</p>
                     <p>{message.sender}</p>
                     <p> {body}</p>
                 </span>

@@ -4,11 +4,10 @@
     box-shadow: 0 3px 10px rgb(0 0 0 );
     padding-top: 0;
     padding-left: 15px;
-    margin-left: 17%;
-    margin-right: 5%;
-    margin-bottom: 10px;
     border-radius: 20px;
     float: left;
+
+    margin: 294px 5% 10px 17%;
 }
 
 .body{
@@ -38,4 +37,13 @@
 .messages p {
     margin: 5px 0 0;
     padding: 0;
+}
+
+.subject {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.body span:hover{
+    color: #45008A;
 }
