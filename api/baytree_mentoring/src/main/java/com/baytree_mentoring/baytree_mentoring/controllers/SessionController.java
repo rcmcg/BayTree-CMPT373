@@ -19,6 +19,7 @@ public class SessionController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/session/add")
     private String addSession(@RequestBody Session ses) {
         Session session = new Session(ses.getMenteeId(), ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), ses.getSessionNotes());

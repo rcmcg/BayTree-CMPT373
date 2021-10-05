@@ -1,6 +1,8 @@
 import * as React from 'react';
+import {AxiosError, AxiosResponse} from "axios";
 
 const axios = require('axios').default;
+const backendApiURL = "http://localhost:8080"
 
 interface SessionState {
     menteeId: number,
@@ -85,6 +87,11 @@ export class SessionForm extends React.Component<{}, SessionState> {
         event.preventDefault()
     }
 
+    isClockInClockOutTimeValid (clockInTimeLocal: string, clockOutTimeLocal: string) {
+        // TODO: Check clockInTimeLocal <  clockOutTimeLocal.
+        return null;
+    }
+
     processUserSubmission() {
         // This function is called only after the state has been updated
         // TODO: Create and send POST request to backend, interpret and display response
@@ -92,9 +99,25 @@ export class SessionForm extends React.Component<{}, SessionState> {
         let message:string = this.state.menteeId + ' ' + this.state.clockInTimeLocal + this.state.clockOutTimeLocal
             + ' ' + this.state.sessionNotes
         alert('Information was submitted: ' + message)
-    }
+        const url = backendApiURL + '/session/add/'
+        console.log('Sending JSON to ' + url)
+        axios.post(url, {
+            menteeId: this.state.menteeId,
+            // clockInTimeLocal: this.state.clockInTimeLocal,
+            clockInTimeLocal: "2021-09-28 20:12:12 America/Vancouver",
+            // clockOutTimeLocal: this.state.clockOutTimeLocal,
+            clockOutTimeLocal: "2021-09-28 21:12:12 America/Vancouver",
+            sessionNotes: this.state.sessionNotes
+        })
+            .then(function (response: AxiosResponse) {
+                console.log(response);
+            })
+            .catch(function (error: AxiosError) {
+                console.log(error);
+            })
+        }
 
-    render () {
+    render() {
         return (
             <main>
                 {/*<form action={"http://localhost:8080/session/add"} method={"post"}>*/}
