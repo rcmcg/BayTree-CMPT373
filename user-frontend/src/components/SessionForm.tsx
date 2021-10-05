@@ -103,12 +103,13 @@ export class SessionForm extends React.Component<{}, SessionState> {
         .then(function (response: AxiosResponse) {
             console.log(response);
             if (response.status === HTTP_CREATED_STATUS_RESPONSE) {
-                // TODO: Remove and replace with information for user if applicable
-                // E.g., "You've already uploaded a session for this date"
+                // TODO: Remove and replace with user friendly success response
                 alert('Server responded with status 201 (object CREATED after POST request)')
             }
         })
         .catch(function (error: AxiosError) {
+            // TODO: Interpret and display a relevent message for user
+            // E.g., "You've already uploaded a session for this date"
             console.log(error);
         })
     }
