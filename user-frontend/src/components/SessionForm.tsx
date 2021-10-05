@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
+import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
-const backendApiURL: string = "http://localhost:8080"
-const HTTP_CREATED_STATUS_RESPONSE: number = 201
 
 interface SessionState {
     menteeId: number,
