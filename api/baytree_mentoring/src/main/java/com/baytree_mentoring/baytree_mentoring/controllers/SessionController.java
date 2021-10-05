@@ -19,6 +19,7 @@ public class SessionController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
+    // TODO: Make this cross origin config global (for all controllers, not just SessionController)
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/session/add")
     private String addSession(@RequestBody Session ses) {

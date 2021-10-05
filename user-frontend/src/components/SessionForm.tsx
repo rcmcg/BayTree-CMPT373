@@ -2,7 +2,8 @@ import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
 
 const axios = require('axios').default;
-const backendApiURL = "http://localhost:8080"
+const backendApiURL: string = "http://localhost:8080"
+const HTTP_CREATED_STATUS_RESPONSE: number = 201
 
 interface SessionState {
     menteeId: number,
@@ -75,6 +76,8 @@ export class SessionForm extends React.Component<{}, SessionState> {
             sessionNotes: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
+        this.processUserSubmission = this.processUserSubmission.bind(this);
     }
 
     handleSubmit(event: any) {
@@ -84,17 +87,12 @@ export class SessionForm extends React.Component<{}, SessionState> {
             clockOutTimeLocal: event.target.clockOutId.value,
             sessionNotes: event.target.sessionNotesId.value
         }, this.processUserSubmission)
+        event.target.reset()
         event.preventDefault()
     }
 
-    formatLocalDateTimeForBackend (timeLocal: string) {
-        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone
-        // Ex: 2021-09-28 20:12:12 America/Vancouver
-        return timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
-            + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
-    }
-
     processUserSubmission() {
+        // TODO: Verify clock in/out time is valid (in < out, total time less than some number of hours)
         const url = backendApiURL + '/session/add/'
         axios.post(url, {
             menteeId: this.state.menteeId,
@@ -104,10 +102,22 @@ export class SessionForm extends React.Component<{}, SessionState> {
         })
         .then(function (response: AxiosResponse) {
             console.log(response);
+            if (response.status === HTTP_CREATED_STATUS_RESPONSE) {
+                // TODO: Remove and replace with information for user if applicable
+                // E.g., "You've already uploaded a session for this date"
+                alert('Server responded with status 201 (object CREATED after POST request)')
+            }
         })
         .catch(function (error: AxiosError) {
             console.log(error);
         })
+    }
+
+    formatLocalDateTimeForBackend (timeLocal: string) {
+        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone (from universal tz database)
+        // Ex: 2021-09-28 20:12:12 America/Vancouver
+        return timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
+            + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
 
     render() {
