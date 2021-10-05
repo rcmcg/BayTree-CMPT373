@@ -19,12 +19,12 @@ function Mentor() {
                         <div key={key}>
                             {data.sessions.map((session, sessionKey) => {
                                 return (
-                                    <div key={sessionKey}>
-                                        {session.date +
-                                        ", " +
-                                        session.mentee +
-                                        ", " +
-                                        session.notes}
+                                    <div key={sessionKey}>{
+                                        <div>
+                                            <h2>{session.date}</h2>
+                                            <p>Mentee: {session.mentee}</p>
+                                            <p>Notes: {session.notes}</p>
+                                        </div>}
                                     </div>
                                 )
                             })}
@@ -36,10 +36,15 @@ function Mentor() {
                 {mentor1Data.map((data, key) => {
                     return (
                         <div key={key}>
-                        {data.questionnaires.map((questionnaire, questionnaireKey) => {
+                            {data.questionnaires.map((questionnaire, questionnaireKey) => {
                                 return (
-                                    <div key={questionnaireKey}>
-                                        {questionnaire.month}
+                                    <div key={questionnaireKey}>{
+                                        <div>
+                                            <h2>{questionnaire.month}</h2>
+                                            <h3>Mentee: {questionnaire.mentee}</h3>
+                                            <p><strong>Q1: {questionnaire.q1}</strong> {questionnaire.a1}</p>
+                                            <p><strong>Q2: {questionnaire.q2}</strong> {questionnaire.a2}</p>
+                                        </div>}
                                     </div>
                                 )
                             })}
@@ -50,10 +55,11 @@ function Mentor() {
             <Tab eventKey="info" title="Personal Information">
                 {mentor1Data.map((data, key) => {
                     return (
-                        <div key={key}>
-                        {data.id +
-                            " , " +
-                            data.name}
+                        <div key={key}>{
+                            <div>
+                                <h2>{data.name}</h2>
+                                <p> ID: {data.id} </p>                            
+                            </div>}
                         </div>
                     );
                 })}
