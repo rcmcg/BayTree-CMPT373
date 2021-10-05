@@ -87,40 +87,32 @@ export class SessionForm extends React.Component<{}, SessionState> {
         event.preventDefault()
     }
 
-    isClockInClockOutTimeValid (clockInTimeLocal: string, clockOutTimeLocal: string) {
-        // TODO: Check clockInTimeLocal <  clockOutTimeLocal.
-        return null;
+    formatLocalDateTimeForBackend (timeLocal: string) {
+        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone
+        // Ex: 2021-09-28 20:12:12 America/Vancouver
+        return timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
+            + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
 
     processUserSubmission() {
-        // This function is called only after the state has been updated
-        // TODO: Create and send POST request to backend, interpret and display response
-        console.log('State has finished updating')
-        let message:string = this.state.menteeId + ' ' + this.state.clockInTimeLocal + this.state.clockOutTimeLocal
-            + ' ' + this.state.sessionNotes
-        alert('Information was submitted: ' + message)
         const url = backendApiURL + '/session/add/'
-        console.log('Sending JSON to ' + url)
         axios.post(url, {
             menteeId: this.state.menteeId,
-            // clockInTimeLocal: this.state.clockInTimeLocal,
-            clockInTimeLocal: "2021-09-28 20:12:12 America/Vancouver",
-            // clockOutTimeLocal: this.state.clockOutTimeLocal,
-            clockOutTimeLocal: "2021-09-28 21:12:12 America/Vancouver",
+            clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
+            clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
             sessionNotes: this.state.sessionNotes
         })
-            .then(function (response: AxiosResponse) {
-                console.log(response);
-            })
-            .catch(function (error: AxiosError) {
-                console.log(error);
-            })
-        }
+        .then(function (response: AxiosResponse) {
+            console.log(response);
+        })
+        .catch(function (error: AxiosError) {
+            console.log(error);
+        })
+    }
 
     render() {
         return (
             <main>
-                {/*<form action={"http://localhost:8080/session/add"} method={"post"}>*/}
                 <form onSubmit={this.handleSubmit}>
                     <SelectMentee />
                     <ClockIn />
