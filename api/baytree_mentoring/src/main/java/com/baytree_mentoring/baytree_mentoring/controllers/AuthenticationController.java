@@ -1,6 +1,7 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
+import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Authentication;
 import com.baytree_mentoring.baytree_mentoring.services.AuthenticationService;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,8 @@ public class AuthenticationController {
             }
         }
 
-        String error = "Failed to add the Session.";
-        throw new FailedSessionAddingException(error);
+        String error = "Failed to add the User.";
+        throw new FailedUserAddingException(error);
 
     }
 
