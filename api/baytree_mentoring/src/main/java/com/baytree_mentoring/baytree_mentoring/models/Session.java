@@ -29,14 +29,13 @@ public class Session {
     @NotNull
     private String clockOutTimeLocal;
 
+    private Instant clockInTimeUTC;
+
+    private Instant clockOutTimeUTC;
+
     @NotNull
     private String sessionNotes;
 
-    @Transient
-    private Instant clockInTimeUTC;
-
-    @Transient
-    private Instant clockOutTimeUTC;
 
 
     public Session(long menteeId, String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {
@@ -50,7 +49,7 @@ public class Session {
     }
 
     private Instant convertToUTC(String time) {
-        String pattern = "uuuu-MM-dd HH:mm:ss Z";
+        String pattern = "uuuu-MM-dd HH:mm:ss Z"; //Example: "2021-10-03 10:11:23 -0400"
         LocalDateTime localDateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(pattern));
         return localDateTime.atZone(ZoneId.of(time.substring(20))).toInstant();
     }

@@ -21,5 +21,10 @@ public class SessionService {
     public List<Session> getAllSession() {
         return sessionRepository.findAll();
     }
+
+    public void deleteSession(long mentoringSessionId) {
+        sessionRepository.deleteById(mentoringSessionId);
+    }
+
 }
 
