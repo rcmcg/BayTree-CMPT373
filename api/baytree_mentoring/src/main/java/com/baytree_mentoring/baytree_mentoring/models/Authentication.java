@@ -10,7 +10,6 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 public class Authentication {
     @Id
