@@ -14,6 +14,13 @@ public class SessionService {
         this.sessionRepository = sessionRepository;
     }
 
+    public boolean isSessionFormComplete(Session ses) {
+        if (ses.getClockOutTimeLocal().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     public void addSession(Session session) {
         sessionRepository.save(session);
     }
