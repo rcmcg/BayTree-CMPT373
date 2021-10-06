@@ -2,7 +2,6 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Authentication;
-import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.services.AuthenticationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +11,12 @@ import java.util.List;
 @RestController
 public class AuthenticationController {
 
-    private final AuthenticationService authenticationservice;
+    private final AuthenticationService authenticationService;
 
     private static final String SUCCESS = "User Added";
 
-    public AuthenticationController(AuthenticationService authenticationservice) {
-        this.authenticationservice = authenticationservice;
+    public AuthenticationController(AuthenticationService authenticationservice, AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -25,9 +24,9 @@ public class AuthenticationController {
     private String AddUser(@RequestBody Authentication usr){
         Authentication user = new Authentication(usr.getUsername(),usr.getPassword());
 
-        authenticationservice.addUser(user);
+        authenticationService.addUser(user);
 
-        List<Authentication> users = authenticationservice.getAllUsers();
+        List<Authentication> users = authenticationService.getAllUsers();
 
         for(Authentication s : users) {
             if(s.getUsername() == user.getUsername()) {
@@ -43,7 +42,7 @@ public class AuthenticationController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/all")
     private List<Authentication> getAllUsers() {
-        return authenticationservice.getAllUsers();
+        return authenticationService.getAllUsers();
     }
 
 
