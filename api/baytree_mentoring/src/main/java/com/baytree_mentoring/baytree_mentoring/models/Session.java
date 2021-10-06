@@ -1,14 +1,11 @@
 package com.baytree_mentoring.baytree_mentoring.models;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -32,12 +29,15 @@ public class Session {
     @NotNull
     private String clockOutTimeLocal;
 
-    private Instant clockInTimeUTC;
-
-    private Instant clockOutTimeUTC;
-
     @NotNull
     private String sessionNotes;
+
+    @Transient
+    private Instant clockInTimeUTC;
+
+    @Transient
+    private Instant clockOutTimeUTC;
+
 
     public Session(long menteeId, String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {
         this.menteeId = menteeId;
@@ -50,7 +50,7 @@ public class Session {
     }
 
     private Instant convertToUTC(String time) {
-        String pattern = "yyyy-MM-dd HH:mm:ss z";
+        String pattern = "uuuu-MM-dd HH:mm:ss Z";
         LocalDateTime localDateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(pattern));
         return localDateTime.atZone(ZoneId.of(time.substring(20))).toInstant();
     }
