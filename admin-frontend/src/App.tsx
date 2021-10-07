@@ -7,6 +7,7 @@ import Mentors from './pages/Mentors/Mentors';
 import Mentees from './pages/Mentees/Mentees';
 import Settings from './pages/Settings/Settings'
 import AddMentor from './pages/AddMentor/AddMentor';
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/mentees' component={Mentees} />
           <Route path='/add' component={AddMentor} />
           <Route path='/settings' component={Settings} />
+          <Route path='/login' component={Login} />
         </Switch>
       </Router>
     </>
