@@ -22,7 +22,7 @@ function App() {
                 <Route path={"/"} exact component={Dashboard} />
                 <Route path={`SingleNotification/:notificationId`} component={SingleNotification}/>
                 <Route path={`/SingleQuestionnaire/:month`} component={SingleQuestionnaire} />
-
+                <Route path={"/session"} exact component={Session} />
                 <Route path={`/HistoricalRecord`} component={FullHistoricalRecord} />
                 <Route path={"/profile"} exact component={Profile}/>
                 <Route path={"/resources"} exact component={Resources}/>

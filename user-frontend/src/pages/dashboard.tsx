@@ -8,12 +8,7 @@ export const Dashboard = () => {
 
     return (
         <main>
-            <div style={{height: "20vh"}}/>
-
             <section className={"wrapper"}>
-                <div className={"left-container"}>
-                    <div> Clock in</div>
-                </div>
                 <div className={"right-container"}>
                     <HistoricalRecord />
                 </div>
