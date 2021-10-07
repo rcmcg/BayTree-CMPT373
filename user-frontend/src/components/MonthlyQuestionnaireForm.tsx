@@ -51,7 +51,21 @@ class SelectMonth extends React.Component {
         return (
             <div>
                 <label form="monthId">Month</label>
-                <input type="number" id="monthId" name="month" required/>
+                <select id="monthId" name="month" required>
+                    <option value="">N/A</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
             </div>
         )
     }
@@ -62,7 +76,14 @@ class SelectMenteeEngagementScore extends React.Component {
         return (
             <div>
                 <label form="menteeEngagementScoreId">Mentee Engagement Score</label>
-                <input type="number" id="menteeEngagementScoreId" name="menteeEngagementScore" required/>
+                <select id="menteeEngagementScoreId" name="menteeEngagementScore" required>
+                    <option value="">N/A</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
             </div>
         )
     }
@@ -73,7 +94,14 @@ class SelectMenteeArrivalScore extends React.Component {
         return (
             <div>
                 <label form="menteeArrivalScoreId">Mentee Arrival Score</label>
-                <input type="number" id="menteeArrivalScoreId" name="menteeArrivalScore" required/>
+                <select id="menteeArrivalScoreId" name="menteeArrivalScore" required>
+                    <option value="">N/A</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
             </div>
         )
     }
