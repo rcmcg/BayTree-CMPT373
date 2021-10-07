@@ -18,7 +18,10 @@ export const ListNotifications: React.FC<IProps> = ({messages}) => {
                 history.push(`/SingleNotification/${notificationId}`);
             }
 
-            let body = getShortBody(message.body);
+            let body = message.body;
+            if(body.length > 30) {
+                body = getShortBody(message.body);
+            }
 
             return (
                 <span key={message.id.toString()}
@@ -30,12 +33,9 @@ export const ListNotifications: React.FC<IProps> = ({messages}) => {
             )
         })
 
-        function getShortBody(body: any){
+        function getShortBody(body: string){
             let shortBody = body.split(" ").slice(0,2).join(' ') + "...";
-            if(body.length > 30) {
-                body = shortBody
-            }
-            return body
+            return shortBody;
         }
     }
 

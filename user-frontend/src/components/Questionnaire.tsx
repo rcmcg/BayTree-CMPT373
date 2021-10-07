@@ -6,7 +6,9 @@ import {ListBody, ListMonth} from "./QuestionnairesList"
 export interface IState {
     questionnaires: {
         id: number
-        month: string
+        title: string
+        description: string
+        type: string
     }[]
 }
 
@@ -14,11 +16,16 @@ function Questionnaire() {
 
     // dummy data
     const [questionnaires] = useState<IState["questionnaires"]>([
-        {   id: 7, month: "July"},
-        {   id: 8, month: "August"},
-        {   id: 9, month: "September"},
-        {   id: 10, month: "October"},
-        {   id: 11, month: "November"},
+        {   id: 7, title: "Sample 1",
+            description: "Dummy sample to test UI", type:"General Agency"},
+        {   id: 8, title: "Sample 2",
+            description: "Dummy sample to test UI", type:"General Contract"},
+        {   id: 9, title: "Sample 3",
+            description: "Dummy sample to test UI", type:"General Session"},
+        {   id: 10, title: "Sample 4",
+            description: "Dummy sample to test UI", type:"End of session"},
+        {   id: 11, title: "Sample 5",
+            description: "Dummy sample to test UI", type:"End of 121 Section"},
     ])
 
     return (

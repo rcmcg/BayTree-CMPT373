@@ -3,14 +3,12 @@ import "../css/HistoricalRecord.css"
 
 function HistoricalRecord() {
     return (
-        <>
-            <div className={"historicalRecord"}>
-                <h5 className={"header-component"}>
-                    Historical Record
-                </h5>
-                <div> </div>
-            </div>
-        </>
+        <div className={"historicalRecord"}>
+            <h5 className={"header-component"}>
+                Historical Record
+            </h5>
+            <div> </div>
+        </div>
     )
 }
 

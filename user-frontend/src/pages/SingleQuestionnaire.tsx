@@ -2,14 +2,14 @@ import {useParams} from "react-router-dom";
 
 export function SingleQuestionnaire () {
 
-    let { month } = useParams<{ month: string}>();
+    let { title } = useParams<{ title: string}>();
 
     return (
         <>
             <div style={{height: "10vh"}} />
 
             <h1> Questionnaire Information </h1>
-            <p> Month: {month}</p>
+            <p> Month: {title}</p>
         </>
     );
 }

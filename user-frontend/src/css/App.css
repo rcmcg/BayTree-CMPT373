@@ -48,16 +48,18 @@ ul li a:focus {
     }
 }
 
-.wrapper{
+@media screen and (min-width: 705px) {
 
+    .left-container{
+        width: 25%;
+        float: left;
+    }
+    .right-container{
+        margin-left: 5%;
+    }
 }
-.left{
-    width: 25%;
-    float: left;
-}
-.right{
-    margin-left: 5%;
-}
+
+
 .header-component {
     text-decoration: underline;
     font-size: 15px;

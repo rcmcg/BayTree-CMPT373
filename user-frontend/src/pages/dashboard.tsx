@@ -11,19 +11,19 @@ export const Dashboard = () => {
             <div style={{height: "20vh"}}/>
 
             <section className={"wrapper"}>
-                <div className={"left"}>
+                <div className={"left-container"}>
                     <div> Clock in</div>
                 </div>
-                <div className={"right"}>
+                <div className={"right-container"}>
                     <HistoricalRecord />
                 </div>
             </section>
 
             <section className={"wrapper"}>
-                <div className={"left"}>
+                <div className={"left-container"}>
                     <Notifications />
                 </div>
-                <div className={"right"}>
+                <div className={"right-container"}>
                     <Questionnaire />
                 </div>
             </section>

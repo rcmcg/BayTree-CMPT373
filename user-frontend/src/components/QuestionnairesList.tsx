@@ -13,7 +13,7 @@ export const ListBody: React.FC<IProps> = ({questionnaires}) => {
         return questionnaires.map(questionnaire => {
 
             function routeChange() {
-                let month = questionnaire.month;
+                let month = questionnaire.title;
                 history.push(`/SingleQuestionnaire/${month}`);
             }
 
@@ -37,7 +37,7 @@ export const ListMonth: React.FC<IProps> = ({questionnaires}) => {
         return questionnaires.map(questionnaire => {
             return (
                 <span key={questionnaire.id.toString()}>
-                    {questionnaire.month}
+                    {questionnaire.title}
                 </span>
             )
         })
