@@ -1,0 +1,41 @@
+.questionnaire {
+    width: 80%;
+    height: 250px;
+    box-shadow: 0 3px 10px rgb(0 0 0 );
+    padding-top: 1px;
+    padding-left: 15px;
+    margin: 30px 7%;
+    border-radius: 20px;
+    float: right;
+}
+
+@media screen and (min-width: 705px){
+    .questionnaire{
+        width: 60%;
+        margin-left: 5%;
+        margin-right: 4%;
+    }
+}
+
+.body-questionnaire {
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.questionnaire-box span{
+    border-radius: 20px;
+    background-color: #76CC4D;
+}
+
+.body-questionnaire span{
+    display: inline-block;
+    width: 25%;
+    height: 80px;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
