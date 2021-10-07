@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    padding-top: 70px;
+    padding-top: 150px;     /* 150 px is the size of the header */
     font-family: sans-serif ;
     padding-left: 10px;
 }
