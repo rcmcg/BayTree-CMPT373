@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import "./Styles/Mentors.css";
 import data from "./mockdata.json";
+import MentorRow from "./MentorRow";
 
-interface IState {
-  mentors: {
-    Username: string;
-    Name: string;
-    Age: number;
-    Program: string;
-    StartDate: Date;
-    DailySessionsOutstanding: number;
-    MonthlyReportsOutstanding: number;
-  }[];
-}
+// May be necessary later, do not remove yet
+// interface MentorStateInterface {
+//   mentor: {
+//     id: number;
+//     username: string;
+//     name: string;
+//     age: number;
+//     program: string;
+//     startDate: string;
+//     dailySessionsOutstanding: number;
+//     monthlyReportsOutstanding: number;
+//   }[];
+// }
 
 function Mentors() {
-  const [mentors, setMentors] = useState<IState["mentors"]>(data);
+  // const [mentors, setMentors] = useState<MentorStateInterface["mentor"]>(data);
 
   return (
     <div className="mentors">
@@ -32,19 +35,7 @@ function Mentors() {
             <th>Monthly Reports Outstanding</th>
           </tr>
         </thead>
-        <tbody>
-          {mentors.map((mentor) => (
-            <tr>
-              <td>{mentor.Username}</td>
-              <td>{mentor.Name}</td>
-              <td>{mentor.Age}</td>
-              <td>{mentor.Program}</td>
-              <td>{mentor.StartDate}</td>
-              <td>{mentor.DailySessionsOutstanding}</td>
-              <td>{mentor.MonthlyReportsOutstanding}</td>
-            </tr>
-          ))}
-        </tbody>
+        <tbody>{data.map(MentorRow)}</tbody>
       </table>
     </div>
   );
