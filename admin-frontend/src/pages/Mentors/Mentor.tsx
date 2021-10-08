@@ -20,8 +20,8 @@ function Mentor() {
                                     const date = new Date(session.StartDate);
                                     return(
                                         <div>
-                                            <h2>{date.toDateString()}</h2>
-                                            <h3>{session.Title}</h3>
+                                            <h3>{date.toDateString()}</h3>
+                                            <h4>{session.Title}</h4>
                                             <p><strong>Start Time: </strong> {date.toLocaleTimeString("en-US")}</p>
                                             <p><strong>Duration: </strong> {session.Duration}</p>
                                             <p><strong>Attendance: </strong> {session.Status}</p>
@@ -35,7 +35,7 @@ function Mentor() {
                         {Object.values(questionnairesData).map((questionnaire) => {
                             return(
                                 <div>
-                                    <h2>{questionnaire.Questionnaire}</h2>
+                                    <h3>{questionnaire.Questionnaire}</h3>
                                     <p><strong>Questionnaire ID: </strong> {questionnaire.QuestionnaireID}</p>
                                     <p><strong>Answers ID: </strong> {questionnaire.AnswerSetID}</p>
                                 </div>
@@ -44,7 +44,7 @@ function Mentor() {
                     </Tab>
                     <Tab eventKey="info" title="Personal Information">
                         <div className = "info">
-                            <h2>{mentor.Surname}, {mentor.Forename}</h2>
+                            <h3>{mentor.Surname}, {mentor.Forename}</h3>
                             <p><strong>Volunteer Status:</strong> {mentor.VolunteerStatus_V_1} </p>
                             <p><strong>Volunteer Role:</strong> {mentor.Volunteerrole_V_34.replaceAll("|", ", ")} </p>                 
                             <p><strong>Start Date:</strong> {mentor.Startdate_V_37} </p>  
