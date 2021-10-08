@@ -1,0 +1,37 @@
+{
+    "sessions": {
+        "81": {
+            "SessionID": "81",
+            "SessionGroupID": "10",
+            "Title": "Mercury Test Session Group",
+            "Type": "Individual",
+            "StartDate": "2021-10-03T12:00",
+            "Duration": "01:00",
+            "ParticipantID": 28,
+            "Status": "Attended",
+            "Link": "/restful/work/sessiongroups/sessions/81/participants"
+        },
+        "52": {
+            "SessionID": "52",
+            "SessionGroupID": "10",
+            "Title": "Mercury Test Session Group",
+            "Type": "Individual",
+            "StartDate": "2021-10-05T12:00",
+            "Duration": "01:00",
+            "ParticipantID": 28,
+            "Status": "Registered",
+            "Link": "/restful/work/sessiongroups/sessions/52/participants"
+        },
+        "53": {
+            "SessionID": "53",
+            "SessionGroupID": "10",
+            "Title": "Mercury Test Session Group",
+            "Type": "Individual",
+            "StartDate": "2021-10-06T07:28",
+            "Duration": "01:00",
+            "ParticipantID": 28,
+            "Status": "Attended",
+            "Link": "/restful/work/sessiongroups/sessions/53/participants"
+        }
+    }
+}
