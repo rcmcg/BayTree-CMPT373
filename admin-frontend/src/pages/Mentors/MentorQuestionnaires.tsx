@@ -12,15 +12,16 @@ interface MentorQuestionnaireInterface {
 
 function loadAnswers(questionnaireData: MentorQuestionnaireInterface["questionnaire"]) {
     assert(questionnaireData.questions.length === questionnaireData.answers.length)
-    
+    var result = [];
     const length = questionnaireData.questions.length;
     for(var i = 0; i < length; i++) {
-        return(
+        result.push(
             <div>
                 &nbsp; <strong>{questionnaireData.questions[i]}:</strong> {questionnaireData.answers[i]} <br/>
             </div>
         )
     }
+    return result;
 }
 
 function MentorQuestionnaire(questionnaireData: MentorQuestionnaireInterface["questionnaire"]) {
