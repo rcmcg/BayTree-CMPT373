@@ -22,6 +22,10 @@ public class SessionService {
         return sessionRepository.findAll();
     }
 
+    public boolean isSessionAdded(Session session) {
+        return sessionRepository.existsById(session.getMentoringSessionId());
+    }
+
     public void deleteSession(long mentoringSessionId) {
         sessionRepository.deleteById(mentoringSessionId);
     }
