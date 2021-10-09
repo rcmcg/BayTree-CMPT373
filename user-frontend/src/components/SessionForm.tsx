@@ -114,8 +114,11 @@ export class SessionForm extends React.Component<{}, SessionState> {
     }
 
     formatLocalDateTimeForBackend (timeLocal: string) {
-        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone (from universal tz database)
-        // Ex: 2021-09-28 20:12:12 America/Vancouver
+        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone-Offset
+        // Ex: 2021-09-28 20:12:12 -8
+        let offset = new Date().getTimezoneOffset();
+        offset = offset / 60;
+        const offsetString = offset;
         return timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
             + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
