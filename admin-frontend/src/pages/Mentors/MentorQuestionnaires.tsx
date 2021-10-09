@@ -17,7 +17,7 @@ function loadAnswers(questionnaireData: MentorQuestionnaireInterface["questionna
     for(var i = 0; i < length; i++) {
         result.push(
             <div>
-                &nbsp; <strong>{questionnaireData.questions[i]}:</strong> {questionnaireData.answers[i]} <br/>
+                &nbsp; <strong>{i + 1}. {questionnaireData.questions[i]}:</strong> {questionnaireData.answers[i]} <br/>
             </div>
         )
     }
