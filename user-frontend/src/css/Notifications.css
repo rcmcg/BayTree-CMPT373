@@ -1,0 +1,56 @@
+.notifications {
+    width: 80%;
+    height: 350px;
+    box-shadow: 0 3px 10px rgb(0 0 0 );
+    padding-top: 0;
+    padding-left: 15px;
+    border-radius: 20px;
+    float: left;
+    margin-left: 8%;
+    margin-bottom: 30px;
+}
+
+@media screen and (min-width: 705px) {
+    .notifications{
+        width: 100%;
+        margin: 323px 5% 10px 17%;
+    }
+}
+
+.body{
+    overflow-y: scroll;
+    height: 80%;
+}
+
+.messages span{
+    border-radius: 20px;
+    background-color: #76CC4D;
+}
+
+.body div {
+    margin-right: 5px;
+}
+
+.body span{
+    display: inline-block;
+    width: 90%;
+    height: 80px;
+    padding: 5px;
+    text-decoration: none;
+    margin-top: 7px;
+    cursor: pointer;
+}
+
+.messages p {
+    margin: 5px 0 0;
+    padding: 0;
+}
+
+.subject {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.body span:hover{
+    color: #45008A;
+}

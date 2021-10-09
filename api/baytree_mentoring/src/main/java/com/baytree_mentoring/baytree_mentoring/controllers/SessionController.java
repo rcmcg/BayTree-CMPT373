@@ -19,17 +19,16 @@ public class SessionController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
+    // TODO: Make this cross origin config global (for all controllers, not just SessionController)
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/session/add")
     private String addSession(@RequestBody Session ses) {
         Session session = new Session(ses.getMenteeId(), ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), ses.getSessionNotes());
+
         sessionService.addSession(session);
 
-        List<Session> sessions = sessionService.getAllSession();
-
-        for(Session s : sessions) {
-            if(s.getMentoringSessionId() == session.getMentoringSessionId()) {
-                return SUCCESS;
-            }
+        if(sessionService.isSessionAdded(session)) {
+            return SUCCESS;
         }
 
         String error = "Failed to add the Session.";
@@ -40,6 +39,12 @@ public class SessionController {
     @GetMapping("/session/get/all")
     private List<Session> getAllSession() {
         return sessionService.getAllSession();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/session/delete/{mentoringSessionId}")
+    public void deleteStudent(@PathVariable long mentoringSessionId) {
+        sessionService.deleteSession(mentoringSessionId);
     }
 }
 
