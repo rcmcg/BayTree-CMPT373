@@ -60,15 +60,25 @@ public class SessionService {
         String sessionUploadJson = formatSessionUploadJson(ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
         // 10: Mercury Test Session Group
         HttpResponse<String> response = uploadSessionInformationToViews(sessionUploadJson, 10);
-        if (response != null) {
+        if (response == null) {
             System.out.println("Failed to upload session information to views");
             return;
         }
 
         sessionId = parseSessionIdFromSessionUploadResponse(response);
 
-        updateSessionWithAttendance(sessionId, contactId);
+        System.out.println("sessionId: " + sessionId);
 
+        // contactId as Mercury Mentor (42) and Mercury Mentee2 (39)
+        String sessionAttendanceJsonMentee = formatSessionAttendanceJson(39, 1);
+        String sessionAttendanceJsonMentor = formatSessionAttendanceJson(42, 1);
+
+        updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentee);
+        updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentor);
+    }
+
+    public String formatSessionAttendanceJson(int contactId, int attended) {
+        return "{\r\n    \"ContactID\": \""+contactId+"\",\r\n    \"Attended\": \""+attended+"\"\r\n}";
     }
 
     public String formatSessionUploadJson(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
@@ -92,7 +102,18 @@ public class SessionService {
     private int parseSessionIdFromSessionUploadResponse(HttpResponse<String> response) {
         // Source: https://stackoverflow.com/questions/14159086/how-to-get-values-of-all-elements-from-xml-string-in-java
         int sessionId = -1;
+        String sessionIdString = "";
+        try {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            InputSource src = new InputSource();
+            src.setCharacterStream(new StringReader(response.getBody().toString()));
 
+            Document doc = builder.parse(src);
+            sessionIdString = doc.getElementsByTagName("SessionID").item(0).getTextContent();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+        sessionId = Integer.parseInt(sessionIdString);
         return sessionId;
     }
 
@@ -114,9 +135,24 @@ public class SessionService {
         return response;
     }
 
-    public static boolean updateSessionWithAttendance(int sessionId, int contactId) {
-
-        return true;
+    public static HttpResponse<String> updateSessionWithAttendance(int sessionId, String body) {
+        System.out.println("updateSessionWithAttendance");
+        System.out.println("sessionId: " + sessionId);
+        System.out.println("body: " + body);
+        Unirest.setTimeouts(0, 0);
+        HttpResponse<String> response = null;
+        try {
+            response = Unirest.put("https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/"+sessionId+"/participants")
+                    .header("Content-Type", "application/json")
+                    .basicAuth("group.mercury", "Mercury!$%12")
+                    .body(body)
+                    .asString();
+            System.out.println(response.getBody().toString());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return response;
     }
 }
 
