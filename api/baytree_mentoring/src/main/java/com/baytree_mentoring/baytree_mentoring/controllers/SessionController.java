@@ -56,5 +56,11 @@ public class SessionController {
     private List<Session> getAllSession() {
         return sessionService.getAllSession();
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/session/delete/{mentoringSessionId}")
+    public void deleteStudent(@PathVariable long mentoringSessionId) {
+        sessionService.deleteSession(mentoringSessionId);
+    }
 }
 
