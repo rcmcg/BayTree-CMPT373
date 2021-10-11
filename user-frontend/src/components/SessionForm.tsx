@@ -1,8 +1,12 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
+import Moment from 'react-moment';
+import 'moment-timezone';
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
+const moment = require('moment');
+moment().format();
 
 interface SessionState {
     menteeId: number,
@@ -114,13 +118,22 @@ export class SessionForm extends React.Component<{}, SessionState> {
     }
 
     formatLocalDateTimeForBackend (timeLocal: string) {
-        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone-Offset
-        // Ex: 2021-09-28 20:12:12 -8
-        let offset = new Date().getTimezoneOffset();
-        offset = offset / 60;
-        const offsetString = offset;
-        return timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
-            + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone-Offset(hours)
+        // Ex: 2021-09-28 20:12:12 -0800
+        let offset = moment(timeLocal).utcOffset();
+        let offsetHours = Math.trunc(offset/60);
+        let offsetMinutes = Math.abs(offset % 60);
+
+        let offsetHoursString = offsetHours.toString()
+        if (Math.abs(offsetHours) < 10) {
+            // insert a 0 between the '-' (index 0) and the first digit (index 1)
+            offsetHoursString = offsetHoursString.slice(0,1) + '0' + offsetHoursString.slice(1)
+        }
+        let offsetUTCHoursAndMinutesString = offsetHoursString + offsetMinutes.toString();
+
+        let formattedTime = timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
+            + ' ' + offsetUTCHoursAndMinutesString;
+        return formattedTime;
     }
 
     render() {
