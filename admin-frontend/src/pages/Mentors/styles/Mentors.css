@@ -1,3 +1,16 @@
-.tab {
-    color: #282828;
+th,
+td {
+  border: 1px solid #000;
+  text-align: left;
+  padding: 8px;
+  font-size: 24px;
+}
+
+body {
+  padding: 1em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
