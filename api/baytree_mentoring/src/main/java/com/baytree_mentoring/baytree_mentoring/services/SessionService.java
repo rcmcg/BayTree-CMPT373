@@ -6,7 +6,16 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,20 +54,21 @@ public class SessionService {
     }
 
     public void sendCompletedSessionFormToViews(Session ses) {
+        int sessionId = -1;
+        int contactId = -1;
         // hard code in 28 (Mercury Team) and 2 for Venue ID, for now
-        Unirest.setTimeouts(0,0);
-        String body = formatSessionUploadJson(ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
-        try {
-            // hardcode upload to our test group for now
-            HttpResponse<String> response = Unirest.post("https://app.viewsapp.net/api/restful/work/sessiongroups/10/sessions")
-                    .header("Content-Type", "application/json")
-                    .basicAuth("group.mercury", "Mercury!$%12")
-                    .body(body)
-                    .asString();
-            System.out.println(response.getBody().toString());
-        } catch (UnirestException e) {
-            e.printStackTrace();
+        String sessionUploadJson = formatSessionUploadJson(ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
+        // 10: Mercury Test Session Group
+        HttpResponse<String> response = uploadSessionInformationToViews(sessionUploadJson, 10);
+        if (response != null) {
+            System.out.println("Failed to upload session information to views");
+            return;
         }
+
+        sessionId = parseSessionIdFromSessionUploadResponse(response);
+
+        updateSessionWithAttendance(sessionId, contactId);
+
     }
 
     public String formatSessionUploadJson(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
@@ -79,5 +89,34 @@ public class SessionService {
         return body;
     }
 
+    private int parseSessionIdFromSessionUploadResponse(HttpResponse<String> response) {
+        // Source: https://stackoverflow.com/questions/14159086/how-to-get-values-of-all-elements-from-xml-string-in-java
+        int sessionId = -1;
+
+        return sessionId;
+    }
+
+    public static HttpResponse<String> uploadSessionInformationToViews(String body, int sessionGroupId) {
+        Unirest.setTimeouts(0,0);
+        HttpResponse<String> response = null;
+        try {
+            // hardcode upload to our test group for now
+            response = Unirest.post("https://app.viewsapp.net/api/restful/work/sessiongroups/"+sessionGroupId+"/sessions")
+                    .header("Content-Type", "application/json")
+                    .basicAuth("group.mercury", "Mercury!$%12")
+                    .body(body)
+                    .asString();
+            System.out.println(response.getBody().toString());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return response;
+    }
+
+    public static boolean updateSessionWithAttendance(int sessionId, int contactId) {
+
+        return true;
+    }
 }
 
