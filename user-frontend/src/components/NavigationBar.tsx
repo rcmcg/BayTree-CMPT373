@@ -6,14 +6,17 @@ import "../css/Navbar.css"
 import baytreeLogo from "../resources/baytree-logo.svg"
 
 const NavigationBar = () => {
+
     const [click, setClick] = useState(false)
 
     const handleClick = () => setClick(!click)
     const closeMobileMenu = () => setClick(false)
 
     return (
+
         <IconContext.Provider value={{ color: '#fff' }}>
             <nav className={"navbar"}>
+
                 <div className={"navbar-container container"}>
                     <img className={"brand-logo"}
                          src={baytreeLogo}
@@ -25,9 +28,20 @@ const NavigationBar = () => {
                 </div>
 
                 <ul className={click ? "nav-menu-active" : "nav-menu"}>
+
                     <li className={"nav-item"}>
                         <Link to={'/'} className="nav-link" onClick={closeMobileMenu}>
                             Dashboard
+                        </Link>
+                    </li>
+                    <li className={"nav-item"}>
+                        <Link to={'/session'} className="nav-link" onClick={closeMobileMenu}>
+                            Session
+                        </Link>
+                    </li>
+                    <li className={"nav-item"}>
+                        <Link to={'/monthlyquestionnaire'} className="nav-link" onClick={closeMobileMenu}>
+                            Monthly Questionnaire
                         </Link>
                     </li>
                     <li className={"nav-item"}>
@@ -40,9 +54,13 @@ const NavigationBar = () => {
                             Profile
                         </Link>
                     </li>
+
                 </ul>
+
             </nav>
+
             <section className="header-background"/>
+
         </IconContext.Provider>
     );
 };
