@@ -1,0 +1,24 @@
+[
+    {
+        "title": "Mercury Test Session Group",
+        "startDateTime": "2021-10-03T12:00",
+        "duration": "01:00",
+        "status": "Attended",
+        "notes": "Here are some notes for the Oct 3rd 2021 session."
+    },
+    {
+        "title": "Mercury Test Session Group",
+        "startDateTime": "2021-10-05T12:00",
+        "duration": "01:00",
+        "status": "Registered",
+        "notes": "Here are some notes for the Oct 5th 2021 session."
+
+    },
+    {
+        "title": "Mercury Test Session Group",
+        "startDateTime": "2021-10-06T07:28",
+        "duration": "01:00",
+        "status": "Attended",
+        "notes": ""
+    }
+]

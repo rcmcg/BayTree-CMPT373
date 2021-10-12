@@ -1,0 +1,11 @@
+Mentor info: https://app.viewsapp.net/api/restful/contacts/volunteers/{mentorid}.json
+All Questionnaire from user 28: https://app.viewsapp.net/api/restful/contacts/volunteers/{mentorid}/questionnaires
+Questionnaire answers: https://app.viewsapp.net/api/restful/contacts/volunteers/{mentorid}/questionnaires/{questionnaireid}/{answersetid}
+Questionnaire questions(?): https://app.viewsapp.net/api/restful/evidence/questionnaires/{questionnaireid}/questions
+All sessions: https://app.viewsapp.net/api/restful/contacts/volunteers/{mentorid}/sessions
+Session notes: https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/{sessionid}/notes
+
+
+curl --url <Base URL>/<id> -u group.mercury:Mercury!$%12 -H Accept:application/json
+curl --url <Base URL>/<id>.json -u group.mercury:Mercury!$%12
+
