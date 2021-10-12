@@ -57,7 +57,8 @@ public class SessionService {
         int sessionId = -1;
         int contactId = -1;
         // hard code in 28 (Mercury Team) and 2 for Venue ID, for now
-        String sessionUploadJson = formatSessionUploadJson(ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
+        String sessionUploadJson = formatSessionUploadJson(
+            ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
         // 10: Mercury Test Session Group
         HttpResponse<String> response = uploadSessionInformationToViews(sessionUploadJson, 10);
         if (response == null) {
@@ -67,8 +68,6 @@ public class SessionService {
 
         sessionId = parseSessionIdFromSessionUploadResponse(response);
 
-        System.out.println("sessionId: " + sessionId);
-
         // contactId as Mercury Mentor (42) and Mercury Mentee2 (39)
         String sessionAttendanceJsonMentee = formatSessionAttendanceJson(39, 1);
         String sessionAttendanceJsonMentor = formatSessionAttendanceJson(42, 1);
@@ -77,12 +76,7 @@ public class SessionService {
         updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentor);
     }
 
-    public String formatSessionAttendanceJson(int contactId, int attended) {
-        return "{\r\n    \"ContactID\": \""+contactId+"\",\r\n    \"Attended\": \""+attended+"\"\r\n}";
-    }
-
     public String formatSessionUploadJson(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
-        // convert clockInTime 2021-10-10 22:14:00 -0930 YYYY-MM-DD
         Date clockInDate = null;
         Date clockOutDate = null;
         try {
@@ -97,6 +91,23 @@ public class SessionService {
         long duration = TimeUnit.HOURS.convert(durationInMilliseconds, TimeUnit.MILLISECONDS);
         String body = "{\r\n   \"StartDate\": \""+startDate+"\",\r\n   \"StartTime\": \""+startTime+"\",\r\n   \"Duration\": \""+duration+"\",\r\n   \"LeadStaff\": \""+leadStaff+"\",\r\n   \"VenueID\": \""+venueId+"\"\r\n}";
         return body;
+    }
+
+    public static HttpResponse<String> uploadSessionInformationToViews(String body, int sessionGroupId) {
+        Unirest.setTimeouts(0,0);
+        HttpResponse<String> response = null;
+        try {
+            response = Unirest.post("https://app.viewsapp.net/api/restful/work/sessiongroups/"+sessionGroupId+"/sessions")
+                    .header("Content-Type", "application/json")
+                    .basicAuth("group.mercury", "Mercury!$%12")
+                    .body(body)
+                    .asString();
+            System.out.println(response.getBody().toString());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return response;
     }
 
     private int parseSessionIdFromSessionUploadResponse(HttpResponse<String> response) {
@@ -117,28 +128,11 @@ public class SessionService {
         return sessionId;
     }
 
-    public static HttpResponse<String> uploadSessionInformationToViews(String body, int sessionGroupId) {
-        Unirest.setTimeouts(0,0);
-        HttpResponse<String> response = null;
-        try {
-            // hardcode upload to our test group for now
-            response = Unirest.post("https://app.viewsapp.net/api/restful/work/sessiongroups/"+sessionGroupId+"/sessions")
-                    .header("Content-Type", "application/json")
-                    .basicAuth("group.mercury", "Mercury!$%12")
-                    .body(body)
-                    .asString();
-            System.out.println(response.getBody().toString());
-        } catch (UnirestException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return response;
+    public String formatSessionAttendanceJson(int contactId, int attended) {
+        return "{\r\n    \"ContactID\": \""+contactId+"\",\r\n    \"Attended\": \""+attended+"\"\r\n}";
     }
 
     public static HttpResponse<String> updateSessionWithAttendance(int sessionId, String body) {
-        System.out.println("updateSessionWithAttendance");
-        System.out.println("sessionId: " + sessionId);
-        System.out.println("body: " + body);
         Unirest.setTimeouts(0, 0);
         HttpResponse<String> response = null;
         try {
