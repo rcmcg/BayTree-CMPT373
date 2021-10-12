@@ -5,7 +5,7 @@
 **Admin-Frontend**
 
 
-**Backend**
+****Backend********
 
 - Load the directory named API on IntelliJ
 - Run the application on IntelliJ
@@ -32,7 +32,8 @@ Formatting Example:
 Test if the added users username and password is retrived using the GET API mentioned below
 
 
-** Send GET Request through POSTMAN** 
+
+**Send GET Request through POSTMAN**
 (Make sure you are connected to the SFU VPN)
 
 
@@ -45,6 +46,7 @@ Displays all the username and passwords stored for the test users on our backend
 
 
 **Send DELETE Request through POSTMAN**
+
 (Make sure you are connected to the SFU VPN)
 
 - `http://localhost:8080/session/delete/{sessionid}`
