@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import "../css/Questionnaire.css"
 import {ListBody, ListMonth} from "./QuestionnairesList"
+import {Link} from "react-router-dom";
 
 // dummy objects
 export interface IState {
@@ -34,6 +35,11 @@ function Questionnaire() {
 
             <h5 className={"header-component"}>
                 Monthly Questionnaires
+                <Link to={'/monthlyquestionnaire'}>
+                    <div className={"post-bttn"}>
+                        Add
+                    </div>
+                </Link>
             </h5>
 
             <section className={"body-questionnaire"}>
