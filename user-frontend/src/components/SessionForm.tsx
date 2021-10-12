@@ -1,8 +1,12 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
+import Moment from 'react-moment';
+import 'moment-timezone';
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
+const moment = require('moment');
+moment().format();
 
 interface SessionState {
     menteeId: number,
@@ -103,21 +107,33 @@ export class SessionForm extends React.Component<{}, SessionState> {
             console.log(response);
             if (response.status === HTTP_CREATED_STATUS_RESPONSE) {
                 // TODO: Remove and replace with user friendly success response
-                alert('Server responded with status 201 (object CREATED after POST request)')
+                alert('Success! Session information uploaded.')
             }
         })
         .catch(function (error: AxiosError) {
-            // TODO: Interpret and display a relevent message for user
+            // TODO: Interpret and display a relevant message for user
             // E.g., "You've already uploaded a session for this date"
             console.log(error);
         })
     }
 
     formatLocalDateTimeForBackend (timeLocal: string) {
-        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone (from universal tz database)
-        // Ex: 2021-09-28 20:12:12 America/Vancouver
-        return timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
-            + ' ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone-Offset(hours)
+        // Ex: 2021-09-28 20:12:12 -0800
+        let offset = moment(timeLocal).utcOffset();
+        let offsetHours = Math.trunc(offset/60);
+        let offsetMinutes = Math.abs(offset % 60);
+
+        let offsetHoursString = offsetHours.toString()
+        if (Math.abs(offsetHours) < 10) {
+            // insert a 0 between the '-' (index 0) and the first digit (index 1)
+            offsetHoursString = offsetHoursString.slice(0,1) + '0' + offsetHoursString.slice(1)
+        }
+        let offsetUTCHoursAndMinutesString = offsetHoursString + offsetMinutes.toString();
+
+        let formattedTime = timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
+            + ' ' + offsetUTCHoursAndMinutesString;
+        return formattedTime;
     }
 
     render() {

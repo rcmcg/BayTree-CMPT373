@@ -23,12 +23,29 @@ public class SessionController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/session/add")
     private String addSession(@RequestBody Session ses) {
-        Session session = new Session(ses.getMenteeId(), ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), ses.getSessionNotes());
+        if (sessionService.isSessionFormComplete(ses)) {
+            // Send straight to Views
+            System.out.println("SessionController: Session form sent to backend is complete");
+            System.out.println("Sending form straight to views, don't add it to the database");
+            sessionService.sendCompletedSessionFormToViews(ses);
+            if (sessionService.isSessionAdded(ses)) {
+                return SUCCESS;
+            } else{
+                String error = "Failed to add the Session.";
+                throw new FailedSessionAddingException(error);
+            }
+        } else {
+            // Session form is incomplete (missing clock out time), need to save in database until completed
+            Session session = new Session(ses.getMenteeId(), ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), ses.getSessionNotes());
+            sessionService.addSession(session);
 
-        sessionService.addSession(session);
+            List<Session> sessions = sessionService.getAllSession();
 
-        if(sessionService.isSessionAdded(session)) {
-            return SUCCESS;
+            for(Session s : sessions) {
+                if(s.getMentoringSessionId() == session.getMentoringSessionId()) {
+                    return SUCCESS;
+                }
+            }
         }
 
         String error = "Failed to add the Session.";
