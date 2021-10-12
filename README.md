@@ -25,7 +25,7 @@ Formatting Example:
 Test if the added users username and password is retrived using the GET API mentioned below
 
 
--** Send GET Request through POSTMAN** 
+** Send GET Request through POSTMAN** 
 (Make sure you are connected to the SFU VPN)
 
 
