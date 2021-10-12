@@ -59,9 +59,9 @@ ul li a:focus {
     }
 }
 
-
 .header-component {
     text-decoration: underline;
     font-size: 15px;
+    height: 15px;
 }
 

@@ -14,16 +14,16 @@ export interface IState {
 function Notifications() {
 
     const [messages] = useState<IState["messages"]>([
-        { id: 1, subject: "Short notification", sender:"Lux", body: "Short notification"},
-        { id: 2, subject: "Medium notification", sender: "Fizz",
+        { id: 1, subject: "Short notification", sender:"Feronica", body: "Short notification"},
+        { id: 2, subject: "Medium notification", sender: "Feronica",
             body:"Medium notification to test notifications function"},
-        { id: 3, subject: "Long notification", sender: "Rengar",
+        { id: 3, subject: "Long notification", sender: "Admin 2",
             body:"A really long notification for our notification function to test"},
 
-        { id: 4, subject: "Short notification", sender:"Liz", body: "Short notification"},
-        { id: 5, subject: "Medium notification", sender: "Fizz",
+        { id: 4, subject: "Short notification", sender:"Admin 2", body: "Short notification"},
+        { id: 5, subject: "Medium notification", sender: "Feronica",
             body:"Medium notification to test notifications function"},
-        { id: 6, subject: "Long notification", sender: "Rengar",
+        { id: 6, subject: "Long notification", sender: "Admin 2",
             body:"A really long notification for our notification function to test"},
     ])
 

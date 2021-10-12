@@ -1,12 +1,11 @@
 .questionnaire {
-    width: 80%;
+    width: 81%;
     height: 250px;
     box-shadow: 0 3px 10px rgb(0 0 0 );
     padding-top: 1px;
     padding-left: 15px;
-    margin: 30px 7%;
+    margin: 40px 7% 20px 8%;
     border-radius: 20px;
-    float: right;
 }
 
 @media screen and (min-width: 705px){
@@ -14,10 +13,13 @@
         width: 60%;
         margin-left: 5%;
         margin-right: 4%;
+        float: right;
+
     }
 }
 
 .body-questionnaire {
+    margin-top: 30px;
     overflow: auto;
     white-space: nowrap;
 }
@@ -28,6 +30,7 @@
 }
 
 .body-questionnaire span{
+    position: relative;
     display: inline-block;
     width: 25%;
     height: 80px;
@@ -38,4 +41,22 @@
     margin-right: 10px;
     cursor: pointer;
 }
+
+.post-bttn{
+    background-color: #76CC4D;
+    border-radius: 10px;
+    height: 23px;
+    width: 50px;
+    float: right;
+    padding-top: 5px;
+    font-size: 15px;
+    text-align: center;
+    vertical-align: center;
+    position: relative;
+    top: -2px;
+    margin-right: 5%;
+    color:white;
+}
+
+
 
