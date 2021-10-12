@@ -1,11 +1,23 @@
-**Frontend**
+**Intro**
+
+<p>
+An application for managing mentor/mentee relationships at the Baytree
+Centre in London. There are 3 components to the application. The
+<b>user-frontend</b> is seen by the mentor when they want to upload information regarding mentoring sessions or access resources. The <b>admin-frontend</b> allows an administrator at Baytree to manage accounts, access statistics, etc. The backend is used to receive and process API requests from the frontends as well as manage the database.
+</p>
 
 **User-Frontend**
+<p>
+Make sure you have Node Package Manager installed before attempting to run the user-frontend. To start the user-frontend, change directory to user-frontend in your terminal. Then enter npm install in terminal. Then enter npm start. The application should start in a browser.  
+</p>
 
 **Admin-Frontend**
+<p>
+Make sure you have Node Package Manager installed before attempting to run the admin-frontend. To start the admin-frontend, change directory to admin-frontend in your terminal. Then enter npm install in terminal. Then enter npm start. The application should start in a browser.
+</p>
 
 
-****Backend********
+****Backend****
 
 - Load the directory named API on IntelliJ
 - Run the application on IntelliJ
