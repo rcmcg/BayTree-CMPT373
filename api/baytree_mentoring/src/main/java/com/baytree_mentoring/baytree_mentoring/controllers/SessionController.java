@@ -28,7 +28,12 @@ public class SessionController {
             System.out.println("SessionController: Session form sent to backend is complete");
             System.out.println("Sending form straight to views, don't add it to the database");
             sessionService.sendCompletedSessionFormToViews(ses);
-            return SUCCESS;
+            if (sessionService.isSessionAdded(ses)) {
+                return SUCCESS;
+            } else{
+                String error = "Failed to add the Session.";
+                throw new FailedSessionAddingException(error);
+            }
         } else {
             // Session form is incomplete (missing clock out time), need to save in database until completed
             Session session = new Session(ses.getMenteeId(), ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), ses.getSessionNotes());
