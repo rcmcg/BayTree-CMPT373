@@ -1,12 +1,11 @@
 .questionnaire {
-    width: 80%;
+    width: 81%;
     height: 250px;
     box-shadow: 0 3px 10px rgb(0 0 0 );
     padding-top: 1px;
     padding-left: 15px;
-    margin: 30px 7%;
+    margin: 40px 7% 20px 8%;
     border-radius: 20px;
-    float: right;
 }
 
 @media screen and (min-width: 705px){
@@ -14,6 +13,8 @@
         width: 60%;
         margin-left: 5%;
         margin-right: 4%;
+        float: right;
+
     }
 }
 
