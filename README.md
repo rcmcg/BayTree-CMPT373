@@ -20,8 +20,11 @@ Make sure you have Node Package Manager installed before attempting to run the a
 ****Backend****
 
 - Load the directory named API on IntelliJ
+- Before running the application make sure you have JDK and maven installed on your machine
 - Run the application on IntelliJ
+    - Build the project using `mvn dependency:tree` Make sure you in the directory "baytree_mentoring" which has the pom file   
     - To run the application open the file BaytreeMentoringApplication (api > baytree_mentoring > src > main > java > )
+        - When in file "BaytreeMentoringApplication" to run the application simply click the run button on the line number 9.    
     - The server should be up and running 
 
 
