@@ -13,8 +13,8 @@ export const ListBody: React.FC<IProps> = ({questionnaires}) => {
         return questionnaires.map(questionnaire => {
 
             function routeChange() {
-                let month = questionnaire.title;
-                history.push(`/SingleQuestionnaire/${month}`);
+                let title = questionnaire.title;
+                history.push(`/SingleQuestionnaire/${title}`);
             }
 
             return (
@@ -31,7 +31,7 @@ export const ListBody: React.FC<IProps> = ({questionnaires}) => {
         <>{renderList()}</>)
 }
 
-export const ListMonth: React.FC<IProps> = ({questionnaires}) => {
+export const ListTitle: React.FC<IProps> = ({questionnaires}) => {
 
     const renderList = () : JSX.Element[] => {
         return questionnaires.map(questionnaire => {

@@ -5,7 +5,7 @@ import {SessionForm} from "../components/SessionForm";
 export const Session = () => {
     return (
         <main>
-            <h1>Mentoring Session</h1>
+            <h2>Mentoring Session</h2>
             <SessionForm />
         </main>
     );
