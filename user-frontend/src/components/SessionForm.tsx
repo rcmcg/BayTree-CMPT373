@@ -15,7 +15,7 @@ class SelectMentee extends React.Component {
     render () {
         return (
             <div>
-                <label form="selectMenteeId">Mentee id</label>
+                <label form="selectMenteeId">Mentee id </label>
                 <input type="number" id="selectMenteeId" name="menteeId" required/>
             </div>
         )
@@ -48,7 +48,7 @@ class SessionNotes extends React.Component {
     render () {
         return (
             <div>
-                <label form="sessionNotes">Session notes</label>
+                <label form="sessionNotes">Session notes </label>
                 <input type="text" id="sessionNotesId" name="sessionNotes"/>
             </div>
         )
