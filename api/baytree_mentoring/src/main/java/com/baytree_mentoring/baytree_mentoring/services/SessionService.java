@@ -2,6 +2,7 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.repositories.SessionRepository;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsAPIIntegration;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SessionService {
     private final SessionRepository sessionRepository;
+    private final ViewsAPIIntegration viewsAPIIntegration = new ViewsAPIIntegration();
 
     public SessionService(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
