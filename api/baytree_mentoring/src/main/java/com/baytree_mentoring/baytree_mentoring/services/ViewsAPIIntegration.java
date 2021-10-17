@@ -1,4 +1,4 @@
-package com.baytree_mentoring.baytree_mentoring.util;
+package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 

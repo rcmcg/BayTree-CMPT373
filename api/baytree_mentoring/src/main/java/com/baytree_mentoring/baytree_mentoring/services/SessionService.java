@@ -2,7 +2,6 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.repositories.SessionRepository;
-import com.baytree_mentoring.baytree_mentoring.util.ViewsAPIIntegration;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -11,7 +10,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
