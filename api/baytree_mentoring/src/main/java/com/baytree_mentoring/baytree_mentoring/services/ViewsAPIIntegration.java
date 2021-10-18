@@ -12,7 +12,7 @@ public class ViewsAPIIntegration {
     private final String viewsSessionPostURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/%s/sessions";
 
     public final boolean sendCompletedSessionFormToViews(Session ses) {
-        int viewsSessionId = uploadSessionInformation(ses);
+        String viewsSessionId = uploadSessionInformation(ses);
 
         // TODO: Add mentorId to Session class
         // uploadSessionAttendanceInformation(ses);
@@ -27,17 +27,17 @@ public class ViewsAPIIntegration {
         return false;
     }
 
-    private int uploadSessionInformation(Session ses) {
+    private String uploadSessionInformation(Session ses) {
         // TODO: Replace leadStaff and venueId with dynamic values added to Session object from user input on frontend
         String uploadJSON = viewsAPIJSONFormatter.createSessionUploadJSON(ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
         System.out.println("uploadSessionInformation uploadJSON: " + uploadJSON);
         // sendSessionPostRequest(uploadJSON, ses.getSessionGroupId());
         // Hardcode sessionGroupId as 10 (Mercury Test Group) for now
-        int viewsSessionId = sendSessionPostRequestGetNewSessionId(uploadJSON, 10);
+        String viewsSessionId = sendSessionPostRequestGetNewSessionId(uploadJSON, 10);
         return viewsSessionId;
     }
 
-    private int sendSessionPostRequestGetNewSessionId(String body, int sessionGroupId) {
+    private String sendSessionPostRequestGetNewSessionId(String body, int sessionGroupId) {
         Unirest.setTimeouts(0,0);
         try {
             HttpResponse<String> response = Unirest.post(String.format(viewsSessionPostURL, String.valueOf(sessionGroupId)))
@@ -51,11 +51,11 @@ public class ViewsAPIIntegration {
             return viewsAPIJSONFormatter.parseNewSessionIdFromSessionUploadResponse(response);
         } catch (UnirestException e) {
             e.printStackTrace();
-            return -1;
+            return "";
         }
     }
 
-    private void uploadSessionAttendanceInformation(Session ses, long participantId, int viewsSessionId) {
+    private void uploadSessionAttendanceInformation(Session ses, long participantId, String viewsSessionId) {
         // Get proper JSON for updating attendance of mentor/mentee
         // Send formatted JSON to Views for attendance of mentor/mentee
     }

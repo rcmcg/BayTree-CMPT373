@@ -1,10 +1,15 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class ViewsAPIJSONFormatter {
     private ObjectMapper mapper = new ObjectMapper();
 
-    // TODO: Replace with a ses object when required fields are added
+    // TODO: Replace parameters with a ses object when required fields are added
     public String createSessionUploadJSON(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
         try {
             Date clockInDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clockInTime);
@@ -39,8 +44,17 @@ public class ViewsAPIJSONFormatter {
         return sessionJSON.toString();
     }
 
-    public int parseNewSessionIdFromSessionUploadResponse(HttpResponse<String> response) {
+    public String parseNewSessionIdFromSessionUploadResponse(HttpResponse<String> response) {
+        System.out.println("Inside parseNewSessionIdFromSessionUploadResponse");
         System.out.println(response.getBody());
-        return -1;
+        try {
+            JSONObject responseJSON = new JSONObject(URLDecoder.decode(response.getBody(), "UTF-8"));
+            String viewsSessionId = responseJSON.get("SessionID").toString();
+            System.out.println("viewsSessionID: " + viewsSessionId);
+            return viewsSessionId;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }
