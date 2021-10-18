@@ -37,6 +37,9 @@ public class Session {
     @NotNull
     private String sessionNotes;
 
+    // TODO: Add the following fields to a session: mentorId, leadStaff, sessionGroupId,
+    //  venueId(unless this is associated with the sessionGroup in Views, not any particular session)
+
 
 
     public Session(long menteeId, String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {

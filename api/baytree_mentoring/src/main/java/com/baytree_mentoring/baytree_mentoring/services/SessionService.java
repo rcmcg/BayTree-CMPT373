@@ -54,44 +54,45 @@ public class SessionService {
     }
 
     public void sendCompletedSessionFormToViews(Session ses) {
-        int sessionId = -1;
-        int contactId = -1;
-        // hard code in 28 (Mercury Team) and 2 for Venue ID, for now
-        String sessionUploadJson = formatSessionUploadJson(
-            ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
-        // 10: Mercury Test Session Group
-        HttpResponse<String> response = uploadSessionInformationToViews(sessionUploadJson, 10);
-        if (response == null) {
-            System.out.println("Failed to upload session information to views");
-            return;
-        }
-
-        sessionId = parseSessionIdFromSessionUploadResponse(response);
-
-        // contactId as Mercury Mentor (42) and Mercury Mentee2 (39)
-        String sessionAttendanceJsonMentee = formatSessionAttendanceJson(39, 1);
-        String sessionAttendanceJsonMentor = formatSessionAttendanceJson(42, 1);
-
-        updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentee);
-        updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentor);
+        boolean uploadSuccess = viewsAPIIntegration.sendCompletedSessionFormToViews(ses);
+//        int sessionId = -1;
+//        int contactId = -1;
+//        // hard code in 28 (Mercury Team) and 2 for Venue ID, for now
+//        String sessionUploadJson = formatSessionUploadJson(
+//            ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
+//        // 10: Mercury Test Session Group
+//        HttpResponse<String> response = uploadSessionInformationToViews(sessionUploadJson, 10);
+//        if (response == null) {
+//            System.out.println("Failed to upload session information to views");
+//            return;
+//        }
+//
+//        sessionId = parseSessionIdFromSessionUploadResponse(response);
+//
+//        // contactId as Mercury Mentor (42) and Mercury Mentee2 (39)
+//        String sessionAttendanceJsonMentee = formatSessionAttendanceJson(39, 1);
+//        String sessionAttendanceJsonMentor = formatSessionAttendanceJson(42, 1);
+//
+//        updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentee);
+//        updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentor);
     }
 
-    public String formatSessionUploadJson(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
-        Date clockInDate = null;
-        Date clockOutDate = null;
-        try {
-            clockInDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clockInTime);
-            clockOutDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clockOutTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String startDate = clockInTime.substring(0,10);
-        String startTime = clockInDate.toString().substring(11,19);
-        long durationInMilliseconds = Math.abs(clockOutDate.getTime() - clockInDate.getTime());
-        long duration = TimeUnit.HOURS.convert(durationInMilliseconds, TimeUnit.MILLISECONDS);
-        String body = "{\r\n   \"StartDate\": \""+startDate+"\",\r\n   \"StartTime\": \""+startTime+"\",\r\n   \"Duration\": \""+duration+"\",\r\n   \"LeadStaff\": \""+leadStaff+"\",\r\n   \"VenueID\": \""+venueId+"\"\r\n}";
-        return body;
-    }
+//    public String formatSessionUploadJson(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
+//        Date clockInDate = null;
+//        Date clockOutDate = null;
+//        try {
+//            clockInDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clockInTime);
+//            clockOutDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clockOutTime);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        String startDate = clockInTime.substring(0,10);
+//        String startTime = clockInDate.toString().substring(11,19);
+//        long durationInMilliseconds = Math.abs(clockOutDate.getTime() - clockInDate.getTime());
+//        long duration = TimeUnit.HOURS.convert(durationInMilliseconds, TimeUnit.MILLISECONDS);
+//        String body = "{\r\n   \"StartDate\": \""+startDate+"\",\r\n   \"StartTime\": \""+startTime+"\",\r\n   \"Duration\": \""+duration+"\",\r\n   \"LeadStaff\": \""+leadStaff+"\",\r\n   \"VenueID\": \""+venueId+"\"\r\n}";
+//        return body;
+//    }
 
     public static HttpResponse<String> uploadSessionInformationToViews(String body, int sessionGroupId) {
         Unirest.setTimeouts(0,0);
