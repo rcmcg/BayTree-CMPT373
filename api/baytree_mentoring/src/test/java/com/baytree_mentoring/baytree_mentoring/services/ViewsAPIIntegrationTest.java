@@ -12,8 +12,8 @@ class ViewsAPIIntegrationTest {
         // Mercury Mentee2 participantId is 39
         Session ses = new Session(
                 39,
-                "2021-09-28 20:12:12 -0400",
-                "2021-09-28 21:12:12 -0400",
+                "2021-12-01 20:12:12 -0400",
+                "2021-12-01 21:12:12 -0400",
                 "Some notes");
         boolean retValue = viewsAPIIntegration.sendCompletedSessionFormToViews(ses);
     }

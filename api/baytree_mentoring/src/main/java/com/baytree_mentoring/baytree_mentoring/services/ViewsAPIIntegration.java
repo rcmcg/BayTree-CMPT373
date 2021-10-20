@@ -2,14 +2,11 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class ViewsAPIIntegration {
-    private ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
-
-    private final String viewsSessionPostURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/%s/sessions";
+    private final ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
 
     public final boolean sendCompletedSessionFormToViews(Session ses) {
         String viewsSessionId = uploadSessionInformation(ses);
@@ -20,9 +17,12 @@ public class ViewsAPIIntegration {
 
         // Mercury Mentor has id 42
         int mentorId = 42;
-        uploadSessionAttendanceInformation(String.valueOf(ses.getMenteeId()), viewsSessionId);
-        uploadSessionAttendanceInformation(String.valueOf(mentorId), viewsSessionId);
-
+        String menteeAttendanceResponse = uploadSessionAttendanceInformation(String.valueOf(ses.getMenteeId()), viewsSessionId);
+        System.out.println("Inside sendCompletedSessionFormToViews: ");
+        System.out.println("menteeAttendanceResponse: " + menteeAttendanceResponse.toString());
+        String mentorAttendanceResponse = uploadSessionAttendanceInformation(String.valueOf(mentorId), viewsSessionId);
+        System.out.println("Inside sendCompletedSessionFormToViews: ");
+        System.out.println("mentorAttendanceResponse: " + mentorAttendanceResponse.toString());
         uploadSessionNotes(ses);
         return false;
     }
@@ -40,13 +40,14 @@ public class ViewsAPIIntegration {
     private String sendSessionPostRequestGetNewSessionId(String body, int sessionGroupId) {
         Unirest.setTimeouts(0,0);
         try {
+            String viewsSessionPostURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/%s/sessions";
             HttpResponse<String> response = Unirest.post(String.format(viewsSessionPostURL, String.valueOf(sessionGroupId)))
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
                     .basicAuth("group.mercury", "Mercury!$%12")
                     .body(body)
                     .asString();
-            System.out.println("sendSessionPostRequestGetNewSessionId");
+            System.out.println("Response inside sendSessionPostRequestGetNewSessionId: ");
             System.out.println(response.getBody().toString());
             return viewsAPIJSONFormatter.parseNewSessionIdFromSessionUploadResponse(response);
         } catch (UnirestException e) {
@@ -55,13 +56,35 @@ public class ViewsAPIIntegration {
         }
     }
 
-    private void uploadSessionAttendanceInformation(String viewsSessionId, String viewsParticipantId) {
+    private String uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId) {
         // Get proper JSON for updating attendance of mentor/mentee
         // TODO: Update hardcoded "1" attended. See Federica's Piazza response on recording missed sessions
         String attended = "1";
         String uploadAttendanceJSON = viewsAPIJSONFormatter.createSessionAttendanceJSON
                 (viewsParticipantId, attended);
         // Send formatted JSON to Views for attendance of mentor/mentee
+        String sendSessionAttendanceResponse = sendSessionAttendancePostRequest(uploadAttendanceJSON, viewsSessionId);
+        return sendSessionAttendanceResponse;
+    }
+
+    private String sendSessionAttendancePostRequest(String uploadAttendanceJSON, String viewsSessionId) {
+        Unirest.setTimeouts(0,0);
+        try {
+            String viewsSessionAttendancePostURL =
+                    "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/%s/participants";
+            HttpResponse<String> response = Unirest.post(String.format(viewsSessionAttendancePostURL, viewsSessionId))
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .basicAuth("group.mercury", "Mercury!$%12")
+                    .body(uploadAttendanceJSON)
+                    .asString();
+            System.out.println("Response inside sendSessionAttendancePostRequest");
+            System.out.println(response.getBody().toString());
+            return response.getBody();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private void uploadSessionNotes(Session ses) {

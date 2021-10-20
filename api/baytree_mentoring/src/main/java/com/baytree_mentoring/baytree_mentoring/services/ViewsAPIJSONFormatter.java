@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,15 +48,10 @@ public class ViewsAPIJSONFormatter {
     public String parseNewSessionIdFromSessionUploadResponse(HttpResponse<String> response) {
         System.out.println("Inside parseNewSessionIdFromSessionUploadResponse");
         System.out.println(response.getBody());
-        try {
-            JSONObject responseJSON = new JSONObject(URLDecoder.decode(response.getBody(), "UTF-8"));
-            String viewsSessionId = responseJSON.get("SessionID").toString();
-            System.out.println("viewsSessionID: " + viewsSessionId);
-            return viewsSessionId;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "";
-        }
+        JSONObject responseJSON = new JSONObject(URLDecoder.decode(response.getBody(), StandardCharsets.UTF_8));
+        String viewsSessionId = responseJSON.get("SessionID").toString();
+        System.out.println("viewsSessionID: " + viewsSessionId);
+        return viewsSessionId;
     }
 
     public String createSessionAttendanceJSON(String viewsPersonId, String attended) {
