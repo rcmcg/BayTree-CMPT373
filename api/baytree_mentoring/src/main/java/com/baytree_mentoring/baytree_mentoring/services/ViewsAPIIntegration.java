@@ -20,8 +20,8 @@ public class ViewsAPIIntegration {
 
         // Mercury Mentor has id 42
         int mentorId = 42;
-        uploadSessionAttendanceInformation(ses, ses.getMenteeId(), viewsSessionId);
-        uploadSessionAttendanceInformation(ses, mentorId, viewsSessionId);
+        uploadSessionAttendanceInformation(String.valueOf(ses.getMenteeId()), viewsSessionId);
+        uploadSessionAttendanceInformation(String.valueOf(mentorId), viewsSessionId);
 
         uploadSessionNotes(ses);
         return false;
@@ -55,13 +55,22 @@ public class ViewsAPIIntegration {
         }
     }
 
-    private void uploadSessionAttendanceInformation(Session ses, long participantId, String viewsSessionId) {
+    private void uploadSessionAttendanceInformation(String viewsSessionId, String viewsParticipantId) {
         // Get proper JSON for updating attendance of mentor/mentee
+        // TODO: Update hardcoded "1" attended. See Federica's Piazza response on recording missed sessions
+        String attended = "1";
+        String uploadAttendanceJSON = viewsAPIJSONFormatter.createSessionAttendanceJSON
+                (viewsParticipantId, attended);
         // Send formatted JSON to Views for attendance of mentor/mentee
     }
 
     private void uploadSessionNotes(Session ses) {
         // Get proper JSON for adding session notes to session
         // Send formatted JSON to Views for session notes
+    }
+
+    private void deleteSession(String viewsSessionId) {
+        // Delete session
+        // Used for testing when creating a new session (Create the session then delete it)
     }
 }

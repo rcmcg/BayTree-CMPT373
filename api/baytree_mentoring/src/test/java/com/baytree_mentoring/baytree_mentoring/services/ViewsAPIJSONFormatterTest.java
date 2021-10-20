@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ViewsAPIJSONFormatterTest {
+    ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
     @Test
     void formatSessionUploadJSONTest1() {
-        ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
         String clockInTime = "2021-09-28 20:12:12";
         String clockOutTime = "2021-09-28 21:12:12";
         String leadStaff = "28";
@@ -15,6 +15,16 @@ class ViewsAPIJSONFormatterTest {
         String correctString = "{\"StartDate\":\"2021-09-28\",\"StartTime\":\"20:12:12\",\"Duration\":\"1\"," +
                 "\"LeadStaff\":\"28\",\"VenueID\":\"2\"}";
         String body = viewsAPIJSONFormatter.createSessionUploadJSON(clockInTime, clockOutTime, leadStaff, venueId);
+        assertEquals(correctString, body);
+    }
+
+    @Test
+    void createSessionAttendanceJSONTest1() {
+        String viewsSessionId = "150";
+        String viewsPersonId = "59";
+        String attended = "1";
+        String correctString = "{\"ContactID\":\"59\",\"Attended\":\"1\"}";
+        String body = viewsAPIJSONFormatter.createSessionAttendanceJSON(viewsPersonId, attended);
         assertEquals(correctString, body);
     }
 }

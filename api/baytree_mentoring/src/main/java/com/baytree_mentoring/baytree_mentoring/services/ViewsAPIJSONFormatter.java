@@ -57,4 +57,12 @@ public class ViewsAPIJSONFormatter {
             return "";
         }
     }
+
+    public String createSessionAttendanceJSON(String viewsPersonId, String attended) {
+        // Required fields: viewsSessionId, viewsPersonId
+        ObjectNode sessionJSON = mapper.createObjectNode();
+        sessionJSON.put("ContactID", viewsPersonId);
+        sessionJSON.put("Attended", attended);
+        return sessionJSON.toString();
+    }
 }
