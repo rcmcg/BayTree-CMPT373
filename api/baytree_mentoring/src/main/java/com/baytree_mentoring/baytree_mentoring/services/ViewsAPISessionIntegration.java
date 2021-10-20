@@ -5,7 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-public class ViewsAPIIntegration {
+public class ViewsAPISessionIntegration {
     private final ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
 
     public final boolean sendCompletedSessionFormToViews(Session ses) {

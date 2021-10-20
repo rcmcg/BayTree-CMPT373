@@ -59,6 +59,8 @@ public class ViewsAPIJSONFormatter {
         ObjectNode sessionJSON = mapper.createObjectNode();
         sessionJSON.put("ContactID", viewsPersonId);
         sessionJSON.put("Attended", attended);
+        // TODO: Research how to properly use this Volunteering field
+        sessionJSON.put("Volunteering", "");
         return sessionJSON.toString();
     }
 }

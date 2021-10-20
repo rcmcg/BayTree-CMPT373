@@ -20,10 +20,11 @@ class ViewsAPIJSONFormatterTest {
 
     @Test
     void createSessionAttendanceJSONTest1() {
-        String viewsSessionId = "150";
         String viewsPersonId = "59";
         String attended = "1";
-        String correctString = "{\"ContactID\":\"59\",\"Attended\":\"1\"}";
+        String volunteering = "";
+        String correctString = "{\"ContactID\":\""+viewsPersonId+"\"," +
+                "\"Attended\":\""+attended+"\",\"Volunteering\":\""+volunteering+"\"}";
         String body = viewsAPIJSONFormatter.createSessionAttendanceJSON(viewsPersonId, attended);
         assertEquals(correctString, body);
     }

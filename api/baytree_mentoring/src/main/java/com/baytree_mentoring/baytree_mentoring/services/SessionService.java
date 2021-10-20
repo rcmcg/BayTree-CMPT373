@@ -15,16 +15,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class SessionService {
     private final SessionRepository sessionRepository;
-    private final ViewsAPIIntegration viewsAPIIntegration = new ViewsAPIIntegration();
+    private final ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
 
     public SessionService(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
@@ -54,7 +50,7 @@ public class SessionService {
     }
 
     public void sendCompletedSessionFormToViews(Session ses) {
-        boolean uploadSuccess = viewsAPIIntegration.sendCompletedSessionFormToViews(ses);
+        boolean uploadSuccess = viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
 //        int sessionId = -1;
 //        int contactId = -1;
 //        // hard code in 28 (Mercury Team) and 2 for Venue ID, for now
