@@ -64,7 +64,9 @@ class SessionSubmit extends React.Component {
     render() {
         return (
             <div>
-                <input type="submit" value="Submit"/>
+                <button className={"ui primary button"}>
+                    Submit
+                </button>
             </div>
         )
     }
@@ -146,7 +148,9 @@ export class SessionForm extends React.Component<{}, SessionState> {
                         <ClockIn /> <br/>
                         <ClockOut /> <br/>
                         <SessionNotes /> <br/>
-                        <SessionSubmit /> <br />
+                        <span className={"submitButtonFormat"}>
+                            <SessionSubmit /> <br />
+                        </span>
                     </form>
                 </div>
             </main>

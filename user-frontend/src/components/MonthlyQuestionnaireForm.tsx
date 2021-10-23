@@ -112,7 +112,9 @@ class SessionSubmit extends React.Component {
     render() {
         return (
             <div>
-                <input type="submit" value="Submit"/>
+                <button className={"ui primary button"}>
+                    Submit
+                </button>
             </div>
         )
     }
@@ -190,7 +192,9 @@ export class MonthlyQuestionnaireForm extends React.Component<{}, MonthlyQuestio
                         <SelectMonth /> <br/>
                         <SelectMenteeEngagementScore /> <br/>
                         <SelectMenteeArrivalScore /> <br/>
-                        <SessionSubmit /> <br/>
+                        <span className={"submitButtonFormat"}>
+                            <SessionSubmit /> <br/>
+                        </span>
                     </form>
                 </div>
             </main>

@@ -1,11 +1,26 @@
+@media screen and (min-width: 700px) {
+    .monthlyQuestionnaireForm {
+        padding: 10px 500px 10px 500px;
+    }
+}
+
 .monthlyQuestionnaireForm {
-    text-align: center;
-    padding-left: 40em;
-    padding-right: 40em;
+    margin-right: 10px;
+}
+
+@media screen and (min-width: 700px) {
+    .monthlyQuestionnaireHeading {
+        text-align: center;
+        font-size: 300%;
+        padding-bottom: 0.5em;
+    }
 }
 
 .monthlyQuestionnaireHeading {
     text-align: center;
-    font-size: 300%;
     padding-bottom: 0.5em;
+}
+
+.submitButtonFormat {
+    text-align: center;
 }
