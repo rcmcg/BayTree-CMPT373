@@ -23,29 +23,29 @@ public class Session {
 
     @NotNull
     private long menteeId;
-
+    private long mentorId;
+    private long sessionGroupId;
     @NotNull
     private String clockInTimeLocal;
-
     @NotNull
     private String clockOutTimeLocal;
-
     private Instant clockInTimeUTC;
-
     private Instant clockOutTimeUTC;
+    private long leadStaffId;
 
     @NotNull
     private String sessionNotes;
 
     // TODO: Add the following fields to a session: mentorId, leadStaff, sessionGroupId,
     //  venueId(unless this is associated with the sessionGroup in Views, not any particular session)
-
-
-
-    public Session(long menteeId, String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {
+    public Session(long menteeId, long mentorId, long sessionGroupId, String clockInTimeLocal, String clockOutTimeLocal,
+                   long leadStaffId, String sessionNotes) {
         this.menteeId = menteeId;
+        this.mentorId = mentorId;
+        this.sessionGroupId = sessionGroupId;
         this.clockInTimeLocal = clockInTimeLocal;
         this.clockOutTimeLocal = clockOutTimeLocal;
+        this.leadStaffId = leadStaffId;
         this.sessionNotes = sessionNotes;
 
         this.clockInTimeUTC = convertToUTC(clockInTimeLocal);

@@ -8,10 +8,16 @@ class ViewsAPISessionIntegrationTest {
     @Test
     void uploadSessionInformationTest1() {
         // Mercury Mentee2 participantId is 39
+        // Mercury Mentor participantId is 42
+        // Mercury Test Session Group is 10
+        // Mercury Team participantId is 28
         Session ses = new Session(
                 39,
+                42,
+                10,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
+                28,
                 "Some notes");
         boolean retValue = viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
     }

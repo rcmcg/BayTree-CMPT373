@@ -16,11 +16,10 @@ public class ViewsAPISessionIntegration {
         // uploadSessionAttendanceInformation(ses);
 
         // Mercury Mentor has id 42
-        int mentorId = 42;
         String menteeAttendanceResponse = uploadSessionAttendanceInformation(String.valueOf(ses.getMenteeId()), viewsSessionId);
         System.out.println("Inside sendCompletedSessionFormToViews: ");
         System.out.println("menteeAttendanceResponse: " + menteeAttendanceResponse.toString());
-        String mentorAttendanceResponse = uploadSessionAttendanceInformation(String.valueOf(mentorId), viewsSessionId);
+        String mentorAttendanceResponse = uploadSessionAttendanceInformation(String.valueOf(ses.getMentorId()), viewsSessionId);
         System.out.println("Inside sendCompletedSessionFormToViews: ");
         System.out.println("mentorAttendanceResponse: " + mentorAttendanceResponse.toString());
         uploadSessionNotes(ses);
@@ -29,15 +28,22 @@ public class ViewsAPISessionIntegration {
 
     private String uploadSessionInformation(Session ses) {
         // TODO: Replace leadStaff and venueId with dynamic values added to Session object from user input on frontend
-        String uploadJSON = viewsAPIJSONFormatter.createSessionUploadJSON(ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), "28", "2");
+        String venueId = getVenueIdForSessionGroupFromViews(String.valueOf(ses.getSessionGroupId()));
+        String uploadJSON = viewsAPIJSONFormatter.createSessionUploadJSON(
+                ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), String.valueOf(ses.getLeadStaffId()), "2");
         System.out.println("uploadSessionInformation uploadJSON: " + uploadJSON);
         // sendSessionPostRequest(uploadJSON, ses.getSessionGroupId());
         // Hardcode sessionGroupId as 10 (Mercury Test Group) for now
-        String viewsSessionId = sendSessionPostRequestGetNewSessionId(uploadJSON, 10);
+        String viewsSessionId = sendSessionPostRequestGetNewSessionId(uploadJSON, ses.getSessionGroupId());
         return viewsSessionId;
     }
 
-    private String sendSessionPostRequestGetNewSessionId(String body, int sessionGroupId) {
+    String getVenueIdForSessionGroupFromViews(String sessionGroupId) {
+        // Make a call to the Views API to find the venueId associated with the session group.
+        return "";
+    }
+
+    private String sendSessionPostRequestGetNewSessionId(String body, long sessionGroupId) {
         Unirest.setTimeouts(0,0);
         try {
             String viewsSessionPostURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/%s/sessions";
