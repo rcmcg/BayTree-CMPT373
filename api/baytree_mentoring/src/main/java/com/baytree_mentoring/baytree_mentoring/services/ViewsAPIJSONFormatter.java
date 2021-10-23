@@ -63,4 +63,13 @@ public class ViewsAPIJSONFormatter {
         sessionJSON.put("Volunteering", "");
         return sessionJSON.toString();
     }
+
+    public static String parseVenueIdFromSessionGroupGetResponse(HttpResponse<String> response) {
+        System.out.println("Inside parseVenueIdFromSessionGroupGetResponse");
+        System.out.println(response.getBody());
+        JSONObject responseJSON = new JSONObject(URLDecoder.decode(response.getBody(), StandardCharsets.UTF_8));
+        String venueId = responseJSON.get("VenueID").toString();
+        System.out.println("venueId: " + venueId);
+        return venueId;
+    }
 }
