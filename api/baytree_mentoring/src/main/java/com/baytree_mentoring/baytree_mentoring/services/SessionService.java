@@ -10,7 +10,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -49,10 +48,12 @@ public class SessionService {
         return sessionRepository.existsById(session.getMentoringSessionId());
     }
 
+    // todo: I don't think we can delete any sessions since an admin will add/delete them in Views?
     public void deleteSession(long mentoringSessionId) {
         sessionRepository.deleteById(mentoringSessionId);
     }
 
+    // todo: {author: Reece} is writing tests for this
     public void sendCompletedSessionFormToViews(Session ses) {
         int sessionId = -1;
         int contactId = -1;
@@ -76,6 +77,7 @@ public class SessionService {
         updateSessionWithAttendance(sessionId, sessionAttendanceJsonMentor);
     }
 
+    // todo: this method and all methods below are only used in this class, make them private? {@author: Reece}
     public String formatSessionUploadJson(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
         Date clockInDate = null;
         Date clockOutDate = null;
