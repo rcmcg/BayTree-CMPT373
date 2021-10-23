@@ -54,7 +54,7 @@ class SessionNotes extends React.Component {
         return (
             <div>
                 <label form="sessionNotes">Session notes </label>
-                <input type="text" id="sessionNotesId" name="sessionNotes"/>
+                <textarea id="sessionNotesId" name="sessionNotes"/>
             </div>
         )
     }
