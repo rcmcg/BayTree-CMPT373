@@ -2,6 +2,7 @@ import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
 import Moment from 'react-moment';
 import 'moment-timezone';
+import "../css/SessionForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
@@ -139,13 +140,15 @@ export class SessionForm extends React.Component<{}, SessionState> {
     render() {
         return (
             <main>
-                <form onSubmit={this.handleSubmit}>
-                    <SelectMentee />
-                    <ClockIn />
-                    <ClockOut />
-                    <SessionNotes />
-                    <SessionSubmit />
-                </form>
+                <div className={"ui form sessionForm"}>
+                    <form onSubmit={this.handleSubmit}>
+                        <SelectMentee /> <br/>
+                        <ClockIn /> <br/>
+                        <ClockOut /> <br/>
+                        <SessionNotes /> <br/>
+                        <SessionSubmit /> <br />
+                    </form>
+                </div>
             </main>
         );
     }

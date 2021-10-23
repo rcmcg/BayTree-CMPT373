@@ -1,0 +1,12 @@
+.sessionForm {
+    text-align: center;
+    padding-left: 40em;
+    padding-right: 40em;
+    /*height: 90vh;*/
+}
+
+.sessionHeading {
+    text-align: center;
+    font-size: 300%;
+    padding-bottom: 0.5em;
+}
