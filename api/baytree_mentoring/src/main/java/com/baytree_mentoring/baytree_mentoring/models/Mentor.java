@@ -15,10 +15,9 @@ import java.util.List;
 @Entity
 @Getter
 @AllArgsConstructor
-
 public class Mentor {
     @Id
-    private int mentorId;
+    private long mentorId;
 
     @NotNull
     private String firstName;
