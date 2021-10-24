@@ -2,6 +2,8 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Mentor;
 
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireForm;
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireId;
 import com.baytree_mentoring.baytree_mentoring.repositories.MentorRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,7 @@ public class MentorService {
         return mentorRepository.findAll();
     }
 
+    public boolean isMentorAdded(Mentor mentor) {
+        return mentorRepository.existsById(mentor.getMentorId());
+    }
 }

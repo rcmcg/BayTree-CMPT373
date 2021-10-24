@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 public class Mentee {
     @Id
-    private double menteeId;
+    private long menteeId;
 
     @NotNull
     private String firstName;

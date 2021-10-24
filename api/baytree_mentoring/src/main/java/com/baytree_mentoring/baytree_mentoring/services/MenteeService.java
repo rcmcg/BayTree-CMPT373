@@ -1,7 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Mentee;
-
 import com.baytree_mentoring.baytree_mentoring.repositories.MenteeRepository;
 import org.springframework.stereotype.Service;
 
