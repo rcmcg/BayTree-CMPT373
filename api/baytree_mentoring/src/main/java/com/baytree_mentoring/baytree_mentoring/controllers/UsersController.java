@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -29,9 +31,13 @@ public class UsersController {
         try {
             URL url = new URL("https://app.viewsapp.net/api/restful/contacts/volunteers/search?");
             connection = (HttpURLConnection) url.openConnection();
+            String userpass = "group.mercury" + ":" + "Mercury!$%12";
+            String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
 
+            connection.setRequestProperty ("Authorization", basicAuth);
             //Request Setup
             connection.setRequestMethod("GET");
+            InputStream in = connection.getInputStream();
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
 
@@ -55,5 +61,4 @@ public class UsersController {
         return status;
 
     }
-
 }
