@@ -34,9 +34,11 @@ public class UsersController {
             String userpass = "group.mercury" + ":" + "Mercury!$%12";
             String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
 
-            connection.setRequestProperty ("Authorization", basicAuth);
             //Request Setup
+            connection.setRequestProperty ("Authorization", basicAuth);
             connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
             InputStream in = connection.getInputStream();
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
@@ -49,9 +51,15 @@ public class UsersController {
                 while ((line = reader.readLine()) != null){
                     responseContent.append(line);
                 }
+                reader.close();
             } else {
-
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                while ((line = reader.readLine()) != null){
+                    responseContent.append(line);
+                }
+                reader.close();
             }
+            System.out.println(responseContent.toString());
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
