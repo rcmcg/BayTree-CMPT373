@@ -10,9 +10,14 @@ moment().format();
 
 interface SessionState {
     menteeId: number,
+    mentorId: number,
+    sessionGroupId: number,
+    didMenteeAttend: boolean,   // todo
+    didMentorAttend: boolean,   // todo
     clockInTimeLocal: string,
     clockOutTimeLocal: string,
-    sessionNotes?: string
+    leadStaffId: number,        // todo
+    sessionNotes: string
 }
 
 class SelectMentee extends React.Component {
@@ -25,6 +30,48 @@ class SelectMentee extends React.Component {
         )
     }
 }
+
+class SelectMentor extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="selectMentorId">Mentor id </label>
+                <input type="number" id="selectMentorId" name="mentorId" required/>
+            </div>
+        )
+    }
+}
+
+class SelectSessionGroupId extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="selectSessionGroupId">Session group id </label>
+                <input type="number" id="selectSessionGroupId" name="sessionGroupId" required/>
+            </div>
+        )
+    }
+}
+
+// class DidMentorAttendSession extends React.Component {
+//     // handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+//     //     this.setState({didMentorAttend: event.target.checked});
+//     // }
+//
+//     render () {
+//         return (
+//             <div>
+//                 <label form="didMentorAttend">Did the mentor attend the session?</label>
+//                 <input
+//                     type="checkbox"
+//                     id="didMentorAttend"
+//                     name="didMentorAttend"
+//                     onChange= {this.props.handleMentorAttendanceCheckbox}
+//                 />
+//             </div>
+//         )
+//     }
+// }
 
 class ClockIn extends React.Component {
     render() {
@@ -74,18 +121,33 @@ export class SessionForm extends React.Component<{}, SessionState> {
         super(props);
         this.state = {
             menteeId: -1,
+            mentorId: -1,           // todo
+            sessionGroupId: -1,     // todo
+            didMenteeAttend: false,   // todo
+            didMentorAttend: false,   // todo
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
+            leadStaffId: -1,        // todo
             sessionNotes: ''
         }
+        this.handleMentorAttendanceCheckbox = this.handleMentorAttendanceCheckbox.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
     }
 
+    handleMentorAttendanceCheckbox() {
+        this.setState({
+            didMentorAttend: !(this.state.didMentorAttend)
+        })
+    }
+
     handleSubmit(event: any) {
         this.setState({
             menteeId: event.target.selectMenteeId.value,
+            mentorId: event.target.selectMentorId.value,
+            sessionGroupId: event.target.selectSessionGroupId.value,
+            // didMentorAttend: event.target.didMentorAttend.value,
             clockInTimeLocal: event.target.clockInId.value,
             clockOutTimeLocal: event.target.clockOutId.value,
             sessionNotes: event.target.sessionNotesId.value
@@ -97,24 +159,25 @@ export class SessionForm extends React.Component<{}, SessionState> {
     processUserSubmission() {
         // TODO: Verify clock in/out time is valid (in < out, total time less than some number of hours)
         const url = backendApiURL + '/session/add/'
-        axios.post(url, {
-            menteeId: this.state.menteeId,
-            clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
-            clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
-            sessionNotes: this.state.sessionNotes
-        })
-        .then(function (response: AxiosResponse) {
-            console.log(response);
-            if (response.status === HTTP_CREATED_STATUS_RESPONSE) {
-                // TODO: Remove and replace with user friendly success response
-                alert('Success! Session information uploaded.')
-            }
-        })
-        .catch(function (error: AxiosError) {
-            // TODO: Interpret and display a relevant message for user
-            // E.g., "You've already uploaded a session for this date"
-            console.log(error);
-        })
+        console.log(this.state)
+        // axios.post(url, {
+        //     menteeId: this.state.menteeId,
+        //     clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
+        //     clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
+        //     sessionNotes: this.state.sessionNotes
+        // })
+        // .then(function (response: AxiosResponse) {
+        //     console.log(response);
+        //     if (response.status === HTTP_CREATED_STATUS_RESPONSE) {
+        //         // TODO: Remove and replace with user friendly success response
+        //         alert('Success! Session information uploaded.')
+        //     }
+        // })
+        // .catch(function (error: AxiosError) {
+        //     // TODO: Interpret and display a relevant message for user
+        //     // E.g., "You've already uploaded a session for this date"
+        //     console.log(error);
+        // })
     }
 
     formatLocalDateTimeForBackend (timeLocal: string) {
@@ -141,6 +204,9 @@ export class SessionForm extends React.Component<{}, SessionState> {
             <main>
                 <form onSubmit={this.handleSubmit}>
                     <SelectMentee />
+                    <SelectMentor />
+                    <SelectSessionGroupId />
+                    {/*<DidMentorAttendSession handleMentorAttendanceCheckbox = {this.handleMentorAttendanceCheckbox}/>*/}
                     <ClockIn />
                     <ClockOut />
                     <SessionNotes />
