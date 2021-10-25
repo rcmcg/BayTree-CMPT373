@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 import { useTable, useFilters, useSortBy } from "react-table";
 import DATA from "./mockdata.json";
 import { COLUMNS } from "./Columns";
+import CustomDatePicker from "./customDatePicker";
+import moment from "moment";
 
 const Mentors = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -17,8 +19,16 @@ const Mentors = () => {
       useSortBy
     );
 
+  const [startDate, setStartDate] = React.useState(
+    new Date("2010-01-01T00:00:00")
+  );
+  const [finishDate, setFinishDate] = React.useState(
+    new Date(moment().format("YYYY-MM-DDTHH:mm:ss"))
+  );
+
   return (
     <>
+      <CustomDatePicker startDate={startDate} setStartDate={setStartDate} />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
