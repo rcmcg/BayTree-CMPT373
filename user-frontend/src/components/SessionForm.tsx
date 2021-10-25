@@ -73,6 +73,17 @@ class SelectSessionGroupId extends React.Component {
 //     }
 // }
 
+class SelectLeadStaffId extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="selectLeadStaffId">Lead staff (supervisor) id </label>
+                <input type="number" id="selectLeadStaffId" name="leadStaffId" required/>
+            </div>
+        )
+    }
+}
+
 class ClockIn extends React.Component {
     render() {
         return (
@@ -100,7 +111,7 @@ class SessionNotes extends React.Component {
         return (
             <div>
                 <label form="sessionNotes">Session notes </label>
-                <input type="text" id="sessionNotesId" name="sessionNotes"/>
+                <input type="text" id="sessionNotesId" name="sessionNotes" required/>
             </div>
         )
     }
@@ -123,8 +134,8 @@ export class SessionForm extends React.Component<{}, SessionState> {
             menteeId: -1,
             mentorId: -1,           // todo
             sessionGroupId: -1,     // todo
-            didMenteeAttend: false,   // todo
-            didMentorAttend: false,   // todo
+            didMenteeAttend: true,   // todo
+            didMentorAttend: true,   // todo
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
             leadStaffId: -1,        // todo
@@ -150,6 +161,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
             // didMentorAttend: event.target.didMentorAttend.value,
             clockInTimeLocal: event.target.clockInId.value,
             clockOutTimeLocal: event.target.clockOutId.value,
+            leadStaffId: event.target.selectLeadStaffId.value,
             sessionNotes: event.target.sessionNotesId.value
         }, this.processUserSubmission)
         event.target.reset()
@@ -160,24 +172,29 @@ export class SessionForm extends React.Component<{}, SessionState> {
         // TODO: Verify clock in/out time is valid (in < out, total time less than some number of hours)
         const url = backendApiURL + '/session/add/'
         console.log(this.state)
-        // axios.post(url, {
-        //     menteeId: this.state.menteeId,
-        //     clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
-        //     clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
-        //     sessionNotes: this.state.sessionNotes
-        // })
-        // .then(function (response: AxiosResponse) {
-        //     console.log(response);
-        //     if (response.status === HTTP_CREATED_STATUS_RESPONSE) {
-        //         // TODO: Remove and replace with user friendly success response
-        //         alert('Success! Session information uploaded.')
-        //     }
-        // })
-        // .catch(function (error: AxiosError) {
-        //     // TODO: Interpret and display a relevant message for user
-        //     // E.g., "You've already uploaded a session for this date"
-        //     console.log(error);
-        // })
+        axios.post(url, {
+            menteeId: this.state.menteeId,
+            mentorId: this.state.mentorId,
+            sessionGroupId: this.state.sessionGroupId,
+            didMenteeAttend: this.state.didMenteeAttend,
+            didMentorAttend: this.state.didMentorAttend,
+            clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
+            clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
+            leadStaffId: this.state.leadStaffId,
+            sessionNotes: this.state.sessionNotes
+        })
+        .then(function (response: AxiosResponse) {
+            console.log(response);
+            if (response.status === HTTP_CREATED_STATUS_RESPONSE) {
+                // TODO: Remove and replace with user friendly success response
+                alert('Success! Session information uploaded.')
+            }
+        })
+        .catch(function (error: AxiosError) {
+            // TODO: Interpret and display a relevant message for user
+            // E.g., "You've already uploaded a session for this date"
+            console.log(error);
+        })
     }
 
     formatLocalDateTimeForBackend (timeLocal: string) {
@@ -209,6 +226,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
                     {/*<DidMentorAttendSession handleMentorAttendanceCheckbox = {this.handleMentorAttendanceCheckbox}/>*/}
                     <ClockIn />
                     <ClockOut />
+                    <SelectLeadStaffId />
                     <SessionNotes />
                     <SessionSubmit />
                 </form>

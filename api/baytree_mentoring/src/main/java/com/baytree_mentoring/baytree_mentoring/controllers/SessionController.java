@@ -23,6 +23,7 @@ public class SessionController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/session/add")
     private String addSession(@RequestBody Session ses) {
+        // Todo: Refactor this logic. All forms sent to the backend will now be fully complete
         if (sessionService.isSessionFormComplete(ses)) {
             // Send straight to Views
             System.out.println("SessionController: Session form sent to backend is complete");
