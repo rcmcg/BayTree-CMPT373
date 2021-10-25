@@ -24,16 +24,16 @@ const Mentors = () => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render("Header")}
-                  <div>{column.canFilter ? column.render("Filter") : null}</div>
-                  <span>
+                <th {...column.getHeaderProps()}>
+                  <span {...column.getSortByToggleProps()}>
+                    {column.render("Header")}
                     {column.isSorted
                       ? column.isSortedDesc
                         ? " 🔽"
                         : " 🔼"
                       : ""}
                   </span>
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
             </tr>
