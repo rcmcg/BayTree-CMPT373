@@ -1,5 +1,7 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,7 +25,7 @@ public class UsersController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/mentors")
-    public static int getAllUsers(){
+    public static String getAllUsers(){
         int status = -1;
         BufferedReader reader;
         String line;
@@ -66,7 +68,19 @@ public class UsersController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return status;
+        return parse(responseContent.toString());
+        //return responseContent.toString();
+    }
 
+    public static String parse(String responseBody){
+        JSONObject body = new JSONObject(responseBody);
+        System.out.println(body.length());
+        JSONObject volunteers = body.getJSONObject("volunteers count=\"15\"");
+        System.out.println(volunteers.length());
+
+        for(int i =0; i < volunteers.names().length() ; i++){
+            System.out.println("key = " + volunteers.names().getString(i));
+        }
+        return volunteers.toString();
     }
 }
