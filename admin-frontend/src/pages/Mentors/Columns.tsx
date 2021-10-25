@@ -1,4 +1,5 @@
 import { ColumnFilter } from "./ColumnFilter";
+import { format } from "date-fns";
 
 export const COLUMNS = [
   {
@@ -24,6 +25,9 @@ export const COLUMNS = [
   {
     Header: "Start Date",
     accessor: "startDate" as const,
+    Cell: ({ value }: { value: Date }) => {
+      return format(new Date(value), "dd/MM/yyyy");
+    },
     Filter: ColumnFilter,
   },
   {
