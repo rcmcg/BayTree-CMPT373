@@ -28,7 +28,12 @@ const Mentors = () => {
 
   return (
     <>
-      <CustomDatePicker startDate={startDate} setStartDate={setStartDate} />
+      <CustomDatePicker
+        startDate={startDate}
+        setStartDate={setStartDate}
+        finishDate={finishDate}
+        setFinishDate={setFinishDate}
+      />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (

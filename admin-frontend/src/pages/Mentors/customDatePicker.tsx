@@ -37,7 +37,7 @@ const CustomDatePicker = (props: any) => {
             id="date-picker-dialog-finish"
             label={<span style={{ opacity: 0.6 }}>Finish Date</span>}
             format="dd/MM/yyyy"
-            clearable
+            // clearable
             value={finishDate}
             onChange={handleDateChangeFinish}
             KeyboardButtonProps={{
