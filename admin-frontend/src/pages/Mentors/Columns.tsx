@@ -3,37 +3,37 @@ import { ColumnFilter } from "./ColumnFilter";
 export const COLUMNS = [
   {
     Header: "Username",
-    accessor: "username",
+    accessor: "username" as const,
     Filter: ColumnFilter,
   },
   {
     Header: "Full Name",
-    accessor: "name",
+    accessor: "name" as const,
     Filter: ColumnFilter,
   },
   {
     Header: "Age",
-    accessor: "age",
+    accessor: "age" as const,
     Filter: ColumnFilter,
   },
   {
     Header: "Program",
-    accessor: "program",
+    accessor: "program" as const,
     Filter: ColumnFilter,
   },
   {
     Header: "Start Date",
-    accessor: "startDate",
+    accessor: "startDate" as const,
     Filter: ColumnFilter,
   },
   {
     Header: "Daily Sessions Outstanding",
-    accessor: "dailySessionsOutstanding",
+    accessor: "dailySessionsOutstanding" as const,
     Filter: ColumnFilter,
   },
   {
     Header: "Monthly Reports Outstanding",
-    accessor: "monthlyReportsOutstanding",
+    accessor: "monthlyReportsOutstanding" as const,
     Filter: ColumnFilter,
   },
 ];
