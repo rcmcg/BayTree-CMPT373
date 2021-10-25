@@ -72,4 +72,10 @@ public class ViewsAPIJSONFormatter {
         System.out.println("venueId: " + venueId);
         return venueId;
     }
+
+    public String createSessionNotesUploadJSON(String notes) {
+        ObjectNode sessionNotesJSON = mapper.createObjectNode();
+        sessionNotesJSON.put("Note", notes);
+        return sessionNotesJSON.toString();
+    }
 }

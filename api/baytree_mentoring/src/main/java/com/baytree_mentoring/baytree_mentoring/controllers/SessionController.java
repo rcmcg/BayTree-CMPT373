@@ -36,7 +36,8 @@ public class SessionController {
             }
         } else {
             // Session form is incomplete (missing clock out time), need to save in database until completed
-            Session session = new Session(ses.getMenteeId(), ses.getMentorId(), ses.getMentoringSessionId(),
+            Session session = new Session(ses.getMenteeId(), ses.getMentorId(), ses.getSessionGroupId(),
+                    ses.isDidMenteeAttend(), ses.isDidMentorAttend(),
                     ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), ses.getLeadStaffId(),
                     ses.getSessionNotes());
             sessionService.addSession(session);

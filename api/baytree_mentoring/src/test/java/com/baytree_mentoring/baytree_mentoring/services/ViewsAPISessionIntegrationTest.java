@@ -15,6 +15,8 @@ class ViewsAPISessionIntegrationTest {
                 39,
                 42,
                 10,
+                true,
+                true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
                 28,

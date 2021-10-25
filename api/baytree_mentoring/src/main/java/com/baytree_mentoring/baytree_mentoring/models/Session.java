@@ -25,6 +25,8 @@ public class Session {
     private long menteeId;
     private long mentorId;
     private long sessionGroupId;
+    private boolean didMenteeAttend;
+    private boolean didMentorAttend;
     @NotNull
     private String clockInTimeLocal;
     @NotNull
@@ -38,11 +40,14 @@ public class Session {
 
     // TODO: Add the following fields to a session: mentorId, leadStaff, sessionGroupId,
     //  venueId(unless this is associated with the sessionGroup in Views, not any particular session)
-    public Session(long menteeId, long mentorId, long sessionGroupId, String clockInTimeLocal, String clockOutTimeLocal,
+    public Session(long menteeId, long mentorId, long sessionGroupId, boolean didMenteeAttend, boolean didMentorAttend,
+                   String clockInTimeLocal, String clockOutTimeLocal,
                    long leadStaffId, String sessionNotes) {
         this.menteeId = menteeId;
         this.mentorId = mentorId;
         this.sessionGroupId = sessionGroupId;
+        this.didMenteeAttend = didMenteeAttend;
+        this.didMentorAttend = didMentorAttend;
         this.clockInTimeLocal = clockInTimeLocal;
         this.clockOutTimeLocal = clockOutTimeLocal;
         this.leadStaffId = leadStaffId;

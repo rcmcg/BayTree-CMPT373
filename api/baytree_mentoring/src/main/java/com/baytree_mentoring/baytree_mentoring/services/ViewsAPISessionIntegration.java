@@ -20,13 +20,11 @@ public class ViewsAPISessionIntegration {
 
     public final boolean sendCompletedSessionFormToViews(Session ses) {
         String viewsSessionId = uploadSessionInformation(ses);
-        String menteeAttendanceResponse = uploadSessionAttendanceInformation(String.valueOf(ses.getMenteeId()), viewsSessionId);
-        String mentorAttendanceResponse = uploadSessionAttendanceInformation(String.valueOf(ses.getMentorId()), viewsSessionId);
-        uploadSessionNotes(ses);
-        // System.out.println("Inside sendCompletedSessionFormToViews: ");
-        // System.out.println("menteeAttendanceResponse: " + menteeAttendanceResponse.toString());
-        // System.out.println("Inside sendCompletedSessionFormToViews: ");
-        // System.out.println("mentorAttendanceResponse: " + mentorAttendanceResponse.toString());
+        String menteeAttendanceResponse = uploadSessionAttendanceInformation(
+                String.valueOf(ses.getMenteeId()), viewsSessionId, ses.isDidMenteeAttend());
+        String mentorAttendanceResponse = uploadSessionAttendanceInformation(
+                String.valueOf(ses.getMentorId()), viewsSessionId, ses.isDidMentorAttend());
+        String uploadSessionNotesResponse = uploadSessionNotes(ses, viewsSessionId);
         return false;
     }
 
@@ -77,12 +75,17 @@ public class ViewsAPISessionIntegration {
         }
     }
 
-    private String uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId) {
+    private String uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId, boolean attended) {
         // Get proper JSON for updating attendance of mentor/mentee
         // TODO: Update hardcoded "1" attended. See Federica's Piazza response on recording missed sessions
-        String attended = "1";
+        String stringAttended = "";
+        if (attended) {
+            stringAttended = "1";
+        } else {
+            stringAttended = "0";
+        }
         String uploadAttendanceJSON = viewsAPIJSONFormatter.createSessionAttendanceJSON
-                (viewsParticipantId, attended);
+                (viewsParticipantId, stringAttended);
         // Send formatted JSON to Views for attendance of mentor/mentee
         String sendSessionAttendanceResponse = sendSessionAttendancePostRequest(uploadAttendanceJSON, viewsSessionId);
         return sendSessionAttendanceResponse;
@@ -108,9 +111,32 @@ public class ViewsAPISessionIntegration {
         }
     }
 
-    private void uploadSessionNotes(Session ses) {
+    private String uploadSessionNotes(Session ses, String viewsSessionId) {
         // Get proper JSON for adding session notes to session
+        String uploadSessionNotesJSON = viewsAPIJSONFormatter.createSessionNotesUploadJSON(ses.getSessionNotes());
         // Send formatted JSON to Views for session notes
+        String sendSessionNotesResponse = sendSessionNotesPostRequest(uploadSessionNotesJSON, viewsSessionId);
+        return sendSessionNotesResponse;
+    }
+
+    private String sendSessionNotesPostRequest(String uploadSessionNotesJSON, String viewsSessionId) {
+        Unirest.setTimeouts(0,0);
+        try {
+            String viewsSessionNotesPostURL =
+                    "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/%s/notes";
+            HttpResponse<String> response = Unirest.post(String.format(viewsSessionNotesPostURL, viewsSessionId))
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .basicAuth(getViewsAPIUsername(), getViewsAPIPassword())
+                    .body(uploadSessionNotesJSON)
+                    .asString();
+            System.out.println("Response inside sendSessionNotesPostRequest");
+            System.out.println(response.getBody());
+            return response.getBody();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private void deleteSession(String viewsSessionId) {
