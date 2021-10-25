@@ -80,6 +80,20 @@ public class UsersController {
 
         for(int i =0; i < volunteers.names().length() ; i++){
             System.out.println("key = " + volunteers.names().getString(i));
+            String key = volunteers.names().getString(i);
+            JSONObject volunteer = volunteers.getJSONObject(key);
+
+            //We have the volunteer object, now fetch the required information.
+            int viewsId = Integer.parseInt(volunteer.getString("PersonID"));
+            String firstName = volunteer.getString("Forename");
+            String lastNAme = volunteer.getString("Surname");
+            String email = volunteer.getString("Email");
+            String status = volunteer.getString("VolunteerStatus_V_1");
+//            System.out.println(viewsId);
+//            System.out.println(firstName);
+//            System.out.println(lastNAme);
+//            System.out.println(email);
+//            System.out.println(status);
         }
         return volunteers.toString();
     }
