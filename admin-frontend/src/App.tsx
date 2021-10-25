@@ -8,7 +8,6 @@ import Mentees from './pages/Mentees/Mentees';
 import Settings from './pages/Settings/Settings'
 import AddMentor from './pages/AddMentor/AddMentor';
 import Login from "./pages/Login/Login";
-import { setupUser } from './pages/AddMentor/setupUser';
 
 export const backendApiURL: string = "http://localhost:8080"
 export const HTTP_CREATED_STATUS_RESPONSE: number = 201
@@ -23,7 +22,6 @@ function App() {
           <Route path='/mentors' component={Mentors} />
           <Route path='/mentees' component={Mentees} />
           <Route path='/add' component={AddMentor} />
-            <Route path='/setupUser' component={setupUser} />
           <Route path='/settings' component={Settings} />
           <Route path='/login' component={Login} />
         </Switch>

@@ -6,8 +6,8 @@ import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App" ;
 
 const axios = require('axios').default;
 
-interface  UserState {
-    unregistedUser: {
+export interface  UserState {
+    unregistedUsers: {
         id: number;
         firstName: string;
         lastName: string;
@@ -15,12 +15,12 @@ interface  UserState {
     };
 }
 
-function UnregisteredMentors(SingleMentorData: UserState["unregistedUser"] ) {
+function UnregisteredMentors(user: UserState["unregistedUsers"] ) {
 
     return(
         <tr>
-            <td>{SingleMentorData.firstName}</td>
-            <td>{SingleMentorData.lastName}</td>
+            <td>{user.firstName}</td>
+            <td>{user.lastName}</td>
 
             <td>
                 <Link to={'/setupUser'}>
