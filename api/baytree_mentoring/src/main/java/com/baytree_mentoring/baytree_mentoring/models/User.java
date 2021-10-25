@@ -12,10 +12,10 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class User {
 
-    public User(int viewsId, String firstName, String lastNAme, String email, String status) {
+    public User(int viewsId, String firstName, String lastName, String email, String status) {
         this.viewsId = viewsId;
         this.firstName = firstName;
-        this.lastNAme = lastNAme;
+        this.lastName = lastName;
         this.email = email;
         this.status = status;
     }
@@ -25,7 +25,7 @@ public class User {
 
     String firstName;
 
-    String lastNAme;
+    String lastName;
 
     String email;
 
@@ -39,8 +39,8 @@ public class User {
         return firstName;
     }
 
-    public String getLastNAme() {
-        return lastNAme;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
