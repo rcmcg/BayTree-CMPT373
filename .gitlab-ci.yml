@@ -36,6 +36,7 @@ cache:
 .verify: &verify
   stage: test
   script:
+    - 'cd api/baytree_mentoring'
     - 'mvn $MAVEN_CLI_OPTS verify'
   except:
     variables:
