@@ -53,21 +53,12 @@ public class ViewsAPISessionIntegration {
     String getVenueIdForSessionGroupFromViews(String sessionGroupId) throws UnirestException {
         // Make a call to the Views API to find the venueId associated with the session group.
         Unirest.setTimeouts(0,0);
+        String viewsSessionGetURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/%s";
+        String formattedSessionGroupGetURL = String.format(viewsSessionGetURL, sessionGroupId);
         try {
-            String viewsSessionGetURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/%s";
-            HttpResponse<String> response = Unirest.get(String.format(viewsSessionGetURL, sessionGroupId))
-                    .header("Content-Type", "application/json")
-                    .header("Accept", "application/json")
-                    .basicAuth(getViewsAPIUsername(), getViewsAPIPassword())
-                    .asString();
-            System.out.println("Response inside getVenueIdForSessionGroupFromViews: ");
-            System.out.println(response.getBody());
-            if (response.getStatus() >= 200 && response.getStatus() < 300) {
-                return ViewsAPIJSONFormatter.parseVenueIdFromSessionGroupGetResponse(response);
-            } else {
-                String error = "Failed to get session Id from Views";
-                throw new UnirestException(error);
-            }
+            HttpResponse<String> sessionGroupGetResponse = sendUnirestGetRequest(formattedSessionGroupGetURL);
+            String venueId = ViewsAPIJSONFormatter.parseVenueIdFromSessionGroupGetResponse(sessionGroupGetResponse);
+            return venueId;
         } catch (UnirestException e) {
             System.out.println("Inside getVenueIdForSessionGroupFromViews:");
             System.out.println("Failed to parse viewsSessionId, throw exception");
@@ -169,6 +160,35 @@ public class ViewsAPISessionIntegration {
             throw e;
         }
     }
+
+    private HttpResponse<String> sendUnirestGetRequest(String URL) throws UnirestException {
+        try {
+            HttpResponse<String> response = Unirest.get(URL)
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .basicAuth(getViewsAPIUsername(), getViewsAPIPassword())
+                    .asString();
+            System.out.println(response.getBody());
+            if (!(response.getStatus() >= 200 && response.getStatus() < 300)) {
+                String error = "Failed to send/receive get request to " + URL;
+                throw new UnirestException(error);
+            } else {
+                return response;
+            }
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+//    private HttpResponse<String> sendUnirestPostRequest(String URL, String body) {
+//        Unirest.setTimeouts(0,0);
+//        try {
+//
+//        } catch (UnirestException e) {
+//
+//        }
+//    }
 
     private void deleteSession(String viewsSessionId) {
         // Delete session
