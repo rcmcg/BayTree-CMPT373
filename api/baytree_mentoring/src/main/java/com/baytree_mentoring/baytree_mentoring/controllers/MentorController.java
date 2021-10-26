@@ -23,9 +23,8 @@ public class MentorController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/mentor/add")
     private String AddMentor(@RequestBody Mentor mtr){
-//        Mentor mentor = new Mentor(mtr.getMentorId(),mtr.getFirstName(), mtr.getLastName(), mtr.getStatus(),
-//                mtr.getRole(), mtr.getStartDate(), mtr.getEndDate(), mtr.getEmail(), mtr.getPhoneNumber(), mtr.getEthnicity());
-        Mentor mentor = new Mentor();
+        Mentor mentor = new Mentor(mtr.getMentorId(),mtr.getFirstName(), mtr.getLastName(), mtr.getStatus(),
+                mtr.getRole(), mtr.getStartDate(), mtr.getEndDate(), mtr.getEmail(), mtr.getPhoneNumber(), mtr.getEthnicity());
         mentorService.add(mentor);
 
         List<Mentor> mentors = mentorService.getAllMentors();
