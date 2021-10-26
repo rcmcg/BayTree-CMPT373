@@ -39,6 +39,7 @@ public class SessionService {
         return sessionRepository.existsById(session.getMentoringSessionId());
     }
 
+    // todo: I don't think we can delete any sessions since an admin will add/delete them in Views?
     public void deleteSession(long mentoringSessionId) {
         sessionRepository.deleteById(mentoringSessionId);
     }
