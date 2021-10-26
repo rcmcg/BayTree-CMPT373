@@ -48,7 +48,7 @@ public class MentorController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/mentor/get/{id}")
-    private Optional<Mentor> getMentorById(@RequestBody long id) {
+    private Optional<Mentor> getMentorById(@PathVariable long id) {
         return mentorService.getMentorById(id);
     }
 }
