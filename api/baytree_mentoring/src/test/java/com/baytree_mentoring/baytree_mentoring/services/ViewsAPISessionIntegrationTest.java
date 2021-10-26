@@ -1,12 +1,15 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.Test;
+
+import java.text.ParseException;
 
 class ViewsAPISessionIntegrationTest {
     private ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
     @Test
-    void uploadSessionInformationTest1() {
+    void uploadSessionInformationTest1() throws UnirestException, ParseException {
         // Mercury Mentee2 participantId is 39
         // Mercury Mentor participantId is 42
         // Mercury Test Session Group is 10

@@ -5,13 +5,15 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ViewsAPIJSONFormatterTest {
     ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
     ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
     @Test
-    void formatSessionUploadJSONTest1() {
+    void formatSessionUploadJSONTest1() throws ParseException {
         String clockInTime = "2021-09-28 20:12:12";
         String clockOutTime = "2021-09-28 21:12:12";
         String leadStaff = "28";

@@ -5,6 +5,9 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import java.text.ParseException;
+import java.util.Objects;
+
 public class ViewsAPISessionIntegration {
     private final ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
     private final String viewsAPIUsername = "group.mercury";
@@ -18,17 +21,27 @@ public class ViewsAPISessionIntegration {
         return viewsAPIPassword;
     }
 
-    public final boolean sendCompletedSessionFormToViews(Session ses) {
-        String viewsSessionId = uploadSessionInformation(ses);
-        String menteeAttendanceResponse = uploadSessionAttendanceInformation(
-                String.valueOf(ses.getMenteeId()), viewsSessionId, ses.isDidMenteeAttend());
-        String mentorAttendanceResponse = uploadSessionAttendanceInformation(
-                String.valueOf(ses.getMentorId()), viewsSessionId, ses.isDidMentorAttend());
-        String uploadSessionNotesResponse = uploadSessionNotes(ses, viewsSessionId);
-        return false;
+    public final boolean sendCompletedSessionFormToViews(Session ses) throws UnirestException, ParseException {
+        try {
+            String viewsSessionId = uploadSessionInformationGetSessionId(ses);
+            String menteeAttendanceResponse = uploadSessionAttendanceInformation(
+                    String.valueOf(ses.getMenteeId()), viewsSessionId, ses.isDidMenteeAttend());
+            String mentorAttendanceResponse = uploadSessionAttendanceInformation(
+                    String.valueOf(ses.getMentorId()), viewsSessionId, ses.isDidMentorAttend());
+            String uploadSessionNotesResponse = uploadSessionNotes(ses, viewsSessionId);
+            return true;
+        } catch (UnirestException e) {
+            System.out.println("sendCompletedSessionFormToViews: Failed to upload session to Views database");
+            e.printStackTrace();
+            throw e;
+        } catch (ParseException e) {
+            System.out.println("sendCompletedSessionFormToViews: Failed to parse JSON");
+            e.printStackTrace();
+            throw e;
+        }
     }
 
-    private String uploadSessionInformation(Session ses) {
+    private String uploadSessionInformationGetSessionId(Session ses) throws UnirestException, ParseException {
         String venueId = getVenueIdForSessionGroupFromViews(String.valueOf(ses.getSessionGroupId()));
         String uploadJSON = viewsAPIJSONFormatter.createSessionUploadJSON(
                 ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), String.valueOf(ses.getLeadStaffId()), venueId);
@@ -37,7 +50,7 @@ public class ViewsAPISessionIntegration {
         return viewsSessionId;
     }
 
-    String getVenueIdForSessionGroupFromViews(String sessionGroupId) {
+    String getVenueIdForSessionGroupFromViews(String sessionGroupId) throws UnirestException {
         // Make a call to the Views API to find the venueId associated with the session group.
         Unirest.setTimeouts(0,0);
         try {
@@ -49,10 +62,17 @@ public class ViewsAPISessionIntegration {
                     .asString();
             System.out.println("Response inside getVenueIdForSessionGroupFromViews: ");
             System.out.println(response.getBody().toString());
-            return ViewsAPIJSONFormatter.parseVenueIdFromSessionGroupGetResponse(response);
+            if (response.getStatus() >= 200 && response.getStatus() < 300) {
+                return ViewsAPIJSONFormatter.parseVenueIdFromSessionGroupGetResponse(response);
+            } else {
+                String error = "Failed to get session Id from Views";
+                throw new UnirestException(error);
+            }
         } catch (UnirestException e) {
+            System.out.println("Inside getVenueIdForSessionGroupFromViews:");
+            System.out.println("Failed to parse viewsSessionId, throw exception");
             e.printStackTrace();
-            return "";
+            throw e;
         }
     }
 

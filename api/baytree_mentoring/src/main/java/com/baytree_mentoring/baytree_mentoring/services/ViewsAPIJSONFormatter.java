@@ -20,7 +20,7 @@ public class ViewsAPIJSONFormatter {
     private ObjectMapper mapper = new ObjectMapper();
 
     // TODO: Replace parameters with a ses object when required fields are added
-    public String createSessionUploadJSON(String clockInTime, String clockOutTime, String leadStaff, String venueId) {
+    public String createSessionUploadJSON(String clockInTime, String clockOutTime, String leadStaff, String venueId) throws ParseException {
         try {
             Date clockInDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clockInTime);
             Date clockOutDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clockOutTime);
@@ -31,7 +31,7 @@ public class ViewsAPIJSONFormatter {
             return createSessionUploadJSONString(startDate, startTime, String.valueOf(duration), leadStaff, venueId);
         } catch (ParseException e) {
             e.printStackTrace();
-            return "";
+            throw e;
         }
     }
 

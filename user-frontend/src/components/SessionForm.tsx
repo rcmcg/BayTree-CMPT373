@@ -114,8 +114,6 @@ class SessionNotes extends React.Component {
                 <label form="sessionNotes">
                     Session notes. If you or the mentee did not attend the session, please explain why.
                 </label>
-                {/*<input type="textarea" id="sessionNotesId" name="sessionNotes" */}
-                {/*       rows={"5"} cols="33 required/>*/}
                 <textarea id={"sessionNotesId"} name={"sessionNotes"} rows={5} cols={33}/>
             </div>
         )
@@ -191,6 +189,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
         .catch(function (error: AxiosError) {
             // TODO: Interpret and display a relevant message for user
             // E.g., "You've already uploaded a session for this date"
+            alert('Failed to upload session to session. Please try again later.')
             console.log(error);
         })
     }
