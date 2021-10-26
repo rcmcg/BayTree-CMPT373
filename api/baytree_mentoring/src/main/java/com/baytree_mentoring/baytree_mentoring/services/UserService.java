@@ -95,14 +95,22 @@ public class UserService {
             int viewsId = Integer.parseInt(volunteer.getString("PersonID"));
             String firstName = volunteer.getString("Forename");
             String lastName = volunteer.getString("Surname");
+            String name = volunteer.getString("Name_V_53");
             String email = volunteer.getString("Email");
             String status = volunteer.getString("VolunteerStatus_V_1");
+            String startDate = volunteer.getString("Startdate_V_37");
+            String endDate = volunteer.getString("Enddate_V_38");
+            String phoneNumber = volunteer.getString("Mobile_V_55");
+            String ethnicity = volunteer.getString("Ethnicity_V_15");
+            String address = volunteer.getString("Address1");
+            String role = "Mentor";
+
 //            System.out.println(viewsId);
 //            System.out.println(firstName);
 //            System.out.println(lastName);
 //            System.out.println(email);
 //            System.out.println(status);
-            User user = new User(viewsId,firstName,lastName,email,status);
+            User user = new User(viewsId,firstName,lastName,name,email,status,startDate,endDate,phoneNumber,ethnicity,address,role);
             addMentorToDatabase(user);
         }
         return SUCCESS;

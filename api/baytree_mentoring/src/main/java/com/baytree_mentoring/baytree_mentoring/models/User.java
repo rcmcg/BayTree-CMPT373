@@ -20,10 +20,13 @@ public class User {
         this.status = status;
     }
 
-    public User(int viewsId, String firstName, String lastName, String email, String status, String startDate, String endDate, String phoneNumber, String ethnicity, String address) {
+    public User(int viewsId, String firstName, String lastName, String name, String email,
+                String status, String startDate, String endDate, String phoneNumber,
+                String ethnicity, String address, String role) {
         this.viewsId = viewsId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.name = name;
         this.email = email;
         this.status = status;
         this.startDate = startDate;
@@ -31,6 +34,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.ethnicity = ethnicity;
         this.address = address;
+        this.role = role;
     }
 
     @Id
@@ -39,6 +43,8 @@ public class User {
     String firstName;
 
     String lastName;
+
+    String name;
 
     String email;
 
@@ -53,6 +59,16 @@ public class User {
     String ethnicity;
 
     String address;
+
+    String role;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role;
+    }
 
     public String getStartDate() {
         return startDate;
