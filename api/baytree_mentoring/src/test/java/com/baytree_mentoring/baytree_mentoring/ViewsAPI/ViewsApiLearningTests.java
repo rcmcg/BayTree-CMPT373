@@ -48,5 +48,4 @@ public class ViewsApiLearningTests {
         System.out.println(response.getBody());
         assertEquals(true, true);
     }
-
 }
