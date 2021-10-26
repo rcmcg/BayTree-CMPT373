@@ -31,6 +31,36 @@ public class User {
 
     String status;
 
+    String startDate;
+
+    String endDate;
+
+    String phoneNumber;
+
+    String ethnicity;
+
+    String address;
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEthnicity() {
+        return ethnicity;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
     public int getViewsId() {
         return viewsId;
     }
