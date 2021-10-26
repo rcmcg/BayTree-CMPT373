@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
-import Moment from 'react-moment';
 import 'moment-timezone';
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
@@ -12,11 +11,11 @@ interface SessionState {
     menteeId: number,
     mentorId: number,
     sessionGroupId: number,
-    didMenteeAttend: boolean,   // todo
-    didMentorAttend: boolean,   // todo
+    didMenteeAttend: boolean,
+    didMentorAttend: boolean,
     clockInTimeLocal: string,
     clockOutTimeLocal: string,
-    leadStaffId: number,        // todo
+    leadStaffId: number,
     sessionNotes: string
 }
 
@@ -53,25 +52,27 @@ class SelectSessionGroupId extends React.Component {
     }
 }
 
-// class DidMentorAttendSession extends React.Component {
-//     // handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-//     //     this.setState({didMentorAttend: event.target.checked});
-//     // }
-//
-//     render () {
-//         return (
-//             <div>
-//                 <label form="didMentorAttend">Did the mentor attend the session?</label>
-//                 <input
-//                     type="checkbox"
-//                     id="didMentorAttend"
-//                     name="didMentorAttend"
-//                     onChange= {this.props.handleMentorAttendanceCheckbox}
-//                 />
-//             </div>
-//         )
-//     }
-// }
+class DidMenteeAttendSession extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="didMenteeAttend">Did the mentee attend the session?</label>
+                <input type="checkbox" id="didMenteeAttend" name="didMenteeAttend" defaultChecked/>
+            </div>
+        )
+    }
+}
+
+class DidMentorAttendSession extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="didMentorAttend">Did the mentor attend the session?</label>
+                <input type="checkbox" id="didMentorAttend" name="didMentorAttend" defaultChecked/>
+            </div>
+        )
+    }
+}
 
 class SelectLeadStaffId extends React.Component {
     render () {
@@ -110,8 +111,12 @@ class SessionNotes extends React.Component {
     render () {
         return (
             <div>
-                <label form="sessionNotes">Session notes </label>
-                <input type="text" id="sessionNotesId" name="sessionNotes" required/>
+                <label form="sessionNotes">
+                    Session notes. If you or the mentee did not attend the session, please explain why.
+                </label>
+                {/*<input type="textarea" id="sessionNotesId" name="sessionNotes" */}
+                {/*       rows={"5"} cols="33 required/>*/}
+                <textarea id={"sessionNotesId"} name={"sessionNotes"} rows={5} cols={33}/>
             </div>
         )
     }
@@ -132,25 +137,18 @@ export class SessionForm extends React.Component<{}, SessionState> {
         super(props);
         this.state = {
             menteeId: -1,
-            mentorId: -1,           // todo
-            sessionGroupId: -1,     // todo
-            didMenteeAttend: true,   // todo
-            didMentorAttend: true,   // todo
+            mentorId: -1,
+            sessionGroupId: -1,
+            didMenteeAttend: true,
+            didMentorAttend: true,
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
-            leadStaffId: -1,        // todo
+            leadStaffId: -1,
             sessionNotes: ''
         }
-        this.handleMentorAttendanceCheckbox = this.handleMentorAttendanceCheckbox.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
-    }
-
-    handleMentorAttendanceCheckbox() {
-        this.setState({
-            didMentorAttend: !(this.state.didMentorAttend)
-        })
     }
 
     handleSubmit(event: any) {
@@ -158,7 +156,8 @@ export class SessionForm extends React.Component<{}, SessionState> {
             menteeId: event.target.selectMenteeId.value,
             mentorId: event.target.selectMentorId.value,
             sessionGroupId: event.target.selectSessionGroupId.value,
-            // didMentorAttend: event.target.didMentorAttend.value,
+            didMenteeAttend: event.target.didMenteeAttend.checked,
+            didMentorAttend: event.target.didMentorAttend.checked,
             clockInTimeLocal: event.target.clockInId.value,
             clockOutTimeLocal: event.target.clockOutId.value,
             leadStaffId: event.target.selectLeadStaffId.value,
@@ -171,7 +170,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
     processUserSubmission() {
         // TODO: Verify clock in/out time is valid (in < out, total time less than some number of hours)
         const url = backendApiURL + '/session/add/'
-        console.log(this.state)
         axios.post(url, {
             menteeId: this.state.menteeId,
             mentorId: this.state.mentorId,
@@ -218,19 +216,20 @@ export class SessionForm extends React.Component<{}, SessionState> {
 
     render() {
         return (
-            <main>
+            <div>
                 <form onSubmit={this.handleSubmit}>
-                    <SelectMentee />
-                    <SelectMentor />
-                    <SelectSessionGroupId />
-                    {/*<DidMentorAttendSession handleMentorAttendanceCheckbox = {this.handleMentorAttendanceCheckbox}/>*/}
-                    <ClockIn />
-                    <ClockOut />
-                    <SelectLeadStaffId />
-                    <SessionNotes />
-                    <SessionSubmit />
+                    <SelectMentee/>
+                    <SelectMentor/>
+                    <SelectSessionGroupId/>
+                    <DidMenteeAttendSession />
+                    <DidMentorAttendSession />
+                    <ClockIn/>
+                    <ClockOut/>
+                    <SelectLeadStaffId/>
+                    <SessionNotes/>
+                    <SessionSubmit/>
                 </form>
-            </main>
-        );
+            </div>
+        )
     }
 }

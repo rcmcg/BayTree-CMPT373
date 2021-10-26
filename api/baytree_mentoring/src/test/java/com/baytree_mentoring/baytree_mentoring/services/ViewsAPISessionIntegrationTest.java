@@ -23,4 +23,8 @@ class ViewsAPISessionIntegrationTest {
                 "Some notes");
         boolean retValue = viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
     }
+
+    void uploadSessionWhereMenteeIdDoesNotExist() {
+        // stub to implement test later
+    }
 }
