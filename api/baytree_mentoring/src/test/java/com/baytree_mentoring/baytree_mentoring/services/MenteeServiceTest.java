@@ -20,7 +20,7 @@ public class MenteeServiceTest {
         menteeService = mock(MenteeService.class);
     }
 
-    @DisplayName("should return a list of all mentors")
+    @DisplayName("should return a list of all mentees")
     @Test
     public void shouldReturnAListOfAllMentees() {
         // build
