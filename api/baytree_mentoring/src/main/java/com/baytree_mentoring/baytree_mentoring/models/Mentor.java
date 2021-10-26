@@ -37,11 +37,6 @@ public class Mentor {
 
     private String ethnicity;
 
-    //TODO many to one association
-//    @OneToMany
-//    @JoinColumn(name = "mentee_id")
-//    private List<Mentee> menteeList;
-
     public Mentor() {
 
     }

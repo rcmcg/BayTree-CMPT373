@@ -22,10 +22,6 @@ public class Mentee {
     @NotNull
     private String lastName;
 
-//    @OneToOne
-//    @JoinColumn(name = "mentor_id")
-//    private Mentor mentor;
-
     public Mentee() {
 
     }
