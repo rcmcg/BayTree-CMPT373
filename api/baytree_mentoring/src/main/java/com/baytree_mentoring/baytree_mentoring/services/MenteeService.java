@@ -18,7 +18,7 @@ public class MenteeService {
         menteeRepository.save(mentee);
     }
 
-    public List<Mentee> getAllMentors() {
+    public List<Mentee> getAllMentees() {
         return menteeRepository.findAll();
     }
 

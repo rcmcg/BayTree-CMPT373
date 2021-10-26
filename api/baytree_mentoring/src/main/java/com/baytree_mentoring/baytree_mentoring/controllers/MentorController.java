@@ -14,7 +14,7 @@ public class MentorController {
 
     private final MentorService mentorService;
 
-    private static final String SUCCESS = "User Added";
+    private static final String SUCCESS = "Mentor Added";
 
     public MentorController(MentorService mentorService) {
         this.mentorService = mentorService;
@@ -37,7 +37,6 @@ public class MentorController {
 
         String error = "Failed to add the Mentor.";
         throw new FailedUserAddingException(error);
-
     }
 
     @ResponseStatus(HttpStatus.OK)
