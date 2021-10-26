@@ -10,26 +10,27 @@ import java.util.Objects;
 
 public class ViewsAPISessionIntegration {
     private final ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
-    private final String viewsAPIUsername = "group.mercury";
-    private final String viewsAPIPassword = "Mercury!$%12";
 
     public String getViewsAPIUsername() {
+        String viewsAPIUsername = "group.mercury";
         return viewsAPIUsername;
     }
 
     public String getViewsAPIPassword() {
+        String viewsAPIPassword = "Mercury!$%12";
         return viewsAPIPassword;
     }
 
-    public final boolean sendCompletedSessionFormToViews(Session ses) throws UnirestException, ParseException {
+    public final void sendCompletedSessionFormToViews(Session ses) throws UnirestException, ParseException {
         try {
+            // TODO: Check that the mentee and mentor exist before creating the session,
+            //  otherwise the session is created then fails to update attendance, creating a useless session upload.
             String viewsSessionId = uploadSessionInformationGetSessionId(ses);
-            String menteeAttendanceResponse = uploadSessionAttendanceInformation(
+            uploadSessionAttendanceInformation(
                     String.valueOf(ses.getMenteeId()), viewsSessionId, ses.isDidMenteeAttend());
-            String mentorAttendanceResponse = uploadSessionAttendanceInformation(
+            uploadSessionAttendanceInformation(
                     String.valueOf(ses.getMentorId()), viewsSessionId, ses.isDidMentorAttend());
-            String uploadSessionNotesResponse = uploadSessionNotes(ses, viewsSessionId);
-            return true;
+            uploadSessionNotes(ses, viewsSessionId);
         } catch (UnirestException e) {
             System.out.println("sendCompletedSessionFormToViews: Failed to upload session to Views database");
             e.printStackTrace();
@@ -45,7 +46,6 @@ public class ViewsAPISessionIntegration {
         String venueId = getVenueIdForSessionGroupFromViews(String.valueOf(ses.getSessionGroupId()));
         String uploadJSON = viewsAPIJSONFormatter.createSessionUploadJSON(
                 ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), String.valueOf(ses.getLeadStaffId()), venueId);
-        System.out.println("uploadSessionInformation uploadJSON: " + uploadJSON);
         String viewsSessionId = sendSessionPostRequestGetNewSessionId(uploadJSON, ses.getSessionGroupId());
         return viewsSessionId;
     }
@@ -61,7 +61,7 @@ public class ViewsAPISessionIntegration {
                     .basicAuth(getViewsAPIUsername(), getViewsAPIPassword())
                     .asString();
             System.out.println("Response inside getVenueIdForSessionGroupFromViews: ");
-            System.out.println(response.getBody().toString());
+            System.out.println(response.getBody());
             if (response.getStatus() >= 200 && response.getStatus() < 300) {
                 return ViewsAPIJSONFormatter.parseVenueIdFromSessionGroupGetResponse(response);
             } else {
@@ -76,42 +76,46 @@ public class ViewsAPISessionIntegration {
         }
     }
 
-    private String sendSessionPostRequestGetNewSessionId(String body, long sessionGroupId) {
+    private String sendSessionPostRequestGetNewSessionId(String body, long sessionGroupId) throws UnirestException {
         Unirest.setTimeouts(0,0);
         try {
             String viewsSessionPostURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/%s/sessions";
-            HttpResponse<String> response = Unirest.post(String.format(viewsSessionPostURL, String.valueOf(sessionGroupId)))
+            HttpResponse<String> response = Unirest.post(String.format(viewsSessionPostURL, sessionGroupId))
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
                     .basicAuth("group.mercury", "Mercury!$%12")
                     .body(body)
                     .asString();
             System.out.println("Response inside sendSessionPostRequestGetNewSessionId: ");
-            System.out.println(response.getBody().toString());
+            System.out.println(response.getBody());
             return viewsAPIJSONFormatter.parseNewSessionIdFromSessionUploadResponse(response);
         } catch (UnirestException e) {
             e.printStackTrace();
-            return "";
+            throw e;
         }
     }
 
-    private String uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId, boolean attended) {
+    private String uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId, boolean attended) throws UnirestException {
         // Get proper JSON for updating attendance of mentor/mentee
-        // TODO: Update hardcoded "1" attended. See Federica's Piazza response on recording missed sessions
-        String stringAttended = "";
+        String stringAttended;
         if (attended) {
             stringAttended = "1";
         } else {
             stringAttended = "0";
         }
-        String uploadAttendanceJSON = viewsAPIJSONFormatter.createSessionAttendanceJSON
-                (viewsParticipantId, stringAttended);
-        // Send formatted JSON to Views for attendance of mentor/mentee
-        String sendSessionAttendanceResponse = sendSessionAttendancePostRequest(uploadAttendanceJSON, viewsSessionId);
-        return sendSessionAttendanceResponse;
+        try {
+            String uploadAttendanceJSON = viewsAPIJSONFormatter.createSessionAttendanceJSON
+                    (viewsParticipantId, stringAttended);
+            // Send formatted JSON to Views for attendance of mentor/mentee
+            String sendSessionAttendanceResponse = sendSessionAttendancePostRequest(uploadAttendanceJSON, viewsSessionId);
+            return sendSessionAttendanceResponse;
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
-    private String sendSessionAttendancePostRequest(String uploadAttendanceJSON, String viewsSessionId) {
+    private String sendSessionAttendancePostRequest(String uploadAttendanceJSON, String viewsSessionId) throws UnirestException {
         Unirest.setTimeouts(0,0);
         try {
             String viewsSessionAttendancePostURL =
@@ -123,15 +127,22 @@ public class ViewsAPISessionIntegration {
                     .body(uploadAttendanceJSON)
                     .asString();
             System.out.println("Response inside sendSessionAttendancePostRequest");
-            System.out.println(response.getBody().toString());
-            return response.getBody();
+            System.out.println(response.getBody());
+            if (response.getStatus() >= 200 && response.getStatus() < 300) {
+                return response.getBody();
+            } else {
+                String error = "Failed to post session attendance to Views";
+                throw new UnirestException(error);
+            }
         } catch (UnirestException e) {
+            System.out.println("Inside sendSessionAttendancePostRequest:");
+            System.out.println("Failed to post session attendance to Views");
             e.printStackTrace();
-            return "";
+            throw e;
         }
     }
 
-    private String uploadSessionNotes(Session ses, String viewsSessionId) {
+    private String uploadSessionNotes(Session ses, String viewsSessionId) throws UnirestException {
         // Get proper JSON for adding session notes to session
         String uploadSessionNotesJSON = viewsAPIJSONFormatter.createSessionNotesUploadJSON(ses.getSessionNotes());
         // Send formatted JSON to Views for session notes
@@ -139,7 +150,7 @@ public class ViewsAPISessionIntegration {
         return sendSessionNotesResponse;
     }
 
-    private String sendSessionNotesPostRequest(String uploadSessionNotesJSON, String viewsSessionId) {
+    private String sendSessionNotesPostRequest(String uploadSessionNotesJSON, String viewsSessionId) throws UnirestException {
         Unirest.setTimeouts(0,0);
         try {
             String viewsSessionNotesPostURL =
@@ -155,7 +166,7 @@ public class ViewsAPISessionIntegration {
             return response.getBody();
         } catch (UnirestException e) {
             e.printStackTrace();
-            return "";
+            throw e;
         }
     }
 

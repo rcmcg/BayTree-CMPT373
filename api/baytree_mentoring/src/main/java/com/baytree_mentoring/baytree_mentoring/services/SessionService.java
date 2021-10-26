@@ -45,15 +45,14 @@ public class SessionService {
 
     public boolean sendCompletedSessionFormToViews(Session ses) {
         System.out.println("Sending session to Views database: " + ses.toString());
-        boolean uploadSuccess = true;
         try {
-            uploadSuccess = viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
+            viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
+            return true;
         } catch (UnirestException | ParseException e) {
             System.out.println("Inside sendCompletedSessionFormToViews: Failed to upload session to Views.");
             e.printStackTrace();
-            uploadSuccess = false;
+            return false;
         }
-        return uploadSuccess;
     }
 }
 

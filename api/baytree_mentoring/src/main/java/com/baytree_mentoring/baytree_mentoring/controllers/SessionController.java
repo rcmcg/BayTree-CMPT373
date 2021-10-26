@@ -28,7 +28,7 @@ public class SessionController {
         if (uploadSuccess) {
             return SUCCESS;
         } else {
-            String error = "Failed to upload session to Views database";
+            String error = "SessionController.addSession: Failed to upload session to Views database";
             throw new FailedSessionAddingException(error);
         }
     }

@@ -6,8 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class ViewsAPISessionIntegrationTest {
     private ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
+
     @Test
     void uploadSessionInformationTest1() throws UnirestException, ParseException {
         // Mercury Mentee2 participantId is 39
@@ -24,10 +27,36 @@ class ViewsAPISessionIntegrationTest {
                 "2021-10-15 21:12:12 -0400",
                 28,
                 "Some notes");
-        boolean retValue = viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
+        assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
 
-    void uploadSessionWhereMenteeIdDoesNotExist() {
-        // stub to implement test later
+    @Test
+    void uploadSessionWhereMenteeIdDoesNotExist() throws UnirestException, ParseException {
+        Session ses = new Session(
+                -1,
+                42,
+                10,
+                true,
+                true,
+                "2021-10-15 20:12:12 -0400",
+                "2021-10-15 21:12:12 -0400",
+                28,
+                "Some notes");
+        assertThrows(UnirestException.class, () -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
+    }
+
+    @Test
+    void uploadSessionWhereSessionGroupIdDoesNotExist() throws UnirestException, ParseException {
+        Session ses = new Session(
+                39,
+                42,
+                -1,
+                true,
+                true,
+                "2021-10-15 20:12:12 -0400",
+                "2021-10-15 21:12:12 -0400",
+                28,
+                "Some notes");
+        assertThrows(UnirestException.class, () -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
 }
