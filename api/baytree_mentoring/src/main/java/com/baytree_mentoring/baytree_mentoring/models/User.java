@@ -20,6 +20,19 @@ public class User {
         this.status = status;
     }
 
+    public User(int viewsId, String firstName, String lastName, String email, String status, String startDate, String endDate, String phoneNumber, String ethnicity, String address) {
+        this.viewsId = viewsId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.phoneNumber = phoneNumber;
+        this.ethnicity = ethnicity;
+        this.address = address;
+    }
+
     @Id
     private int viewsId;
 
