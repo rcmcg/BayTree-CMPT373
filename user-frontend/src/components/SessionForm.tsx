@@ -189,7 +189,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
         .catch(function (error: AxiosError) {
             // TODO: Interpret and display a relevant message for user
             // E.g., "You've already uploaded a session for this date"
-            alert('Failed to upload session to session. Please try again later.')
+            alert('Failed to upload session. Please try again later.')
             console.log(error);
         })
     }

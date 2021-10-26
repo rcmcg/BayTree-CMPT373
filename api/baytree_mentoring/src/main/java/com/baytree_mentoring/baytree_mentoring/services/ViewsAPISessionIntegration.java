@@ -76,8 +76,8 @@ public class ViewsAPISessionIntegration {
         }
     }
 
-    private void uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId, boolean attended) throws UnirestException {
-        // Get proper JSON for updating attendance of mentor/mentee
+    private void uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId, boolean attended)
+            throws UnirestException {
         String stringAttended;
         if (attended) {
             stringAttended = "1";
@@ -87,10 +87,10 @@ public class ViewsAPISessionIntegration {
         try {
             String uploadAttendanceJSON = viewsAPIJSONFormatter.createSessionAttendanceJSON
                     (viewsParticipantId, stringAttended);
-            String viewsSessionAttendancePostURL =
-                    "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/%s/participants";
-            String formattedViewsSessionAttendancePostURL = String.format(viewsSessionAttendancePostURL, viewsSessionId);
-            sendUnirestPostRequest(formattedViewsSessionAttendancePostURL, uploadAttendanceJSON);
+            String viewsSessionAttendancePostURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/" +
+                            viewsSessionId +
+                            "/participants";
+            sendUnirestPostRequest(viewsSessionAttendancePostURL, uploadAttendanceJSON);
         } catch (UnirestException e) {
             e.printStackTrace();
             throw e;
@@ -105,6 +105,7 @@ public class ViewsAPISessionIntegration {
     }
 
     private HttpResponse<String> sendUnirestGetRequest(String URL) throws UnirestException {
+        Unirest.setTimeouts(0,0);
         try {
             HttpResponse<String> response = Unirest.get(URL)
                     .header("Content-Type", "application/json")
