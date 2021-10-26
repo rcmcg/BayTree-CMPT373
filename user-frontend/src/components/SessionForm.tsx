@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
 import 'moment-timezone';
+import "../css/SessionForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
@@ -114,7 +115,7 @@ class SessionNotes extends React.Component {
                 <label form="sessionNotes">
                     Session notes. If you or the mentee did not attend the session, please explain why.
                 </label>
-                <textarea id={"sessionNotesId"} name={"sessionNotes"} rows={5} cols={33}/>
+                <textarea id="sessionNotesId" name="sessionNotes"/>
             </div>
         )
     }
@@ -124,7 +125,9 @@ class SessionSubmit extends React.Component {
     render() {
         return (
             <div>
-                <input type="submit" value="Submit"/>
+                <button className={"ui primary button"}>
+                    Submit
+                </button>
             </div>
         )
     }
@@ -215,20 +218,24 @@ export class SessionForm extends React.Component<{}, SessionState> {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <SelectMentee/>
-                    <SelectMentor/>
-                    <SelectSessionGroupId/>
-                    <DidMenteeAttendSession />
-                    <DidMentorAttendSession />
-                    <ClockIn/>
-                    <ClockOut/>
-                    <SelectLeadStaffId/>
-                    <SessionNotes/>
-                    <SessionSubmit/>
-                </form>
-            </div>
-        )
+            <main>
+                <div className={"ui form sessionForm"}>
+                    <form onSubmit={this.handleSubmit}>
+                        <SelectMentee /> <br/>
+                        <SelectMentor /> <br/>
+                        <SelectSessionGroupId /> <br/>
+                        <DidMenteeAttendSession /> <br/>
+                        <DidMentorAttendSession /> <br/>
+                        <ClockIn /> <br/>
+                        <ClockOut /> <br/>
+                        <SelectLeadStaffId /> <br/>
+                        <SessionNotes /> <br/>
+                        <span className={"submitButtonFormat"}>
+                            <SessionSubmit /> <br />
+                        </span>
+                    </form>
+                </div>
+            </main>
+        );
     }
 }
