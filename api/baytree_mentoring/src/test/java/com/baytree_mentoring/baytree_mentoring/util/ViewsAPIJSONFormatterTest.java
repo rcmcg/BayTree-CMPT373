@@ -1,5 +1,7 @@
-package com.baytree_mentoring.baytree_mentoring.services;
+package com.baytree_mentoring.baytree_mentoring.util;
 
+import com.baytree_mentoring.baytree_mentoring.util.ViewsAPIJSONFormatter;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsAPISessionIntegration;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;

@@ -1,6 +1,7 @@
-package com.baytree_mentoring.baytree_mentoring.services;
+package com.baytree_mentoring.baytree_mentoring.util;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsAPISessionIntegration;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.Test;
 

@@ -32,17 +32,5 @@ public class SessionController {
             throw new FailedSessionAddingException(error);
         }
     }
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/session/get/all")
-    private List<Session> getAllSession() {
-        return sessionService.getAllSession();
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/session/delete/{mentoringSessionId}")
-    public void deleteStudent(@PathVariable long mentoringSessionId) {
-        sessionService.deleteSession(mentoringSessionId);
-    }
 }
 
