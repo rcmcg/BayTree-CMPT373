@@ -22,20 +22,20 @@ public class Mentor {
     @NotNull
     private String lastName;
 
-    private String status;
-
-    private String role;
-
-    private String startDate;
-
-    private String endDate;
-
-    private String phoneNumber;
-
-    @NotNull
-    private String email;
-
-    private String ethnicity;
+//    private String status;
+//
+//    private String role;
+//
+//    private String startDate;
+//
+//    private String endDate;
+//
+//    @NotNull
+//    private String email;
+//
+//    private String phoneNumber;
+//
+//    private String ethnicity;
 
     //TODO many to one association
 //    @OneToMany
