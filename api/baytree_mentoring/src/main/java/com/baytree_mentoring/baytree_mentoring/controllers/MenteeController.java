@@ -24,12 +24,8 @@ public class MenteeController {
         Mentee mentee = new Mentee(mte.getMenteeId(), mte.getFirstName(),mte.getLastName());
         menteeService.add(mentee);
 
-        List<Mentee> mentees = menteeService.getAllMentees();
-
-        for(Mentee m : mentees) {
-            if(m.getMenteeId() == m.getMenteeId()) {
-                return SUCCESS;
-            }
+        if (menteeService.isMenteeAdded(mentee)) {
+            return SUCCESS;
         }
 
         String error = "Failed to add the Mentee.";

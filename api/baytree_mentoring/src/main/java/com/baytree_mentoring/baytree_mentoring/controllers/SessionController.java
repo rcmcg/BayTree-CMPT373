@@ -1,6 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
-import com.baytree_mentoring.baytree_mentoring.exceptions.FailedMentorAddingException;
+import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.services.SessionService;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class SessionController {
                 return SUCCESS;
             } else{
                 String error = "Failed to add the Session.";
-                throw new FailedMentorAddingException(error);
+                throw new FailedSessionAddingException(error);
             }
         } else {
             // Session form is incomplete (missing clock out time), need to save in database until completed
@@ -49,7 +49,7 @@ public class SessionController {
         }
 
         String error = "Failed to add the Session.";
-        throw new FailedMentorAddingException(error);
+        throw new FailedSessionAddingException(error);
     }
 
     @ResponseStatus(HttpStatus.OK)

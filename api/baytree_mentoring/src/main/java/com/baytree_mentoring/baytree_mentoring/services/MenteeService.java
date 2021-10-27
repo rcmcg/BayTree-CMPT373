@@ -22,4 +22,7 @@ public class MenteeService {
         return menteeRepository.findAll();
     }
 
+    public boolean isMenteeAdded(Mentee mentee) {
+        return menteeRepository.existsById(mentee.getMenteeId());
+    }
 }
