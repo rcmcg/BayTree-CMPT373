@@ -1,0 +1,154 @@
+.loginpage {
+  align-items: flex-start;
+  display: flex;
+  height: 1078px;
+  overflow: hidden;
+  width: 2003px;
+}
+
+.baytree-leaf-background {
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 1335px;
+  position: relative;
+  width: 2003px;
+}
+
+.login-window {
+  border-radius: 32px;
+  height: 955px;
+  left: 275px;
+  object-fit: cover;
+  position: absolute;
+  top: 59px;
+  width: 1365px;
+}
+
+.baytree-logo {
+  height: 267px;
+  left: 417px;
+  object-fit: cover;
+  position: absolute;
+  top: 130px;
+  width: 221px;
+}
+
+.login-button {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  height: 72px;
+  left: 728px;
+  min-width: 274px;
+  position: absolute;
+  top: 810px;
+  transition: all 0.2s ease;
+}
+
+.login-button:hover {
+  transform: scale(0.9); 
+}
+
+.overlap-login-button {
+  border-radius: 12px;
+  height: 72px;
+  position: relative;
+  width: 274px;
+}
+
+.login-button-border{
+  border-radius: 12px;
+  cursor: pointer;
+  height: 72px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  transition: all 0.2s ease;
+  width: 274px;
+}
+
+.login-text {
+  height: 43px;
+  left: 89px;
+  object-fit: cover;
+  position: absolute;
+  top: 18px;
+  width: 87px;
+}
+
+.i-forgot-my-password-redirection {
+  height: 25px;
+  left: 728px;
+  object-fit: cover;
+  position: absolute;
+  top: 926px;
+  width: 236px;
+}
+
+.mentorship-programme-text {
+  height: 55px;
+  left: 728px;
+  object-fit: cover;
+  position: absolute;
+  top: 183px;
+  width: 618px;
+}
+
+.what-type-of-user-text {
+  height: 25px;
+  left: 732px;
+  object-fit: cover;
+  position: absolute;
+  top: 372px;
+  width: 226px;
+}
+
+.account-type-selected {
+  border-radius: 12px;
+  height: 35px;
+  left: 734px;
+  object-fit: cover;
+  position: absolute;
+  top: 419px;
+  width: 35px;
+}
+
+.account-type-unselected {
+  border-radius: 12px;
+  height: 35px;
+  left: 1024px;
+  object-fit: cover;
+  position: absolute;
+  top: 419px;
+  width: 35px;
+}
+
+.admin-text {
+  height: 25px;
+  left: 1079px;
+  object-fit: cover;
+  position: absolute;
+  top: 424px;
+  width: 73px;
+}
+
+.mentor-mentee-text {
+  height: 25px;
+  left: 789px;
+  object-fit: cover;
+  position: absolute;
+  top: 424px;
+  width: 169px;
+}
+
+.login-page-text {
+  height: 50px;
+  left: 727px;
+  object-fit: cover;
+  position: absolute;
+  top: 251px;
+  width: 256px;
+}
+
+
