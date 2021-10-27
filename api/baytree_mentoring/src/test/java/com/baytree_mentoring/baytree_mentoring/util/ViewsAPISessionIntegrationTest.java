@@ -13,7 +13,7 @@ class ViewsAPISessionIntegrationTest {
     private ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
 
     @Test
-    void uploadSessionInformationTest1() throws UnirestException, ParseException {
+    void uploadSessionInformationTest() throws UnirestException, ParseException {
         // Mercury Mentee2 participantId is 39
         // Mercury Mentor participantId is 42
         // Mercury Test Session Group is 10

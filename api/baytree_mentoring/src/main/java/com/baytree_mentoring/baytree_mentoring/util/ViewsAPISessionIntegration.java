@@ -113,7 +113,7 @@ public class ViewsAPISessionIntegration {
                     .basicAuth(getViewsAPIUsername(), getViewsAPIPassword())
                     .asString();
             System.out.println(response.getBody());
-            if (!(response.getStatus() >= 200 && response.getStatus() < 300)) {
+            if (httpResponseIsNotOk(response.getStatus())) {
                 String error = "Failed to send/receive get request to " + URL;
                 throw new UnirestException(error);
             } else {
@@ -135,7 +135,7 @@ public class ViewsAPISessionIntegration {
                     .body(body)
                     .asString();
             System.out.println(response.getBody());
-            if (!(response.getStatus() >= 200 && response.getStatus() < 300)) {
+            if (httpResponseIsNotOk(response.getStatus())) {
                 String error = "Post request to " + URL + " failed";
                 throw new UnirestException(error);
             } else {
@@ -145,6 +145,10 @@ public class ViewsAPISessionIntegration {
             e.printStackTrace();
             throw e;
         }
+    }
+
+    private boolean httpResponseIsNotOk(int statusCode) {
+        return statusCode < 200 || statusCode >= 300;
     }
 
     private void deleteSession(String viewsSessionId) {

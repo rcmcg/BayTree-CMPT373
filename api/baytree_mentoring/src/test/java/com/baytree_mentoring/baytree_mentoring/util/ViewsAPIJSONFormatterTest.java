@@ -15,7 +15,7 @@ class ViewsAPIJSONFormatterTest {
     ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
     ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
     @Test
-    void formatSessionUploadJSONTest1() throws ParseException {
+    void formatSessionUploadJSONTest() throws ParseException {
         String clockInTime = "2021-09-28 20:12:12";
         String clockOutTime = "2021-09-28 21:12:12";
         String leadStaff = "28";
@@ -27,7 +27,7 @@ class ViewsAPIJSONFormatterTest {
     }
 
     @Test
-    void createSessionAttendanceJSONTest1() {
+    void createSessionAttendanceJSONTest() {
         String viewsPersonId = "59";
         String attended = "1";
         String volunteering = "";
@@ -38,7 +38,7 @@ class ViewsAPIJSONFormatterTest {
     }
 
     @Test
-    void parseVenueIdFromSessionGroupGetResponseTest1() {
+    void parseVenueIdFromSessionGroupGetResponseTest() {
         String mercuryTestSessionGroupId = "10";
         Unirest.setTimeouts(0,0);
         try {
