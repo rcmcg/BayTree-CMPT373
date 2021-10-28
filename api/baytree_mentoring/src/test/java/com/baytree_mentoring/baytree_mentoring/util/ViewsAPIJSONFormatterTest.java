@@ -46,7 +46,7 @@ class ViewsAPIJSONFormatterTest {
             HttpResponse<String> response = Unirest.get(String.format(viewsSessionGetURL, mercuryTestSessionGroupId))
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
-                    .basicAuth(viewsAPISessionIntegration.viewsAPIUsername, viewsAPISessionIntegration.viewsAPIPassword)
+                    .basicAuth(viewsAPISessionIntegration.getViewsAPIUsername(), viewsAPISessionIntegration.getViewsAPIPassword())
                     .asString();
             System.out.println("Response inside getVenueIdForSessionGroupFromViews: ");
             System.out.println(response.getBody().toString());
