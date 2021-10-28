@@ -9,16 +9,8 @@ import java.text.ParseException;
 
 public class ViewsAPISessionIntegration {
     private final ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
-
-    public String getViewsAPIUsername() {
-        String viewsAPIUsername = "group.mercury";
-        return viewsAPIUsername;
-    }
-
-    public String getViewsAPIPassword() {
-        String viewsAPIPassword = "Mercury!$%12";
-        return viewsAPIPassword;
-    }
+    public String viewsAPIUsername = "group.mercury";
+    public String viewsAPIPassword = "Mercury!$%12";
 
     public final void sendCompletedSessionFormToViews(Session ses) throws UnirestException, ParseException {
         try {
@@ -110,7 +102,7 @@ public class ViewsAPISessionIntegration {
             HttpResponse<String> response = Unirest.get(URL)
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
-                    .basicAuth(getViewsAPIUsername(), getViewsAPIPassword())
+                    .basicAuth(this.viewsAPIUsername, this.viewsAPIPassword)
                     .asString();
             System.out.println(response.getBody());
             if (httpResponseIsNotOk(response.getStatus())) {
@@ -131,7 +123,7 @@ public class ViewsAPISessionIntegration {
             HttpResponse<String> response = Unirest.post(URL)
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
-                    .basicAuth(getViewsAPIUsername(), getViewsAPIPassword())
+                    .basicAuth(viewsAPIUsername, viewsAPIPassword)
                     .body(body)
                     .asString();
             System.out.println(response.getBody());
