@@ -2,6 +2,7 @@ import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
 import Moment from 'react-moment';
 import 'moment-timezone';
+import "../css/SessionForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
@@ -53,7 +54,7 @@ class SessionNotes extends React.Component {
         return (
             <div>
                 <label form="sessionNotes">Session notes </label>
-                <input type="text" id="sessionNotesId" name="sessionNotes"/>
+                <textarea id="sessionNotesId" name="sessionNotes"/>
             </div>
         )
     }
@@ -63,7 +64,9 @@ class SessionSubmit extends React.Component {
     render() {
         return (
             <div>
-                <input type="submit" value="Submit"/>
+                <button className={"ui primary button"}>
+                    Submit
+                </button>
             </div>
         )
     }
@@ -139,13 +142,17 @@ export class SessionForm extends React.Component<{}, SessionState> {
     render() {
         return (
             <main>
-                <form onSubmit={this.handleSubmit}>
-                    <SelectMentee />
-                    <ClockIn />
-                    <ClockOut />
-                    <SessionNotes />
-                    <SessionSubmit />
-                </form>
+                <div className={"ui form sessionForm"}>
+                    <form onSubmit={this.handleSubmit}>
+                        <SelectMentee /> <br/>
+                        <ClockIn /> <br/>
+                        <ClockOut /> <br/>
+                        <SessionNotes /> <br/>
+                        <span className={"submitButtonFormat"}>
+                            <SessionSubmit /> <br />
+                        </span>
+                    </form>
+                </div>
             </main>
         );
     }
