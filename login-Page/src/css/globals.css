@@ -3,7 +3,7 @@
 @font-face {
   font-family: "Helvetica-Light";
   font-weight: 200;
-  src: url("static/fonts/Helvetica Light.ttf") format("truetype");
+  src: url("../resources/Static/Fonts/Helvetica_Light.ttf") format("truetype");
 }
 
 .screen a {
