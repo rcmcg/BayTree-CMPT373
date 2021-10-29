@@ -14,13 +14,15 @@ const NavigationBar = () => {
 
     return (
 
-        <IconContext.Provider value={{ color: '#fff' }}>
+        <IconContext.Provider value={{ color: '#000000' }}>
             <nav className={"navbar"}>
 
                 <div className={"navbar-container container"}>
-                    <img className={"brand-logo"}
-                         src={baytreeLogo}
-                         alt={"Baytree-logo"}/>
+                    <Link to={"/"}>
+                        <img className={"brand-logo"}
+                             src={baytreeLogo}
+                             alt={"Baytree-logo"}/>
+                    </Link>
                 </div>
 
                 <div className={"menu-icon"} onClick={handleClick}>

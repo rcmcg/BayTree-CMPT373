@@ -1,17 +1,17 @@
 body {
     margin: 0;
-    padding-top: 150px;     /* 150 px is the size of the header */
+    padding-top: 100px;     /* 150 px is the size of the header */
     font-family: sans-serif ;
     padding-left: 10px;
 }
 
 .brand-logo {
     width: 150px;
-    height: 100px;
+    height: 80px;
     line-height: 70px;
     float: left;
-    padding-top: 20px;
-    padding-left: 40px;
+    padding-top: 17px;
+    padding-left: 10px;
 }
 
 nav{
@@ -61,7 +61,8 @@ ul li a:focus {
 
 .header-component {
     text-decoration: underline;
-    font-size: 15px;
+    font-size: 17px;
     height: 15px;
+    font-weight: bold;
 }
 
