@@ -23,26 +23,32 @@ public class Session {
 
     @NotNull
     private long menteeId;
-
+    private long mentorId;
+    private long sessionGroupId;
+    private boolean didMenteeAttend;
+    private boolean didMentorAttend;
     @NotNull
     private String clockInTimeLocal;
-
     @NotNull
     private String clockOutTimeLocal;
-
     private Instant clockInTimeUTC;
-
     private Instant clockOutTimeUTC;
+    private long leadStaffId;
 
     @NotNull
     private String sessionNotes;
 
-
-
-    public Session(long menteeId, String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {
+    public Session(long menteeId, long mentorId, long sessionGroupId, boolean didMenteeAttend, boolean didMentorAttend,
+                   String clockInTimeLocal, String clockOutTimeLocal,
+                   long leadStaffId, String sessionNotes) {
         this.menteeId = menteeId;
+        this.mentorId = mentorId;
+        this.sessionGroupId = sessionGroupId;
+        this.didMenteeAttend = didMenteeAttend;
+        this.didMentorAttend = didMentorAttend;
         this.clockInTimeLocal = clockInTimeLocal;
         this.clockOutTimeLocal = clockOutTimeLocal;
+        this.leadStaffId = leadStaffId;
         this.sessionNotes = sessionNotes;
 
         this.clockInTimeUTC = convertToUTC(clockInTimeLocal);

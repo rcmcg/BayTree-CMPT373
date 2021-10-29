@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
-import Moment from 'react-moment';
 import 'moment-timezone';
 import "../css/SessionForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
@@ -11,9 +10,14 @@ moment().format();
 
 interface SessionState {
     menteeId: number,
+    mentorId: number,
+    sessionGroupId: number,
+    didMenteeAttend: boolean,
+    didMentorAttend: boolean,
     clockInTimeLocal: string,
     clockOutTimeLocal: string,
-    sessionNotes?: string
+    leadStaffId: number,
+    sessionNotes: string
 }
 
 class SelectMentee extends React.Component {
@@ -22,6 +26,61 @@ class SelectMentee extends React.Component {
             <div>
                 <label form="selectMenteeId">Mentee id </label>
                 <input type="number" id="selectMenteeId" name="menteeId" required/>
+            </div>
+        )
+    }
+}
+
+class SelectMentor extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="selectMentorId">Mentor id </label>
+                <input type="number" id="selectMentorId" name="mentorId" required/>
+            </div>
+        )
+    }
+}
+
+class SelectSessionGroupId extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="selectSessionGroupId">Session group id </label>
+                <input type="number" id="selectSessionGroupId" name="sessionGroupId" required/>
+            </div>
+        )
+    }
+}
+
+class DidMenteeAttendSession extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="didMenteeAttend">Did the mentee attend the session?</label>
+                <input type="checkbox" id="didMenteeAttend" name="didMenteeAttend" defaultChecked/>
+            </div>
+        )
+    }
+}
+
+class DidMentorAttendSession extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="didMentorAttend">Did the mentor attend the session?</label>
+                <input type="checkbox" id="didMentorAttend" name="didMentorAttend" defaultChecked/>
+            </div>
+        )
+    }
+}
+
+class SelectLeadStaffId extends React.Component {
+    render () {
+        return (
+            <div>
+                <label form="selectLeadStaffId">Lead staff (supervisor) id </label>
+                <input type="number" id="selectLeadStaffId" name="leadStaffId" required/>
             </div>
         )
     }
@@ -53,7 +112,9 @@ class SessionNotes extends React.Component {
     render () {
         return (
             <div>
-                <label form="sessionNotes">Session notes </label>
+                <label form="sessionNotes">
+                    Session notes. If you or the mentee did not attend the session, please explain why.
+                </label>
                 <textarea id="sessionNotesId" name="sessionNotes"/>
             </div>
         )
@@ -77,8 +138,13 @@ export class SessionForm extends React.Component<{}, SessionState> {
         super(props);
         this.state = {
             menteeId: -1,
+            mentorId: -1,
+            sessionGroupId: -1,
+            didMenteeAttend: true,
+            didMentorAttend: true,
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
+            leadStaffId: -1,
             sessionNotes: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -89,8 +155,13 @@ export class SessionForm extends React.Component<{}, SessionState> {
     handleSubmit(event: any) {
         this.setState({
             menteeId: event.target.selectMenteeId.value,
+            mentorId: event.target.selectMentorId.value,
+            sessionGroupId: event.target.selectSessionGroupId.value,
+            didMenteeAttend: event.target.didMenteeAttend.checked,
+            didMentorAttend: event.target.didMentorAttend.checked,
             clockInTimeLocal: event.target.clockInId.value,
             clockOutTimeLocal: event.target.clockOutId.value,
+            leadStaffId: event.target.selectLeadStaffId.value,
             sessionNotes: event.target.sessionNotesId.value
         }, this.processUserSubmission)
         event.target.reset()
@@ -102,8 +173,13 @@ export class SessionForm extends React.Component<{}, SessionState> {
         const url = backendApiURL + '/session/add/'
         axios.post(url, {
             menteeId: this.state.menteeId,
+            mentorId: this.state.mentorId,
+            sessionGroupId: this.state.sessionGroupId,
+            didMenteeAttend: this.state.didMenteeAttend,
+            didMentorAttend: this.state.didMentorAttend,
             clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
             clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
+            leadStaffId: this.state.leadStaffId,
             sessionNotes: this.state.sessionNotes
         })
         .then(function (response: AxiosResponse) {
@@ -116,6 +192,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
         .catch(function (error: AxiosError) {
             // TODO: Interpret and display a relevant message for user
             // E.g., "You've already uploaded a session for this date"
+            alert('Failed to upload session. Please try again later.')
             console.log(error);
         })
     }
@@ -145,8 +222,13 @@ export class SessionForm extends React.Component<{}, SessionState> {
                 <div className={"ui form sessionForm"}>
                     <form onSubmit={this.handleSubmit}>
                         <SelectMentee /> <br/>
+                        <SelectMentor /> <br/>
+                        <SelectSessionGroupId /> <br/>
+                        <DidMenteeAttendSession /> <br/>
+                        <DidMentorAttendSession /> <br/>
                         <ClockIn /> <br/>
                         <ClockOut /> <br/>
+                        <SelectLeadStaffId /> <br/>
                         <SessionNotes /> <br/>
                         <span className={"submitButtonFormat"}>
                             <SessionSubmit /> <br />

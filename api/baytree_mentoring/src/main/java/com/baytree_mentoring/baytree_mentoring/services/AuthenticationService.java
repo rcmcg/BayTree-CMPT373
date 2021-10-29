@@ -1,9 +1,7 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Authentication;
-import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.repositories.AuthenticationRepository;
-import com.baytree_mentoring.baytree_mentoring.repositories.SessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
