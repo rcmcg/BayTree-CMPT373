@@ -18,7 +18,6 @@ public class UsersController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/mentors")
     public String getAllUsers(){
-        return userService.getMentorsFromViews();
+        return userService.getAllUsersFromViewsThenUpdateDatabase();
     }
-
 }
