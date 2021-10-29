@@ -32,7 +32,12 @@ public class UserService {
 //        return (ArrayList<User>) userRepository.findAll();
 //    }
 
-    public String getMentorsFromViews(){
+    public String getAllUsersFromViewsThenUpdateDatabase(){
+        String response = getJsonMentorsFromViews();
+        return parse(response.toString());
+    }
+
+    public String getJsonMentorsFromViews(){
         int status = -1;
         BufferedReader reader;
         String line;
@@ -75,16 +80,15 @@ public class UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return parse(responseContent.toString());
-        //return responseContent.toString();
+        return responseContent.toString();
     }
 
     public String parse(String responseBody){
         JSONObject body = new JSONObject(responseBody);
-        //System.out.println(body.length());
+
         String beginingKey = body.names().getString(0);
         JSONObject volunteers = body.getJSONObject(beginingKey);
-        //System.out.println(volunteers.length());
+
 
         for(int i =0; i < volunteers.names().length() ; i++){
             System.out.println("key = " + volunteers.names().getString(i));
@@ -105,11 +109,6 @@ public class UserService {
             String address = volunteer.getString("Address1");
             String role = "Mentor";
 
-//            System.out.println(viewsId);
-//            System.out.println(firstName);
-//            System.out.println(lastName);
-//            System.out.println(email);
-//            System.out.println(status);
             User user = new User(viewsId,firstName,lastName,name,email,status,startDate,endDate,phoneNumber,ethnicity,address,role);
             addMentorToDatabase(user);
         }
