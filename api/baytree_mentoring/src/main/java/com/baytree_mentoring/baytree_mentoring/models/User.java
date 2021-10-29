@@ -12,14 +12,6 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class User {
 
-    public User(int viewsId, String firstName, String lastName, String email, String status) {
-        this.viewsId = viewsId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.status = status;
-    }
-
     public User(int viewsId, String firstName, String lastName, String name, String email,
                 String status, String startDate, String endDate, String phoneNumber,
                 String ethnicity, String address, String role) {
@@ -62,51 +54,4 @@ public class User {
 
     String role;
 
-    public String getName() {
-        return name;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getEthnicity() {
-        return ethnicity;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public int getViewsId() {
-        return viewsId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getStatus() {
-        return status;
-    }
 }
