@@ -28,9 +28,9 @@ public class UserService {
     }
 
 
-//    public ArrayList<User> getAllMentorsFromDatabase(){
-//        return (ArrayList<User>) userRepository.findAll();
-//    }
+    public ArrayList<User> getAllMentorsFromDatabase(){
+        return (ArrayList<User>) userRepository.findAll();
+    }
 
     public String getAllUsersFromViewsThenUpdateDatabase(){
         String response = getJsonMentorsFromViews();
