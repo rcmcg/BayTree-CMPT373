@@ -28,12 +28,12 @@ public class MenteeServiceTest {
 
         // operate
         menteeService.add(mentee);
-        doReturn(List.of(mentee)).when(menteeService).getAllMentees();
+        doReturn(List.of(mentee)).when(menteeService).getAllMenteesFromDatabase();
 
         // check
         assertAll(
-                () -> assertEquals(menteeService.getAllMentees().size(), List.of(mentee).size()),
-                () -> assertEquals(menteeService.getAllMentees().get(0), mentee)
+                () -> assertEquals(menteeService.getAllMenteesFromDatabase().size(), List.of(mentee).size()),
+                () -> assertEquals(menteeService.getAllMenteesFromDatabase().get(0), mentee)
         );
     }
 }
