@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
+import "../css/MonthlyQuestionnaireForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
@@ -17,7 +18,7 @@ class SelectMentor extends React.Component {
     render () {
         return (
             <div>
-                <label form="mentorNameId">Mentor Name</label>
+                <label form="mentorNameId">Mentor Name </label>
                 <input type="text" id="mentorNameId" name="mentorName" required/>
             </div>
         )
@@ -28,7 +29,7 @@ class SelectMentee extends React.Component {
     render () {
         return (
             <div>
-                <label form="menteeNameId">Mentee Name</label>
+                <label form="menteeNameId">Mentee Name </label>
                 <input type="text" id="menteeNameId" name="menteeName" required/>
             </div>
         )
@@ -39,7 +40,7 @@ class SubmissionTime extends React.Component {
     render() {
         return (
             <div>
-                <label form="submissionTimeId">Session clock in date and time</label>
+                <label form="submissionTimeId">Session clock in date and time </label>
                 <input type="datetime-local" id="submissionTimeId" name="submissionTimeLocal" required/>
             </div>
         );
@@ -50,7 +51,7 @@ class SelectMonth extends React.Component {
     render () {
         return (
             <div>
-                <label form="monthId">Month</label>
+                <label form="monthId">Month </label>
                 <select id="monthId" name="month" required>
                     <option value="">N/A</option>
                     <option value="1">1</option>
@@ -75,7 +76,7 @@ class SelectMenteeEngagementScore extends React.Component {
     render () {
         return (
             <div>
-                <label form="menteeEngagementScoreId">Mentee Engagement Score</label>
+                <label form="menteeEngagementScoreId">Mentee Engagement Score </label>
                 <select id="menteeEngagementScoreId" name="menteeEngagementScore" required>
                     <option value="">N/A</option>
                     <option value="1">1</option>
@@ -93,7 +94,7 @@ class SelectMenteeArrivalScore extends React.Component {
     render () {
         return (
             <div>
-                <label form="menteeArrivalScoreId">Mentee Arrival Score</label>
+                <label form="menteeArrivalScoreId">Mentee Arrival Score </label>
                 <select id="menteeArrivalScoreId" name="menteeArrivalScore" required>
                     <option value="">N/A</option>
                     <option value="1">1</option>
@@ -111,7 +112,9 @@ class SessionSubmit extends React.Component {
     render() {
         return (
             <div>
-                <input type="submit" value="Submit"/>
+                <button className={"ui primary button"}>
+                    Submit
+                </button>
             </div>
         )
     }
@@ -181,15 +184,19 @@ export class MonthlyQuestionnaireForm extends React.Component<{}, MonthlyQuestio
     render() {
         return (
             <main>
-                <form onSubmit={this.handleSubmit}>
-                    <SelectMentor />
-                    <SelectMentee />
-                    <SubmissionTime />
-                    <SelectMonth />
-                    <SelectMenteeEngagementScore />
-                    <SelectMenteeArrivalScore />
-                    <SessionSubmit />
-                </form>
+                <div className={"ui form monthlyQuestionnaireForm"}>
+                    <form onSubmit={this.handleSubmit}>
+                        <SelectMentor /> <br/>
+                        <SelectMentee /> <br/>
+                        <SubmissionTime /> <br/>
+                        <SelectMonth /> <br/>
+                        <SelectMenteeEngagementScore /> <br/>
+                        <SelectMenteeArrivalScore /> <br/>
+                        <span className={"submitButtonFormat"}>
+                            <SessionSubmit /> <br/>
+                        </span>
+                    </form>
+                </div>
             </main>
         );
     }

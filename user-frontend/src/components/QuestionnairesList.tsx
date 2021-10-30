@@ -13,8 +13,8 @@ export const ListBody: React.FC<IProps> = ({questionnaires}) => {
         return questionnaires.map(questionnaire => {
 
             function routeChange() {
-                let month = questionnaire.title;
-                history.push(`/SingleQuestionnaire/${month}`);
+                let title = questionnaire.title;
+                history.push(`/SingleQuestionnaire/${title}`);
             }
 
             return (

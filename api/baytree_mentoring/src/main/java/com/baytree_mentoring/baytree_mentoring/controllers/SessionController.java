@@ -23,28 +23,13 @@ public class SessionController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/session/add")
     private String addSession(@RequestBody Session ses) {
-        Session session = new Session(ses.getMenteeId(), ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), ses.getSessionNotes());
-
-        sessionService.addSession(session);
-
-        if(sessionService.isSessionAdded(session)) {
+        boolean uploadSuccess = sessionService.sendCompletedSessionFormToViews(ses);
+        if (uploadSuccess) {
             return SUCCESS;
+        } else {
+            String error = "Failed to upload session to Views database";
+            throw new FailedSessionAddingException(error);
         }
-
-        String error = "Failed to add the Session.";
-        throw new FailedSessionAddingException(error);
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/session/get/all")
-    private List<Session> getAllSession() {
-        return sessionService.getAllSession();
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/session/delete/{mentoringSessionId}")
-    public void deleteStudent(@PathVariable long mentoringSessionId) {
-        sessionService.deleteSession(mentoringSessionId);
     }
 }
 

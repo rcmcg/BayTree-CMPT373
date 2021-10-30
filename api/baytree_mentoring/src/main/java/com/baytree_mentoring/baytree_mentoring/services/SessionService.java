@@ -1,34 +1,28 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
-import com.baytree_mentoring.baytree_mentoring.repositories.SessionRepository;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsAPISessionIntegration;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.text.ParseException;
 
 @Service
 public class SessionService {
-    private final SessionRepository sessionRepository;
+    private final ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
 
-    public SessionService(SessionRepository sessionRepository) {
-        this.sessionRepository = sessionRepository;
+    public SessionService() {}
+
+    public boolean sendCompletedSessionFormToViews(Session ses) {
+        System.out.println("Sending session to Views database: " + ses.toString());
+        try {
+            viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
+            return true;
+        } catch (UnirestException | ParseException e) {
+            System.out.println("Inside sendCompletedSessionFormToViews: Failed to upload session to Views.");
+            e.printStackTrace();
+            return false;
+        }
     }
-
-    public void addSession(Session session) {
-        sessionRepository.save(session);
-    }
-
-    public List<Session> getAllSession() {
-        return sessionRepository.findAll();
-    }
-
-    public boolean isSessionAdded(Session session) {
-        return sessionRepository.existsById(session.getMentoringSessionId());
-    }
-
-    public void deleteSession(long mentoringSessionId) {
-        sessionRepository.deleteById(mentoringSessionId);
-    }
-
 }
 
