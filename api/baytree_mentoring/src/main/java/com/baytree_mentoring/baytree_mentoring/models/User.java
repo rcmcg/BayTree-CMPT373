@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class User {
 
-    public User(int viewsId, String firstName, String lastName, String name, String email,
+    public User(long viewsId, String firstName, String lastName, String name, String email,
                 String status, String startDate, String endDate, String phoneNumber,
                 String ethnicity, String address, String role) {
         this.viewsId = viewsId;
@@ -30,7 +30,7 @@ public class User {
     }
 
     @Id
-    private int viewsId;
+    private long viewsId;
 
     String firstName;
 
