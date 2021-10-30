@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
+import "../css/MonthlyQuestionnaireForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
 
 const axios = require('axios').default;
@@ -111,7 +112,9 @@ class SessionSubmit extends React.Component {
     render() {
         return (
             <div>
-                <input type="submit" value="Submit"/>
+                <button className={"ui primary button"}>
+                    Submit
+                </button>
             </div>
         )
     }
@@ -181,15 +184,19 @@ export class MonthlyQuestionnaireForm extends React.Component<{}, MonthlyQuestio
     render() {
         return (
             <main>
-                <form onSubmit={this.handleSubmit}>
-                    <SelectMentor />
-                    <SelectMentee />
-                    <SubmissionTime />
-                    <SelectMonth />
-                    <SelectMenteeEngagementScore />
-                    <SelectMenteeArrivalScore />
-                    <SessionSubmit />
-                </form>
+                <div className={"ui form monthlyQuestionnaireForm"}>
+                    <form onSubmit={this.handleSubmit}>
+                        <SelectMentor /> <br/>
+                        <SelectMentee /> <br/>
+                        <SubmissionTime /> <br/>
+                        <SelectMonth /> <br/>
+                        <SelectMenteeEngagementScore /> <br/>
+                        <SelectMenteeArrivalScore /> <br/>
+                        <span className={"submitButtonFormat"}>
+                            <SessionSubmit /> <br/>
+                        </span>
+                    </form>
+                </div>
             </main>
         );
     }

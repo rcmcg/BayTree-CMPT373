@@ -1,6 +1,5 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
-import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Authentication;
 import com.baytree_mentoring.baytree_mentoring.services.AuthenticationService;
