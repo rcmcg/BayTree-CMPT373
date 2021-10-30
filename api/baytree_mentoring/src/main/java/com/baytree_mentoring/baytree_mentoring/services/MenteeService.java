@@ -111,6 +111,11 @@ public class MenteeService {
         System.out.println("Added mentee" + mentee.getMenteeId());
     }
 
+    public void add(Mentee mentee) {
+        menteeRepository.save(mentee);
+    }
+
+
     public boolean isMenteeAdded(Mentee mentee) {
         return menteeRepository.existsById(mentee.getMenteeId());
     }
