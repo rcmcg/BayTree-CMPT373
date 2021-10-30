@@ -21,6 +21,9 @@ export const SingleUser: React.FC<Props> = ({mentor})=> {
         <>
             <td>{mentor.firstName}</td>
             <td>{mentor.lastName}</td>
+            <td>{mentor.role}</td>
+            <td>{mentor.phone}</td>
+            <td>{mentor.email}</td>
             <td>
                 <button onClick={handleShow}>
                     Add

@@ -6,11 +6,16 @@ import {Mentor, MentorsContext, mentorsContextValue } from './UsersContextProvid
 function AddMentor() {
 
     const [mentors, setMentors] = useState<Mentor[]>([
-        {id: 1, firstName: "user1", lastName: "Smith", password: "user1"},
-        {id: 2, firstName: "user2", lastName: "Brown", password: "user2"},
-        {id: 3, firstName: "user3", lastName: "Tremblay", password: "user3"},
-        {id: 4, firstName: "user4", lastName: "Martin", password: "user4"},
-        {id: 5, firstName: "user5", lastName: "Smith", password: "user5"}
+        {id: 1, firstName: "user1", lastName: "Smith", password: "default password",
+            role: "Financial Advisor", email: "user1@gmail.com", phone: 1231233231},
+        {id: 2, firstName: "user2", lastName: "Brown", password: "default password",
+            role: "Broker", email: "user2@gmail.com", phone: 1231233231},
+        {id: 3, firstName: "user3", lastName: "Tremblay", password: "default password",
+            role: "Attorney", email: "user3@gmail.com", phone: 1231233231},
+        {id: 4, firstName: "user4", lastName: "Martin", password: "default password",
+            role: "Babysister", email: "user4@gmail.com", phone: 1231233231},
+        {id: 5, firstName: "user5", lastName: "Smith", password: "default password",
+            role: "Financial Advisor", email: "user5@gmail.com", phone: 1231233231}
     ]);
 
     const addUser = (id: number, updatedMentor: any) => {
