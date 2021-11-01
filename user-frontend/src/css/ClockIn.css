@@ -22,7 +22,8 @@
     This is for MOBILE SCREEN or SMALLER THAN 700px screens
  */
 .button-div{
-    background-color: #48b030;
+    background-color: #1dab92;
+    opacity: 90%;
     border-radius: 60px;
     height: 40%;
     width: 40%;
@@ -39,7 +40,8 @@
  */
 @media screen and (min-width: 700px) {
     .button-div {
-        background-color: #48b030;
+        background-color: #1dab92;
+        opacity: 90%;
         border-radius: 60px;
         height: 40%;
         width: 40%;

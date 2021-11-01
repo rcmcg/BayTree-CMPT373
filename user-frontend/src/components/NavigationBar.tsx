@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { IconContext } from 'react-icons';
 import {FaBars, FaTimes} from "react-icons/fa";
-import {Link} from "react-router-dom";
+import {NavLink as Link} from "react-router-dom";
 import "../css/Navbar.css"
 import baytreeLogo from "../resources/baytree-logo.svg"
 
@@ -14,7 +14,7 @@ const NavigationBar = () => {
 
     return (
 
-        <IconContext.Provider value={{ color: '#000000' }}>
+        <IconContext.Provider value={{ color: '#ffffff' }}>
             <nav className={"navbar"}>
 
                 <div className={"navbar-container container"}>
@@ -32,7 +32,7 @@ const NavigationBar = () => {
                 <ul className={click ? "nav-menu-active" : "nav-menu"}>
 
                     <li className={"nav-item"}>
-                        <Link to={'/'} className="nav-link" onClick={closeMobileMenu}>
+                        <Link activeClassName={"active"} exact to={'/'} className="nav-link" onClick={closeMobileMenu}>
                             Dashboard
                         </Link>
                     </li>

@@ -24,7 +24,8 @@
 
 .messages span{
     border-radius: 20px;
-    background-color: #48b030;
+    background-color: #1dab92;
+    opacity: 90%;
 }
 
 .body div {

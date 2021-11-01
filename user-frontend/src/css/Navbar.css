@@ -1,5 +1,6 @@
 .navbar{
-    background: #ffffff;
+    background: #1dab92;
+    opacity: 90%;
     height: 100px;
     width: 100%;
     display: flex;
@@ -21,10 +22,10 @@
 .nav-item a {
     position: relative;
     display: block;
-    height: 70px;
-    line-height: 70px;
+    height: 50px;
+    line-height: 50px;
     padding: 0 40px;
-    color: #000000;
+    color: #ffffff;
     opacity: 0.7;
     text-decoration: none;
     text-transform: uppercase;
@@ -36,7 +37,14 @@
     float: right;
     display: flex;
     margin:0;
-    padding-right: 0;
+    padding-right: 60px;
+}
+
+.active {
+    background-color: #FF1D89;
+    width: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 @media screen and (max-width: 800px) {
@@ -63,16 +71,15 @@
     }
 
     .nav-menu-active {
-        background: #ffffff;
+        background-color: #1dab92;
         display: flex;
         right: 0;
         flex-direction: column;
         width: 60%;
         height: 90vh;
         position: absolute;
-        top: 80px;
-        opacity: 0.9;
-        transition: all 0.6s ease;
+        top: 86px;
+        transition: all 0.5s ease;
         z-index: 1;
     }
 
@@ -87,7 +94,7 @@
     .nav-links:hover {
         color: #f00946;
         transform: scale(1.2);
-        transition: all 0.3s ease;
+        transition: all 0.5s ease;
     }
 
     .nav-item:hover {

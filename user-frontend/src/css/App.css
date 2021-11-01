@@ -29,7 +29,6 @@ ul li {
 
 ul li a:focus {
     opacity: 1;
-    text-decoration: underline;
 }
 
 @media screen and (max-width: 800px) {
