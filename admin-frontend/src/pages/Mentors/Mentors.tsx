@@ -159,6 +159,14 @@ const Mentors = () => {
           )}
         </code>
       </pre>
+      <form method="post">
+        <div>
+          <textarea id="notifBody" rows={7} cols={42}>
+            Hello, just wanted to let you know...
+          </textarea>
+        </div>
+        <input type="submit" value="Submit"></input>
+      </form>
     </>
   );
 };
