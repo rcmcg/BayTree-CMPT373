@@ -1,9 +1,16 @@
 import React, { useState, useMemo } from "react";
-import { useTable, useFilters, useSortBy, usePagination } from "react-table";
+import {
+  useTable,
+  useFilters,
+  useSortBy,
+  usePagination,
+  useRowSelect,
+} from "react-table";
 import DATA from "./mockdata.json";
 import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
+import Checkbox from "./Checkbox";
 
 const Mentors = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -24,6 +31,7 @@ const Mentors = () => {
     setPageSize,
     state,
     prepareRow,
+    selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -31,7 +39,22 @@ const Mentors = () => {
     },
     useFilters,
     useSortBy,
-    usePagination
+    usePagination,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        {
+          id: "selection",
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <Checkbox name={""} {...getToggleAllRowsSelectedProps()} />
+          ),
+          Cell: ({ row }: { row: any }) => (
+            <Checkbox {...row.getToggleRowSelectedProps()} />
+          ),
+        },
+        ...columns,
+      ]);
+    }
   );
 
   const { pageIndex, pageSize } = state;
@@ -89,7 +112,7 @@ const Mentors = () => {
           value={pageSize}
           onChange={(e) => setPageSize(Number(e.target.value))}
         >
-          {[10, 25, 50].map((pageSize) => (
+          {[10, 20, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
             </option>
@@ -125,6 +148,17 @@ const Mentors = () => {
           {">>"}
         </button>{" "}
       </div>
+      <pre>
+        <code>
+          {JSON.stringify(
+            {
+              selectedFlatRows: selectedFlatRows.map((row) => row.original),
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
     </>
   );
 };
