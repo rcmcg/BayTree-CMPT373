@@ -33,6 +33,9 @@
   width: 221px;
 }
 
+
+
+
 .login-button {
   align-items: flex-start;
   cursor: pointer;
@@ -43,6 +46,7 @@
   position: absolute;
   top: 810px;
   transition: all 0.2s ease;
+
 }
 
 .login-button:hover {
@@ -75,6 +79,8 @@
   position: absolute;
   top: 18px;
   width: 87px;
+
+
 }
 
 .i-forgot-my-password-redirection {
