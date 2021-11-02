@@ -28,6 +28,11 @@ export const SideNavbar = [
         cName: 'nav-text'
     },
     {
+        title: 'Questionnaires',
+        path: '/questionnaires',
+        cName: 'nav-text'
+    },
+    {
         title: 'Settings',
         path: '/settings',
         icon: <AiIcons.AiOutlineSetting size = '28px'/>,

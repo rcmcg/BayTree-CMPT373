@@ -1,7 +1,7 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedMonthlyQuestionnaireAddingException;
-import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireForm;
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.services.MonthlyQuestionnaireService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +23,12 @@ public class MonthlyQuestionnaireController {
     @CrossOrigin(origins = "http://localhost:3000")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/monthlyquestionnaire/add")
-    private String addMonthlyQuestionnaire(@RequestBody @Valid MonthlyQuestionnaireForm monQueForm) {
-        MonthlyQuestionnaireForm monthlyQuestionnaireForm = new MonthlyQuestionnaireForm(monQueForm.getMentorName(), monQueForm.getMenteeName(),
-                monQueForm.getSubmissionTimeLocal(), monQueForm.getMonth(), monQueForm.getMenteeEngagementScore(), monQueForm.getMenteeArrivalScore());
+    private String addMonthlyQuestionnaire(@RequestBody @Valid MonthlyQuestionnaire monQueForm) {
+        MonthlyQuestionnaire monthlyQuestionnaire = new MonthlyQuestionnaire(monQueForm.getMonth(), monQueForm.getYear(), monQueForm.getViewsQuestionnaireId());
 
-        monthlyQuestionnaireService.add(monthlyQuestionnaireForm);
+        monthlyQuestionnaireService.add(monthlyQuestionnaire);
 
-        if(monthlyQuestionnaireService.isMonthlyQuestionnaireAdded(monthlyQuestionnaireForm)) {
+        if(monthlyQuestionnaireService.isMonthlyQuestionnaireAdded(monthlyQuestionnaire)) {
             return SUCCESS;
         }
 
@@ -39,7 +38,7 @@ public class MonthlyQuestionnaireController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/monthlyquestionnaire/get/all")
-    private List<MonthlyQuestionnaireForm> getAllMonthlyQuestionnaireForms() {
+    private List<MonthlyQuestionnaire> getAllMonthlyQuestionnaireForms() {
         return monthlyQuestionnaireService.getAllMonthlyQuestionnaireForms();
     }
 }

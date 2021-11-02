@@ -1,6 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
-import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireForm;
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,32 +23,30 @@ public class MonthlyQuestionnaireServiceTest {
     @Test
     public void shouldReturnTrueWhenMonthlyQuestionnaireFormIsSuccessfullyAdded() {
         // build
-        MonthlyQuestionnaireForm monthlyQuestionnaireForm = new MonthlyQuestionnaireForm("mentor", "mentee",
-                "2021-09-08 20:12:12 America/Vancouver", 9, 2, 2);
+        MonthlyQuestionnaire monthlyQuestionnaire = new MonthlyQuestionnaire(12, 2021, 18);
 
         // operate
-        monthlyQuestionnaireService.add(monthlyQuestionnaireForm);
-        doReturn(true).when(monthlyQuestionnaireService).isMonthlyQuestionnaireAdded(monthlyQuestionnaireForm);
+        monthlyQuestionnaireService.add(monthlyQuestionnaire);
+        doReturn(true).when(monthlyQuestionnaireService).isMonthlyQuestionnaireAdded(monthlyQuestionnaire);
 
         // check
-        assertTrue(monthlyQuestionnaireService.isMonthlyQuestionnaireAdded(monthlyQuestionnaireForm));
+        assertTrue(monthlyQuestionnaireService.isMonthlyQuestionnaireAdded(monthlyQuestionnaire));
     }
 
     @DisplayName("should return a list of all monthly questionnaire forms")
     @Test
     public void shouldReturnAListOfAllMonthlyQuestionnaireForms() {
         // build
-        MonthlyQuestionnaireForm monthlyQuestionnaireForm = new MonthlyQuestionnaireForm("mentor", "mentee",
-                "2021-09-08 20:12:12 America/Vancouver", 9, 2, 2);
+        MonthlyQuestionnaire monthlyQuestionnaire = new MonthlyQuestionnaire(12, 2021, 18);
 
         // operate
-        monthlyQuestionnaireService.add(monthlyQuestionnaireForm);
-        doReturn(List.of(monthlyQuestionnaireForm)).when(monthlyQuestionnaireService).getAllMonthlyQuestionnaireForms();
+        monthlyQuestionnaireService.add(monthlyQuestionnaire);
+        doReturn(List.of(monthlyQuestionnaire)).when(monthlyQuestionnaireService).getAllMonthlyQuestionnaireForms();
 
         // check
         assertAll(
-                () -> assertEquals(monthlyQuestionnaireService.getAllMonthlyQuestionnaireForms().size(), List.of(monthlyQuestionnaireForm).size()),
-                () -> assertEquals(monthlyQuestionnaireService.getAllMonthlyQuestionnaireForms().get(0), monthlyQuestionnaireForm)
+                () -> assertEquals(monthlyQuestionnaireService.getAllMonthlyQuestionnaireForms().size(), List.of(monthlyQuestionnaire).size()),
+                () -> assertEquals(monthlyQuestionnaireService.getAllMonthlyQuestionnaireForms().get(0), monthlyQuestionnaire)
         );
     }
 }

@@ -184,7 +184,7 @@ export class MonthlyQuestionnaireForm extends React.Component<{}, MonthlyQuestio
     render() {
         return (
             <main>
-                <div className={"ui form monthlyQuestionnaireForm"}>
+                <div className={"ui form monthlyQuestionnaire"}>
                     <form onSubmit={this.handleSubmit}>
                         <SelectMentor /> <br/>
                         <SelectMentee /> <br/>

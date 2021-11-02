@@ -1,6 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
-import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireForm;
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireId;
 import com.baytree_mentoring.baytree_mentoring.repositories.MonthlyQuestionnaireRepository;
 import org.springframework.stereotype.Service;
@@ -15,15 +15,20 @@ public class MonthlyQuestionnaireService {
         this.monthlyQuestionnaireRepository = monthlyQuestionnaireRepository;
     }
 
-    public void add(MonthlyQuestionnaireForm monthlyQuestionnaireForm) {
-        monthlyQuestionnaireRepository.save(monthlyQuestionnaireForm);
+    public void add(MonthlyQuestionnaire monthlyQuestionnaire) {
+        monthlyQuestionnaireRepository.save(monthlyQuestionnaire);
     }
 
-    public List<MonthlyQuestionnaireForm> getAllMonthlyQuestionnaireForms() {
+    public List<MonthlyQuestionnaire> getAllMonthlyQuestionnaireForms() {
         return monthlyQuestionnaireRepository.findAll();
     }
 
-    public boolean isMonthlyQuestionnaireAdded(MonthlyQuestionnaireForm monthlyQuestionnaireForm) {
-        return monthlyQuestionnaireRepository.existsById(new MonthlyQuestionnaireId(monthlyQuestionnaireForm.getMentorName(), monthlyQuestionnaireForm.getMenteeName(), monthlyQuestionnaireForm.getSubmissionTimeLocal()));
+    public boolean isMonthlyQuestionnaireAdded(MonthlyQuestionnaire monthlyQuestionnaire) {
+//        return monthlyQuestionnaireRepository.existsById(new MonthlyQuestionnaireId(
+//                monthlyQuestionnaire.getMonth(),
+//                monthlyQuestionnaire.getYear(),
+//                monthlyQuestionnaire.getViewsQuestionnaireId()));
+        // TODO: Implement this function
+        return true;
     }
 }
