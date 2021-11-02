@@ -25,7 +25,6 @@
     height: 50px;
     line-height: 50px;
     padding: 0 40px;
-    color: #ffffff;
     opacity: 0.7;
     text-decoration: none;
     text-transform: uppercase;
@@ -41,7 +40,7 @@
 }
 
 .active {
-    background-color: #FF1D89;
+    background-color: white;
     width: border-box;
     margin-left: 10px;
     margin-right: 10px;
@@ -81,6 +80,7 @@
         top: 86px;
         transition: all 0.5s ease;
         z-index: 1;
+        opacity: 90%;
     }
 
     .nav-links {
@@ -89,17 +89,9 @@
         width: 100%;
         font-weight: bold;
         display: table;
+
     }
 
-    .nav-links:hover {
-        color: #f00946;
-        transform: scale(1.2);
-        transition: all 0.5s ease;
-    }
-
-    .nav-item:hover {
-        border: none;
-    }
 
     .nav-item {
         height: 10%;

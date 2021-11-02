@@ -32,17 +32,17 @@ const NavigationBar = () => {
                 <ul className={click ? "nav-menu-active" : "nav-menu"}>
 
                     <li className={"nav-item"}>
-                        <Link activeClassName={"active"} exact to={'/'} className="nav-link" onClick={closeMobileMenu}>
+                        <Link activeClassName={"active"} exact to={'/'} className="nav-links" onClick={closeMobileMenu}>
                             Dashboard
                         </Link>
                     </li>
                     <li className={"nav-item"}>
-                        <Link to={'/resources'} className="nav-link" onClick={closeMobileMenu}>
+                        <Link to={'/resources'} className="nav-links" onClick={closeMobileMenu}>
                             Resources
                         </Link>
                     </li>
                     <li className={"nav-item"}>
-                        <Link to={'/profile'} className="nav-link" onClick={closeMobileMenu}>
+                        <Link to={'/profile'} className="nav-links" onClick={closeMobileMenu}>
                             Profile
                         </Link>
                     </li>
