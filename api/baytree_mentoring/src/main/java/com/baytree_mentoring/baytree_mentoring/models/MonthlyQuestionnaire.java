@@ -19,9 +19,9 @@ import java.time.format.DateTimeFormatter;
 @IdClass(MonthlyQuestionnaireId.class)
 public class MonthlyQuestionnaire {
     @Id
-    private int month;
-    @Id
     private int year;
+    @Id
+    private int month;
 
     private int viewsQuestionnaireId;
 

@@ -22,7 +22,7 @@ public class MonthlyQuestionnaireController {
     // Todo: Make this cross origin config global (for all controllers, not just SessionController)
     @CrossOrigin(origins = "http://localhost:3000")
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/monthlyquestionnaire/add")
+    @PostMapping("/questionnaire/add")
     private String addMonthlyQuestionnaire(@RequestBody @Valid MonthlyQuestionnaire monQueForm) {
         MonthlyQuestionnaire monthlyQuestionnaire = new MonthlyQuestionnaire(monQueForm.getMonth(), monQueForm.getYear(), monQueForm.getViewsQuestionnaireId());
 

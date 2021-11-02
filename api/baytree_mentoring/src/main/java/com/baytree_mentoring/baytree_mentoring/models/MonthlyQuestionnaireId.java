@@ -8,6 +8,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MonthlyQuestionnaireId implements Serializable {
-    private int month;
     private int year;
+    private int month;
 }
