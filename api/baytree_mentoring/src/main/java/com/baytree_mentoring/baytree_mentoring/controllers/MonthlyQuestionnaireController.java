@@ -3,6 +3,7 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedMonthlyQuestionnaireAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.services.MonthlyQuestionnaireService;
+import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +41,14 @@ public class MonthlyQuestionnaireController {
     @GetMapping("/monthlyquestionnaire/get/all")
     private List<MonthlyQuestionnaire> getAllMonthlyQuestionnaireForms() {
         return monthlyQuestionnaireService.getAllMonthlyQuestionnaireForms();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
+    private String getMonthlyQuestionnaireFromViewsById(@RequestParam("year") String year, @RequestParam("month") String month) {
+        System.out.println("getMonthlyQuestionnaireFromViewsById: " + year);
+        System.out.println("getMonthlyQuestionnaireFromViewsById: " + month);
+        return "Retrieve questionnaire for year " + year + " and month " + month;
     }
 }

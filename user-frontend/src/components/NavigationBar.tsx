@@ -28,10 +28,14 @@ const NavigationBar = () => {
                 </div>
 
                 <ul className={click ? "nav-menu-active" : "nav-menu"}>
-
                     <li className={"nav-item"}>
                         <Link to={'/'} className="nav-link" onClick={closeMobileMenu}>
                             Dashboard
+                        </Link>
+                    </li>
+                    <li className={"nav-item"}>
+                        <Link to={'/monthlyquestionnaire'} className="nav-link" onClick={closeMobileMenu}>
+                            Questionnaires
                         </Link>
                     </li>
                     <li className={"nav-item"}>
