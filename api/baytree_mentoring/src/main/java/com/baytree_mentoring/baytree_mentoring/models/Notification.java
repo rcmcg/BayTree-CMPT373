@@ -9,11 +9,14 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 
 public class Notification {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long notificationId;
+
 
     @NotNull
     private String username;
@@ -21,8 +24,7 @@ public class Notification {
     @NotNull
     private String messageBody;
 
-    public Notification(long notificationId, String username, String messageBody) {
-        this.notificationId = notificationId;
+    public Notification(String username, String messageBody) {
         this.username = username;
         this.messageBody = messageBody;
     }
