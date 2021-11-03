@@ -1,40 +1,43 @@
 .loginpage {
   align-items: flex-start;
   display: flex;
-  height: 1078px;
-  overflow: hidden;
-  width: 2003px;
+    overflow: hidden;
+  height: 100vh;  width: 100%;
+
 }
 
 .baytree-leaf-background {
-  background-position: 50% 50%;
+  background-position: 100% 100%;
   background-size: cover;
-  height: 1335px;
-  position: relative;
-  width: 2003px;
+    position: relative;
+  height: 100vh;
+  width: 100%;
 }
 
 .login-window {
   border-radius: 32px;
-  height: 955px;
-  left: 275px;
-  object-fit: cover;
+    object-fit: cover;
   position: absolute;
-  top: 59px;
-  width: 1365px;
+  /*top: 59px;*/
+  /*  left: 275px;*/
+    width: 90%;
+    height: 85vh;
+    margin-bottom: 10%;
+    margin-top: 5%;
+    margin-left: 5%;
 }
 
 .baytree-logo {
-  height: 267px;
-  left: 417px;
   object-fit: cover;
   position: absolute;
-  top: 130px;
-  width: 221px;
+  /*top: 130px;   left: 417px;*/
+  /*width: 221px;*/
+  /*  height: 267px;*/
+    width: 180px;
+    height: 220px;
+    margin-top: 10%;
+    margin-left: 15%;
 }
-
-
-
 
 .login-button {
   align-items: flex-start;
@@ -73,13 +76,12 @@
 }
 
 .login-text {
-  height: 43px;
-  left: 89px;
   object-fit: cover;
   position: absolute;
   top: 18px;
   width: 87px;
-
+    height: 43px;
+    left: 89px;
 
 }
 
@@ -93,68 +95,95 @@
 }
 
 .mentorship-programme-text {
-  height: 55px;
-  left: 728px;
-  object-fit: cover;
-  position: absolute;
-  top: 183px;
-  width: 618px;
+    object-fit: cover;
+    position: absolute;
+    /*top: 183px;*/
+    /*width: 618px;*/
+    /*  height: 55px;*/
+    /*  left: 728px;*/
+    width: 590px;
+    height: 45px;
+    margin-top: 14%;
+    margin-right: 15%;
+    margin-left: 40%;
 }
 
 .what-type-of-user-text {
-  height: 25px;
-  left: 732px;
   object-fit: cover;
   position: absolute;
-  top: 372px;
-  width: 226px;
+  /*top: 372px;*/
+  /*width: 226px;*/
+  /*  height: 25px;*/
+  /*  left: 732px;*/
+    width: 200px;
+    height: 20px;
+    margin-top: 26%;
+    margin-left: 40%;
 }
 
 .account-type-selected {
   border-radius: 12px;
-  height: 35px;
-  left: 734px;
   object-fit: cover;
   position: absolute;
-  top: 419px;
-  width: 35px;
+  /*top: 419px;*/
+  /*width: 35px;*/
+  /*  height: 35px;*/
+  /*  left: 734px;*/
+    margin-left: 40%;
+    margin-top: 28%;
+    width: 30px;
+    height: 30px;
 }
 
 .account-type-unselected {
   border-radius: 12px;
-  height: 35px;
-  left: 1024px;
   object-fit: cover;
   position: absolute;
-  top: 419px;
-  width: 35px;
+  /*top: 419px;*/
+  /*width: 35px;*/
+  /*  height: 35px;*/
+  /*  left: 1024px;*/
+    margin-left: 62%;
+    margin-top: 28%;
+    width: 30px;
+    height: 30px;
 }
 
 .admin-text {
-  height: 25px;
-  left: 1079px;
   object-fit: cover;
   position: absolute;
-  top: 424px;
-  width: 73px;
+  /*top: 424px;*/
+  /*width: 73px;*/
+  /*  height: 25px;*/
+  /*  left: 1079px;*/
+    margin-left: 65%;
+    margin-top: 28.5%;
+    width: 70px;
+    height: 23px;
 }
 
 .mentor-mentee-text {
-  height: 25px;
-  left: 789px;
   object-fit: cover;
   position: absolute;
-  top: 424px;
-  width: 169px;
+  /*top: 424px;*/
+  /*width: 169px;*/
+  /*  height: 25px;*/
+  /*  left: 789px;*/
+    margin-left: 43%;
+    margin-top: 28.5%;
+    width: 150px;
+    height: 23px;
 }
 
 .login-page-text {
-  height: 50px;
-  left: 727px;
   object-fit: cover;
   position: absolute;
-  top: 251px;
-  width: 256px;
+  top: 210px;
+  width: 210px;
+  /*  height: 50px;*/
+  /*  left: 727px;*/
+   margin-left: 40%;
+    margin-top: 3%;
 }
 
 

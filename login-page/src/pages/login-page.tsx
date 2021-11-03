@@ -1,4 +1,4 @@
-// @ts-ignore
+
 import * as React from 'react';
 import Username from "../components/Username";
 import Password from "../components/Password";
@@ -8,7 +8,7 @@ export const LoginPage = () => {
 
     return (
         <div className="container-center-horizontal">
-            <div className="loginpage screen">
+            <div className="loginpage">
                 <div className="baytree-leaf-background" style={{ backgroundImage: `url(${"../Images/baytree-leaves.png"})` }}>
                     <img className="login-window" src={"../Images/login-page-border.png"} />
                     <img className="baytree-logo" src={"../Images/baytree-logo.png"} />
