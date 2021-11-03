@@ -3,6 +3,7 @@ package com.baytree_mentoring.baytree_mentoring.services;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireId;
 import com.baytree_mentoring.baytree_mentoring.repositories.MonthlyQuestionnaireRepository;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsApiQuestionnaireIntegration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Optional;
 @Service
 public class MonthlyQuestionnaireService {
     private final MonthlyQuestionnaireRepository monthlyQuestionnaireRepository;
+    private final ViewsApiQuestionnaireIntegration viewsApiQuestionnaireIntegration =
+            new ViewsApiQuestionnaireIntegration();
 
     public MonthlyQuestionnaireService(MonthlyQuestionnaireRepository monthlyQuestionnaireRepository) {
         this.monthlyQuestionnaireRepository = monthlyQuestionnaireRepository;
@@ -35,6 +38,7 @@ public class MonthlyQuestionnaireService {
 
     public String getMonthlyQuestionnaireFromViews(int year, int month) {
         int mqViewsId = getMonthlyQuestionnaireViewsId(year, month);
+        String questionnaireQuestions = viewsApiQuestionnaireIntegration.getMonthlyQuestionnaireFromViews(mqViewsId);
         System.out.println("getMonthlyQuestionnaireFromViews mqViewsId:" + mqViewsId);
         return "";
     }
