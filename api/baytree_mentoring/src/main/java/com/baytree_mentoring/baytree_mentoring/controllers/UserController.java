@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class UsersController {
+public class UserController {
 
     private final UserService userService;
 
-    public UsersController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/views/mentors")
     public List<User> getAllUsers(){
-        userService.getAllUsersFromViewsThenUpdateDatabase();
+        userService.getAllMentorsFromViewsThenUpdateDatabase();
         return userService.getAllMentorsFromDatabase();
     }
 
