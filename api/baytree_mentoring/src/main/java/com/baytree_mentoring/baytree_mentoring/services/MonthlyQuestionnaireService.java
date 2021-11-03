@@ -6,6 +6,7 @@ import com.baytree_mentoring.baytree_mentoring.repositories.MonthlyQuestionnaire
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MonthlyQuestionnaireService {
@@ -30,5 +31,21 @@ public class MonthlyQuestionnaireService {
 //                monthlyQuestionnaire.getViewsQuestionnaireId()));
         // TODO: Implement this function
         return true;
+    }
+
+    public String getMonthlyQuestionnaireFromViews(int year, int month) {
+        int mqViewsId = getMonthlyQuestionnaireViewsId(year, month);
+        System.out.println("getMonthlyQuestionnaireFromViews mqViewsId:" + mqViewsId);
+        return "";
+    }
+
+    public int getMonthlyQuestionnaireViewsId(int year, int month) {
+        MonthlyQuestionnaireId monthlyQuestionnaireId = new MonthlyQuestionnaireId(year, month);
+        Optional<MonthlyQuestionnaire> monthlyQuestionnaire =
+                monthlyQuestionnaireRepository.findById(monthlyQuestionnaireId);
+        if (monthlyQuestionnaire.isPresent()) {
+            return monthlyQuestionnaire.get().getViewsQuestionnaireId();
+        }
+        return -1;
     }
 }

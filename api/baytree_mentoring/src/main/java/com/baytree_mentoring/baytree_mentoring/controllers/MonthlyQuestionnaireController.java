@@ -21,7 +21,7 @@ public class MonthlyQuestionnaireController {
     }
 
     // Todo: Make this cross origin config global (for all controllers, not just SessionController)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/questionnaire/add")
     private String addMonthlyQuestionnaire(@RequestBody @Valid MonthlyQuestionnaire monQueForm) {
@@ -46,9 +46,8 @@ public class MonthlyQuestionnaireController {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
-    private String getMonthlyQuestionnaireFromViewsById(@RequestParam("year") String year, @RequestParam("month") String month) {
-        System.out.println("getMonthlyQuestionnaireFromViewsById: " + year);
-        System.out.println("getMonthlyQuestionnaireFromViewsById: " + month);
+    private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) {
+        monthlyQuestionnaireService.getMonthlyQuestionnaireFromViews(Integer.parseInt(year), Integer.parseInt(month));
         return "Retrieve questionnaire for year " + year + " and month " + month;
     }
 }
