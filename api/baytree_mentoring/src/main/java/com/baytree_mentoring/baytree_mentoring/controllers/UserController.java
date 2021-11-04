@@ -43,7 +43,7 @@ public class UserController {
             return userService.getAllMentorsFromDatabase();
         }
         else {
-            String e = "Failed to get users from Views and/or update database";
+            String e = "Failed to get users from Views";
             throw new FailedUserAddingException(e);
         }
     }
