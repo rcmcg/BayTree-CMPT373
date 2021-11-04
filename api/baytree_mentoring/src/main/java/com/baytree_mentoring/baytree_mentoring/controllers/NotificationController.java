@@ -3,6 +3,7 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.models.Notification;
 import com.baytree_mentoring.baytree_mentoring.services.NotificationService;
+import com.baytree_mentoring.baytree_mentoring.wrappers.NotificationWrapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,23 +20,20 @@ public class NotificationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/notifications/send")
-    private void sendNotifications(@RequestBody List<String> usernameList, @RequestBody String message) {
-        System.out.println("HERE2");
-        notificationService.generateNotifications(usernameList, message);
+    private void generateNotificationsController(@RequestBody NotificationWrapper notificationWrapper) {
+        notificationService.generateNotificationsService(notificationWrapper.getUsernameList(), notificationWrapper.getMessage());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/notifications/get/{username}")
-    private List<Notification> getNotifications(@PathVariable String username) {
-        System.out.println("HERE4");
-        return notificationService.getAllNotificationsForUser(username);
+    private List<Notification> getNotificationsForUserController(@PathVariable String username) {
+        return notificationService.getNotificationsForUserService(username);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/notifications/get/all")
-    private List<Notification> getAllNotifications() {
-        System.out.println("HERE3");
-        return notificationService.getAllNotifications();
+    private List<Notification> getNotificationsForEveryoneController() {
+        return notificationService.getNotificationsForEveryoneService();
     }
 
 }

@@ -17,7 +17,6 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long notificationId;
 
-
     @NotNull
     private String username;
 
