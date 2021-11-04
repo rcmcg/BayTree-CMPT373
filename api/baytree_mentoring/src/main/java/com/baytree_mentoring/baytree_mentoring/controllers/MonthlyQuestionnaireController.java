@@ -3,6 +3,7 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedMonthlyQuestionnaireAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.services.MonthlyQuestionnaireService;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,11 @@ public class MonthlyQuestionnaireController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
     private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) {
-        monthlyQuestionnaireService.getMonthlyQuestionnaireFromViews(Integer.parseInt(year), Integer.parseInt(month));
+        try {
+            monthlyQuestionnaireService.getMonthlyQuestionnaireFromViews(Integer.parseInt(year), Integer.parseInt(month));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
         return "Retrieve questionnaire for year " + year + " and month " + month;
     }
 }
