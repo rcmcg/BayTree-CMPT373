@@ -1,6 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Api from './pages/Resources/api';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const runApp = async () => {
+  Api.init();
+
+ReactDOM.render(
+    <App />
+  document.getElementById('root')
+);
+}
+
+runApp()
