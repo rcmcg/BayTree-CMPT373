@@ -1,8 +1,11 @@
 package com.baytree_mentoring.baytree_mentoring.util;
 
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONObject;
+import org.json.JSONString;
 
 public class ViewsUnirest {
     private static final String viewsAPIUsername = "group.mercury";
@@ -16,7 +19,7 @@ public class ViewsUnirest {
         return viewsAPIPassword;
     }
 
-    public HttpResponse<String> sendUnirestGetRequest(String URL) throws UnirestException {
+    public HttpResponse<String> sendUnirestGetRequestGetStringResponse(String URL) throws UnirestException {
         Unirest.setTimeouts(0,0);
         try {
             HttpResponse<String> response = Unirest.get(URL)
@@ -24,6 +27,27 @@ public class ViewsUnirest {
                     .header("Accept", "application/json")
                     .basicAuth(viewsAPIUsername, viewsAPIPassword)
                     .asString();
+            System.out.println(response.getBody());
+            if (httpResponseIsNotOk(response.getStatus())) {
+                String error = "Failed to send/receive get request to " + URL;
+                throw new UnirestException(error);
+            } else {
+                return response;
+            }
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public HttpResponse<JsonNode> sendUnirestGetRequestGetJsonNodeResponse(String URL) throws UnirestException {
+        Unirest.setTimeouts(0,0);
+        try {
+            HttpResponse<JsonNode> response = Unirest.get(URL)
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .basicAuth(viewsAPIUsername, viewsAPIPassword)
+                    .asJson();
             System.out.println(response.getBody());
             if (httpResponseIsNotOk(response.getStatus())) {
                 String error = "Failed to send/receive get request to " + URL;

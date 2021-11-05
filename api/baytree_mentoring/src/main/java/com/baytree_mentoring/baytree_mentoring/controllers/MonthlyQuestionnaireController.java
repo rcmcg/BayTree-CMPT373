@@ -4,7 +4,6 @@ import com.baytree_mentoring.baytree_mentoring.exceptions.FailedMonthlyQuestionn
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.services.MonthlyQuestionnaireService;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +48,7 @@ public class MonthlyQuestionnaireController {
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
     private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) {
         try {
-            monthlyQuestionnaireService.getMonthlyQuestionnaireFromViews(Integer.parseInt(year), Integer.parseInt(month));
+            monthlyQuestionnaireService.getFormattedMonthlyQuestionnaireFromViews(Integer.parseInt(year), Integer.parseInt(month));
         } catch (UnirestException e) {
             e.printStackTrace();
         }

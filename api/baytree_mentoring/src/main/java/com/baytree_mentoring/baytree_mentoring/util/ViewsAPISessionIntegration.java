@@ -2,7 +2,6 @@ package com.baytree_mentoring.baytree_mentoring.util;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.text.ParseException;
@@ -52,7 +51,7 @@ public class ViewsAPISessionIntegration {
         // Make a call to the Views API to find the venueId associated with the session group.
         String viewsSessionGetURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/" + sessionGroupId;
         try {
-            HttpResponse<String> sessionGroupGetResponse = viewsUnirest.sendUnirestGetRequest(viewsSessionGetURL);
+            HttpResponse<String> sessionGroupGetResponse = viewsUnirest.sendUnirestGetRequestGetStringResponse(viewsSessionGetURL);
             String venueId = ViewsAPISessionJSONFormatter.parseVenueIdFromSessionGroupGetResponse(sessionGroupGetResponse);
             return venueId;
         } catch (UnirestException e) {

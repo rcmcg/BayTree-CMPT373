@@ -13,7 +13,7 @@ class ViewsApiQuestionnaireIntegrationTest {
         int mqViewsId = 18;
         String questionnaireQuestionsUrl =
                 "https://app.viewsapp.net/api/restful/evidence/questionnaires/" + mqViewsId + "/questions";
-        String questions = viewsUnirest.sendUnirestGetRequest(questionnaireQuestionsUrl).toString();
+        String questions = viewsUnirest.sendUnirestGetRequestGetStringResponse(questionnaireQuestionsUrl).toString();
         System.out.println(questions);
         assertTrue(true);
     }
