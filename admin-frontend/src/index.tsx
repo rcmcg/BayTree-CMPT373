@@ -8,7 +8,7 @@ const runApp = async () => {
   Api.init();
 
 ReactDOM.render(
-    <App />
+    <App />,
   document.getElementById('root')
 );
 }
