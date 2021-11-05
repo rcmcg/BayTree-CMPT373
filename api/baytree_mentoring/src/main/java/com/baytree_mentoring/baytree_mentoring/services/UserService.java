@@ -15,8 +15,8 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    private String viewsAPIUsername = "group.mercury";
-    private String viewsAPIPassword = "Mercury!$%12";
+    private static final String viewsAPIUsername = "group.mercury";
+    private static final String viewsAPIPassword = "Mercury!$%12";
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -71,7 +71,7 @@ public class UserService {
         String beginningKey = body.names().getString(0);
         JSONObject volunteers = body.getJSONObject(beginningKey);
 
-        ArrayList<User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         for(Object o: volunteers.names()) {
             if (o instanceof JSONObject) { //JSONArrays can only be iterated over Object, but they should all be JSONObjects
                 JSONObject volunteer = (JSONObject) o;

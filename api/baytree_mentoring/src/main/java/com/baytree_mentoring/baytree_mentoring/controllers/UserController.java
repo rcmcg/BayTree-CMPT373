@@ -22,9 +22,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user/add/mentor")
-    private String AddMentee(@RequestBody User mtr){
-        User mentor = new User(mtr.getViewsId(), mtr.getFirstName(),mtr.getLastName(), mtr.getEmail(),
-                mtr.getStatus(), mtr.getStartDate(), mtr.getEndDate(), mtr.getPhoneNumber(), mtr.getEthnicity(), mtr.getAddress(), mtr.getRole());
+    private String AddMentor(@RequestBody User mtr){
         userService.addMentorToDatabase(mtr);
 
         if (userService.isMentorAdded(mtr)) {
