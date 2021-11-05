@@ -152,7 +152,9 @@ const Mentors = () => {
         <code>
           {JSON.stringify(
             {
-              selectedFlatRows: selectedFlatRows.map((row) => row.original),
+              selectedFlatRows: selectedFlatRows.map(
+                (row) => row.original.username
+              ),
             },
             null,
             2
@@ -167,6 +169,7 @@ const Mentors = () => {
         </div>
         <input type="submit" value="Submit"></input>
       </form>
+      {/* {console.log(selectedFlatRows.map((row) => row.original.username))} */}
     </>
   );
 };
