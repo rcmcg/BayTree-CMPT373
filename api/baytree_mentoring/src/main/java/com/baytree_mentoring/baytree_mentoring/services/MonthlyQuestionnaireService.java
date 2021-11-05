@@ -39,11 +39,10 @@ public class MonthlyQuestionnaireService {
         return true;
     }
 
-    public String getFormattedMonthlyQuestionnaireFromViews(int year, int month) throws UnirestException {
+    public String getFormattedMonthlyQuestionnaireForFrontend(int year, int month) throws UnirestException {
         int mqViewsId = getMonthlyQuestionnaireViewsId(year, month);
-        HttpResponse<JsonNode> questionnaireQuestions = viewsApiQuestionnaireIntegration.getMonthlyQuestionnaireFromViews(mqViewsId);
-        System.out.println("getMonthlyQuestionnaireFromViews mqViewsId:" + mqViewsId);
-        return "";
+        String questionnaire = viewsApiQuestionnaireIntegration.getFormattedQuestionnaire(mqViewsId);
+        return questionnaire;
     }
 
     public int getMonthlyQuestionnaireViewsId(int year, int month) {

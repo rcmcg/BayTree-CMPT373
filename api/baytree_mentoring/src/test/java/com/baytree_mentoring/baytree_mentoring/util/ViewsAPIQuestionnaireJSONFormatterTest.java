@@ -11,8 +11,7 @@ class ViewsAPIQuestionnaireJSONFormatterTest {
 
     @Test
     void formatViewsQuestionnaireForFrontend() throws UnirestException {
-        HttpResponse<JsonNode> questions = viewsApiQuestionnaireIntegration.getMonthlyQuestionnaireFromViews(21);
-        String formattedJSONasString = viewsAPIQuestionnaireJSONFormatter.formatViewsQuestionnaireForFrontend(questions);
-        System.out.println("formatViewsQuestionnaireForFrontend: " + formattedJSONasString);
+        HttpResponse<JsonNode> questionnaireFromViews = viewsApiQuestionnaireIntegration.getMonthlyQuestionnaireFromViews(21);
+        String formattedJSONasString = viewsAPIQuestionnaireJSONFormatter.formatViewsQuestionnaireForFrontend(questionnaireFromViews);
     }
 }

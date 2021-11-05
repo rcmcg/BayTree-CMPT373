@@ -9,17 +9,20 @@ public class ViewsApiQuestionnaireIntegration {
     private final ViewsAPIQuestionnaireJSONFormatter viewsAPIQuestionnaireJSONFormatter =
             new ViewsAPIQuestionnaireJSONFormatter();
 
-    public String getFormattedMonthlyQuestionnaireForFrontend(int mqViewsId) throws UnirestException {
-        HttpResponse<JsonNode> monthlyQuestionnaireString = getMonthlyQuestionnaireFromViews(mqViewsId);
-        String formattedQuestionnaireJSON = viewsAPIQuestionnaireJSONFormatter
-                .formatViewsQuestionnaireForFrontend(monthlyQuestionnaireString);
-        return formattedQuestionnaireJSON.toString();
+    public String getFormattedQuestionnaire(int mqViewsId) throws UnirestException {
+        HttpResponse<JsonNode> questionnaireFromViews = getMonthlyQuestionnaireFromViews(mqViewsId);
+        String formattedQuestionnaire = viewsAPIQuestionnaireJSONFormatter
+                .formatViewsQuestionnaireForFrontend(questionnaireFromViews);
+        System.out.println("ViewsApiQuestionnaireIntegration.getFormattedQuestionnaire: " +
+                "formattedQuestions: " + formattedQuestionnaire);
+        return "";
     }
 
     public HttpResponse<JsonNode> getMonthlyQuestionnaireFromViews(int mqViewsId) throws UnirestException {
         String questionnaireQuestionsUrl =
                 "https://app.viewsapp.net/api/restful/evidence/questionnaires/" + mqViewsId + "/questions";
-        HttpResponse<JsonNode> questions = viewsUnirest.sendUnirestGetRequestGetJsonNodeResponse(questionnaireQuestionsUrl);
+        HttpResponse<JsonNode> questions = viewsUnirest
+                .sendUnirestGetRequestGetJsonNodeResponse(questionnaireQuestionsUrl);
         return questions;
     }
 }

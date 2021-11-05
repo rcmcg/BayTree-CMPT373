@@ -48,7 +48,7 @@ public class MonthlyQuestionnaireController {
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
     private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) {
         try {
-            monthlyQuestionnaireService.getFormattedMonthlyQuestionnaireFromViews(Integer.parseInt(year), Integer.parseInt(month));
+            monthlyQuestionnaireService.getFormattedMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
         } catch (UnirestException e) {
             e.printStackTrace();
         }
