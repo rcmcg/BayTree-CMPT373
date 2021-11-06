@@ -26,7 +26,8 @@
 
 .questionnaire-box span{
     border-radius: 20px;
-    background-color: #76CC4D;
+    background-color: #1dab92;
+    opacity: 90%;
 }
 
 .body-questionnaire span{
@@ -43,7 +44,8 @@
 }
 
 .post-bttn{
-    background-color: #76CC4D;
+    background-color: #1dab92;
+    opacity: 90%;
     border-radius: 10px;
     height: 23px;
     width: 50px;
@@ -55,7 +57,7 @@
     position: relative;
     top: -2px;
     margin-right: 5%;
-    color:white;
+    color: white;
 }
 
 
