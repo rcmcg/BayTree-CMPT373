@@ -1,4 +1,4 @@
-import {useContext, useState, useEffect} from 'react';
+import {useContext, useState} from 'react';
 import { MentorsContext } from "./UsersContextProvider";
 import { Form, Button, Col, Row} from 'react-bootstrap';
 import React from "react";
@@ -24,7 +24,7 @@ export const AddForm: React.FC<Props> = ({mentor})=> {
 
     const handleSubmit= (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        addUser(id, updatedMentor)
+        addUser(id, updatedMentor);
     }
 
     return (
