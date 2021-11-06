@@ -31,17 +31,17 @@ const NavigationBar = () => {
 
                     <li className={"nav-item"}>
                         <Link to={'/'} className="nav-link" onClick={closeMobileMenu}>
-                            Dashboard
+                            <a className={"test"}>Dashboard</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
                         <Link to={'/resources'} className="nav-link" onClick={closeMobileMenu}>
-                            Resources
+                            <a>Resources</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
                         <Link to={'/profile'} className="nav-link" onClick={closeMobileMenu}>
-                            Profile
+                            <a>Profile</a>
                         </Link>
                     </li>
 

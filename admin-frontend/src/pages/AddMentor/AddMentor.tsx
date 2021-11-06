@@ -11,22 +11,20 @@ interface User {
 
 function AddMentor() {
 
-    const fetchMentors = async () => {
+    const fetchData = async () => {
+
         await axios.get<User[]>("http://localhost:8080/user/get/all")
             .then((response) => {
                 const usersDB = response.data;
-                // console.log("users api:", usersDB)
                 setUsers([])
                 usersDB.map(user => {
                     users.push(user);
                 })
             })
-        console.log("users after fetch:", users)
 
         await axios.get<Mentor[]>("http://localhost:8080/user/get/mentors/all")
             .then((response) => {
                 const mentorsDB = response.data;
-                // console.log("mentors api:", mentorsDB)
                 setTempMentors([]);
                 mentorsDB.map((mentor:Mentor) => {
                     tempMentors.push(mentor)
@@ -37,10 +35,8 @@ function AddMentor() {
                     })
                 })
             })
-        // console.log("tempMentors after fetch:", tempMentors)
-        // console.log("tempMentors after filtered:", mentors)
+
         setMentors(tempMentors);
-        // console.log("mentors after filtered:", mentors)
     }
 
     const [users, setUsers] = useState<User[]>([]);
@@ -48,7 +44,7 @@ function AddMentor() {
     const [tempMentors, setTempMentors] = useState<Mentor[]>([]);
 
     useEffect (() => {
-        fetchMentors();
+        fetchData();
     }, []);
 
     const addUser = async (id: number, updatedMentor: any) => {
@@ -63,15 +59,14 @@ function AddMentor() {
             username: updatedMentor.firstName,
             password: updatedMentor.password
         })
-        fetchMentors();
+        fetchData();
     }
 
   return (
     <div className='mentors'>
         <h1>List of unregistered mentors</h1>
         <MentorsContext.Provider value={{
-            mentors, addUser,
-            fetchMentors
+            mentors, addUser
         }}>
             <MentorsList />
         </MentorsContext.Provider>
