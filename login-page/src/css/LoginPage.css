@@ -148,7 +148,7 @@
   /*width: 35px;*/
   /*  height: 35px;*/
   /*  left: 1024px;*/
-    margin-left: 58%;
+    margin-left: 55%;
     margin-top: 22%;
     width: 30px;
     height: 30px;
@@ -161,8 +161,8 @@
   /*width: 73px;*/
   /*  height: 25px;*/
   /*  left: 1079px;*/
-    margin-left: 61%;
-    margin-top: 22.5%;
+    margin-left: 58%;
+    margin-top: 22.3%;
     width: 70px;
     height: 23px;
 }
@@ -175,9 +175,9 @@
   /*  height: 25px;*/
   /*  left: 789px;*/
     margin-left: 43%;
-    margin-top: 22.5%;
-    width: 150px;
-    height: 22px;
+    margin-top: 22.3%;
+    width: 70px;
+    height: 23px;
 }
 
 .login-page-text {
@@ -286,8 +286,8 @@
     .mentor-text {
         margin-left: 23%;
         margin-top: 86%;
-        width: 150px;
-        height: 22px;
+        width: 70px;
+        height: 23px;
     }
 
     .login-page-text {
