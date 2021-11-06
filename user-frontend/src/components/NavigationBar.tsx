@@ -33,17 +33,17 @@ const NavigationBar = () => {
 
                     <li className={"nav-item"}>
                         <Link activeClassName={"active"} exact to={'/'} className="nav-links" onClick={closeMobileMenu}>
-                            <a>Dashboard</a>
+                            <a href="/#">Dashboard</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
                         <Link to={'/resources'} className="nav-links" onClick={closeMobileMenu}>
-                            <a>Resources</a>
+                            <a href="/#">Resources</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
                         <Link to={'/profile'} className="nav-links" onClick={closeMobileMenu}>
-                            <a>Profile</a>
+                            <a href="/#">Profile</a>
                         </Link>
                     </li>
 
