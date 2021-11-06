@@ -21,10 +21,9 @@ public class MenteeController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/mentee/add")
     private String AddMentee(@RequestBody Mentee mte){
-        Mentee mentee = new Mentee(mte.getMenteeId(), mte.getFirstName(),mte.getLastName());
-        menteeService.add(mentee);
+        menteeService.add(mte);
 
-        if (menteeService.isMenteeAdded(mentee)) {
+        if (menteeService.isMenteeAdded(mte)) {
             return SUCCESS;
         }
 
