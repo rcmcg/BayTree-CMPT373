@@ -167,7 +167,7 @@
     height: 23px;
 }
 
-.mentor-mentee-text {
+.mentor-text {
   object-fit: cover;
   position: absolute;
   /*top: 424px;*/
@@ -283,7 +283,7 @@
         height: 23px;
     }
 
-    .mentor-mentee-text {
+    .mentor-text {
         margin-left: 23%;
         margin-top: 86%;
         width: 150px;

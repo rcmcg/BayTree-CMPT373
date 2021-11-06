@@ -28,7 +28,7 @@ export const LoginPage = () => {
                     <img className="account-type-selected" src={"../Images/user-type-selected.png"} />
                     <img className="account-type-unselected" src={"../Images/user-type-not-selected.png"} />
                     <img className="admin-text" src={"../Images/admin-text.png"} />
-                    <img className="mentor-mentee-text" src={"../Images/mentor-mentee-text.png"} />
+                    <img className="mentor-text" src={"../Images/mentor-text.png"} />
                     <img className="login-page-text" src={"../Images/login-page-text.png"} />
                     < Username />
                     < Password />
