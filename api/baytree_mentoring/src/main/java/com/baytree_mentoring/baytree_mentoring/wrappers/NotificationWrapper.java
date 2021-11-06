@@ -1,17 +1,17 @@
 package com.baytree_mentoring.baytree_mentoring.wrappers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationWrapper {
-    private final ArrayList<String> usernameList;
+    private final List<String> usernameList;
     private final String message;
 
-    public NotificationWrapper(ArrayList<String> usernameList, String message) {
+    public NotificationWrapper(List<String> usernameList, String message) {
         this.usernameList = usernameList;
         this.message = message;
     }
 
-    public ArrayList<String> getUsernameList() {
+    public List<String> getUsernameList() {
         return usernameList;
     }
 

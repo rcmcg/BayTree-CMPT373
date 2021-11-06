@@ -20,20 +20,22 @@ public class NotificationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/notifications/send")
-    private void generateNotificationsController(@RequestBody NotificationWrapper notificationWrapper) {
-        notificationService.generateNotificationsService(notificationWrapper.getUsernameList(), notificationWrapper.getMessage());
+    private void addNotifications(@RequestBody NotificationWrapper notificationWrapper) {
+        notificationService.addNotificationsFromAdmin(notificationWrapper.getUsernameList(), notificationWrapper.getMessage());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/notifications/get/{username}")
-    private List<Notification> getNotificationsForUserController(@PathVariable String username) {
-        return notificationService.getNotificationsForUserService(username);
+    private List<Notification> getNotificationsByUsername(@PathVariable String username) {
+        return notificationService.queryNotificationsByUsername(username);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/notifications/get/all")
-    private List<Notification> getNotificationsForEveryoneController() {
-        return notificationService.getNotificationsForEveryoneService();
+    private List<Notification> getAllNotifications() {
+        return notificationService.queryAllNotifications();
     }
+
+
 
 }
