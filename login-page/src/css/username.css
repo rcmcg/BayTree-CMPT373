@@ -51,19 +51,21 @@
 /* mobile screen size*/
 @media screen and (max-width: 800px) {
     .username-textbox{
-        margin-left: 20%;
-        margin-top: 48%;
+        margin-left: 10%;
+        margin-top: 125%;
+        width: 320px;
+        height: 50px;
     }
     .username-text{
-        width: 121px;
-        height: 25px;
-        margin-top: 44%;
-        margin-left: 20%;
+        width: 100px;
+        height: 20px;
+        margin-top: 115%;
+        margin-left: 10%;
     }
     .username {
-        width: 458px;
+        width: 320px;
         height: 27px;
-        margin-left: 22%;
-        margin-top: 51%;
+        margin-left: 13%;
+        margin-top: 127%;
     }
 }
