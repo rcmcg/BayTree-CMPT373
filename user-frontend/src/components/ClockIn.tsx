@@ -13,8 +13,8 @@ function ClockIn() {
             <div className={"button-div"}>
                 <Link to={'/session'}>
                     <IconContext.Provider
-                        value={{ color: '#fff', size:'60px'}}>
-                        <IoFingerPrintOutline/>
+                        value={{ color: '#fff', size:'50px'}}>
+                        <IoFingerPrintOutline />
                     </IconContext.Provider>
                 </Link>
             </div>

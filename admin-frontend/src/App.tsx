@@ -9,6 +9,7 @@ import Mentees from "./pages/Mentees/Mentees";
 import Settings from "./pages/Settings/Settings";
 import AddMentor from "./pages/AddMentor/AddMentor";
 import Login from "./pages/Login/Login";
+import Resources from "./pages/Resources/Resources";
 import Questionnaires from "./pages/Questionnaires/Questionnaires";
 
 export const backendApiURL: string = "http://localhost:8080"
@@ -28,6 +29,7 @@ function App() {
           <Route path="/questionnaires" component={Questionnaires} />
           <Route path="/settings" component={Settings} />
           <Route path="/login" component={Login} />
+          <Route path="/resources" component={Resources} />
         </Switch>
       </Router>
     </div>

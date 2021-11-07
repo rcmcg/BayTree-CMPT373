@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
@@ -18,6 +17,21 @@ public class MenteeServiceTest {
     @BeforeAll
     static void setup() {
         menteeService = mock(MenteeService.class);
+    }
+
+    @DisplayName("should return true when mentee is successfully added")
+    @Test
+    public void shouldReturnTrueWhenMenteeIsSuccessfullyAdded() {
+        // build
+        Mentee mentee = new Mentee(1L, "test",
+                "mentee");
+
+        // operate
+        menteeService.add(mentee);
+        doReturn(true).when(menteeService).isMenteeAdded(mentee);
+
+        // check
+        assertTrue(menteeService.isMenteeAdded(mentee));
     }
 
     @DisplayName("should return a list of all mentees")

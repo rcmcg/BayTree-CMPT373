@@ -38,4 +38,10 @@ export const SideNavbar = [
         icon: <AiIcons.AiOutlineSetting size = '28px'/>,
         cName: 'nav-text'
     },
+    {
+        title: 'Resources',
+        path: '/resources',
+        icon: <AiIcons.AiOutlineSetting size = '28px'/>,
+        cName: 'nav-text'
+    },
 ];

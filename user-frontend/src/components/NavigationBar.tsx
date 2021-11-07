@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { IconContext } from 'react-icons';
 import {FaBars, FaTimes} from "react-icons/fa";
-import {Link} from "react-router-dom";
+import {NavLink as Link} from "react-router-dom";
 import "../css/Navbar.css"
 import baytreeLogo from "../resources/baytree-logo.svg"
 
@@ -14,13 +14,15 @@ const NavigationBar = () => {
 
     return (
 
-        <IconContext.Provider value={{ color: '#fff' }}>
+        <IconContext.Provider value={{ color: '#ffffff' }}>
             <nav className={"navbar"}>
 
                 <div className={"navbar-container container"}>
-                    <img className={"brand-logo"}
-                         src={baytreeLogo}
-                         alt={"Baytree-logo"}/>
+                    <Link to={"/"}>
+                        <img className={"brand-logo"}
+                             src={baytreeLogo}
+                             alt={"Baytree-logo"}/>
+                    </Link>
                 </div>
 
                 <div className={"menu-icon"} onClick={handleClick}>
@@ -29,8 +31,8 @@ const NavigationBar = () => {
 
                 <ul className={click ? "nav-menu-active" : "nav-menu"}>
                     <li className={"nav-item"}>
-                        <Link to={'/'} className="nav-link" onClick={closeMobileMenu}>
-                            Dashboard
+                        <Link activeClassName={"active"} exact to={'/'} className="nav-links" onClick={closeMobileMenu}>
+                            <a href="/#">Dashboard</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
@@ -39,13 +41,13 @@ const NavigationBar = () => {
                         </Link>
                     </li>
                     <li className={"nav-item"}>
-                        <Link to={'/resources'} className="nav-link" onClick={closeMobileMenu}>
-                            Resources
+                        <Link to={'/resources'} className="nav-links" onClick={closeMobileMenu}>
+                            <a href="/#">Resources</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
-                        <Link to={'/profile'} className="nav-link" onClick={closeMobileMenu}>
-                            Profile
+                        <Link to={'/profile'} className="nav-links" onClick={closeMobileMenu}>
+                            <a href="/#">Profile</a>
                         </Link>
                     </li>
 

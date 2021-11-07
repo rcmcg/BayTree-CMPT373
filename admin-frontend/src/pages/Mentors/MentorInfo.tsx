@@ -7,11 +7,10 @@ interface MentorInfoInterface {
     status: string;
     role: string;
     startDate: string;
+    endDate: string;
     age: number;
-    gender: string;
     email: string;
-    firstLanguage: string;
-    otherLanguages: string;
+    phoneNumber: string;
   };
 }
 
@@ -22,11 +21,10 @@ function MentorInfo(mentorData: MentorInfoInterface["info"]) {
         <strong>Volunteer Status:</strong> {mentorData.status} <br/>
         <strong>Volunteer Role:</strong> {mentorData.role} <br/>                 
         <strong>Start Date:</strong> {mentorData.startDate} <br/>  
+        <strong>End Date:</strong> {mentorData.endDate} <br/> 
         <strong>Age:</strong> {mentorData.age} <br/>  
-        <strong>Gender:</strong> {mentorData.gender} <br/> 
         <strong>Email:</strong> {mentorData.email} <br/>
-        <strong>Primary Language:</strong> {mentorData.firstLanguage} <br/>
-        <strong>Other Languages:</strong> {mentorData.otherLanguages} <br/>
+        <strong>Phone Number:</strong> {mentorData.phoneNumber} <br/>
     </p>
   );
 }
