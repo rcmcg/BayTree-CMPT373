@@ -17,19 +17,24 @@ import {useState} from "react";
 // }
 
 export class SubmitQuestionnaireForm extends React.Component<any, any> {
-    state = {
-        loading: true,
-        menteeId: -1,
-        mentorId: -1,
-        year: -1,
-        month: -1,
-        questionsResponse: "",
-        questions: "",
-        categories: [],
-        inputTypes: [],
-        validation: [],
-        answers: []
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            loading: true,
+            menteeId: -1,
+            mentorId: -1,
+            year: -1,
+            month: -1,
+            questionsResponse: "",
+            questions: "",
+            categories: [],
+            inputTypes: [],
+            validation: [],
+            answers: []
+        }
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
+
 
     componentDidMount() {
         this.getUrlParametersUpdateState();
@@ -66,24 +71,24 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
     }
 
     private buildQuestionnaireForm(questionnaireJSON: any) {
-        console.log("Inside buildQuestionnaireForm")
-        console.log(questionnaireJSON)
-        console.log("Question: " + questionnaireJSON.Question)
+        // console.log("Inside buildQuestionnaireForm")
+        // console.log(questionnaireJSON)
+        // console.log("Question: " + questionnaireJSON.Question)
         let questionsArray = []
         let categoryArray = []
         let inputTypeArray = []
         let validationArray = []
         for (let key in questionnaireJSON) {
             let questionsEntry = []
-            console.log(key + " -> " + questionnaireJSON[key])
-            console.log(questionnaireJSON[key]['Question'])
+            // console.log(key + " -> " + questionnaireJSON[key])
+            // console.log(questionnaireJSON[key]['Question'])
             questionsArray.push(questionnaireJSON[key]['Question'])
             categoryArray.push(questionnaireJSON[key]['category'])
             inputTypeArray.push(questionnaireJSON[key]['inputType'])
             validationArray.push(questionnaireJSON[key]['validation'])
         }
-        console.log("questionsArray: " + questionsArray)
-        console.log("questionsArray[0]: " + questionsArray[0])
+        // console.log("questionsArray: " + questionsArray)
+        // console.log("questionsArray[0]: " + questionsArray[0])
         this.setState({
             loading: false,
             questionsResponse: questionnaireJSON,
@@ -102,7 +107,17 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
     }
 
     handleSubmit(event: any) {
+        event.preventDefault()
         console.log("Inside handleSubmit()");
+        console.log("questions:")
+        let element = null;
+        for (let i = 0; i < this.state.questions.length; i++) {
+            element = document.getElementById("question" + i)
+            console.log(element)
+            if (element != null) {
+                console.log((element as HTMLInputElement).value)
+            }
+        }
     }
 
     render() {
@@ -115,7 +130,7 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
                 <main>
                     <div>
                         <div>Done loading</div>
-                        <form onSubmit={this.handleSubmit}>
+                        <form onSubmit={this.handleSubmit} id={"questionnaire-form"}>
                             {Object.keys(this.state.questions).map((key) => {
                                 return (
                                     <div>
@@ -124,6 +139,11 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
                                     </div>
                                 )
                             })}
+                            <span>
+                                <button className={"ui primary button"} type={"submit"} onSubmit={this.handleSubmit}>
+                                    Submit
+                                </button>
+                            </span>
                         </form>
                     </div>
                 </main>
