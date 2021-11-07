@@ -1,7 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Mentee;
-import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.repositories.MenteeRepository;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -32,9 +31,9 @@ public class MenteeService {
         return (ArrayList<Mentee>) menteeRepository.findAll();
     }
 
-    public String getAllMenteesFromViewsThenUpdateDatabase(){
+    public void getAllMenteesFromViewsThenUpdateDatabase(){
         String response = getJsonMenteesFromViews();
-        return parseMenteesJSON(response.toString());
+        parseMenteesJSON(response.toString());
     }
 
     public String getJsonMenteesFromViews(){
@@ -83,7 +82,7 @@ public class MenteeService {
         return responseContent.toString();
     }
 
-    public String parseMenteesJSON(String responseBody){
+    public void parseMenteesJSON(String responseBody){
         JSONObject body = new JSONObject(responseBody);
 
         String beginingKey = body.names().getString(0);
@@ -103,7 +102,6 @@ public class MenteeService {
             Mentee mentee = new Mentee(viewsId,firstName,lastName);
             addMenteeToDatabase(mentee);
         }
-        return SUCCESS;
     }
 
     public void addMenteeToDatabase(Mentee mentee) {
