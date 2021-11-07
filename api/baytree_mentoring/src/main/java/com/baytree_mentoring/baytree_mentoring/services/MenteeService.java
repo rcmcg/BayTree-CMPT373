@@ -33,7 +33,11 @@ public class MenteeService {
 
     public void getAllMenteesFromViewsThenUpdateDatabase(){
         String response = getJsonMenteesFromViews();
-        parseMenteesJSON(response.toString());
+        List<Mentee> mentees = parseMenteesJSON(response.toString());
+
+        for(Mentee mtr:mentees){
+            addMenteeToDatabase(mtr);
+        }
     }
 
     public String getJsonMenteesFromViews(){
@@ -82,11 +86,12 @@ public class MenteeService {
         return responseContent.toString();
     }
 
-    public void parseMenteesJSON(String responseBody){
+    public List<Mentee> parseMenteesJSON(String responseBody){
         JSONObject body = new JSONObject(responseBody);
 
         String beginingKey = body.names().getString(0);
         JSONObject participants = body.getJSONObject(beginingKey);
+        List<Mentee> mentees = new ArrayList<Mentee>();
 
 
         for(int i =0; i < participants.names().length() ; i++){
@@ -100,8 +105,10 @@ public class MenteeService {
             String lastName = participant.getString("Surname");
 
             Mentee mentee = new Mentee(viewsId,firstName,lastName);
-            addMenteeToDatabase(mentee);
+            mentees.add(mentee);
+
         }
+        return mentees;
     }
 
     public void addMenteeToDatabase(Mentee mentee) {
