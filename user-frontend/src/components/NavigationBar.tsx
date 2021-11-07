@@ -37,7 +37,7 @@ const NavigationBar = () => {
                     </li>
                     <li className={"nav-item"}>
                         <Link to={'/monthlyquestionnaire'} className="nav-link" onClick={closeMobileMenu}>
-                            Questionnaires
+                            <a href="/#">Questionnaires</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
