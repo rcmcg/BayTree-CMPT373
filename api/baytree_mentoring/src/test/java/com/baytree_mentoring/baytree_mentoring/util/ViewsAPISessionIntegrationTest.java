@@ -3,6 +3,7 @@ package com.baytree_mentoring.baytree_mentoring.util;
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.util.ViewsAPISessionIntegration;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ViewsAPISessionIntegrationTest {
     private ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
 
+    @Disabled
     @Test
     void uploadSessionInformationTest() throws UnirestException, ParseException {
         // Mercury Mentee2 participantId is 39
@@ -31,6 +33,7 @@ class ViewsAPISessionIntegrationTest {
         assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
 
+    @Disabled
     @Test
     void uploadSessionWhereMenteeIdDoesNotExist() throws UnirestException, ParseException {
         Session ses = new Session(
@@ -46,6 +49,7 @@ class ViewsAPISessionIntegrationTest {
         assertThrows(UnirestException.class, () -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
 
+    @Disabled
     @Test
     void uploadSessionWhereSessionGroupIdDoesNotExist() throws UnirestException, ParseException {
         Session ses = new Session(

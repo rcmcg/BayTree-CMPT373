@@ -30,10 +30,14 @@ const NavigationBar = () => {
                 </div>
 
                 <ul className={click ? "nav-menu-active" : "nav-menu"}>
-
                     <li className={"nav-item"}>
                         <Link activeClassName={"active"} exact to={'/'} className="nav-links" onClick={closeMobileMenu}>
                             <a href="/#">Dashboard</a>
+                        </Link>
+                    </li>
+                    <li className={"nav-item"}>
+                        <Link to={'/monthlyquestionnaire'} className="nav-link" onClick={closeMobileMenu}>
+                            <a href="/#">Questionnaires</a>
                         </Link>
                     </li>
                     <li className={"nav-item"}>
