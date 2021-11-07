@@ -96,7 +96,7 @@ public class MenteeService {
             JSONObject participant = participants.getJSONObject(key);
 
             //We have the volunteer object, now fetch the required information.
-            int viewsId = Integer.parseInt(participant.getString("PersonID"));
+            Long viewsId = Long.parseLong(participant.getString("PersonID"));
             String firstName = participant.getString("Forename");
             String lastName = participant.getString("Surname");
 
