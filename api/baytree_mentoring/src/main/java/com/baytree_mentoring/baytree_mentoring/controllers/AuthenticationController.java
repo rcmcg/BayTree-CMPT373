@@ -21,6 +21,7 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user/add")
+    @CrossOrigin(origins = "http://localhost:3000")
     private String AddUser(@RequestBody Authentication usr){
         Authentication user = new Authentication(usr.getUsername(),usr.getPassword());
 
@@ -41,6 +42,7 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/all")
+    @CrossOrigin(origins = "http://localhost:3000")
     private List<Authentication> getAllUsers() {
         return authenticationService.getAllUsers();
     }

@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState } from "react";
-import {Modal, Button, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import React, { useEffect, useState } from "react";
+import {Modal, Button} from 'react-bootstrap'
 import { AddForm } from "./AddForm";
-import { MentorsContext } from "./UsersContextProvider";
 
 interface Props {
     mentor: any
