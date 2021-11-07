@@ -8,13 +8,13 @@ function ClockIn() {
     return (
         <div className={"clock-in"}>
             <h5 className={"header-component"}>
-                Clock In
+                Create Session
             </h5>
             <div className={"button-div"}>
                 <Link to={'/session'}>
                     <IconContext.Provider
-                        value={{ color: '#fff', size:'60px'}}>
-                        <IoFingerPrintOutline/>
+                        value={{ color: '#fff', size:'50px'}}>
+                        <IoFingerPrintOutline />
                     </IconContext.Provider>
                 </Link>
             </div>
