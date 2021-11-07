@@ -27,8 +27,8 @@ public class MenteeService {
         this.menteeRepository = menteeRepository;
     }
 
-    public ArrayList<Mentee> getAllMenteesFromDatabase(){
-        return (ArrayList<Mentee>) menteeRepository.findAll();
+    public List<Mentee> getAllMenteesFromDatabase(){
+        return menteeRepository.findAll();
     }
 
     public void getAllMenteesFromViewsThenUpdateDatabase(){
