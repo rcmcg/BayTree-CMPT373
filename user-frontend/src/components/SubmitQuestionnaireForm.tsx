@@ -108,8 +108,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
 
     handleSubmit(event: any) {
         event.preventDefault()
-        console.log("Inside handleSubmit()");
-        console.log("questions:")
         let element = null;
         for (let i = 0; i < this.state.questions.length; i++) {
             element = document.getElementById("question" + i)
@@ -128,21 +126,28 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         } else if (this.state.questions != null) {
             return (
                 <main>
-                    <div>
-                        <div>Done loading</div>
+                    <div className={"ui form sessionForm"}>
                         <form onSubmit={this.handleSubmit} id={"questionnaire-form"}>
                             {Object.keys(this.state.questions).map((key) => {
                                 return (
                                     <div>
-                                        <label htmlFor={"question" + key}>{this.state.questions[parseInt(key)]}</label>
-                                        <input type={this.state.inputTypes[parseInt(key)]} id={"question" + key} name={"question" + key}/>
+                                        <div>
+                                            <label htmlFor={"question" + key}>
+                                                {this.state.questions[parseInt(key)]} (Enter value 1 to 5)
+                                            </label>
+                                            <input
+                                                type={this.state.inputTypes[parseInt(key)]}
+                                                id={"question" + key} name={"question" + key}/>
+                                        </div>
+                                        <br/>
                                     </div>
                                 )
                             })}
-                            <span>
+                            <span className={"submitButtonFormat"}>
                                 <button className={"ui primary button"} type={"submit"} onSubmit={this.handleSubmit}>
                                     Submit
                                 </button>
+                                <br/>
                             </span>
                         </form>
                     </div>

@@ -14,7 +14,7 @@ import java.util.List;
 public class MonthlyQuestionnaireController {
     private final MonthlyQuestionnaireService monthlyQuestionnaireService;
 
-    private static final String SUCCESS = "MonthlyQuestionnaireForm Added";
+    private static final String SUCCESS = "SelectQuestionnaire Added";
 
     public MonthlyQuestionnaireController(MonthlyQuestionnaireService monthlyQuestionnaireService) {
         this.monthlyQuestionnaireService = monthlyQuestionnaireService;
@@ -33,7 +33,7 @@ public class MonthlyQuestionnaireController {
             return SUCCESS;
         }
 
-        String error = "Failed to add the MonthlyQuestionnaireForm.";
+        String error = "Failed to add the SelectQuestionnaire.";
         throw new FailedMonthlyQuestionnaireAddingException(error);
     }
 
@@ -52,6 +52,9 @@ public class MonthlyQuestionnaireController {
                     .getMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
             return monthlyQuestionnaire;
         } catch (UnirestException e) {
+            e.printStackTrace();
+            return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
+        } catch (Exception e) {
             e.printStackTrace();
             return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
         }

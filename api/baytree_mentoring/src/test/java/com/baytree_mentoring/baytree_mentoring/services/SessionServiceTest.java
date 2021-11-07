@@ -3,6 +3,7 @@ package com.baytree_mentoring.baytree_mentoring.services;
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +26,10 @@ public class SessionServiceTest {
     // Mercury Mentor participantId is 42
     // Mercury Test Session Group is 10
     // Mercury Team participantId is 28
+    @Disabled
     @Test
     void sendCompletedSessionFormToViewsGoodDataShouldPass() {
+        // Disabled so that session isn't uploaded from pipeline
         Session ses = new Session(
                 39,
                 42,
@@ -40,8 +43,10 @@ public class SessionServiceTest {
         assertDoesNotThrow(() -> sessionService.sendCompletedSessionFormToViews(ses));
     }
 
+    @Disabled
     @Test
     void sendCompletedSessionFormToViewsBadDataShouldReturnFalse() {
+        // Disabled so session doesn't attempt to upload from pipeline
         Session ses = new Session(
                 -1,
                 42,

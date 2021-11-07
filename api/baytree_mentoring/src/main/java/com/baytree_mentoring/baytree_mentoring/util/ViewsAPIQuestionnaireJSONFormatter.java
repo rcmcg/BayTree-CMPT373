@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 public class ViewsAPIQuestionnaireJSONFormatter {
     public String formatViewsQuestionnaireForFrontend(HttpResponse<JsonNode> questions) {
+        // Function unused currently, but will use in the future to modify the JSON before sending to the frontend
         System.out.println("ViewsAPIQuestionnaireJSONFormatter.formatViewsQuestionnaireForFrontend: Converting String to JSONObject" );
         System.out.println("formatViewsQuestionnaireForFrontend" + questions);
         System.out.println("formatViewsQuestionnaireForFrontend" + questions.getBody());

@@ -9,12 +9,11 @@ class ViewsApiQuestionnaireIntegrationTest {
     private static ViewsUnirest viewsUnirest = new ViewsUnirest();
 
     @Test
-    void getMonthlyQuestionnaireFromViews() throws UnirestException {
+    void getMonthlyQuestionnaireFromViews() {
         int mqViewsId = 18;
         String questionnaireQuestionsUrl =
                 "https://app.viewsapp.net/api/restful/evidence/questionnaires/" + mqViewsId + "/questions";
-        String questions = viewsUnirest.sendUnirestGetRequestGetStringResponse(questionnaireQuestionsUrl).toString();
-        System.out.println(questions);
-        assertTrue(true);
+        assertDoesNotThrow(
+                () -> viewsUnirest.sendUnirestGetRequestGetStringResponse(questionnaireQuestionsUrl).toString());
     }
 }

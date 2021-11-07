@@ -55,7 +55,7 @@ class QuestionnaireSubmit extends React.Component {
     }
 }
 
-export class MonthlyQuestionnaireForm extends React.Component<{}, MonthlyQuestionnaireState> {
+export class SelectQuestionnaire extends React.Component<{}, MonthlyQuestionnaireState> {
     constructor(props: any) {
         super(props);
         this.state = {

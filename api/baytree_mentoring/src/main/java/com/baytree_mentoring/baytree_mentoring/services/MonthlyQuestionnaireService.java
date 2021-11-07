@@ -37,19 +37,20 @@ public class MonthlyQuestionnaireService {
         return true;
     }
 
-    public String getMonthlyQuestionnaireForFrontend(int year, int month) throws UnirestException {
+    public String getMonthlyQuestionnaireForFrontend(int year, int month) throws UnirestException, Exception {
         int mqViewsId = getMonthlyQuestionnaireViewsId(year, month);
         String questionnaire = viewsApiQuestionnaireIntegration.getMonthlyQuestionnaire(mqViewsId);
         return questionnaire;
     }
 
-    public int getMonthlyQuestionnaireViewsId(int year, int month) {
+    public int getMonthlyQuestionnaireViewsId(int year, int month) throws Exception {
         MonthlyQuestionnaireId monthlyQuestionnaireId = new MonthlyQuestionnaireId(year, month);
         Optional<MonthlyQuestionnaire> monthlyQuestionnaire =
                 monthlyQuestionnaireRepository.findById(monthlyQuestionnaireId);
         if (monthlyQuestionnaire.isPresent()) {
             return monthlyQuestionnaire.get().getViewsQuestionnaireId();
+        } else {
+            throw new Exception("Questionnaire not found in database");
         }
-        return -1;
     }
 }
