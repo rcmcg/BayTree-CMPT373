@@ -1,0 +1,14 @@
+:root { 
+  --mountain-mist: #989696;
+ 
+  --font-size-m: 25px;
+ 
+  --font-family-helvetica: "Helvetica", Helvetica;
+}
+.helvetica-extra-light-mountain-mist-25px {
+  color: var(--mountain-mist);
+  font-family: var(--font-family-helvetica);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 200;
+}
