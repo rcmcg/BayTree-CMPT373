@@ -10,11 +10,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
-
 public class Mentee {
     @Id
-    private int menteeId;
+    private Long menteeId;
 
     @NotNull
     private String firstName;
@@ -22,9 +22,4 @@ public class Mentee {
     @NotNull
     private String lastName;
 
-    public Mentee(int menteeId, String firstName, String lastName) {
-        this.menteeId = menteeId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 }
