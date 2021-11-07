@@ -1,6 +1,7 @@
 import {IState as Props} from "./Questionnaire"
 import React from "react";
 import {useHistory} from "react-router-dom";
+import "../css/QuestionnairesList.css"
 
 interface IProps {
     questionnaires: Props["questionnaires"]
@@ -18,7 +19,7 @@ export const ListBody: React.FC<IProps> = ({questionnaires}) => {
             }
 
             return (
-                <span key={questionnaire.id.toString()}
+                <span className={"cardBody"} key={questionnaire.id.toString()}
                     onClick={routeChange}>
                     {questionnaire.id}
                 </span>
@@ -36,7 +37,7 @@ export const ListTitle: React.FC<IProps> = ({questionnaires}) => {
     const renderList = () : JSX.Element[] => {
         return questionnaires.map(questionnaire => {
             return (
-                <span key={questionnaire.id.toString()}>
+                <span className={"cardTitle"} key={questionnaire.id.toString()}>
                     {questionnaire.title}
                 </span>
             )

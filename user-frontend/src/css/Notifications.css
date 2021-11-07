@@ -24,7 +24,8 @@
 
 .messages span{
     border-radius: 20px;
-    background-color: #76CC4D;
+    background-color: #1dab92;
+    opacity: 90%;
 }
 
 .body div {
@@ -44,11 +45,17 @@
 .messages p {
     margin: 5px 0 0;
     padding: 0;
+
 }
 
 .subject {
     text-decoration: underline;
     font-weight: bold;
+    color: white;
+}
+
+.body {
+    color: white;
 }
 
 .body span:hover{
