@@ -9,13 +9,9 @@ public class ViewsApiQuestionnaireIntegration {
     private final ViewsAPIQuestionnaireJSONFormatter viewsAPIQuestionnaireJSONFormatter =
             new ViewsAPIQuestionnaireJSONFormatter();
 
-    public String getFormattedQuestionnaire(int mqViewsId) throws UnirestException {
+    public String getMonthlyQuestionnaire(int mqViewsId) throws UnirestException {
         HttpResponse<JsonNode> questionnaireFromViews = getMonthlyQuestionnaireFromViews(mqViewsId);
-        String formattedQuestionnaire = viewsAPIQuestionnaireJSONFormatter
-                .formatViewsQuestionnaireForFrontend(questionnaireFromViews);
-        System.out.println("ViewsApiQuestionnaireIntegration.getFormattedQuestionnaire: " +
-                "formattedQuestions: " + formattedQuestionnaire);
-        return "";
+        return questionnaireFromViews.getBody().toString();
     }
 
     public HttpResponse<JsonNode> getMonthlyQuestionnaireFromViews(int mqViewsId) throws UnirestException {

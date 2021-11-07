@@ -4,8 +4,6 @@ import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireId;
 import com.baytree_mentoring.baytree_mentoring.repositories.MonthlyQuestionnaireRepository;
 import com.baytree_mentoring.baytree_mentoring.util.ViewsApiQuestionnaireIntegration;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +37,9 @@ public class MonthlyQuestionnaireService {
         return true;
     }
 
-    public String getFormattedMonthlyQuestionnaireForFrontend(int year, int month) throws UnirestException {
+    public String getMonthlyQuestionnaireForFrontend(int year, int month) throws UnirestException {
         int mqViewsId = getMonthlyQuestionnaireViewsId(year, month);
-        String questionnaire = viewsApiQuestionnaireIntegration.getFormattedQuestionnaire(mqViewsId);
+        String questionnaire = viewsApiQuestionnaireIntegration.getMonthlyQuestionnaire(mqViewsId);
         return questionnaire;
     }
 

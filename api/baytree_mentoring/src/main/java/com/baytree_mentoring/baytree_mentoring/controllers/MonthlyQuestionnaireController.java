@@ -48,10 +48,12 @@ public class MonthlyQuestionnaireController {
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
     private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) {
         try {
-            monthlyQuestionnaireService.getFormattedMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
+            String monthlyQuestionnaire = monthlyQuestionnaireService
+                    .getMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
+            return monthlyQuestionnaire;
         } catch (UnirestException e) {
             e.printStackTrace();
+            return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
         }
-        return "Retrieve questionnaire for year " + year + " and month " + month;
     }
 }
