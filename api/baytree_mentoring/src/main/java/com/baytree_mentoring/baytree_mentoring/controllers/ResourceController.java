@@ -1,6 +1,7 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedResourceAddingException;
+import com.baytree_mentoring.baytree_mentoring.models.Authentication;
 import com.baytree_mentoring.baytree_mentoring.models.Resource;
 import com.baytree_mentoring.baytree_mentoring.services.ResourceService;
 import org.springframework.http.HttpStatus;
@@ -36,5 +37,12 @@ public class ResourceController {
 
         String error = "Failed to add the Resource.";
         throw new FailedResourceAddingException(error);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/resource/get/all")
+    @CrossOrigin(origins = "http://localhost:3000")
+    private List<Resource> getAllResources() {
+        return resourceService.getAllResources();
     }
 }
