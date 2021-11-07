@@ -1,7 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
-import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
-import com.baytree_mentoring.baytree_mentoring.models.Authentication;
+import com.baytree_mentoring.baytree_mentoring.exceptions.FailedResourceAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Resource;
 import com.baytree_mentoring.baytree_mentoring.services.ResourceService;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,7 @@ public class ResourceController {
     private String AddResource(@RequestBody Resource res){
         Resource resource = new Resource(res.getResourceId(), res.getResourceName(), res.getResourceLink());
 
-        resourceService.AddResourceSevice(resource);
+        resourceService.AddResourceService(resource);
 
         List<Resource> resources = resourceService.getAllResources();
 
