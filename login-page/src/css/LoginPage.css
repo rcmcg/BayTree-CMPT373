@@ -1,0 +1,298 @@
+.loginpage {
+  align-items: flex-start;
+  display: flex;
+    overflow: hidden;
+  height: 100vh;  width: 100%;
+}
+
+.baytree-leaf-background {
+  background-position: 100% 100%;
+  background-size: cover;
+    position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+.login-window {
+  border-radius: 32px;
+    object-fit: cover;
+  position: absolute;
+  /*top: 59px;*/
+  /*  left: 275px;*/
+    width: 90%;
+    height: 85vh;
+    margin-bottom: 10%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.baytree-logo {
+  object-fit: cover;
+  position: absolute;
+  /*top: 130px;   left: 417px;*/
+  /*width: 221px;*/
+  /*  height: 267px;*/
+    width: 180px;
+    height: 220px;
+    margin-top: 7%;
+    margin-left: 15%;
+}
+
+.login-button {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  transition: all 0.2s ease;
+    height: 65px;
+    min-width: 250px;
+    /*top: 810px;*/
+    /*left: 728px;*/
+    margin-top: 42%;
+    margin-left: 34%;
+}
+
+.login-button:hover {
+  transform: scale(0.9); 
+}
+
+.overlap-login-button {
+  border-radius: 12px;
+  height: 72px;
+  position: relative;
+  width: 274px;
+}
+
+.login-button-border{
+  border-radius: 12px;
+  cursor: pointer;
+  object-fit: cover;
+  position: absolute;
+  transition: all 0.2s ease;
+  width: 274px;
+    height: 72px;
+    margin-left: 40%;
+    margin-top: 0;
+}
+
+.login-text {
+  object-fit: cover;
+  position: absolute;
+  /*top: 18px;*/
+  /*width: 87px;*/
+  /*  height: 43px;*/
+  /*  left: 89px;*/
+    width: 80px;
+    height: 40px;
+    margin-top: 8%;
+    margin-left: 73%;
+}
+
+.i-forgot-my-password-redirection {
+  object-fit: cover;
+  position: absolute;
+  /*top: 926px;*/
+  width: 236px;
+    height: 25px;
+  /*  left: 728px;*/
+    margin-top: 48%;
+    margin-left: 40%;
+}
+
+.mentorship-programme-text {
+    object-fit: cover;
+    position: absolute;
+    /*top: 183px;*/
+    /*width: 618px;*/
+    /*  height: 55px;*/
+    /*  left: 728px;*/
+    width: 590px;
+    height: 52px;
+    margin-top: 10%;
+    margin-right: 15%;
+    margin-left: 40%;
+}
+
+.what-type-of-user-text {
+  object-fit: cover;
+  position: absolute;
+  /*top: 372px;*/
+  /*width: 226px;*/
+  /*  height: 25px;*/
+  /*  left: 732px;*/
+    width: 200px;
+    height: 20px;
+    margin-top: 20%;
+    margin-left: 40%;
+}
+
+.account-type-selected {
+  border-radius: 12px;
+  object-fit: cover;
+  position: absolute;
+  /*top: 419px;*/
+  /*width: 35px;*/
+  /*  height: 35px;*/
+  /*  left: 734px;*/
+    margin-left: 40%;
+    margin-top: 22%;
+    width: 30px;
+    height: 30px;
+}
+
+.account-type-unselected {
+  border-radius: 12px;
+  object-fit: cover;
+  position: absolute;
+  /*top: 419px;*/
+  /*width: 35px;*/
+  /*  height: 35px;*/
+  /*  left: 1024px;*/
+    margin-left: 55%;
+    margin-top: 22%;
+    width: 30px;
+    height: 30px;
+}
+
+.admin-text {
+  object-fit: cover;
+  position: absolute;
+  /*top: 424px;*/
+  /*width: 73px;*/
+  /*  height: 25px;*/
+  /*  left: 1079px;*/
+    margin-left: 58%;
+    margin-top: 22.3%;
+    width: 70px;
+    height: 23px;
+}
+
+.mentor-text {
+  object-fit: cover;
+  position: absolute;
+  /*top: 424px;*/
+  /*width: 169px;*/
+  /*  height: 25px;*/
+  /*  left: 789px;*/
+    margin-left: 43%;
+    margin-top: 22.3%;
+    width: 70px;
+    height: 23px;
+}
+
+.login-page-text {
+  object-fit: cover;
+  position: absolute;
+  top: 210px;
+  width: 210px;
+  /*  height: 50px;*/
+  /*  left: 727px;*/
+   margin-left: 40%;
+    margin-top: 2%;
+}
+
+/* medium size web screen */
+@media screen and (max-width: 1150px) {
+    .baytree-logo  {
+        width: 150px;
+        height: 180px;
+        margin-top: 10%;
+        margin-left: 15%;
+    }
+
+    .mentorship-programme-text{
+
+    }
+}
+
+/* mobile screen size*/
+@media screen and (max-width: 800px) {
+    .login-window{
+        height: 93vh;
+        margin-bottom: 0;
+        margin-top: 3%;
+    }
+
+    .baytree-logo   {
+        width: 92px;
+        height: 112px;
+        margin-top: 8%;
+        margin-left: 40%;
+    }
+
+    .mentorship-programme-text{
+        width: 300px;
+        height: 25px;
+        margin-top: 45%;
+        margin-left: 10%;
+    }
+
+    .login-button {
+        height: 35px;
+        min-width: 180px;
+        margin-top: 175%;
+        margin-left: 10%;
+    }
+
+    .login-button-border{
+        width: 275px;
+        height: 50px;
+        margin-left: 0%;
+        margin-top: 0;
+    }
+
+    .login-text {
+        width: 80px;
+        height: 40px;
+        margin-top: 3%;
+        margin-left: 34%;
+    }
+
+    .i-forgot-my-password-redirection {
+        width: 210px;
+        height: 21px;
+        margin-top: 195%;
+        margin-left: 12%;
+    }
+
+    .what-type-of-user-text {
+        width: 200px;
+        height: 20px;
+        margin-top: 75%;
+        margin-left: 10%;
+    }
+
+    .account-type-selected {
+        margin-left: 10%;
+        margin-top: 85%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .account-type-unselected {
+        margin-left: 10%;
+        margin-top: 98%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .admin-text {
+        margin-left: 23%;
+        margin-top: 99%;
+        width: 70px;
+        height: 23px;
+    }
+
+    .mentor-text {
+        margin-left: 23%;
+        margin-top: 86%;
+        width: 70px;
+        height: 23px;
+    }
+
+    .login-page-text {
+        margin-left: 10%;
+        margin-top: 0;
+        width: 150px;
+    }
+}

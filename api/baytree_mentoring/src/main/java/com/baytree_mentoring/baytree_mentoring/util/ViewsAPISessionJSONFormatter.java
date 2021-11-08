@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class ViewsAPIJSONFormatter {
+public class ViewsAPISessionJSONFormatter {
     private ObjectMapper mapper = new ObjectMapper();
 
     // TODO: Replace parameters with a ses object when required fields are added

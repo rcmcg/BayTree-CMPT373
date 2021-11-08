@@ -1,7 +1,5 @@
 package com.baytree_mentoring.baytree_mentoring.util;
 
-import com.baytree_mentoring.baytree_mentoring.util.ViewsAPIJSONFormatter;
-import com.baytree_mentoring.baytree_mentoring.util.ViewsAPISessionIntegration;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -11,9 +9,9 @@ import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ViewsAPIJSONFormatterTest {
+class ViewsAPISessionJSONFormatterTest {
     ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
-    ViewsAPIJSONFormatter viewsAPIJSONFormatter = new ViewsAPIJSONFormatter();
+    ViewsAPISessionJSONFormatter viewsAPISessionJSONFormatter = new ViewsAPISessionJSONFormatter();
     @Test
     void formatSessionUploadJSONTest() throws ParseException {
         String clockInTime = "2021-09-28 20:12:12";
@@ -22,7 +20,7 @@ class ViewsAPIJSONFormatterTest {
         String venueId = "2";
         String correctString = "{\"StartDate\":\"2021-09-28\",\"StartTime\":\"20:12:12\",\"Duration\":\"1\"," +
                 "\"LeadStaff\":\"28\",\"VenueID\":\"2\"}";
-        String body = viewsAPIJSONFormatter.createSessionUploadJSON(clockInTime, clockOutTime, leadStaff, venueId);
+        String body = viewsAPISessionJSONFormatter.createSessionUploadJSON(clockInTime, clockOutTime, leadStaff, venueId);
         assertEquals(correctString, body);
     }
 
@@ -33,7 +31,7 @@ class ViewsAPIJSONFormatterTest {
         String volunteering = "";
         String correctString = "{\"ContactID\":\""+viewsPersonId+"\"," +
                 "\"Attended\":\""+attended+"\",\"Volunteering\":\""+volunteering+"\"}";
-        String body = viewsAPIJSONFormatter.createSessionAttendanceJSON(viewsPersonId, attended);
+        String body = viewsAPISessionJSONFormatter.createSessionAttendanceJSON(viewsPersonId, attended);
         assertEquals(correctString, body);
     }
 
@@ -50,7 +48,7 @@ class ViewsAPIJSONFormatterTest {
                     .asString();
             System.out.println("Response inside getVenueIdForSessionGroupFromViews: ");
             System.out.println(response.getBody().toString());
-            String venueId = ViewsAPIJSONFormatter.parseVenueIdFromSessionGroupGetResponse(response);
+            String venueId = ViewsAPISessionJSONFormatter.parseVenueIdFromSessionGroupGetResponse(response);
             assertEquals("2", venueId);
         } catch (UnirestException e) {
             e.printStackTrace();
