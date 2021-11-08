@@ -1,5 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
+import com.baytree_mentoring.baytree_mentoring.models.Mentee;
 import com.baytree_mentoring.baytree_mentoring.models.Resource;
 import com.baytree_mentoring.baytree_mentoring.repositories.ResourceRepository;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,13 @@ public class ResourceService {
 
     public void deleteResourceUsingId(Long resId) {
         resourceRepository.deleteAllById(Collections.singleton(resId));
+    }
+
+    public void add(Resource res) {
+        resourceRepository.save(res);
+    }
+
+    public boolean isResourceAdded(Resource res) {
+        return resourceRepository.existsById(res.getResourceId());
     }
 }
