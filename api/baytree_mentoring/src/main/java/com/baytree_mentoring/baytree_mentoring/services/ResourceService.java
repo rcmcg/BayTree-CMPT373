@@ -4,6 +4,7 @@ import com.baytree_mentoring.baytree_mentoring.models.Resource;
 import com.baytree_mentoring.baytree_mentoring.repositories.ResourceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,5 +22,9 @@ public class ResourceService {
 
     public List<Resource> getAllResources() {
         return resourceRepository.findAll();
+    }
+
+    public void deleteResourceUsingId(Long resId) {
+        resourceRepository.deleteAllById(Collections.singleton(resId));
     }
 }
