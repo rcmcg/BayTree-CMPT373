@@ -1,7 +1,7 @@
 import {IState as Props} from "./Questionnaire"
 import React from "react";
 import {useHistory} from "react-router-dom";
-import "../css/QuestionnairesList.css"
+import "../../css/dashboard/QuestionnairesList.css"
 
 interface IProps {
     questionnaires: Props["questionnaires"]

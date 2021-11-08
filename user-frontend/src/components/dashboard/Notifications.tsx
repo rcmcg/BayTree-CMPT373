@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import "../css/Notifications.css"
+import "../../css/dashboard/Notifications.css"
 import { ListNotifications} from "./NotificationsList";
 
 export interface IState {

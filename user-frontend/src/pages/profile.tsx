@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import "../css/profile.css"
+import "../css/dashboard/profile.css"
 
 export const Profile = () => {
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "../css/ClockIn.css"
+import "../../css/dashboard/ClockIn.css"
 import {IoFingerPrintOutline} from "react-icons/io5";
 import { IconContext } from 'react-icons';
 
