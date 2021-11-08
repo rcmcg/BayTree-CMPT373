@@ -13,6 +13,7 @@ import java.util.List;
 public class ResourceController {
 
     private static final String SUCCESS = "Resource Added";
+    private static final String deleteSUCCESS = "Resource deleted";
     private final ResourceService resourceService;
 
     public ResourceController(ResourceService resourceService) {
@@ -44,5 +45,23 @@ public class ResourceController {
     @CrossOrigin(origins = "http://localhost:3000")
     private List<Resource> getAllResources() {
         return resourceService.getAllResources();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/resource/delete/{resourceId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    private String deleteResource(@PathVariable("resourceId") Long resId){
+
+        List<Resource> resources = resourceService.getAllResources();
+
+        for(Resource s : resources) {
+            if(s.getResourceId() == resId) {
+                resourceService.deleteResourceUsingId(resId);
+                return deleteSUCCESS;
+            }
+        }
+
+        String error = "Failed to Delete the Resource.";
+        throw new FailedResourceAddingException(error);
     }
 }
