@@ -11,6 +11,7 @@ import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
 import Checkbox from "./Checkbox";
+import axios from "axios";
 
 const Mentors = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -63,6 +64,27 @@ const Mentors = () => {
   const [finishDate, setFinishDate] = useState(
     new Date(moment().format("YYYY-MM-DDTHH:mm:ss"))
   );
+
+  const [message, setMessage] = useState("");
+
+  const handleMessageChange = (event: React.ChangeEvent<any>) => {
+    setMessage(event.target.value);
+  };
+
+  const handleSubmit = (event: React.ChangeEvent<any>) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:8080/notifications/send", {
+        usernameList: selectedFlatRows.map((row) => row.original.username),
+        message: message,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -152,7 +174,7 @@ const Mentors = () => {
         <code>
           {JSON.stringify(
             {
-              selectedFlatRows: selectedFlatRows.map(
+              "Selected users": selectedFlatRows.map(
                 (row) => row.original.username
               ),
             },
@@ -161,13 +183,17 @@ const Mentors = () => {
           )}
         </code>
       </pre>
-      <form method="post">
+      <form onSubmit={handleSubmit}>
         <div>
-          <textarea id="notifBody" rows={7} cols={42}>
-            Hello, just wanted to let you know...
-          </textarea>
+          <textarea
+            value={message}
+            id="notifBody"
+            onChange={handleMessageChange}
+            rows={7}
+            cols={42}
+          ></textarea>
         </div>
-        <input type="submit" value="Submit"></input>
+        <button type="submit">Submit</button>
       </form>
       {/* {console.log(selectedFlatRows.map((row) => row.original.username))} */}
     </>
