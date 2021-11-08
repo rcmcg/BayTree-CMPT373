@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {backendApiURL} from "../App";
+import {backendApiURL} from "../../App";
 import axios, {AxiosResponse} from "axios";
 import {useState} from "react";
 

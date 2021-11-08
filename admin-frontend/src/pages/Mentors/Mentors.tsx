@@ -11,8 +11,13 @@ import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
 import Checkbox from "./Checkbox";
+import axios from "axios";
 
 const Mentors = () => {
+  // Code mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
+  // However, there do not seem to be many ways to modify the code as this is just how the library works
+  // Code applied from various parts of the tutorial
+  // -----
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
 
@@ -58,11 +63,56 @@ const Mentors = () => {
   );
 
   const { pageIndex, pageSize } = state;
+  // -----
 
   const [startDate, setStartDate] = useState(new Date("2010-01-01T00:00:00"));
   const [finishDate, setFinishDate] = useState(
     new Date(moment().format("YYYY-MM-DDTHH:mm:ss"))
   );
+
+  const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState("");
+  const [listError, setlistError] = useState("");
+
+  const handleMessageChange = (event: React.ChangeEvent<any>) => {
+    setMessage(event.target.value);
+  };
+
+  let isValid: boolean = true;
+
+  const validate = () => {
+    if (selectedFlatRows.map((row) => row.original.username).length === 0) {
+      setlistError("No users selected");
+    }
+    if (message === "") {
+      setMessageError("Empty message body");
+    }
+    if (listError !== "" || messageError !== "") {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = (event: React.ChangeEvent<any>) => {
+    event.preventDefault();
+    isValid = validate();
+    if (isValid) {
+      axios
+        .post("http://localhost:8080/notifications/send", {
+          usernameList: selectedFlatRows.map((row) => row.original.username),
+          message: message,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      isValid = true;
+      // setlistError("");
+      // setMessageError("");
+    }
+  };
 
   return (
     <>
@@ -72,6 +122,9 @@ const Mentors = () => {
         finishDate={finishDate}
         setFinishDate={setFinishDate}
       />
+      {/* Code mostly taken from and based on //
+      https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
+      ----- */}
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -152,7 +205,7 @@ const Mentors = () => {
         <code>
           {JSON.stringify(
             {
-              selectedFlatRows: selectedFlatRows.map(
+              "Selected users": selectedFlatRows.map(
                 (row) => row.original.username
               ),
             },
@@ -161,15 +214,21 @@ const Mentors = () => {
           )}
         </code>
       </pre>
-      <form method="post">
+      {/* ----- */}
+      <div style={{ color: "red" }}> {listError}</div>
+      <form onSubmit={handleSubmit}>
         <div>
-          <textarea id="notifBody" rows={7} cols={42}>
-            Hello, just wanted to let you know...
-          </textarea>
+          <textarea
+            value={message}
+            id="notifBody"
+            onChange={handleMessageChange}
+            rows={7}
+            cols={42}
+          ></textarea>
         </div>
-        <input type="submit" value="Submit"></input>
+        <div style={{ color: "red" }}>{messageError}</div>
+        <button type="submit">Submit</button>
       </form>
-      {/* {console.log(selectedFlatRows.map((row) => row.original.username))} */}
     </>
   );
 };

@@ -21,7 +21,7 @@ const CustomDatePicker = (props: any) => {
   return (
     <div>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <KeyboardDatePicker
             margin="normal"
             id="date-picker-dialog-start"

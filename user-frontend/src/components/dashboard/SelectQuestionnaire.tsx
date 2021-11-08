@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
-import "../css/MonthlyQuestionnaireForm.css"
-import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
+import "../../css/dashboard/MonthlyQuestionnaireForm.css"
+import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
 
 const axios = require('axios').default;
 

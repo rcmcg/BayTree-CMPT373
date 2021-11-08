@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {SubmitQuestionnaireForm} from "../components/SubmitQuestionnaireForm";
+import {SubmitQuestionnaireForm} from "../components/dashboard/SubmitQuestionnaireForm";
 
 export const SubmitQuestionnaire = () => {
     return (

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import "../css/SessionForm.css"
+import "../css/dashboard/SessionForm.css"
 
-import {SessionForm} from "../components/SessionForm";
+import {SessionForm} from "../components/dashboard/SessionForm";
 
 export const Session = () => {
     return (
