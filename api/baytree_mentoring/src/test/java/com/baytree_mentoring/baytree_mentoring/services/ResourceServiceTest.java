@@ -38,7 +38,7 @@ public class ResourceServiceTest {
 
     @DisplayName("should return a list of all mentees")
     @Test
-    public void shouldReturnAListOfAllMentees() {
+    public void shouldReturnAListOfAllResources() {
         // build
         Resource res = new Resource();
 
