@@ -1,3 +1,8 @@
+.body {
+    padding-top: 0;
+    padding-left: 0;
+}
+
 .loginpage {
     align-items: flex-start;
     display: flex;
