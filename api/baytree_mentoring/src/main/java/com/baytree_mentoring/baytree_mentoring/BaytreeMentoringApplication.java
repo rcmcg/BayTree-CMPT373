@@ -29,15 +29,19 @@ public class BaytreeMentoringApplication {
 	@Bean
 	CommandLineRunner run(AppUserService userService) {
 		return args -> {
-			userService.saveRole(new Role(null, "ROLE_USER"));
-			userService.saveRole(new Role(null, "ROLE_ADMIN"));
-			userService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
+			try {
+				userService.saveRole(new Role(null, "ROLE_USER"));
+				userService.saveRole(new Role(null, "ROLE_ADMIN"));
+				userService.saveRole(new Role(null, "ROLE_SUPER_ADMIN"));
 
-			userService.saveUser(new AppUser(null, "Arnold Schwarzenegger", "arnold", "1234", new ArrayList<>()));
+				userService.saveUser(new AppUser(null, "Arnold Schwarzenegger", "arnold", "1234", new ArrayList<>()));
 
-			userService.addRoleToUser("arnold", "ROLE_SUPER_ADMIN");
-			userService.addRoleToUser("arnold", "ROLE_ADMIN");
-			userService.addRoleToUser("arnold", "ROLE_USER");
+				userService.addRoleToUser("arnold", "ROLE_SUPER_ADMIN");
+				userService.addRoleToUser("arnold", "ROLE_ADMIN");
+				userService.addRoleToUser("arnold", "ROLE_USER");
+			}catch (IllegalStateException e){
+
+			}
 		};
 	}
 }

@@ -12,6 +12,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="app_user", uniqueConstraints = @UniqueConstraint(name="unique_username", columnNames = {"username"}))
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

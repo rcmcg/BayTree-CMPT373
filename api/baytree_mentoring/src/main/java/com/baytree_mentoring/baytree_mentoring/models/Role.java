@@ -4,15 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="role", uniqueConstraints = @UniqueConstraint(name="unique_role_name", columnNames = {"name"}))
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -6,6 +6,7 @@ import com.baytree_mentoring.baytree_mentoring.repositories.AppUserRepo;
 import com.baytree_mentoring.baytree_mentoring.repositories.RoleRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,15 +18,23 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Transactional
 @Slf4j // for logs
 public class UserServiceImpl implements AppUserService, UserDetailsService {
     private final AppUserRepo userRepo;
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImpl(AppUserRepo userRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,6 +55,10 @@ public class UserServiceImpl implements AppUserService, UserDetailsService {
     @Override
     public AppUser saveUser(AppUser user) {
         log.info("Saving new user {} to the database", user.getName());
+        AppUser appUser = userRepo.findByUsername(user.getUsername());
+        if(appUser != null){
+            throw new IllegalStateException("username is taken");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
     }
@@ -53,6 +66,10 @@ public class UserServiceImpl implements AppUserService, UserDetailsService {
     @Override
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
+        Role existingRole = roleRepo.findByName(role.getName());
+        if(existingRole != null){
+            throw new IllegalStateException("role name is taken");
+        }
         return roleRepo.save(role);
     }
 
