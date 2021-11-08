@@ -14,6 +14,10 @@ import Checkbox from "./Checkbox";
 import axios from "axios";
 
 const Mentors = () => {
+  // Code mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
+  // However, there do not seem to be many ways to modify the code as this is just how the library works
+  // Code applied from various parts of the tutorial
+  // -----
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
 
@@ -59,6 +63,7 @@ const Mentors = () => {
   );
 
   const { pageIndex, pageSize } = state;
+  // -----
 
   const [startDate, setStartDate] = useState(new Date("2010-01-01T00:00:00"));
   const [finishDate, setFinishDate] = useState(
@@ -117,6 +122,9 @@ const Mentors = () => {
         finishDate={finishDate}
         setFinishDate={setFinishDate}
       />
+      {/* Code mostly taken from and based on //
+      https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
+      ----- */}
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -206,7 +214,8 @@ const Mentors = () => {
           )}
         </code>
       </pre>
-      <div style={{ fontSize: 12, color: "red" }}> {listError}</div>
+      {/* ----- */}
+      <div style={{ color: "red" }}> {listError}</div>
       <form onSubmit={handleSubmit}>
         <div>
           <textarea
@@ -217,10 +226,9 @@ const Mentors = () => {
             cols={42}
           ></textarea>
         </div>
-        <div style={{ fontSize: 12, color: "red" }}>{messageError}</div>
+        <div style={{ color: "red" }}>{messageError}</div>
         <button type="submit">Submit</button>
       </form>
-      {/* {console.log(selectedFlatRows.map((row) => row.original.username))} */}
     </>
   );
 };
