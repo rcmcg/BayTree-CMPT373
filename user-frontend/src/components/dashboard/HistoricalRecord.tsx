@@ -1,5 +1,5 @@
 import React from 'react';
-import "../css/HistoricalRecord.css"
+import "../../css/dashboard/HistoricalRecord.css"
 
 function HistoricalRecord() {
     return (

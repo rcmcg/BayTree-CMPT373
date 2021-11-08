@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {AxiosError, AxiosResponse} from "axios";
 import 'moment-timezone';
-import "../css/SessionForm.css"
-import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../App";
+import "../../css/dashboard/SessionForm.css"
+import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
 
 const axios = require('axios').default;
 const moment = require('moment');

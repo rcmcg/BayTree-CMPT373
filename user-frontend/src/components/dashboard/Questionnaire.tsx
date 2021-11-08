@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import "../css/Questionnaire.css"
+import "../../css/dashboard/Questionnaire.css"
 import {ListBody, ListTitle} from "./QuestionnairesList"
 import {Link} from "react-router-dom";
 

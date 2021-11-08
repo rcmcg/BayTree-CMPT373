@@ -1,7 +1,6 @@
-
 import * as React from 'react';
-import {LoginForm} from "../components/LoginBox"
-import "../css/LoginPage.css"
+import {LoginForm} from "../components/loginpage/LoginBox"
+import "../css/loginpage/LoginPage.css"
 
 export const LoginPage = () => {
 

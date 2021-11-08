@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import { IconContext } from 'react-icons';
 import {FaBars, FaTimes} from "react-icons/fa";
 import {NavLink as Link} from "react-router-dom";
-import "../css/Navbar.css"
-import baytreeLogo from "../resources/baytree-logo.svg"
+import "../../css/dashboard/Navbar.css"
+import baytreeLogo from "../../resources/baytree-logo.svg"
 
 const NavigationBar = () => {
 
@@ -32,7 +32,7 @@ const NavigationBar = () => {
                 <ul className={click ? "nav-menu-active" : "nav-menu"}>
 
                     <li className={"nav-item"}>
-                        <Link activeClassName={"active"} exact to={'/'} className="nav-links" onClick={closeMobileMenu}>
+                        <Link activeClassName={"active"} exact to={'/dashboard'} className="nav-links" onClick={closeMobileMenu}>
                             <a href="/#">Dashboard</a>
                         </Link>
                     </li>

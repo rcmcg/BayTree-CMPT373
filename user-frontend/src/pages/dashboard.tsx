@@ -1,9 +1,9 @@
 // @flow
 import * as React from 'react';
-import Notifications from "../components/Notifications";
-import Questionnaire from "../components/Questionnaire";
-import HistoricalRecord from "../components/HistoricalRecord";
-import ClockIn from '../components/ClockIn';
+import Notifications from "../components/dashboard/Notifications";
+import Questionnaire from "../components/dashboard/Questionnaire";
+import HistoricalRecord from "../components/dashboard/HistoricalRecord";
+import ClockIn from '../components/dashboard/ClockIn';
 
 export const Dashboard = () => {
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import "../css/MonthlyQuestionnaireForm.css"
+import "../css/dashboard/MonthlyQuestionnaireForm.css"
 
-import {MonthlyQuestionnaireForm} from "../components/MonthlyQuestionnaireForm";
+import {MonthlyQuestionnaireForm} from "../components/dashboard/MonthlyQuestionnaireForm";
 
 export const MonthlyQuestionnaire = () => {
     return (
