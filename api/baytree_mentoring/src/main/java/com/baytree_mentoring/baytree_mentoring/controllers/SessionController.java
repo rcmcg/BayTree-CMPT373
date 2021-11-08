@@ -6,8 +6,6 @@ import com.baytree_mentoring.baytree_mentoring.services.SessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class SessionController {
     private final SessionService sessionService;
@@ -30,6 +28,13 @@ public class SessionController {
             String error = "Failed to upload session to Views database";
             throw new FailedSessionAddingException(error);
         }
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/test")
+    private String test() {
+        return "WHATEVER THE RESPONSE IS";
     }
 }
 

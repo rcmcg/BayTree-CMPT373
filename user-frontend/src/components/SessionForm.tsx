@@ -9,7 +9,7 @@ const moment = require('moment');
 moment().format();
 
 interface SessionState {
-    menteeId: number,
+    menteeId: string,
     mentorId: number,
     sessionGroupId: number,
     didMenteeAttend: boolean,
@@ -21,11 +21,18 @@ interface SessionState {
 }
 
 class SelectMentee extends React.Component {
+
+
+    test = () => {
+        console.log("HELLO");
+        return (<input type="number" id="selectMenteeId" name="menteeId" required/>);
+    }
+
     render () {
         return (
             <div>
                 <label form="selectMenteeId">Mentee id </label>
-                <input type="number" id="selectMenteeId" name="menteeId" required/>
+                {this.test()}
             </div>
         )
     }
@@ -137,7 +144,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menteeId: -1,
+            menteeId: '',
             mentorId: -1,
             sessionGroupId: -1,
             didMenteeAttend: true,
@@ -150,6 +157,22 @@ export class SessionForm extends React.Component<{}, SessionState> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
+        // this.componentDidMount();
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8080/test')
+            .then((res: any) => {
+                if(res.date !== null) {
+                    // this.setState({ data : res.data });
+                    console.log(res)
+
+                    console.log()
+                }
+            })
+            .catch((err: any) => {
+                console.log(err);
+            })
     }
 
     handleSubmit(event: any) {
