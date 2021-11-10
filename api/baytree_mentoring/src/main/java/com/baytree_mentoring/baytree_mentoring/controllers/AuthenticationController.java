@@ -46,9 +46,4 @@ public class    AuthenticationController {
     private List<Authentication> getAllUsers() {
         return authenticationService.getAllUsers();
     }
-
-
-
-
-
 }
