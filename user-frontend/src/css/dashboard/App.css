@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    padding-top: 100px;     /* 150 px is the size of the header */
+    font-family: sans-serif ;
+    padding-left: 10px;
+}
+
+.brand-logo {
+    width: 150px;
+    height: 80px;
+    line-height: 70px;
+    float: left;
+    padding-top: 17px;
+    padding-left: 10px;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    box-sizing: border-box;
+}
+
+ul li {
+    list-style:none;
+}
+
+ul li a:focus {
+    opacity: 1;
+}
+
+@media screen and (max-width: 800px) {
+    .ul {
+        display: none;
+        all: unset;
+    }
+}
+
+/* phone screen */
+@media screen and (max-width: 800px) {
+    .brand-logo {
+        width: 120px;
+        height: 80px;
+        padding-left: 0;
+    }
+}
+
+@media screen and (min-width: 705px) {
+
+    .left-container{
+        width: 25%;
+        float: left;
+    }
+    .right-container{
+        margin-left: 5%;
+    }
+}
+
+.header-component {
+    text-decoration: underline;
+    font-size: 17px;
+    height: 15px;
+    font-weight: bold;
+}
+

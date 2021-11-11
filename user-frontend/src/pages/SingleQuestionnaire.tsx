@@ -6,8 +6,7 @@ export function SingleQuestionnaire () {
 
     return (
         <div>
-            <div style={{height: "10vh"}} />
-
+            <div/>
             <h1> Questionnaire Information </h1>
             <p> Title: {title}</p>
         </div>

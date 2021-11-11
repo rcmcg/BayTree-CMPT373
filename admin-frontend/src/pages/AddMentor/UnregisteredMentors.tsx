@@ -1,9 +1,10 @@
-import React, {useContext, useEffect, useState } from "react";
-import {Modal, Button, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import React, {useContext, useEffect } from "react";
 import { SingleUser } from "./SIngleUser";
 import { MentorsContext } from "./UsersContextProvider";
 
+
 export const MentorsList= () => {
+
     const {mentors} = useContext(MentorsContext);
 
     return (

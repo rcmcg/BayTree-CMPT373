@@ -1,29 +1,65 @@
-import React, {useCallback, useState } from 'react';
+import axios from 'axios';
+import React, {useState, useEffect } from 'react';
 import "./Mentors.css";
 import  { MentorsList } from "./UnregisteredMentors"
-import {Mentor, MentorsContext, mentorsContextValue } from './UsersContextProvider';
+import {Mentor, MentorsContext} from './UsersContextProvider';
+
+interface User {
+    username: string,
+    password: string,
+}
 
 function AddMentor() {
 
-    const [mentors, setMentors] = useState<Mentor[]>([
-        {id: 1, firstName: "user1", lastName: "Smith", password: "default password",
-            role: "Financial Advisor", email: "user1@gmail.com", phone: 1231233231},
-        {id: 2, firstName: "user2", lastName: "Brown", password: "default password",
-            role: "Broker", email: "user2@gmail.com", phone: 1231233231},
-        {id: 3, firstName: "user3", lastName: "Tremblay", password: "default password",
-            role: "Attorney", email: "user3@gmail.com", phone: 1231233231},
-        {id: 4, firstName: "user4", lastName: "Martin", password: "default password",
-            role: "Babysister", email: "user4@gmail.com", phone: 1231233231},
-        {id: 5, firstName: "user5", lastName: "Smith", password: "default password",
-            role: "Financial Advisor", email: "user5@gmail.com", phone: 1231233231}
-    ]);
+    const fetchData = async () => {
 
-    const addUser = (id: number, updatedMentor: any) => {
-        // change mentor's information
-        setMentors(mentors.map((mentor) => mentor.id === id ? updatedMentor : mentor))
+        await axios.get<User[]>("http://localhost:8080/user/get/all")
+            .then((response) => {
+                const usersDB = response.data;
+                setUsers([])
+                usersDB.map(user => {
+                    users.push(user);
+                })
+            })
 
-        // delete mentor in the unregisted mentors list
-        setMentors(mentors.filter(mentor => mentor.id !== id))
+        await axios.get<Mentor[]>("http://localhost:8080/user/get/mentors/all")
+            .then((response) => {
+                const mentorsDB = response.data;
+                setTempMentors([]);
+                mentorsDB.map((mentor:Mentor) => {
+                    tempMentors.push(mentor)
+                    users.map((user: User) => {
+                        if (mentor.firstName === user.username){
+                            tempMentors.pop();
+                        }
+                    })
+                })
+            })
+
+        setMentors(tempMentors);
+    }
+
+    const [users, setUsers] = useState<User[]>([]);
+    const [mentors, setMentors] = useState<Mentor[]>([]);
+    const [tempMentors, setTempMentors] = useState<Mentor[]>([]);
+
+    useEffect (() => {
+        fetchData();
+    }, []);
+
+    const addUser = async (id: number, updatedMentor: any) => {
+
+        // // change mentor's information
+        // setMentors(mentors.map((mentor) => mentor.id === id ? updatedMentor : mentor))
+        //
+        // // delete mentor in the unregisted mentors list
+        // setMentors(mentors.filter(mentor => mentor.id !== id))
+
+        await axios.post<Mentor>('http://localhost:8080/user/add', {
+            username: updatedMentor.firstName,
+            password: updatedMentor.password
+        })
+        fetchData();
     }
 
   return (
@@ -39,3 +75,5 @@ function AddMentor() {
 }
 
 export default AddMentor;
+
+

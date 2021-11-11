@@ -1,3 +1,5 @@
+// This whole page was taken from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-table
+// It is an essential part for typescript support in react-table
 import {
   UseColumnOrderInstanceProps,
   UseColumnOrderState,

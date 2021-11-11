@@ -1,0 +1,51 @@
+
+.clock-in {
+    width: 80%;
+    height: 200px;
+    box-shadow: 0 3px 10px rgb(0 0 0 );
+    padding-top: 1px;
+    padding-left: 15px;
+    margin: 40px 7% 20px 8%;
+    border-radius: 20px;
+}
+
+@media screen and (min-width: 705px){
+    .clock-in{
+        width: 100%;
+        margin: 40px 5% 10px 17%;
+        height: 250px;
+        float: left;
+    }
+}
+
+/*
+    This is for MOBILE SCREEN or SMALLER THAN 700px screens
+ */
+.button-div{
+    background-color: #1dab92;
+    opacity: 90%;
+    border-radius: 60px;
+    height: 40%;
+    width: 40%;
+    float: right;
+    text-align: center;
+    padding-top: 6%;
+    padding-bottom: 0;
+    margin: 11% 31% 0 0
+}
+
+/*
+    @media IS for FULLSCREEN
+        if min-width is GREATER THAN 700px, this will be applied
+ */
+@media screen and (min-width: 700px) {
+    .button-div {
+        background-color: #1dab92;
+        opacity: 90%;
+        border-radius: 60px;
+        height: 40%;
+        width: 40%;
+        float: right;
+        margin: 45px 145px 75px 0;
+    }
+}

@@ -1,0 +1,26 @@
+@media screen and (min-width: 700px) {
+    .sessionForm {
+        padding: 10px 20% 10px 20%;
+    }
+}
+
+.sessionForm {
+    margin-right: 10px;
+}
+
+@media screen and (min-width: 700px) {
+    .sessionHeading {
+        text-align: center;
+        font-size: 300%;
+        padding-bottom: 0.5em;
+    }
+}
+
+.sessionHeading {
+    text-align: center;
+    padding-bottom: 0.5em;
+}
+
+.submitButtonFormat {
+    text-align: center;
+}

@@ -10,6 +10,7 @@ import Settings from "./pages/Settings/Settings";
 import AddMentor from "./pages/AddMentor/AddMentor";
 import Login from "./pages/Login/Login";
 import Resources from "./pages/Resources/Resources";
+import Questionnaires from "./pages/Questionnaires/Questionnaires";
 
 export const backendApiURL: string = "http://localhost:8080"
 export const HTTP_CREATED_STATUS_RESPONSE: number = 201
@@ -25,9 +26,10 @@ function App() {
           <Route path="/mentor" component={Mentor} />
           <Route path="/mentees" component={Mentees} />
           <Route path="/add" component={AddMentor} />
+          <Route path="/questionnaires" component={Questionnaires} />
           <Route path="/settings" component={Settings} />
           <Route path="/login" component={Login} />
-          <Route path="/Resources" component={Resources} />
+          <Route path="/resources" component={Resources} />
         </Switch>
       </Router>
     </div>
