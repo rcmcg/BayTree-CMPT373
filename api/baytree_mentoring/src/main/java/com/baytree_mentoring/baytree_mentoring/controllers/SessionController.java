@@ -3,6 +3,9 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.services.SessionService;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +37,9 @@ public class SessionController {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/test")
-    private String test() {
-        return "WHATEVER THE RESPONSE IS";
+    private HttpResponse<String> test() throws UnirestException {
+//        return "WHATEVER THE RESPONSE IS";
+        return ViewsUnirest.getJsonMentorsFromViews();
     }
 }
 
