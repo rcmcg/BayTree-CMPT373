@@ -30,6 +30,7 @@ public class SessionController {
         }
     }
 
+    // Todo: refactor this method and related changes in this commit
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/test")
