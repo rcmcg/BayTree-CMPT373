@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SessionController {
     private final SessionService sessionService;
+    private final ViewsUnirest viewsUnirest = new ViewsUnirest();
 
     private static final String SUCCESS = "Session Added";
 
@@ -37,9 +38,15 @@ public class SessionController {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/test")
-    private HttpResponse<String> test() throws UnirestException {
-//        return "WHATEVER THE RESPONSE IS";
-        return ViewsUnirest.getJsonMentorsFromViews();
+    private String test() throws UnirestException {
+        System.out.println("inside test()");
+        // return "WHATEVER THE RESPONSE IS";
+        String URL = "https://app.viewsapp.net/api/restful/contacts/volunteers/search?";
+        System.out.println("test() before response");
+        HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
+        System.out.println("test() after response");
+        System.out.println(response.getBody());
+        return response.getBody();
     }
 }
 
