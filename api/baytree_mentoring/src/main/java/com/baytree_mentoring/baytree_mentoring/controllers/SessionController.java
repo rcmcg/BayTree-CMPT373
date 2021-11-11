@@ -41,7 +41,7 @@ public class SessionController {
     private String test() throws UnirestException {
         System.out.println("inside test()");
         // return "WHATEVER THE RESPONSE IS";
-        String URL = "https://app.viewsapp.net/api/restful/contacts/volunteers/search?";
+        String URL = "https://app.viewsapp.net/api/restful/contacts/participants/search?q=";
         System.out.println("test() before response");
         HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
         System.out.println("test() after response");
