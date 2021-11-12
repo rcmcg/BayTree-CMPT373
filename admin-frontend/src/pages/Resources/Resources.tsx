@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getResourcesList } from './Resources.api';
 import { Resource } from './types';
+import { IconButton, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core/';
+import {Delete} from '@material-ui/icons'
+import { Table } from 'react-bootstrap';
 
 // interface ResourcesProps {
 //   Resource: any
@@ -21,11 +24,41 @@ function Resources() {
     }
     fetchResourceList()
   },[])
-  return (
-    <div className='resources'>
-      <h1>Add Resources</h1>
-      {JSON.stringify(resources)}
-    </div>
+  return (<>
+  <Typography variant="h3">Resources</Typography>
+  <TableContainer>
+  <Table>
+    <TableHead>
+      <TableRow>
+        <TableCell>ID</TableCell>
+        <TableCell>Resource Name</TableCell>
+        <TableCell>Resource Link</TableCell>
+        <TableCell>Actions</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {resources && resources.map(resource => (
+        <TableRow key={resource.id}>
+          <TableCell>
+            {resource.id}
+          </TableCell>
+          <TableCell>
+            {resource.resourceName}
+          </TableCell>
+          <TableCell>
+            {resource.resourceLink}
+          </TableCell>
+          <TableCell>
+            <IconButton>
+              <Delete />
+            </IconButton>
+          </TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+  </TableContainer>
+  </>  
   );
 }
 
