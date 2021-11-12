@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getResourcesList } from './Resources.api';
 import { Resource } from './types';
-import { IconButton, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core/';
+import { IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core/';
 import {Delete} from '@material-ui/icons'
 import { Table } from 'react-bootstrap';
 
@@ -14,7 +14,14 @@ import { Table } from 'react-bootstrap';
 
 // }
 
+const useStyles = makeStyles({
+  tableRow: {
+    cursor: 'pointer'
+  }
+})
+
 function Resources() {
+  const classes = useStyles();
   const [resources, setResource] = useState<Resource[] | null>(null)
   useEffect(() => {
     const fetchResourceList = async () => {
@@ -38,7 +45,7 @@ function Resources() {
     </TableHead>
     <TableBody>
       {resources && resources.map(resource => (
-        <TableRow key={resource.id}>
+        <TableRow className={classes.tableRow} hover key={resource.id}>
           <TableCell>
             {resource.id}
           </TableCell>
