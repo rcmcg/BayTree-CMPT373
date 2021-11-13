@@ -26,11 +26,11 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
             year: -1,
             month: -1,
             questionsResponse: "",
-            questions: "",
-            categories: [],
-            inputTypes: [],
-            validation: [],
-            answers: []
+            // questions: "",
+            // categories: [],
+            // inputTypes: [],
+            // validation: [],
+            // answers: []
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -62,40 +62,47 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         console.log("Sending axios get request with URL: " + url);
         axios.get(url)
             .then((response:AxiosResponse) => {
+                console.log("Inside axios get .then")
                 console.log(response);
-                this.buildQuestionnaireForm(response.data)
+                console.log(response.data);
+                this.setState({
+                    questionsResponse: response.data
+                }, this.buildQuestionnaireForm)
+
             })
             .catch(function (error) {
                 console.log(error)
             })
+        // console.log("After axios get")
+        // console.log(this.state.questionsResponse)
     }
 
-    private buildQuestionnaireForm(questionnaireJSON: any) {
+    private buildQuestionnaireForm() {
         // console.log("Inside buildQuestionnaireForm")
         // console.log(questionnaireJSON)
         // console.log("Question: " + questionnaireJSON.Question)
-        let questionsArray = []
-        let categoryArray = []
-        let inputTypeArray = []
-        let validationArray = []
-        for (let key in questionnaireJSON) {
-            let questionsEntry = []
-            // console.log(key + " -> " + questionnaireJSON[key])
-            // console.log(questionnaireJSON[key]['Question'])
-            questionsArray.push(questionnaireJSON[key]['Question'])
-            categoryArray.push(questionnaireJSON[key]['category'])
-            inputTypeArray.push(questionnaireJSON[key]['inputType'])
-            validationArray.push(questionnaireJSON[key]['validation'])
-        }
+        // let questionsArray = []
+        // let categoryArray = []
+        // let inputTypeArray = []
+        // let validationArray = []
+        // for (let key in questionnaireJSON) {
+        //     let questionsEntry = []
+        //     // console.log(key + " -> " + questionnaireJSON[key])
+        //     // console.log(questionnaireJSON[key]['Question'])
+        //     questionsArray.push(questionnaireJSON[key]['Question'])
+        //     categoryArray.push(questionnaireJSON[key]['category'])
+        //     inputTypeArray.push(questionnaireJSON[key]['inputType'])
+        //     validationArray.push(questionnaireJSON[key]['validation'])
+        // }
         // console.log("questionsArray: " + questionsArray)
         // console.log("questionsArray[0]: " + questionsArray[0])
         this.setState({
             loading: false,
-            questionsResponse: questionnaireJSON,
-            questions: questionsArray,
-            categories: categoryArray,
-            inputTypes: inputTypeArray,
-            validation: validationArray
+            // questionsResponse: questionnaireJSON,
+            // questions: questionsArray,
+            // categories: categoryArray,
+            // inputTypes: inputTypeArray,
+            // validation: validationArray
         })
     }
 
@@ -116,6 +123,9 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
                 console.log((element as HTMLInputElement).value)
             }
         }
+        console.log("Inside handleSubmit()")
+        console.log(this.state.questionsResponse)
+        console.log(this.state.questionsResponse.data)
     }
 
     render() {
@@ -123,21 +133,26 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
             return (
                 <div>Loading...</div>
             )
-        } else if (this.state.questions != null) {
+        } else if (this.state.questionsResponse != null) {
             return (
                 <main>
                     <div className={"ui form sessionForm"}>
                         <form onSubmit={this.handleSubmit} id={"questionnaire-form"}>
-                            {Object.keys(this.state.questions).map((key) => {
+                            {Object.keys(this.state.questionsResponse).map((key) => {
+                                console.log("Creating input for key: " + key)
+                                console.log("Response: " + this.state.questionsResponse)
+                                console.log("Response data: " + this.state.questionsResponse[key].Question)
+                                // console.log("Questions: " + this.state.questions)
                                 return (
                                     <div>
                                         <div>
-                                            <label htmlFor={"question" + key}>
-                                                {this.state.questions[parseInt(key)]} (Enter value 1 to 5)
+                                            <label htmlFor={key}>
+                                                {this.state.questionsResponse[key].Question} (Enter value 1 to 5)
                                             </label>
                                             <input
-                                                type={this.state.inputTypes[parseInt(key)]}
-                                                id={"question" + key} name={"question" + key}/>
+                                                // type={this.state.questionsResponse[parseInt(key)]}
+                                                type={this.state.questionsResponse[key].inputType}
+                                                id={key} name={key}/>
                                         </div>
                                         <br/>
                                     </div>
