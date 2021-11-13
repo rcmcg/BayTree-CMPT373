@@ -153,7 +153,6 @@ public class MenteeService {
             mentees.add(Optional.of(viewsMentee));
         }
 
-        System.out.println("MENTEES: " + mentees.size());
         return mentees;
     }
 

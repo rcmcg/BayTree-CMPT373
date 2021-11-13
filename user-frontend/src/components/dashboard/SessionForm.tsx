@@ -24,7 +24,6 @@ class SelectMentee extends React.Component {
 
 
     test = () => {
-        console.log("HELLO");
         return (<input type="number" id="selectMenteeId" name="menteeId" required/>);
     }
 
@@ -161,7 +160,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/test')
+        axios.get('http://localhost:8080/fetchAllMentees')
             .then((res: any) => {
                 if(res.date !== null) {
                     // this.setState({ data : res.data });
