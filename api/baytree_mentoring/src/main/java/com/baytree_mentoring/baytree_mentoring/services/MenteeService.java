@@ -1,7 +1,11 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Mentee;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsMentee;
 import com.baytree_mentoring.baytree_mentoring.repositories.MenteeRepository;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -10,18 +14,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MenteeService {
     private final MenteeRepository menteeRepository;
-
-    private static HttpURLConnection connection;
-
-    private static final String SUCCESS = "Mentees Added to database";
+    private final ViewsUnirest viewsUnirest = new ViewsUnirest();
 
     public MenteeService(MenteeRepository menteeRepository) {
         this.menteeRepository = menteeRepository;
@@ -33,7 +34,7 @@ public class MenteeService {
 
     public void getAllMenteesFromViewsThenUpdateDatabase(){
         String response = getJsonMenteesFromViews();
-        List<Mentee> mentees = parseMenteesJSON(response.toString());
+        List<Mentee> mentees = parseMenteesJSON(response);
 
         for(Mentee mtr:mentees){
             addMenteeToDatabase(mtr);
@@ -41,13 +42,13 @@ public class MenteeService {
     }
 
     public String getJsonMenteesFromViews(){
-        int status = -1;
+        int status;
         BufferedReader reader;
         String line;
-        StringBuffer responseContent = new StringBuffer();
+        StringBuilder responseContent = new StringBuilder();
         try {
             URL url = new URL("https://app.viewsapp.net/api/restful/contacts/participants/search?");
-            connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             String userpass = "group.mercury" + ":" + "Mercury!$%12";
             String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
 
@@ -76,10 +77,8 @@ public class MenteeService {
                 }
                 reader.close();
             }
-            System.out.println(responseContent.toString());
+            System.out.println(responseContent);
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,7 +90,7 @@ public class MenteeService {
 
         String beginingKey = body.names().getString(0);
         JSONObject participants = body.getJSONObject(beginingKey);
-        List<Mentee> mentees = new ArrayList<Mentee>();
+        List<Mentee> mentees = new ArrayList<>();
 
 
         for(int i =0; i < participants.names().length() ; i++){
@@ -123,5 +122,53 @@ public class MenteeService {
 
     public boolean isMenteeAdded(Mentee mentee) {
         return menteeRepository.existsById(mentee.getMenteeId());
+    }
+
+    public List<Optional<ViewsMentee>> getMenteesFromViews() {
+        String URL = "https://app.viewsapp.net/api/restful/contacts/participants/search?q=";
+
+        List<Optional<ViewsMentee>> mentees = new ArrayList<>();
+
+        try {
+            HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
+            mentees = parseMentees(response);
+        } catch(UnirestException e) {
+            e.printStackTrace();
+            return mentees;
+        }
+
+        return mentees;
+    }
+
+    private List<Optional<ViewsMentee>> parseMentees(HttpResponse<String> response) {
+        JSONObject body = new JSONObject(response.getBody());
+        String count = body.names().getString(0);
+        JSONObject menteeIds = body.getJSONObject(count);
+
+        List<Optional<ViewsMentee>> mentees = new ArrayList<>();
+
+        for(Object o : menteeIds.names()) {
+            JSONObject mentee = menteeIds.getJSONObject(o.toString());
+            ViewsMentee viewsMentee = buildMentee(mentee, o);
+            mentees.add(Optional.of(viewsMentee));
+        }
+
+        System.out.println("MENTEES: " + mentees.size());
+        return mentees;
+    }
+
+    private ViewsMentee buildMentee(JSONObject mentee, Object id) {
+        long participantId = Long.parseLong(extractId(id.toString()));
+        String firstName = mentee.getString("Forename");
+        String lastName = mentee.getString("Surname");
+
+        return new ViewsMentee(participantId, firstName, lastName);
+    }
+
+    private String extractId(String id) {
+        id = id.replaceAll("participant id=", "");
+        id = id.replaceAll("\"", "");
+
+        return id;
     }
 }
