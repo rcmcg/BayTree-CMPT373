@@ -2,22 +2,17 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Session;
-import com.baytree_mentoring.baytree_mentoring.services.MenteeService;
 import com.baytree_mentoring.baytree_mentoring.services.SessionService;
-import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SessionController {
     private final SessionService sessionService;
-    private final ViewsUnirest viewsUnirest = new ViewsUnirest();
-    private final MenteeService menteeService;
 
     private static final String SUCCESS = "Session Added";
 
-    public SessionController(SessionService sessionService, MenteeService menteeService) {
-        this.menteeService = menteeService;
+    public SessionController(SessionService sessionService) {
         this.sessionService = sessionService;
     }
 
