@@ -11,15 +11,38 @@ import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
 import Checkbox from "./Checkbox";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import { backendApiURL } from "../../App";
 
 const Mentors = () => {
   // Code mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
   // However, there do not seem to be many ways to modify the code as this is just how the library works
   // Code applied from various parts of the tutorial
   // -----
+
+  function getMentorData() {
+    let url = backendApiURL + "/user/get/mentors/all";
+
+    let mentorArray: any[] = []
+    axios.get(url)
+      .then((response) => {
+          const mentorData: any = response.data;
+          mentorData.map((mentor: any) => {
+            mentorArray.push(mentor);
+          });
+          console.log(mentorArray);
+      })
+      .catch(function (error) {
+          console.log(error)
+      })
+
+      return mentorArray;
+  };
+
+  const data = useMemo(() => getMentorData(), []);
+
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => DATA, []);
+  // const data = useMemo(() => DATA, []);
 
   const {
     getTableProps,
@@ -80,39 +103,39 @@ const Mentors = () => {
 
   let isValid: boolean = true;
 
-  const validate = () => {
-    if (selectedFlatRows.map((row) => row.original.username).length === 0) {
-      setlistError("No users selected");
-    }
-    if (message === "") {
-      setMessageError("Empty message body");
-    }
-    if (listError !== "" || messageError !== "") {
-      return false;
-    }
-    return true;
-  };
+  // const validate = () => {
+  //   if (selectedFlatRows.map((row) => row.original.username).length === 0) {
+  //     setlistError("No users selected");
+  //   }
+  //   if (message === "") {
+  //     setMessageError("Empty message body");
+  //   }
+  //   if (listError !== "" || messageError !== "") {
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
-  const handleSubmit = (event: React.ChangeEvent<any>) => {
-    event.preventDefault();
-    isValid = validate();
-    if (isValid) {
-      axios
-        .post("http://localhost:8080/notifications/send", {
-          usernameList: selectedFlatRows.map((row) => row.original.username),
-          message: message,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      isValid = true;
-      // setlistError("");
-      // setMessageError("");
-    }
-  };
+  // const handleSubmit = (event: React.ChangeEvent<any>) => {
+  //   event.preventDefault();
+  //   isValid = validate();
+  //   if (isValid) {
+  //     axios
+  //       .post("http://localhost:8080/notifications/send", {
+  //         usernameList: selectedFlatRows.map((row) => row.original.username),
+  //         message: message,
+  //       })
+  //       .then((response) => {
+  //         console.log(response);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //     isValid = true;
+  //     // setlistError("");
+  //     // setMessageError("");
+  //   }
+  // };
 
   return (
     <>
@@ -201,7 +224,7 @@ const Mentors = () => {
           {">>"}
         </button>{" "}
       </div>
-      <pre>
+      {/* <pre>
         <code>
           {JSON.stringify(
             {
@@ -213,9 +236,9 @@ const Mentors = () => {
             2
           )}
         </code>
-      </pre>
+      </pre> */}
       {/* ----- */}
-      <div style={{ color: "red" }}> {listError}</div>
+      {/* <div style={{ color: "red" }}> {listError}</div>
       <form onSubmit={handleSubmit}>
         <div>
           <textarea
@@ -228,7 +251,7 @@ const Mentors = () => {
         </div>
         <div style={{ color: "red" }}>{messageError}</div>
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
     </>
   );
 };
