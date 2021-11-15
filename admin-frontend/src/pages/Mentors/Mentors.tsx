@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   useTable,
   useFilters,
@@ -15,42 +15,42 @@ import axios, {AxiosResponse} from "axios";
 import { backendApiURL } from "../../App";
 
 const Mentors = () => {
-  // Code mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
+  interface Mentor {
+    viewsId: number,
+    firstName: string,
+    lastName: string, 
+    email:string,
+    status: string, 
+    startDate: string,
+    endDate: string, 
+    phoneNumber: string, 
+    ethnicity: string, 
+    address: string, 
+    role: string
+  }
+
+  const [mentors, setMentors] = useState<Mentor[]> ([]);
+
+  const getMentors = async() => {
+    let url = backendApiURL + "/user/get/mentors/all";
+    const response = await axios.get<Mentor[]>(url);
+    return response.data;
+  }
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      const mentorData = await getMentors()
+      setMentors(mentorData);
+    } 
+    fetchMentors()
+  }, [])
+
+  // Code below mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
   // However, there do not seem to be many ways to modify the code as this is just how the library works
   // Code applied from various parts of the tutorial
   // -----
-
-  // let mentorData: any[] = [];
-  function getMentorData() {
-    let url = backendApiURL + "/user/get/mentors/all";
-
-    let mentorArray: any[] = []
-    axios.get(url)
-      .then((response) => {
-          const mentorData: any = response.data;
-          mentorData.forEach((mentor: any) => {
-            mentorArray.push(mentor);
-          });
-          
-          // return mentorData;
-      })
-      .catch(function (error) {
-          console.log(error)
-      })
-      return mentorArray;
-  };
-
-  // const mentorData = getMentorData();
-  // console.log(mentorData);
-
-  const data = useMemo(() => getMentorData(), []);
-  console.log(data);
-
-  // const oldData = useMemo(() => DATA, []);
-  // console.log(oldData);
-
   const columns = useMemo(() => COLUMNS, []);
-  // const data = useMemo(() => DATA, []);
+  const data = useMemo(() => mentors, []);
 
   const {
     getTableProps,
