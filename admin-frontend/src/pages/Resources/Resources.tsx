@@ -71,7 +71,7 @@ function Resources() {
   </TableContainer>
   <Typography variant="h3">Add Resources</Typography>
   <form>
-    <Box display="flex" alignItems="center">
+    <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
       <TextField className={classes.textField} name="ResourceLink" value='' label="Resource Link" placeholder="ResourceLink"/>
       <TextField className={classes.textField} name="ResourceName" value='' label="Resource Name" placeholder="ResourceName" />
       <Button variant="contained" color="primary">Submit</Button>
