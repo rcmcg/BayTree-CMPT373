@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getResourcesList } from './Resources.api';
 import { Resource } from './types';
-import { IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
+import { Box, IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
 import {Delete} from '@material-ui/icons'
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 
 // interface ResourcesProps {
 //   Resource: any
@@ -19,7 +19,8 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   },
   textField: {
-    marginBottom: '16px'
+    marginBottom: '16px',
+    marginRight: '16px'
   }
 })
 
@@ -70,8 +71,11 @@ function Resources() {
   </TableContainer>
   <Typography variant="h3">Add Resources</Typography>
   <form>
-    <TextField className={classes.textField} name="ResourceName" value='' label="Resource Name" placeholder="ResourceName" />
-    <TextField className={classes.textField} name="ResourceLink" value='' label="Resource Link" placeholder="ResourceLink"/>
+    <Box display="flex" alignItems="center">
+      <TextField className={classes.textField} name="ResourceLink" value='' label="Resource Link" placeholder="ResourceLink"/>
+      <TextField className={classes.textField} name="ResourceName" value='' label="Resource Name" placeholder="ResourceName" />
+      <Button variant="contained" color="primary">Submit</Button>
+    </Box>
   </form>
   </>  
   );
