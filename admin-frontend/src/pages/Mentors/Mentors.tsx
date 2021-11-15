@@ -20,6 +20,7 @@ const Mentors = () => {
   // Code applied from various parts of the tutorial
   // -----
 
+  // let mentorData: any[] = [];
   function getMentorData() {
     let url = backendApiURL + "/user/get/mentors/all";
 
@@ -27,19 +28,26 @@ const Mentors = () => {
     axios.get(url)
       .then((response) => {
           const mentorData: any = response.data;
-          mentorData.map((mentor: any) => {
+          mentorData.forEach((mentor: any) => {
             mentorArray.push(mentor);
           });
-          console.log(mentorArray);
+          
+          // return mentorData;
       })
       .catch(function (error) {
           console.log(error)
       })
-
       return mentorArray;
   };
 
+  // const mentorData = getMentorData();
+  // console.log(mentorData);
+
   const data = useMemo(() => getMentorData(), []);
+  console.log(data);
+
+  // const oldData = useMemo(() => DATA, []);
+  // console.log(oldData);
 
   const columns = useMemo(() => COLUMNS, []);
   // const data = useMemo(() => DATA, []);
