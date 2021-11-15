@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getResourcesList } from './Resources.api';
 import { Resource } from './types';
-import { IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core/';
+import { IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
 import {Delete} from '@material-ui/icons'
 import { Table } from 'react-bootstrap';
 
@@ -17,6 +17,9 @@ import { Table } from 'react-bootstrap';
 const useStyles = makeStyles({
   tableRow: {
     cursor: 'pointer'
+  },
+  textField: {
+    marginBottom: '16px'
   }
 })
 
@@ -65,6 +68,11 @@ function Resources() {
     </TableBody>
   </Table>
   </TableContainer>
+  <Typography variant="h3">Add Resources</Typography>
+  <form>
+    <TextField className={classes.textField} name="ResourceName" value='' label="Resource Name" placeholder="ResourceName" />
+    <TextField className={classes.textField} name="ResourceLink" value='' label="Resource Link" placeholder="ResourceLink"/>
+  </form>
   </>  
   );
 }
