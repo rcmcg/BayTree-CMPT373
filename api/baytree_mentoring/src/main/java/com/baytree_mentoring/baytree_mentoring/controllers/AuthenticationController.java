@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class AuthenticationController {
+public class    AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
@@ -46,9 +46,4 @@ public class AuthenticationController {
     private List<Authentication> getAllUsers() {
         return authenticationService.getAllUsers();
     }
-
-
-
-
-
 }

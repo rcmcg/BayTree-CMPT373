@@ -1,6 +1,5 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
-import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Mentee;
 import com.baytree_mentoring.baytree_mentoring.services.MenteeService;
 import org.springframework.http.HttpStatus;
@@ -18,22 +17,30 @@ public class MenteeController {
         this.menteeService = menteeService;
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/mentee/add")
-    private String AddMentee(@RequestBody Mentee mte){
-        menteeService.add(mte);
-
-        if (menteeService.isMenteeAdded(mte)) {
-            return SUCCESS;
-        }
-
-        String error = "Failed to add the Mentee.";
-        throw new FailedUserAddingException(error);
-    }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/mentee/get/all")
-    private List<Mentee> getAllMentees() {
-        return menteeService.getAllMentees();
+    @GetMapping("/get/views/mentees")
+    public List<Mentee> getAllMenteesFromViewsAndUploadDatabase() {
+        menteeService.getAllMenteesFromViewsThenUpdateDatabase();
+        return menteeService.getAllMenteesFromDatabase();
+    }
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping("/mentee/add")
+//    private String AddMentee(@RequestBody Mentee mte){
+//        menteeService.add(mte);
+//
+//        if (menteeService.isMenteeAdded(mte)) {
+//            return SUCCESS;
+//        }
+//
+//        String error = "Failed to add the Mentee.";
+//        throw new FailedUserAddingException(error);
+//
+//    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/get/mentees/all")
+    private List<Mentee> getAllMenteesFromDatabase() {
+        return menteeService.getAllMenteesFromDatabase();
     }
 }
