@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { getResourcesList } from './Resources.api';
 import { Resource } from './types';
 import { Box, IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
@@ -23,6 +23,11 @@ const useStyles = makeStyles({
     marginRight: '16px'
   }
 })
+
+const onFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  e.preventDefault()
+  console.log('on submit')
+}
 
 function Resources() {
   const classes = useStyles();
@@ -70,10 +75,10 @@ function Resources() {
   </Table>
   </TableContainer>
   <Typography variant="h3">Add Resources</Typography>
-  <form>
+  <form onSubmit={onFormSubmit}> 
     <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-      <TextField className={classes.textField} name="ResourceLink" value='' label="Resource Link" placeholder="ResourceLink"/>
-      <TextField className={classes.textField} name="ResourceName" value='' label="Resource Name" placeholder="ResourceName" />
+      <TextField required className={classes.textField} name="ResourceLink"  label="Resource Link" placeholder="ResourceLink"/>
+      <TextField required className={classes.textField} name="ResourceName"  label="Resource Name" placeholder="ResourceName" />
       <Button variant="contained" color="primary">Submit</Button>
     </Box>
   </form>
