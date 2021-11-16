@@ -17,14 +17,19 @@ interface SessionState {
     clockInTimeLocal: string,
     clockOutTimeLocal: string,
     leadStaffId: number,
-    sessionNotes: string
+    sessionNotes: string,
+    data: []
 }
 
 class SelectMentee extends React.Component {
 
 
     test = () => {
-        return (<input type="number" id="selectMenteeId" name="menteeId" required/>);
+        console.log("test()")
+        console.log()
+        return (
+            <input type="number" id="selectMenteeId" name="menteeId" required/>
+        );
     }
 
     render () {
@@ -151,7 +156,8 @@ export class SessionForm extends React.Component<{}, SessionState> {
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
             leadStaffId: -1,
-            sessionNotes: ''
+            sessionNotes: '',
+            data: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
@@ -163,8 +169,10 @@ export class SessionForm extends React.Component<{}, SessionState> {
         axios.get('http://localhost:8080/fetchAllMentees')
             .then((res: any) => {
                 if(res.date !== null) {
-                    // this.setState({ data : res.data });
-                    console.log(res)
+                    this.setState({ data : res.data });
+                    this.state.data.map(i => {
+                        console.log(i["firstName"] + " " + i["lastName"]);
+                    });
 
                     console.log()
                 }
