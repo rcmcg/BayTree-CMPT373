@@ -61,8 +61,15 @@ public class MonthlyQuestionnaireController {
         }
     }
 
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/submit", method = RequestMethod.POST)
     private void submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) {
-        System.out.println(mqSubmit.toString());
+//        System.out.println("submitQuestionnaireToViews():");
+//        System.out.println(mqSubmit.toString());
+//        System.out.println(mqSubmit.getMenteeId());
+//        System.out.println(mqSubmit.getQuestionnaireMonth());
+//        System.out.println(mqSubmit.getQuestionnaireYear());
+//        System.out.println(mqSubmit.getDateSubmitted());
+//        System.out.println(mqSubmit.getAnswers());
     }
 }

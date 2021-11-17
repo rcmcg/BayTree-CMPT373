@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {backendApiURL} from "../../App";
-import axios, {AxiosResponse} from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
 import {useState} from "react";
 
 // const DynamicForm = ({ formData }: any) => {
@@ -86,7 +86,7 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         console.log("handleSubmit():")
         let element = null;
         // let answers: { [key: string]: string } = {};
-        let answers = new Map<string, string | number>();
+        let answers = new Map<string, string>();
         Object.keys(this.state.questionsResponse).map((key) => {
             console.log("Key: " + key)
             element = document.getElementById(key)
@@ -97,6 +97,28 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
             }
         })
         console.log(answers)
+        this.submitQuestionnaire(answers);
+    }
+
+    submitQuestionnaire(answers: Map<string, string>) {
+        const url = backendApiURL + '/monthlyquestionnaire/submit';
+        console.log("Submitting answesr to " + url)
+        let questionIds = Array.from(answers.keys());
+        let answerValues = Array.from(answers.values());
+        axios.post(url, {
+            menteeId: this.state.menteeId,
+            questionnaireMonth: this.state.month,
+            questionnaireYear: this.state.year,
+            dateSubmitted: "2021-11-12T17:14:00",
+            questionIds: questionIds,
+            answers: answerValues
+        })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch(function (error: AxiosError) {
+                console.log(error);
+            })
     }
 
     render() {
