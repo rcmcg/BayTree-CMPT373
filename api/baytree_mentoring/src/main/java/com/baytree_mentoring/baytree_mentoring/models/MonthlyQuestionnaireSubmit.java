@@ -4,12 +4,16 @@ import java.util.Hashtable;
 
 public class MonthlyQuestionnaireSubmit {
     private int menteeID;
-    private String date;
+    private String questionnaireMonth;
+    private String questionnaireYear;
+    private String dateSubmitted;
     Hashtable<String, String> answers = new Hashtable<String, String>();
 
-    public MonthlyQuestionnaireSubmit(int menteeID, String date, Hashtable<String, String> answers) {
+    public MonthlyQuestionnaireSubmit(int menteeID, String questionnaireMonth, String questionnaireYear, String date, Hashtable<String, String> answers) {
         this.menteeID = menteeID;
-        this.date = date;
+        this.questionnaireMonth = questionnaireMonth;
+        this.questionnaireYear = questionnaireYear;
+        this.dateSubmitted = date;
         this.answers = answers;
     }
 }

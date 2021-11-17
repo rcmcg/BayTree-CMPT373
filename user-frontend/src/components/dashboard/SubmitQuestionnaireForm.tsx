@@ -30,7 +30,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-
     componentDidMount() {
         this.getUrlParametersUpdateState();
         console.log(this.state)
@@ -86,14 +85,18 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         event.preventDefault()
         console.log("handleSubmit():")
         let element = null;
+        // let answers: { [key: string]: string } = {};
+        let answers = new Map<string, string | number>();
         Object.keys(this.state.questionsResponse).map((key) => {
             console.log("Key: " + key)
             element = document.getElementById(key)
             console.log(element)
             if (element != null) {
-                console.log((element as HTMLInputElement).value)
+                console.log((element as HTMLInputElement).value);
+                answers.set(key, (element as HTMLInputElement).value);
             }
         })
+        console.log(answers)
     }
 
     render() {
