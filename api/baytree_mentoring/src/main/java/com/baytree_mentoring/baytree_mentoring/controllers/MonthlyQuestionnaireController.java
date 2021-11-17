@@ -2,6 +2,7 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedMonthlyQuestionnaireAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireSubmit;
 import com.baytree_mentoring.baytree_mentoring.services.MonthlyQuestionnaireService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.http.HttpStatus;
@@ -58,5 +59,10 @@ public class MonthlyQuestionnaireController {
             e.printStackTrace();
             return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
         }
+    }
+
+    @RequestMapping(value = "/monthlyquestionnaire/submit", method = RequestMethod.POST)
+    private void submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) {
+        System.out.println(mqSubmit.toString());
     }
 }

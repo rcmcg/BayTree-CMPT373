@@ -26,11 +26,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
             year: -1,
             month: -1,
             questionsResponse: "",
-            // questions: "",
-            // categories: [],
-            // inputTypes: [],
-            // validation: [],
-            // answers: []
         }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -38,7 +33,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
 
     componentDidMount() {
         this.getUrlParametersUpdateState();
-        // Get list of questions from the backend
         console.log(this.state)
     }
 
@@ -73,36 +67,11 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
             .catch(function (error) {
                 console.log(error)
             })
-        // console.log("After axios get")
-        // console.log(this.state.questionsResponse)
     }
 
     private buildQuestionnaireForm() {
-        // console.log("Inside buildQuestionnaireForm")
-        // console.log(questionnaireJSON)
-        // console.log("Question: " + questionnaireJSON.Question)
-        // let questionsArray = []
-        // let categoryArray = []
-        // let inputTypeArray = []
-        // let validationArray = []
-        // for (let key in questionnaireJSON) {
-        //     let questionsEntry = []
-        //     // console.log(key + " -> " + questionnaireJSON[key])
-        //     // console.log(questionnaireJSON[key]['Question'])
-        //     questionsArray.push(questionnaireJSON[key]['Question'])
-        //     categoryArray.push(questionnaireJSON[key]['category'])
-        //     inputTypeArray.push(questionnaireJSON[key]['inputType'])
-        //     validationArray.push(questionnaireJSON[key]['validation'])
-        // }
-        // console.log("questionsArray: " + questionsArray)
-        // console.log("questionsArray[0]: " + questionsArray[0])
         this.setState({
             loading: false,
-            // questionsResponse: questionnaireJSON,
-            // questions: questionsArray,
-            // categories: categoryArray,
-            // inputTypes: inputTypeArray,
-            // validation: validationArray
         })
     }
 
@@ -115,17 +84,16 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
 
     handleSubmit(event: any) {
         event.preventDefault()
+        console.log("handleSubmit():")
         let element = null;
-        for (let i = 0; i < this.state.questions.length; i++) {
-            element = document.getElementById("question" + i)
+        Object.keys(this.state.questionsResponse).map((key) => {
+            console.log("Key: " + key)
+            element = document.getElementById(key)
             console.log(element)
             if (element != null) {
                 console.log((element as HTMLInputElement).value)
             }
-        }
-        console.log("Inside handleSubmit()")
-        console.log(this.state.questionsResponse)
-        console.log(this.state.questionsResponse.data)
+        })
     }
 
     render() {
