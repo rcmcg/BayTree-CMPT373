@@ -1,5 +1,5 @@
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { getResourcesList } from './Resources.api';
+import { getResourcesList, createResource } from './Resources.api';
 import { Resource } from './types';
 import { Box, IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
 import {Delete} from '@material-ui/icons'
@@ -27,6 +27,11 @@ const useStyles = makeStyles({
 const onFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
   e.preventDefault()
   console.log('on submit')
+}
+
+const onFormValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log(e.target.value)
+  console.log(e.target.name)
 }
 
 function Resources() {
@@ -77,8 +82,8 @@ function Resources() {
   <Typography variant="h3">Add Resources</Typography>
   <form onSubmit={onFormSubmit}> 
     <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-      <TextField required className={classes.textField} name="ResourceName"  label="Resource Name" placeholder="ResourceName" />
-      <TextField required className={classes.textField} name="ResourceLink"  label="Resource Link" placeholder="ResourceLink"/>
+      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceName"  label="Resource Name" placeholder="ResourceName" />
+      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceLink"  label="Resource Link" placeholder="ResourceLink"/>
       <Button type="submit" variant="contained" color="primary">Submit</Button>
     </Box>
   </form>
