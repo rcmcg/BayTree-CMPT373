@@ -79,7 +79,7 @@ function Resources() {
     <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
       <TextField required className={classes.textField} name="ResourceName"  label="Resource Name" placeholder="ResourceName" />
       <TextField required className={classes.textField} name="ResourceLink"  label="Resource Link" placeholder="ResourceLink"/>
-      <Button variant="contained" color="primary">Submit</Button>
+      <Button type="submit" variant="contained" color="primary">Submit</Button>
     </Box>
   </form>
   </>  
