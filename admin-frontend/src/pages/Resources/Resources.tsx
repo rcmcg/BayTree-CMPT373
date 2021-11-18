@@ -54,9 +54,9 @@ function Resources() {
     </TableHead>
     <TableBody>
       {resources && resources.map(resource => (
-        <TableRow className={classes.tableRow} hover key={resource.id}>
+        <TableRow className={classes.tableRow} hover key={resource.resourceId}>
           <TableCell>
-            {resource.id}
+            {resource.resourceId}
           </TableCell>
           <TableCell>
             {resource.resourceName}
@@ -77,8 +77,8 @@ function Resources() {
   <Typography variant="h3">Add Resources</Typography>
   <form onSubmit={onFormSubmit}> 
     <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-      <TextField required className={classes.textField} name="ResourceLink"  label="Resource Link" placeholder="ResourceLink"/>
       <TextField required className={classes.textField} name="ResourceName"  label="Resource Name" placeholder="ResourceName" />
+      <TextField required className={classes.textField} name="ResourceLink"  label="Resource Link" placeholder="ResourceLink"/>
       <Button variant="contained" color="primary">Submit</Button>
     </Box>
   </form>
