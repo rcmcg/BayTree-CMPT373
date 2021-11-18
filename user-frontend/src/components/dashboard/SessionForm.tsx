@@ -26,21 +26,10 @@ interface props {
 }
 
 class SelectMentee extends React.Component<props> {
-    // todo: remove this
-    test = () => {
-        console.log("test()")
-        console.log()
-    }
-
     render () {
         return (
             <div>
                 <label form="selectMenteeId"> Mentee Name </label>
-
-                // todo: remove this
-                {/*<input type="number" id="selectMenteeId" name="menteeId" required/>*/}
-                {/*{console.log(this.props.menteesList)}*/}
-
                 <select id={"selectMenteeId"} name={"menteeId"}>
                     <option value={""}>Select a mentee</option>
                     {this.props.menteesList.map(mentee => <option value = {mentee["participantId"]}>{mentee["firstName"] + " " + mentee["lastName"]}</option>)}
@@ -170,7 +159,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
-        // this.componentDidMount(); // todo: remove this
     }
 
     componentDidMount() {
@@ -178,13 +166,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
             .then((res: any) => {
                 if(res.date !== null) {
                     this.setState({ menteesList : res.data });
-
-                    // todo: remove this
-                    // this.state.menteesList.map(i => {
-                    //     console.log(i["firstName"] + " " + i["lastName"]);
-                    // });
-                    //
-                    // console.log()
                 }
             })
             .catch((err: any) => {
