@@ -18,25 +18,33 @@ interface SessionState {
     clockOutTimeLocal: string,
     leadStaffId: number,
     sessionNotes: string,
-    data: []
+    menteesList: []
 }
 
-class SelectMentee extends React.Component {
+interface props {
+    menteesList: []
+}
 
-
+class SelectMentee extends React.Component<props> {
+    // todo: remove this
     test = () => {
         console.log("test()")
         console.log()
-        return (
-            <input type="number" id="selectMenteeId" name="menteeId" required/>
-        );
     }
 
     render () {
         return (
             <div>
-                <label form="selectMenteeId">Mentee id </label>
-                {this.test()}
+                <label form="selectMenteeId"> Mentee Name </label>
+
+                // todo: remove this
+                {/*<input type="number" id="selectMenteeId" name="menteeId" required/>*/}
+                {/*{console.log(this.props.menteesList)}*/}
+
+                <select id={"selectMenteeId"} name={"menteeId"}>
+                    <option value={""}>Select a mentee</option>
+                    {this.props.menteesList.map(mentee => <option value = {mentee["participantId"]}>{mentee["firstName"] + " " + mentee["lastName"]}</option>)}
+                </select>
             </div>
         )
     }
@@ -157,24 +165,26 @@ export class SessionForm extends React.Component<{}, SessionState> {
             clockOutTimeLocal: '',
             leadStaffId: -1,
             sessionNotes: '',
-            data: []
+            menteesList: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
-        // this.componentDidMount();
+        // this.componentDidMount(); // todo: remove this
     }
 
     componentDidMount() {
         axios.get('http://localhost:8080/fetchAllMentees')
             .then((res: any) => {
                 if(res.date !== null) {
-                    this.setState({ data : res.data });
-                    this.state.data.map(i => {
-                        console.log(i["firstName"] + " " + i["lastName"]);
-                    });
+                    this.setState({ menteesList : res.data });
 
-                    console.log()
+                    // todo: remove this
+                    // this.state.menteesList.map(i => {
+                    //     console.log(i["firstName"] + " " + i["lastName"]);
+                    // });
+                    //
+                    // console.log()
                 }
             })
             .catch((err: any) => {
@@ -231,7 +241,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
         // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone-Offset(hours)
         // Ex: 2021-09-28 20:12:12 -0800
         let offset = moment(timeLocal).utcOffset();
-        let offsetHours = Math.trunc(offset/60);
+        let offsetHours = Math.trunc(offset / 60);
         let offsetMinutes = Math.abs(offset % 60);
 
         let offsetHoursString = offsetHours.toString()
@@ -251,7 +261,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
             <main>
                 <div className={"ui form sessionForm"}>
                     <form onSubmit={this.handleSubmit}>
-                        <SelectMentee /> <br/>
+                        <SelectMentee menteesList={this.state.menteesList} /> <br/>
                         <SelectMentor /> <br/>
                         <SelectSessionGroupId /> <br/>
                         <DidMenteeAttendSession /> <br/>
