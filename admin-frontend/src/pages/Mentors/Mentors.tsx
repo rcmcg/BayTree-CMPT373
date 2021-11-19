@@ -10,7 +10,7 @@ import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
 import Checkbox from "./Checkbox";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import { backendApiURL } from "../../App";
 
 const Mentors = () => {
@@ -48,7 +48,6 @@ const Mentors = () => {
   // However, there do not seem to be many ways to modify the code as this is just how the library works
   // Code applied from various parts of the tutorial
   // -----
-
   const columns = useMemo(() => COLUMNS, []);
   var data = useMemo(() => mentors, [mentors]);
 
@@ -67,7 +66,8 @@ const Mentors = () => {
     setPageSize,
     state,
     prepareRow,
-    selectedFlatRows,
+    // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE
+    // selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -94,22 +94,22 @@ const Mentors = () => {
   );
 
   const { pageIndex, pageSize } = state;
-  // -----
 
   const [startDate, setStartDate] = useState(new Date("2010-01-01T00:00:00"));
   const [finishDate, setFinishDate] = useState(
     new Date(moment().format("YYYY-MM-DDTHH:mm:ss"))
   );
 
-  const [message, setMessage] = useState("");
-  const [messageError, setMessageError] = useState("");
-  const [listError, setlistError] = useState("");
+  // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE 
+  // const [message, setMessage] = useState("");
+  // const [messageError, setMessageError] = useState("");
+  // const [listError, setlistError] = useState("");
 
-  const handleMessageChange = (event: React.ChangeEvent<any>) => {
-    setMessage(event.target.value);
-  };
+  // const handleMessageChange = (event: React.ChangeEvent<any>) => {
+  //   setMessage(event.target.value);
+  // };
 
-  let isValid: boolean = true;
+  // let isValid: boolean = true;
 
   // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE
   // const validate = () => {
