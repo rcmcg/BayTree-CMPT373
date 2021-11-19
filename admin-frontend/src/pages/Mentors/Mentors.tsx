@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import {
   useTable,
   useFilters,
@@ -6,7 +6,6 @@ import {
   usePagination,
   useRowSelect,
 } from "react-table";
-import DATA from "./mockdata.json";
 import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
@@ -43,14 +42,15 @@ const Mentors = () => {
       setMentors(mentorData);
     } 
     fetchMentors()
-  }, [])
+  }, []);
 
   // Code below mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
   // However, there do not seem to be many ways to modify the code as this is just how the library works
   // Code applied from various parts of the tutorial
   // -----
+
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => mentors, []);
+  var data = useMemo(() => mentors, [mentors]);
 
   const {
     getTableProps,
@@ -111,6 +111,7 @@ const Mentors = () => {
 
   let isValid: boolean = true;
 
+  // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE
   // const validate = () => {
   //   if (selectedFlatRows.map((row) => row.original.username).length === 0) {
   //     setlistError("No users selected");
@@ -124,6 +125,7 @@ const Mentors = () => {
   //   return true;
   // };
 
+  // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE
   // const handleSubmit = (event: React.ChangeEvent<any>) => {
   //   event.preventDefault();
   //   isValid = validate();
@@ -232,6 +234,7 @@ const Mentors = () => {
           {">>"}
         </button>{" "}
       </div>
+      {/* CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE */}
       {/* <pre>
         <code>
           {JSON.stringify(
@@ -265,3 +268,4 @@ const Mentors = () => {
 };
 
 export default Mentors;
+
