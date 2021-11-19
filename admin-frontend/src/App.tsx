@@ -11,9 +11,10 @@ import AddMentor from "./pages/AddMentor/AddMentor";
 import Login from "./pages/Login/Login";
 import Resources from "./pages/Resources/Resources";
 import Questionnaires from "./pages/Questionnaires/Questionnaires";
+import Notifications from "./pages/Mentors/Notifications";
 
-export const backendApiURL: string = "http://localhost:8080"
-export const HTTP_CREATED_STATUS_RESPONSE: number = 201
+export const backendApiURL: string = "http://localhost:8080";
+export const HTTP_CREATED_STATUS_RESPONSE: number = 201;
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/mentors" component={Mentors} />
           <Route path="/mentor" component={Mentor} />
+          <Route path="/notifications" component={Notifications} />
           <Route path="/mentees" component={Mentees} />
           <Route path="/add" component={AddMentor} />
           <Route path="/questionnaires" component={Questionnaires} />
