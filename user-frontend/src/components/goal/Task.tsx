@@ -6,11 +6,12 @@ interface Task {
     day: string,
     reminder: boolean
     onDelete: any
+    onToggle: any
 }
 
 const Task = (props:Task) => {
     return (
-        <div className='task'>
+        <div className={`task ${props.reminder ? 'reminder' : ''}`} onDoubleClick={() => props.onToggle(props.id)}>
             <h3>
                 {props.text}
                 <FaTimes

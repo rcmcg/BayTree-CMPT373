@@ -1,11 +1,12 @@
 import Task from './Task'
 
 interface Tasks {
-    tasks?: any,
-    onDelete?: any
+    tasks: any,
+    onDelete: any,
+    onToggle: any
 }
 
-const Tasks = ({tasks, onDelete}:Tasks) => {
+const Tasks = ({tasks, onDelete, onToggle}:Tasks) => {
     return (
         <>
             {tasks.map((task:any) => {
@@ -16,6 +17,7 @@ const Tasks = ({tasks, onDelete}:Tasks) => {
                     day={task.day}
                     reminder={task.reminder}
                     onDelete={onDelete}
+                    onToggle={onToggle}
                 />
             })}
         </>
