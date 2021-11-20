@@ -1,56 +1,36 @@
+import axios from "axios";
 import React, { useState } from "react";
 import "../../css/dashboard/Notifications.css";
 import { ListNotifications } from "./NotificationsList";
 
+// export interface IState {
+//   messages: {
+//     id: number;
+//     subject: string;
+//     sender: string;
+//     body: string;
+//   }[];
+// }
+
 export interface IState {
   messages: {
-    id: number;
-    subject: string;
-    sender: string;
-    body: string;
-  }[];
+    notificationId: number;
+    username: string;
+    messageBody: string;
+  };
 }
 
 function Notifications() {
-  const [messages] = useState<IState["messages"]>([
-    {
-      id: 1,
-      subject: "Short notification",
-      sender: "Feronica",
-      body: "Short notification",
-    },
-    {
-      id: 2,
-      subject: "Medium notification",
-      sender: "Feronica",
-      body: "Medium notification to test notifications function",
-    },
-    {
-      id: 3,
-      subject: "Long notification",
-      sender: "Admin 2",
-      body: "A really long notification for our notification function to test",
-    },
-
-    {
-      id: 4,
-      subject: "Short notification",
-      sender: "Admin 2",
-      body: "Short notification",
-    },
-    {
-      id: 5,
-      subject: "Medium notification",
-      sender: "Feronica",
-      body: "Medium notification to test notifications function",
-    },
-    {
-      id: 6,
-      subject: "Long notification",
-      sender: "Admin 2",
-      body: "A really long notification for our notification function to test",
-    },
-  ]);
+  const [messages, setMessages] = useState<IState["messages"]>();
+  axios
+    .get("http://localhost:8080/notifications/get/all")
+    .then((response) => {
+      setMessages(response.data);
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return (
     <div>
