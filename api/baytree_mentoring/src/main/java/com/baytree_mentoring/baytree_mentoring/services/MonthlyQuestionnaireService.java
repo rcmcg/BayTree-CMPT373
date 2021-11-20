@@ -2,11 +2,13 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireId;
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireSubmit;
 import com.baytree_mentoring.baytree_mentoring.repositories.MonthlyQuestionnaireRepository;
 import com.baytree_mentoring.baytree_mentoring.util.ViewsApiQuestionnaireIntegration;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +53,19 @@ public class MonthlyQuestionnaireService {
             return monthlyQuestionnaire.get().getViewsQuestionnaireId();
         } else {
             throw new Exception("Questionnaire not found in database");
+        }
+    }
+
+    public void submitMonthlyQuestionnaireToViews(MonthlyQuestionnaireSubmit mqSubmit) throws Exception {
+        try {
+            int monthlyQuestionnaireId = getMonthlyQuestionnaireViewsId(Integer.parseInt(mqSubmit.getQuestionnaireYear()), Integer.parseInt(mqSubmit.getQuestionnaireMonth()));
+            viewsApiQuestionnaireIntegration.sendCompletedQuestionnaireToViews(mqSubmit, monthlyQuestionnaireId);
+        } catch (UnirestException | ParseException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
     }
 }

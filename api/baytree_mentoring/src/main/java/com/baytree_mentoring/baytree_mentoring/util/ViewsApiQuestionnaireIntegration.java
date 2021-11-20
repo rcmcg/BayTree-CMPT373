@@ -1,5 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.util;
 
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireSubmit;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -20,5 +21,19 @@ public class ViewsApiQuestionnaireIntegration {
         HttpResponse<JsonNode> questions = viewsUnirest
                 .sendUnirestGetRequestGetJsonNodeResponse(questionnaireQuestionsUrl);
         return questions;
+    }
+
+    public void sendCompletedQuestionnaireToViews(MonthlyQuestionnaireSubmit mqSubmit, int questionnaireId) throws UnirestException {
+        System.out.println("sendCompletedQuestionnaireToViews():");
+        // create URL for the questionnaire submission
+        String url = "https://app.viewsapp.net/api/restful/contacts/participants/" +
+                mqSubmit.getMenteeId() + "/questionnaires/" + questionnaireId;
+        System.out.println("URL for POST request: " + url);
+        // form JSON payload
+        String questionnaireJSON = viewsAPIQuestionnaireJSONFormatter.createQuestionnaireUploadJSON(mqSubmit);
+        System.out.println("sendCompletedQuestionnaireToViews(): questionnaireJSON");
+        System.out.println(questionnaireJSON);
+        // send the post request
+        viewsUnirest.sendUnirestPostRequest(url, questionnaireJSON);
     }
 }

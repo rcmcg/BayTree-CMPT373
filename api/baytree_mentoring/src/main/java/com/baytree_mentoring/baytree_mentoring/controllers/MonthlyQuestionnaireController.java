@@ -63,7 +63,18 @@ public class MonthlyQuestionnaireController {
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/submit", method = RequestMethod.POST)
-    private void submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) {
+    private String submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) {
+        try {
+            System.out.println("Answers after creation");
+            System.out.println(mqSubmit.getAnswers().toString());
+            monthlyQuestionnaireService.submitMonthlyQuestionnaireToViews(mqSubmit);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return "Error submitting questionnaire for (" + mqSubmit.getQuestionnaireYear() + "," + mqSubmit.getQuestionnaireMonth();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error submitting questionnaire for (" + mqSubmit.getQuestionnaireYear() + "," + mqSubmit.getQuestionnaireMonth();
+        }
 //        System.out.println("submitQuestionnaireToViews():");
 //        System.out.println(mqSubmit.toString());
 //        System.out.println(mqSubmit.getMenteeId());
@@ -71,5 +82,6 @@ public class MonthlyQuestionnaireController {
 //        System.out.println(mqSubmit.getQuestionnaireYear());
 //        System.out.println(mqSubmit.getDateSubmitted());
 //        System.out.println(mqSubmit.getAnswers());
+        return "Questionnaire submitted";
     }
 }
