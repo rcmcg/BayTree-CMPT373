@@ -9,14 +9,18 @@ import questionnairesData from '../../assets/dummy-data/mentor28/QuestionnairesP
 import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
+import { useLocation } from 'react-router-dom';
+import { MentorInterface } from './MentorInterface';
 
 function Mentor() {
+    const state = useLocation<MentorInterface>().state;
+    console.log(state);
     return (
         <div className='mentor'>
             <h1>Mentor Overview</h1>
             <Tabs defaultActiveKey="info" className = 'tab'>
                 <Tab eventKey="info" title="Personal Information">
-                    {MentorInfo(mentorData)}
+                    {MentorInfo(state)}
                 </Tab>
 
                 <Tab eventKey="sessions" title="Sessions">

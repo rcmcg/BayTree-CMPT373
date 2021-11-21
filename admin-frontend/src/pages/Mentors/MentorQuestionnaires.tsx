@@ -29,10 +29,8 @@ function MentorQuestionnaire(questionnaireData: MentorQuestionnaireInterface["qu
     return(
         <div>
             <h3>{questionnaireData.questionnaire}</h3>
-            <p>
-                <strong>Month:</strong> {month} <br/>
-                {loadAnswers(questionnaireData)}
-            </p>
+            <strong>Month:</strong> {month} <br/>
+            {loadAnswers(questionnaireData)}
         </div>
     )
 }
