@@ -4,6 +4,7 @@ import com.baytree_mentoring.baytree_mentoring.models.ViewsSession;
 import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +33,10 @@ public class ViewsSessionService {
 
         List<ViewsSession> sessionsList = new ArrayList<>();
         for(Object o: sessions.names()) {
-            if (o instanceof JSONObject) { //JSONArrays can only be iterated over Object, but they should all be JSONObjects
-                JSONObject volunteer = (JSONObject) o;
+            JSONObject sessionObject = sessions.getJSONObject(o.toString());
 
-                ViewsSession session = buildSession(volunteer);
-                sessionsList.add(session);
-            }
+            ViewsSession session = buildSession(sessionObject);
+            sessionsList.add(session);
         }
         return sessionsList;
     }
@@ -59,10 +58,12 @@ public class ViewsSessionService {
         String URL = "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/" + sessionId + "/notes";
         HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
         JSONObject body = new JSONObject(response.getBody());
-
-        String beginningKey = body.names().getString(0);
-        JSONObject note = body.getJSONObject(beginningKey);
-
-        return note.getString("notes");
+        if(body.get("notes") instanceof JSONArray) { //no notes
+            return "N/A";
+        }
+        else {
+            //TODO
+            return "non-empty";
+        }
     }
 }

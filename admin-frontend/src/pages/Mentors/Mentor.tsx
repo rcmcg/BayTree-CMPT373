@@ -30,8 +30,6 @@ function Mentor() {
         } 
         fetchSessions()
     });
-
-    console.log(sessions[0]);
     
     return (
         <div className='mentor'>
