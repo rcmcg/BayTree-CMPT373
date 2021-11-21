@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   useTable,
   useFilters,
@@ -6,20 +6,50 @@ import {
   usePagination,
   useRowSelect,
 } from "react-table";
-import DATA from "./mockdata.json";
 import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
 import Checkbox from "./Checkbox";
 import axios from "axios";
+import { backendApiURL } from "../../App";
 
 const Mentors = () => {
-  // Code mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
+  interface Mentor {
+    viewsId: number,
+    firstName: string,
+    lastName: string, 
+    email:string,
+    status: string, 
+    startDate: string,
+    endDate: string, 
+    phoneNumber: string, 
+    ethnicity: string, 
+    address: string, 
+    role: string
+  }
+
+  const [mentors, setMentors] = useState<Mentor[]> ([]);
+
+  const getMentors = async() => {
+    let url = backendApiURL + "/user/get/mentors/all";
+    const response = await axios.get<Mentor[]>(url);
+    return response.data;
+  }
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      const mentorData = await getMentors()
+      setMentors(mentorData);
+    } 
+    fetchMentors()
+  }, []);
+
+  // Code below mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
   // However, there do not seem to be many ways to modify the code as this is just how the library works
   // Code applied from various parts of the tutorial
   // -----
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => DATA, []);
+  var data = useMemo(() => mentors, [mentors]);
 
   const {
     getTableProps,
@@ -36,7 +66,8 @@ const Mentors = () => {
     setPageSize,
     state,
     prepareRow,
-    selectedFlatRows,
+    // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE
+    // selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -63,56 +94,58 @@ const Mentors = () => {
   );
 
   const { pageIndex, pageSize } = state;
-  // -----
 
   const [startDate, setStartDate] = useState(new Date("2010-01-01T00:00:00"));
   const [finishDate, setFinishDate] = useState(
     new Date(moment().format("YYYY-MM-DDTHH:mm:ss"))
   );
 
-  const [message, setMessage] = useState("");
-  const [messageError, setMessageError] = useState("");
-  const [listError, setlistError] = useState("");
+  // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE 
+  // const [message, setMessage] = useState("");
+  // const [messageError, setMessageError] = useState("");
+  // const [listError, setlistError] = useState("");
 
-  const handleMessageChange = (event: React.ChangeEvent<any>) => {
-    setMessage(event.target.value);
-  };
+  // const handleMessageChange = (event: React.ChangeEvent<any>) => {
+  //   setMessage(event.target.value);
+  // };
 
-  let isValid: boolean = true;
+  // let isValid: boolean = true;
 
-  const validate = () => {
-    if (selectedFlatRows.map((row) => row.original.username).length === 0) {
-      setlistError("No users selected");
-    }
-    if (message === "") {
-      setMessageError("Empty message body");
-    }
-    if (listError !== "" || messageError !== "") {
-      return false;
-    }
-    return true;
-  };
+  // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE
+  // const validate = () => {
+  //   if (selectedFlatRows.map((row) => row.original.username).length === 0) {
+  //     setlistError("No users selected");
+  //   }
+  //   if (message === "") {
+  //     setMessageError("Empty message body");
+  //   }
+  //   if (listError !== "" || messageError !== "") {
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
-  const handleSubmit = (event: React.ChangeEvent<any>) => {
-    event.preventDefault();
-    isValid = validate();
-    if (isValid) {
-      axios
-        .post("http://localhost:8080/notifications/send", {
-          usernameList: selectedFlatRows.map((row) => row.original.username),
-          message: message,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      isValid = true;
-      // setlistError("");
-      // setMessageError("");
-    }
-  };
+  // CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE
+  // const handleSubmit = (event: React.ChangeEvent<any>) => {
+  //   event.preventDefault();
+  //   isValid = validate();
+  //   if (isValid) {
+  //     axios
+  //       .post("http://localhost:8080/notifications/send", {
+  //         usernameList: selectedFlatRows.map((row) => row.original.username),
+  //         message: message,
+  //       })
+  //       .then((response) => {
+  //         console.log(response);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //     isValid = true;
+  //     // setlistError("");
+  //     // setMessageError("");
+  //   }
+  // };
 
   return (
     <>
@@ -201,7 +234,8 @@ const Mentors = () => {
           {">>"}
         </button>{" "}
       </div>
-      <pre>
+      {/* CODE RELATED TO NOTIFICATIONS, TO BE MOVED TO A DIFFERENT PAGE */}
+      {/* <pre>
         <code>
           {JSON.stringify(
             {
@@ -213,9 +247,9 @@ const Mentors = () => {
             2
           )}
         </code>
-      </pre>
+      </pre> */}
       {/* ----- */}
-      <div style={{ color: "red" }}> {listError}</div>
+      {/* <div style={{ color: "red" }}> {listError}</div>
       <form onSubmit={handleSubmit}>
         <div>
           <textarea
@@ -228,9 +262,10 @@ const Mentors = () => {
         </div>
         <div style={{ color: "red" }}>{messageError}</div>
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
     </>
   );
 };
 
 export default Mentors;
+
