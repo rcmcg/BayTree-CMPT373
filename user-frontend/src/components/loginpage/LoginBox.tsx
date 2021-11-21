@@ -100,7 +100,7 @@ export class LoginForm extends React.Component<{}, LoginState> {
                         <img className="mentor-text" src={mentorText} />
                         <img className="login-page-text" src={loginPageText} />
                         <input
-                            className="username helvetica-extra-light-mountain-mist-25px"
+                            className="username helvetica-extra-light-mountain-mist"
                             name="userNameBox"
                             value={this.state.username}
                             onChange = {this.handleUsernameChange}
@@ -108,7 +108,7 @@ export class LoginForm extends React.Component<{}, LoginState> {
                             type="text"
                         />
                         <input
-                            className="password helvetica-extra-light-mountain-mist-25px"
+                            className="password helvetica-extra-light-mountain-mist"
                             name="passwordBox"
                             value={this.state.password}
                             onChange = {this.handlePasswordChange}
