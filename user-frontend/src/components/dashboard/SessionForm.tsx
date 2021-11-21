@@ -9,7 +9,7 @@ const moment = require('moment');
 moment().format();
 
 interface SessionState {
-    menteeId: number,
+    menteeId: string,
     mentorId: number,
     sessionGroupId: number,
     didMenteeAttend: boolean,
@@ -17,15 +17,23 @@ interface SessionState {
     clockInTimeLocal: string,
     clockOutTimeLocal: string,
     leadStaffId: number,
-    sessionNotes: string
+    sessionNotes: string,
+    menteesList: []
 }
 
-class SelectMentee extends React.Component {
+interface props {
+    menteesList: []
+}
+
+class SelectMentee extends React.Component<props> {
     render () {
         return (
             <div>
-                <label form="selectMenteeId">Mentee id </label>
-                <input type="number" id="selectMenteeId" name="menteeId" required/>
+                <label form="selectMenteeId"> Mentee Name </label>
+                <select id={"selectMenteeId"} name={"menteeId"}>
+                    <option value={""}>Select a mentee</option>
+                    {this.props.menteesList.map(mentee => <option value = {mentee["participantId"]}>{mentee["firstName"] + " " + mentee["lastName"]}</option>)}
+                </select>
             </div>
         )
     }
@@ -137,7 +145,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            menteeId: -1,
+            menteeId: '',
             mentorId: -1,
             sessionGroupId: -1,
             didMenteeAttend: true,
@@ -145,11 +153,24 @@ export class SessionForm extends React.Component<{}, SessionState> {
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
             leadStaffId: -1,
-            sessionNotes: ''
+            sessionNotes: '',
+            menteesList: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8080/fetchAllMentees')
+            .then((res: any) => {
+                if(res.date !== null) {
+                    this.setState({ menteesList : res.data });
+                }
+            })
+            .catch((err: any) => {
+                console.log(err);
+            })
     }
 
     handleSubmit(event: any) {
@@ -201,7 +222,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
         // Datetime sent to backend must be in format YYYY-MM-DD HH:MM:SS Timezone-Offset(hours)
         // Ex: 2021-09-28 20:12:12 -0800
         let offset = moment(timeLocal).utcOffset();
-        let offsetHours = Math.trunc(offset/60);
+        let offsetHours = Math.trunc(offset / 60);
         let offsetMinutes = Math.abs(offset % 60);
 
         let offsetHoursString = offsetHours.toString()
@@ -221,7 +242,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
             <main>
                 <div className={"ui form sessionForm"}>
                     <form onSubmit={this.handleSubmit}>
-                        <SelectMentee /> <br/>
+                        <SelectMentee menteesList={this.state.menteesList} /> <br/>
                         <SelectMentor /> <br/>
                         <SelectSessionGroupId /> <br/>
                         <DidMenteeAttendSession /> <br/>
