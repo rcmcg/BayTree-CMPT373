@@ -13,6 +13,7 @@ import { Button, Table } from 'react-bootstrap';
 // const Resources: React.FC<ResourcesProps> = ({Resource}) => {
 
 // }
+//const [game, setGame] = useState<Resource | null>(null)
 
 const useStyles = makeStyles({
   tableRow: {
@@ -24,9 +25,11 @@ const useStyles = makeStyles({
   }
 })
 
-const onFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+const onFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
   e.preventDefault()
   console.log('on submit')
+  //const newResource = await createResource(game)
+  
 }
 
 const onFormValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,15 +39,18 @@ const onFormValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 function Resources() {
   const classes = useStyles();
-  const [resources, setResource] = useState<Resource[] | null>(null)
+  const [resources, setResources] = useState<Resource[] | null>(null)
+  
   useEffect(() => {
     const fetchResourceList = async () => {
       const resourceList = await getResourcesList()
       console.log(resourceList)
-      setResource(resourceList)
+      setResources(resourceList)
     }
     fetchResourceList()
   },[])
+
+  
   return (<>
   <Typography variant="h3">Resources</Typography>
   <TableContainer>
@@ -82,8 +88,8 @@ function Resources() {
   <Typography variant="h3">Add Resources</Typography>
   <form onSubmit={onFormSubmit}> 
     <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceName"  label="Resource Name" placeholder="ResourceName" />
-      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceLink"  label="Resource Link" placeholder="ResourceLink"/>
+      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceName"   label="Resource Name" placeholder="ResourceName" />
+      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceLink"   label="Resource Link" placeholder="ResourceLink"/>
       <Button type="submit" variant="contained" color="primary">Submit</Button>
     </Box>
   </form>
