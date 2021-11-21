@@ -11,3 +11,19 @@ export interface MentorInterface {
     address: string, 
     role: string
 };
+
+export interface MentorSessionInterface {
+    mentorId: number,
+    sessionGroup: string;
+    attendance: string;
+    dateTime: string;
+    duration: string;
+    note: string;
+};
+
+export interface MentorQuestionnaireInterface {
+    date: string;
+    questionnaire: string;
+    questions: string[];
+    answers: string[];
+};
