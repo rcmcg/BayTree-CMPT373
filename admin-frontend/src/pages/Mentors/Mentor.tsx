@@ -2,7 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Tabs, Tab} from 'react-bootstrap';
 
-import mentorData from '../../assets/dummy-data/mentor28/MentorPruned.json';
 import sessionsData from '../../assets/dummy-data/mentor28/SessionsPruned.json';
 import questionnairesData from '../../assets/dummy-data/mentor28/QuestionnairesPruned.json';
 
