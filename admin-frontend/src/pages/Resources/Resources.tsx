@@ -4,6 +4,7 @@ import { Resource } from './types';
 import { Box, IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
 import {Delete} from '@material-ui/icons'
 import { Button, Table } from 'react-bootstrap';
+import axios from 'axios';
 
 // interface ResourcesProps {
 //   Resource: any
@@ -26,13 +27,6 @@ const useStyles = makeStyles({
   }
 })
 
-const onFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-  e.preventDefault()
-  console.log('on submit')
-  //const newResource = await createResource(game)
-  
-}
-
 
 
 function Resources() {
@@ -50,6 +44,24 @@ function Resources() {
     console.log(e.target.value)
     console.log(e.target.name)
     setResourceLink(e.target.value)
+  }
+
+  const onFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault()
+    console.log('on submit')
+    axios
+          .post("http://localhost:8080/resource/add", {
+            resourceName: stateResourceName,
+            resourceLink: stateResourceLink,
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    //const newResource = await createResource(game)
+    
   }
   
   useEffect(() => {
