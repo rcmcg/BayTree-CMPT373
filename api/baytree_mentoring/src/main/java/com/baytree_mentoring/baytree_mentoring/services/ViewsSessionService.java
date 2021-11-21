@@ -5,10 +5,12 @@ import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ViewsSessionService {
     private final ViewsUnirest viewsUnirest = new ViewsUnirest();
 
