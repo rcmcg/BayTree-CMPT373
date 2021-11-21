@@ -58,12 +58,21 @@ public class ViewsSessionService {
         String URL = "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/" + sessionId + "/notes";
         HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
         JSONObject body = new JSONObject(response.getBody());
-        if(body.get("notes") instanceof JSONArray) { //no notes
+
+        Object notes = body.get("notes");
+        if(notes instanceof JSONArray) { //notes is empty
             return "N/A";
         }
-        else {
-            //TODO
-            return "non-empty";
+        else { // there are notes
+            String note = "";
+            if(notes instanceof JSONObject) {
+                JSONObject notesObject = (JSONObject) notes;
+                for(Object o: notesObject.names()) {
+                    JSONObject n = notesObject.getJSONObject(o.toString());
+                    note += n.getString("Note") + "\n";
+                }
+            }
+            return note;
         }
     }
 }
