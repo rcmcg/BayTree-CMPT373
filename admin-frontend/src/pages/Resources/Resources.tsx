@@ -15,6 +15,7 @@ import { Button, Table } from 'react-bootstrap';
 // }
 //const [game, setGame] = useState<Resource | null>(null)
 
+
 const useStyles = makeStyles({
   tableRow: {
     cursor: 'pointer'
@@ -32,14 +33,24 @@ const onFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
   
 }
 
-const onFormValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  console.log(e.target.value)
-  console.log(e.target.name)
-}
+
 
 function Resources() {
   const classes = useStyles();
   const [resources, setResources] = useState<Resource[] | null>(null)
+  const [stateResourceName, setResourceName] = useState("");
+  const [stateResourceLink, setResourceLink] = useState("");
+
+  const onFormValueChangeResourceName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+    console.log(e.target.name)
+    setResourceName(e.target.value)
+  }
+  const onFormValueChangeResourceLink = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+    console.log(e.target.name)
+    setResourceLink(e.target.value)
+  }
   
   useEffect(() => {
     const fetchResourceList = async () => {
@@ -88,8 +99,8 @@ function Resources() {
   <Typography variant="h3">Add Resources</Typography>
   <form onSubmit={onFormSubmit}> 
     <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceName"   label="Resource Name" placeholder="ResourceName" />
-      <TextField onChange={onFormValueChange} required className={classes.textField} name="ResourceLink"   label="Resource Link" placeholder="ResourceLink"/>
+      <TextField onChange={onFormValueChangeResourceName} required className={classes.textField} name="ResourceName"  value={stateResourceName} label="Resource Name" placeholder="ResourceName" />
+      <TextField onChange={onFormValueChangeResourceLink} required className={classes.textField} name="ResourceLink"  value={stateResourceLink} label="Resource Link" placeholder="ResourceLink"/>
       <Button type="submit" variant="contained" color="primary">Submit</Button>
     </Box>
   </form>
