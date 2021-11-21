@@ -13,8 +13,7 @@ import { useLocation } from 'react-router-dom';
 import { MentorInterface } from './MentorInterface';
 
 function Mentor() {
-    const state = useLocation<MentorInterface>().state;
-    console.log(state);
+    const state = useLocation().state as MentorInterface;
     return (
         <div className='mentor'>
             <h1>Mentor Overview</h1>
