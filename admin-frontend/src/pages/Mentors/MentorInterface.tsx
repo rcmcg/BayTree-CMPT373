@@ -22,8 +22,8 @@ export interface MentorSessionInterface {
 };
 
 export interface MentorQuestionnaireInterface {
+    questionnaireName: string;
     date: string;
-    questionnaire: string;
     questions: string[];
     answers: string[];
 };
@@ -50,3 +50,10 @@ export const emptySession: MentorSessionInterface = {
     duration: "",
     note: "",
 };
+
+export const emptyQuestionnaire: MentorQuestionnaireInterface = {
+    questionnaireName: "Loading...",
+    date: "",
+    questions: [],
+    answers: [],
+}

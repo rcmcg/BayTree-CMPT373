@@ -1,16 +1,9 @@
 import assert from "assert";
 import React from "react";
 
-interface MentorQuestionnaireInterface {
-  questionnaire: {
-    date: string;
-    questionnaire: string;
-    questions: string[];
-    answers: string[];
-  };
-}
+import { MentorQuestionnaireInterface} from "./MentorInterface";
 
-function loadAnswers(questionnaireData: MentorQuestionnaireInterface["questionnaire"]) {
+function loadAnswers(questionnaireData: MentorQuestionnaireInterface) {
     assert(questionnaireData.questions.length === questionnaireData.answers.length)
     var result = [];
     const length = questionnaireData.questions.length;
@@ -24,11 +17,11 @@ function loadAnswers(questionnaireData: MentorQuestionnaireInterface["questionna
     return result;
 }
 
-function MentorQuestionnaire(questionnaireData: MentorQuestionnaireInterface["questionnaire"]) {
-    const month = new Date(questionnaireData.date).toLocaleString("en-us", { month: 'long' })
+function MentorQuestionnaire(questionnaireData: MentorQuestionnaireInterface) {
+    const month = new Date(questionnaireData.date).toLocaleString("en-us", { month: 'long' , year: 'numeric'})
     return(
         <div>
-            <h3>{questionnaireData.questionnaire}</h3>
+            <h3>{questionnaireData.questionnaireName}</h3>
             <strong>Month:</strong> {month} <br/>
             {loadAnswers(questionnaireData)}
         </div>

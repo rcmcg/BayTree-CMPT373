@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Tabs, Tab} from 'react-bootstrap';
 
-import questionnairesData from '../../assets/dummy-data/mentor28/QuestionnairesPruned.json';
-
 import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
 import { useLocation } from 'react-router-dom';
-import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession } from './MentorInterface';
+import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire } from './MentorInterface';
 import { backendApiURL } from "../../App";
 import axios from 'axios';
 
@@ -26,10 +24,26 @@ function Mentor() {
 
     useEffect(() => {
         const fetchSessions = async () => {
-            const sessionsData = await getSessions()
-            setSessions(sessionsData);
+            const sessionData = await getSessions()
+            setSessions(sessionData);
         } 
         fetchSessions()
+    });
+
+    const [questionnaires, setQuestionnaires] = useState<MentorQuestionnaireInterface[]> ([emptyQuestionnaire]);
+
+    const getQuestionnaires = async() => {
+        let url = backendApiURL + "/questionnaires/get/views/" + mentorState.viewsId;
+        const response = await axios.get<MentorQuestionnaireInterface[]>(url);
+        return response.data;
+    }
+
+    useEffect(() => {
+        const fetchQuestionnaires = async () => {
+            const questionnaireData = await getQuestionnaires()
+            setQuestionnaires(questionnaireData);
+        } 
+        fetchQuestionnaires()
     });
     
     return (
@@ -45,7 +59,7 @@ function Mentor() {
                 </Tab>
 
                 <Tab eventKey="questionnaire" title="Questionnaires">
-                    {questionnairesData.map(MentorQuestionnaire)}
+                    {questionnaires.map(MentorQuestionnaire)}
                 </Tab>
             </Tabs>
         </div>
