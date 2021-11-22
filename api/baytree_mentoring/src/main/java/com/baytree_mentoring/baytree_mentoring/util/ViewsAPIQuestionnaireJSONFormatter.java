@@ -28,18 +28,20 @@ public class ViewsAPIQuestionnaireJSONFormatter {
 
     public String createQuestionnaireUploadJSON(MonthlyQuestionnaireSubmit mqSubmit) {
         ObjectNode questionnaireJSON = mapper.createObjectNode();
-        questionnaireJSON.put("Date", mqSubmit.getDateSubmitted());
+        // questionnaireJSON.put("Date", mqSubmit.getDateSubmitted());
         System.out.println("Hashtable for reference");
         System.out.println(mqSubmit.getAnswers().toString());
         ArrayNode answersNode = mapper.createArrayNode();
+        // ObjectNode answersNode = mapper.createObjectNode();
         for (String key : mqSubmit.getAnswers().keySet()) {
             System.out.println("Creating node for key: " + key);
             System.out.println("value for key: " + mqSubmit.getAnswers().get(key));
             ObjectNode answerNode = mapper.createObjectNode();
-            answerNode.put("QuestionID", key);
+            answerNode.put("QuestionID", parseIdFromKey(key));
             answerNode.put("Answer", mqSubmit.getAnswers().get(key));
 //            System.out.println(answerNode.toPrettyString());
-            answersNode.addObject().put("answer id=\"" + key + "\"", answerNode);
+            // answersNode.put("answer id=\"" + parseIdFromKey(key) + "\"", answerNode);
+            answersNode.addObject().put("answer id=\"" + parseIdFromKey(key) + "\"", answerNode);
         }
 //        System.out.println("Answers node");
 //        System.out.println(answersNode);
@@ -49,6 +51,16 @@ public class ViewsAPIQuestionnaireJSONFormatter {
     }
 
     private String parseIdFromKey(String key) {
-        return "";
+        // Key has form "question id=\"54\". Parse the id from it
+        System.out.println("parseIdFromKey(): ");
+        System.out.println(key);
+        int indexFirstDigit = 13;
+        int indexLastDigit = -1;
+        for (int i = indexFirstDigit; i < key.length(); i++) {
+            if (!Character.isDigit(key.charAt(i))) {
+                indexLastDigit = i - 1;
+            }
+        }
+        return key.substring(indexFirstDigit, indexLastDigit + 1);
     }
 }

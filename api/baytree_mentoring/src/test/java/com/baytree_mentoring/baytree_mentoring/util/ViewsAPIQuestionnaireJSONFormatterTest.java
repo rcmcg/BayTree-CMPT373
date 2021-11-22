@@ -27,7 +27,7 @@ class ViewsAPIQuestionnaireJSONFormatterTest {
                "12",
                "21",
                 "2021-11-12T17:14:00",
-                new String[]{"63", "64", "65", "66"},
+                new String[]{"question id=\"63\"", "question id=\"9\"", "question id=\"101\"", "question id=\"66\""},
                 new String[]{"1", "2", "3", "4"}
         );
         String correctJSON = "{\"Date\":\"2021-11-12T17:14:00\",\"answers\":" +
