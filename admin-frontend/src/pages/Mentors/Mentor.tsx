@@ -28,7 +28,7 @@ function Mentor() {
             setSessions(sessionData);
         } 
         fetchSessions()
-    }, []);
+    });
 
     const [questionnaires, setQuestionnaires] = useState<MentorQuestionnaireInterface[]> ([emptyQuestionnaire]);
 
@@ -44,7 +44,7 @@ function Mentor() {
             setQuestionnaires(questionnaireData);
         } 
         fetchQuestionnaires()
-    }, []);
+    });
     
     return (
         <div className='mentor'>
