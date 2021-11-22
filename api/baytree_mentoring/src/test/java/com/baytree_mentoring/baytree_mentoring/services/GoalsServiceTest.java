@@ -33,21 +33,21 @@ public class GoalsServiceTest {
         assertTrue(goalsService.isGoalAdded(goal));
     }
 
-    @DisplayName("should return a list of all goals")
-    @Test
-    public void shouldReturnAListOfAllGoals() {
-        // build
-        Goal goal = new Goal();
-
-        // operate
-        goalsService.addGoal(goal);
-        doReturn(List.of(goal)).when(goalsService).getAllGoals();
-
-        // check
-        assertAll(
-                () -> assertEquals(goalsService.getAllGoals().size(), List.of(goal).size()),
-                () -> assertEquals(goalsService.getAllGoals().get(0), goal)
-        );
-    }
+//    @DisplayName("should return a list of all goals")
+//    @Test
+//    public void shouldReturnAListOfAllGoals() {
+//        // build
+//        Goal goal = new Goal();
+//
+//        // operate
+//        goalsService.addGoal(goal);
+//        doReturn(List.of(goal)).when(goalsService).getAllGoals();
+//
+//        // check
+//        assertAll(
+//                () -> assertEquals(goalsService.getAllGoals().size(), List.of(goal).size()),
+//                () -> assertEquals(goalsService.getAllGoals().get(0), goal)
+//        );
+//    }
 }
 
