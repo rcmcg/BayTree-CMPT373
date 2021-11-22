@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class ViewsQuestionnaireService {
     private final ViewsUnirest viewsUnirest = new ViewsUnirest();
+    private static final String NO_ANSWERS = "No key associated to answers found.";
 
     public List<ViewsQuestionnaire> getQuestionnairesByMentorId(long mentorId) throws UnirestException {
         HttpResponse<String> response = getJsonQuestionnaireFromViews(mentorId);
@@ -41,7 +42,6 @@ public class ViewsQuestionnaireService {
     }
 
     public ViewsQuestionnaire buildQuestionnaire(JSONObject quesitonnaire) throws UnirestException {
-        long mentorId = quesitonnaire.getLong("EntityID");
         long questionnaireId = quesitonnaire.getLong("QuestionnaireID");
         long answerSetId = quesitonnaire.getLong("AnswerSetID");
 
@@ -49,7 +49,7 @@ public class ViewsQuestionnaireService {
         String dateTime = quesitonnaire.getString("Date");
 
         List<String> questions = getQuestionnaireQuestions(questionnaireId);
-        List<String> answers = getQuestionnaireAnswers(mentorId, questionnaireId, answerSetId);
+        List<String> answers = getQuestionnaireAnswers(questionnaireId, answerSetId);
         return new ViewsQuestionnaire(questionnaireName, dateTime, questions, answers);
     }
 
@@ -69,20 +69,33 @@ public class ViewsQuestionnaireService {
         return questionList;
     }
 
-    public List<String> getQuestionnaireAnswers(long mentorId, long questionnaireId, long answerSetId) throws UnirestException{
+    public List<String> getQuestionnaireAnswers(long questionnaireId, long answerSetId) throws UnirestException{
         List<String> answerList = new ArrayList<>();
 
         String URL = "https://app.viewsapp.net/api/restful/evidence/questionnaires/" + questionnaireId + "/answers/" + answerSetId;
         HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
         JSONObject body = new JSONObject(response.getBody());
 
-        String answerSetKey = (String) body.keySet().toArray()[body.length() - 3];
-        JSONObject answersObject = body.getJSONObject(answerSetKey);
-        for(Object o: answersObject.names()) {
-            JSONObject sessionObject = answersObject.getJSONObject(o.toString());
-            String answer = sessionObject.getString("Answer");
-            answerList.add(answer);
+        String answerKey = getAnswerKey(body);
+
+        if(!answerKey.equals(NO_ANSWERS)) {
+            JSONObject answersObject = body.getJSONObject(answerKey);
+            for(Object o: answersObject.names()) {
+                JSONObject sessionObject = answersObject.getJSONObject(o.toString());
+                String answer = sessionObject.getString("Answer");
+                answerList.add(answer);
+            }
         }
+
         return answerList;
+    }
+
+    public String getAnswerKey(JSONObject body) {
+        for(Object name: body.names()) {
+            if(name.toString().contains("answers")) {
+                return name.toString();
+            }
+        }
+        return NO_ANSWERS;
     }
 }
