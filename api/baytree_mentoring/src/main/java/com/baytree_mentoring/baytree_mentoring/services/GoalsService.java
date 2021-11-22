@@ -17,8 +17,6 @@ public class GoalsService {
     }
 
     public void addGoal(Goal goal) {
-        assert(!goal.getUsername().equals(""));
-        assert(!goal.getState().equals(""));
 
         goalsRepository.save(goal);
     }

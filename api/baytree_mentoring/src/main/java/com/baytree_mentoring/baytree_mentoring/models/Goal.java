@@ -15,7 +15,6 @@ public class Goal {
     private long goalId;
 
     private String username;
-    private  long progressPoints;
     private String description;
     private String state;
 

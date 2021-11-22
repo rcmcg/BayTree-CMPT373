@@ -23,31 +23,32 @@ public class GoalsServiceTest {
     @Test
     public void shouldReturnTrueWhenMentorIsSuccessfullyAdded() {
         // build
-        Goal goal = new Goal(1, "testUser", 5, "initial test", "done");
+        Goal goal = new Goal(1, "testUser", "initial test", "done");
 
         // operate
         goalsService.addGoal(goal);
-        doReturn(true).when(goalsService).addGoal(goal);
+        doReturn(true).when(goalsService).isGoalAdded(goal);
 
         // check
         assertTrue(goalsService.isGoalAdded(goal));
     }
 
-//    @DisplayName("should return a list of all goals")
-//    @Test
-//    public void shouldReturnAListOfAllGoals() {
-//        // build
-//        Goal goal = new Goal();
-//
-//        // operate
-//        goalsService.addGoal(goal);
-//        doReturn(List.of(goal)).when(goalsService).getAllGoals();
-//
-//        // check
-//        assertAll(
-//                () -> assertEquals(goalsService.getAllGoals().size(), List.of(goal).size()),
-//                () -> assertEquals(goalsService.getAllGoals().get(0), goal)
-//        );
-//    }
+    @DisplayName("should return a list of all goals")
+    @Test
+    public void shouldReturnAListOfAllGoals() {
+        // build
+        Goal goal = new Goal();
+
+        // operate
+        goalsService.addGoal(goal);
+        doReturn(List.of(goal)).when(goalsService).getAllGoals();
+
+        // check
+        assertAll(
+                () -> assertEquals(goalsService.getAllGoals().size(), List.of(goal).size()),
+                () -> assertEquals(goalsService.getAllGoals().get(0), goal)
+        );
+    }
+
 }
 
