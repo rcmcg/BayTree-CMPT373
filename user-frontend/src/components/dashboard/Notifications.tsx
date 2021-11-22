@@ -17,13 +17,13 @@ export interface IState {
     notificationId: number;
     username: string;
     messageBody: string;
-  };
+  }[];
 }
 
 function Notifications() {
-  const [messages, setMessages] = useState<IState["messages"]>();
+  const [messages, setMessages] = useState<IState["messages"]>([]);
   axios
-    .get("http://localhost:8080/notifications/get/all")
+    .get<typeof messages>("http://localhost:8080/notifications/get/all")
     .then((response) => {
       setMessages(response.data);
       console.log(response);

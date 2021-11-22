@@ -1,4 +1,4 @@
-import { IState, IState as Props } from "./Notifications";
+import { IState as Props } from "./Notifications";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
@@ -10,16 +10,16 @@ export const ListNotifications: React.FC<IProps> = ({ messages }) => {
   const history = useHistory();
 
   const renderList = (): JSX.Element[] => {
-    return messages.map((message: IState["messages"]) => {
+    return messages.map((message) => {
       function routeChange() {
         let notificationId = message.notificationId;
         history.push(`/SingleNotification/${notificationId}`);
       }
 
       let body = message.messageBody;
-      if (body.length > 30) {
-        body = getShortBody(message.messageBody);
-      }
+      //   if (body.length > 30) {
+      //     body = getShortBody(message.messageBody);
+      //   }
 
       return (
         <span key={message.notificationId.toString()} onClick={routeChange}>
