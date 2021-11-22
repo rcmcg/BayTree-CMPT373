@@ -8,14 +8,15 @@ import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
 import { useLocation } from 'react-router-dom';
-import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface } from './MentorInterface';
+import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession } from './MentorInterface';
 import { backendApiURL } from "../../App";
 import axios from 'axios';
 
 function Mentor() {
+    //TODO fix bug where clicking on navbar crashes the page
     const mentorState = useLocation().state as MentorInterface;
 
-    const [sessions, setSessions] = useState<MentorSessionInterface[]> ([]);
+    const [sessions, setSessions] = useState<MentorSessionInterface[]> ([emptySession]);
 
     const getSessions = async() => {
         let url = backendApiURL + "/sessions/get/views/" + mentorState.viewsId;

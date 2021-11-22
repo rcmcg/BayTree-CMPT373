@@ -27,3 +27,26 @@ export interface MentorQuestionnaireInterface {
     questions: string[];
     answers: string[];
 };
+
+export const emptyMentor: MentorInterface = {
+    viewsId: 0,
+    firstName: "",
+    lastName: "", 
+    email: "",
+    status: "",
+    startDate: "",
+    endDate: "", 
+    phoneNumber: "", 
+    ethnicity: "", 
+    address: "", 
+    role: "",
+}
+
+export const emptySession: MentorSessionInterface = {
+    mentorId: 0,
+    sessionGroup: "Loading...",
+    attendance: "",
+    dateTime: "",
+    duration: "",
+    note: "",
+};
