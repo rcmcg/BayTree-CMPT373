@@ -20,20 +20,20 @@ public class NotificationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/notifications/send")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     private void addNotifications(@RequestBody NotificationWrapper notificationWrapper) {
         notificationService.addNotificationsFromAdmin(notificationWrapper.getUsernameList(), notificationWrapper.getMessage());
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @GetMapping("/notifications/get/{username}")
     private List<Notification> getNotificationsByUsername(@PathVariable String username) {
         return notificationService.queryNotificationsByUsername(username);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @GetMapping("/notifications/get/all")
     private List<Notification> getAllNotifications() {
         return notificationService.queryAllNotifications();
