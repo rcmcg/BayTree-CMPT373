@@ -83,9 +83,11 @@ const Mentors = () => {
   const validate = () => {
     if (selectedFlatRows.map((row) => row.original.username).length === 0) {
       setlistError("No users selected");
+      return false;
     }
     if (message === "") {
       setMessageError("Empty message body");
+      return false;
     }
     if (listError !== "" || messageError !== "") {
       return false;
