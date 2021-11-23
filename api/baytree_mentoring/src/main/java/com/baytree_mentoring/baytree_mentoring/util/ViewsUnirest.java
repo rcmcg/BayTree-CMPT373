@@ -70,6 +70,16 @@ public class ViewsUnirest {
                     .asString();
             System.out.println(response.getBody());
             if (httpResponseIsNotOk(response.getStatus())) {
+                if (response.getStatus() == 501
+                        && URL.matches("https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/[0-9]+/staff"))
+                {
+                    // Views returns 501 not implemented for URL:
+                    // "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/<sessionID>/staff";
+                    // This is incorrect. It is implemented and the endpoint works. So ignore the exception thrown.
+                    System.out.println("sendUnirestPostRequest(): Caught incorrect 501 from Views for URL: " + URL);
+                    System.out.println("Returning response without throwing exception");
+                    return response;
+                }
                 String error = "Post request to " + URL + " failed";
                 throw new UnirestException(error);
             } else {
