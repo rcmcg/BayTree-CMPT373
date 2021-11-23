@@ -5,19 +5,39 @@ import {Tabs, Tab} from 'react-bootstrap';
 import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
-import { useLocation } from 'react-router-dom';
-import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire } from './MentorInterface';
+import { useParams } from 'react-router-dom';
+import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire, emptyMentor } from './MentorInterface';
 import { backendApiURL } from "../../App";
 import axios from 'axios';
 
 function Mentor() {
+    console.log(useParams())
+    const { id } = useParams() as { 
+        id: string;
+      }
+
+    console.log(id)
     //TODO fix bug where clicking on navbar crashes the page
-    const mentorState = useLocation().state as MentorInterface;
+    const [mentor, setMentor] = useState<MentorInterface> (emptyMentor);
+
+    const getMentor = async() => {
+      let url = backendApiURL + "/user/get/mentors/" + id;
+      const response = await axios.get<MentorInterface>(url);
+      return response.data;
+    }
+  
+    useEffect(() => {
+      const fetchMentors = async () => {
+        const mentorData = await getMentor()
+        setMentor(mentorData);
+      } 
+      fetchMentors()
+    }, []);
 
     const [sessions, setSessions] = useState<MentorSessionInterface[]> ([emptySession]);
 
     const getSessions = async() => {
-        let url = backendApiURL + "/sessions/get/views/" + mentorState.viewsId;
+        let url = backendApiURL + "/sessions/get/views/" + id;
         const response = await axios.get<MentorSessionInterface[]>(url);
         return response.data;
     }
@@ -33,7 +53,7 @@ function Mentor() {
     const [questionnaires, setQuestionnaires] = useState<MentorQuestionnaireInterface[]> ([emptyQuestionnaire]);
 
     const getQuestionnaires = async() => {
-        let url = backendApiURL + "/questionnaires/get/views/" + mentorState.viewsId;
+        let url = backendApiURL + "/questionnaires/get/views/" + id;
         const response = await axios.get<MentorQuestionnaireInterface[]>(url);
         return response.data;
     }
@@ -51,7 +71,7 @@ function Mentor() {
             <h1>Mentor Overview</h1>
             <Tabs defaultActiveKey="info" className = 'tab'>
                 <Tab eventKey="info" title="Personal Information">
-                    {MentorInfo(mentorState)}
+                    {MentorInfo(mentor)}
                 </Tab>
 
                 <Tab eventKey="sessions" title="Sessions">
@@ -67,3 +87,4 @@ function Mentor() {
 }
 
 export default Mentor;
+

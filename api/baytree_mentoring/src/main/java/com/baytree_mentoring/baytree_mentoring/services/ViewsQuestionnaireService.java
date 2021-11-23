@@ -82,8 +82,9 @@ public class ViewsQuestionnaireService {
             JSONObject answersObject = body.getJSONObject(answerKey);
             for(Object o: answersObject.names()) {
                 JSONObject sessionObject = answersObject.getJSONObject(o.toString());
-                String answer = sessionObject.getString("Answer");
-                answerList.add(answer);
+
+                Object answer = sessionObject.get("Answer"); //Get plain object instead of string to bypass null answers throwing exception
+                answerList.add(answer.toString()); //null objects can be safely converted to strings
             }
         }
 

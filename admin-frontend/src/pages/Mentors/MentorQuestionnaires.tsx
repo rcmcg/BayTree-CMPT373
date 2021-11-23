@@ -4,8 +4,11 @@ import React from "react";
 import { MentorQuestionnaireInterface} from "./MentorInterface";
 
 function loadAnswers(questionnaireData: MentorQuestionnaireInterface) {
-    assert(questionnaireData.questions.length === questionnaireData.answers.length)
     var result = [];
+    if (questionnaireData.questions.length !== questionnaireData.answers.length) {
+        return [<strong>Invalid questionnaire. Questionnaire could not be constructed because the number of questions does not match the number of answers.</strong>];
+    }
+    
     const length = questionnaireData.questions.length;
     for(var i = 0; i < length; i++) {
         result.push(
