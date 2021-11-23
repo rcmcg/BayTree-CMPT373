@@ -17,7 +17,13 @@ public class ViewsQuestionnaireService {
 
     public int getNumberOfQuestionnairesByMentorId(long mentorId) throws UnirestException {
         HttpResponse<String> response = getJsonQuestionnaireFromViews(mentorId);
-        return response.getHeaders().size();
+
+        if(response.getBody().equals("[]")) { //No questionnaires
+            return 0;
+        }
+        JSONObject bodyObject = new JSONObject(response.getBody());
+
+        return bodyObject.length();
     }
 
     public List<ViewsQuestionnaire> getQuestionnairesByMentorId(long mentorId) throws UnirestException {
@@ -32,7 +38,7 @@ public class ViewsQuestionnaireService {
 
     public List<ViewsQuestionnaire> parseQuestionnaires(HttpResponse<String> response) throws UnirestException {
         List<ViewsQuestionnaire> questionnaireList = new ArrayList<>();
-        
+
         if(response.getBody().equals("[]")) { //No questionnaires
             return questionnaireList;
         }

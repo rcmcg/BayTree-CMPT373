@@ -31,7 +31,7 @@ public class ViewsQuestionnaireController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/questionnaires/get/views/{id}/size")
+    @GetMapping("/questionnaires/get/views/{id}/count")
     @CrossOrigin(origins = "http://localhost:3000")
     private int getNumberOfQuestionnaires(@PathVariable String id) {
         try {
