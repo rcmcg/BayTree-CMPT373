@@ -36,7 +36,7 @@
     width: 458px;
     height: 27px;
     margin-left: 42%;
-    margin-top: 29.5%;
+    margin-top: 29.3%;
 }
 
 .username::placeholder {
@@ -48,7 +48,7 @@
     .username-textbox{
         margin-left: 10%;
         margin-top: 125%;
-        width: 320px;
+        width: 300px;
         height: 50px;
     }
     .username-text{
@@ -61,6 +61,6 @@
         width: 320px;
         height: 27px;
         margin-left: 13%;
-        margin-top: 127%;
+        margin-top: 128%;
     }
 }
