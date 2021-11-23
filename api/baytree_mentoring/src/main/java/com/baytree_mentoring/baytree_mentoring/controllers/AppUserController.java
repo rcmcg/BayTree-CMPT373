@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,7 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -38,10 +40,10 @@ public class AppUserController {
     private final UserServiceImpl userService;
 
     @GetMapping("/login")
-    public UserDetails exists(@RequestBody String username) {
+    public boolean exists(@RequestBody String username) {
         String extractedUsername = username.substring(18).split("\"")[1];
 
-        return userService.loadUserByUsername(extractedUsername);
+        return userService.loadUserByUsername(extractedUsername) != null;
     }
 
     @GetMapping("/users")
