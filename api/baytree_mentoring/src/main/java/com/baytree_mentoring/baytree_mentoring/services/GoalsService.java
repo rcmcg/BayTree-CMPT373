@@ -5,6 +5,7 @@ import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.repositories.GoalsRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -27,6 +28,10 @@ public class GoalsService {
 
     public List<Goal> getAllGoals() {
         return goalsRepository.findAll();
+    }
+
+    public void deleteGoalUsingId(long gId) {
+        goalsRepository.deleteAllById(Collections.singleton(gId));
     }
 
 }
