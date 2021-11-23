@@ -7,7 +7,7 @@ import {
   useRowSelect,
 } from "react-table";
 import DATA from "./mockdata.json";
-import { COLUMNS } from "./Columns";
+import { MOCKCOLUMNS } from "./MockColumns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
 import Checkbox from "./Checkbox";
@@ -18,7 +18,7 @@ const Notifications = () => {
   // However, there do not seem to be many ways to modify the code as this is just how the library works
   // Code applied from various parts of the tutorial
   // -----
-  const columns = useMemo(() => COLUMNS, []);
+  const columns = useMemo(() => MOCKCOLUMNS, []);
   const data = useMemo(() => DATA, []);
 
   const {
@@ -109,8 +109,6 @@ const Notifications = () => {
           console.log(error);
         });
       isValid = true;
-      // setlistError("");
-      // setMessageError("");
     }
   };
 

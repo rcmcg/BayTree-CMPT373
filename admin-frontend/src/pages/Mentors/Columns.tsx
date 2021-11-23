@@ -55,5 +55,5 @@ export const COLUMNS = [
     Header: "Role",
     accessor: "role" as const,
     Filter: ColumnFilter,
-   },
+  },
 ];
