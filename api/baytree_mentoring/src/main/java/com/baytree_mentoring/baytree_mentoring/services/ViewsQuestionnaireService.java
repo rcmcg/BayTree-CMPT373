@@ -31,14 +31,16 @@ public class ViewsQuestionnaireService {
     }
 
     public List<ViewsQuestionnaire> parseQuestionnaires(HttpResponse<String> response) throws UnirestException {
-        if(response.getBody().equals("[]")) {
-            return new ArrayList<>();
-        }
-        JSONObject body = new JSONObject(response.getBody());
-
         List<ViewsQuestionnaire> questionnaireList = new ArrayList<>();
-        for(Object o: body.names()) {
-            JSONObject questionnaireObject = body.getJSONObject(o.toString());
+
+        Object body = response.getBody();
+        if(body.equals("[]")) { //No questionnaires
+            return questionnaireList;
+        }
+        JSONObject bodyObject = new JSONObject(body);
+
+        for(Object o: bodyObject.names()) {
+            JSONObject questionnaireObject = bodyObject.getJSONObject(o.toString());
 
             ViewsQuestionnaire questionnaire = buildQuestionnaire(questionnaireObject);
             questionnaireList.add(questionnaire);
@@ -89,7 +91,7 @@ public class ViewsQuestionnaireService {
                 JSONObject sessionObject = answersObject.getJSONObject(o.toString());
 
                 Object answer = sessionObject.get("Answer"); //Get plain object instead of string to bypass null answers throwing exception
-                answerList.add(answer.toString()); //null objects can be safely converted to strings
+                answerList.add(answer.toString()); //null can be safely converted to strings
             }
         }
 

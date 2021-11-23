@@ -26,19 +26,27 @@ public class ViewsSessionService {
     }
 
     public List<ViewsSession> parseSessions(HttpResponse<String> response) throws UnirestException {
-        JSONObject body = new JSONObject(response.getBody());
-
-        String beginningKey = body.names().getString(0);
-        JSONObject sessions = body.getJSONObject(beginningKey);
-
         List<ViewsSession> sessionsList = new ArrayList<>();
-        for(Object o: sessions.names()) {
-            JSONObject sessionObject = sessions.getJSONObject(o.toString());
 
-            ViewsSession session = buildSession(sessionObject);
-            sessionsList.add(session);
+        JSONObject body = new JSONObject(response.getBody());
+        String beginningKey = body.names().getString(0);
+
+        Object sessions = body.get(beginningKey); //Get plain object instead of JSONObject to avoid errors due to empty session data
+        if (sessions instanceof JSONArray) { //sessions are empty
+            return sessionsList;
+        }
+        else { // there are sessions
+            JSONObject sessionsObject = (JSONObject) sessions; //Cast to JSONObject once it is confirmed there are sessions
+
+            for(Object o: sessionsObject.names()) {
+                JSONObject sessionObject = sessionsObject.getJSONObject(o.toString());
+
+                ViewsSession session = buildSession(sessionObject);
+                sessionsList.add(session);
+            }
         }
         return sessionsList;
+
     }
 
     public ViewsSession buildSession(JSONObject session) throws UnirestException {
@@ -59,14 +67,14 @@ public class ViewsSessionService {
         HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
         JSONObject body = new JSONObject(response.getBody());
 
-        Object notes = body.get("notes");
+        Object notes = body.get("notes"); //Get plain object instead of JSONObject to avoid errors due to empty notes
         if(notes instanceof JSONArray) { //notes is empty
             return "N/A";
         }
         else { // there are notes
             String note = "";
             if(notes instanceof JSONObject) {
-                JSONObject notesObject = (JSONObject) notes;
+                JSONObject notesObject = (JSONObject) notes; //Cast to JSONObject once it is confirmed there are notes
                 for(Object o: notesObject.names()) {
                     JSONObject n = notesObject.getJSONObject(o.toString());
                     note += n.getString("Note") + "\n";
