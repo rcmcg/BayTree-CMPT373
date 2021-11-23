@@ -16,7 +16,6 @@ function Mentor() {
         id: string;
       }
 
-    console.log(id)
     //TODO fix bug where clicking on navbar crashes the page
     const [mentor, setMentor] = useState<MentorInterface> (emptyMentor);
 

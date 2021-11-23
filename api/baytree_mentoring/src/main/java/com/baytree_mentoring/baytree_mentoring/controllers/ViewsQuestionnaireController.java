@@ -29,4 +29,17 @@ public class ViewsQuestionnaireController {
             return null;
         }
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/questionnaires/get/views/{id}/size")
+    @CrossOrigin(origins = "http://localhost:3000")
+    private int getNumberOfQuestionnaires(@PathVariable String id) {
+        try {
+            long mentorId = Long.parseLong(id);
+            return viewsQuestionnaireService.getNumberOfQuestionnairesByMentorId(mentorId);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 }

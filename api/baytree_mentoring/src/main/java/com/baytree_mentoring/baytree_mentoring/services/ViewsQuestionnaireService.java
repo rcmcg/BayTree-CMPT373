@@ -15,6 +15,11 @@ public class ViewsQuestionnaireService {
     private final ViewsUnirest viewsUnirest = new ViewsUnirest();
     private static final String NO_ANSWERS = "No key associated to answers found.";
 
+    public int getNumberOfQuestionnairesByMentorId(long mentorId) throws UnirestException {
+        HttpResponse<String> response = getJsonQuestionnaireFromViews(mentorId);
+        return response.getHeaders().size();
+    }
+
     public List<ViewsQuestionnaire> getQuestionnairesByMentorId(long mentorId) throws UnirestException {
         HttpResponse<String> response = getJsonQuestionnaireFromViews(mentorId);
         return parseQuestionnaires(response);
