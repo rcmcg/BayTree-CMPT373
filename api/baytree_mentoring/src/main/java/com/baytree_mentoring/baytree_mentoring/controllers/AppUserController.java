@@ -7,12 +7,14 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baytree_mentoring.baytree_mentoring.models.AppUser;
 import com.baytree_mentoring.baytree_mentoring.models.Role;
 import com.baytree_mentoring.baytree_mentoring.services.AppUserService;
+import com.baytree_mentoring.baytree_mentoring.services.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,10 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -36,10 +35,47 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 public class AppUserController {
     private final AppUserService userService;
 
+    private final UserServiceImpl userService1;
+
+    @GetMapping("/login")
+    public UserDetails exists(@RequestBody String username) {
+        log.info(userService.getUsers().get(0).getUsername());
+        String test = username.substring(18).split("\"")[1];
+        System.out.println(test);
+
+
+//        List<AppUser> users = userService.getUsers();
+//
+//        for(AppUser user : users) {
+//            if(user.getUsername().equals(username)) {
+//                log.info(user.getUsername());
+//                return user;
+//            }
+//        }
+
+//        WHY IS THIS NULL???
+        return userService1.loadUserByUsername(test);
+
+//        AppUser appUser = new AppUser();
+//        appUser.setUsername("WHAT IS THIS");
+//        return appUser;
+    }
+
     @GetMapping("/users")
     public ResponseEntity<List<AppUser>> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
     }
+
+//    public boolean userExists(data) {
+//        boolean value = userService.findUserById(data);
+//        ...
+//        return value;
+//    }
+
+//    @PostMapping("/test")
+//    public ResponseEntity<UserDetails> exists(String username) {
+//        return ResponseEntity.ok().body(userService1.loadUserByUsername(username));
+//    }
 
     @PostMapping("/user/save")
     public ResponseEntity<AppUser> saveUser(@RequestBody AppUser user) {
