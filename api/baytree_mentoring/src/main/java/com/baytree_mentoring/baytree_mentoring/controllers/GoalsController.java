@@ -25,9 +25,9 @@ public class GoalsController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/goal/addGoal")
+    @PostMapping("/goal/add")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String AddGoal(@RequestBody Goal gl){
+    private String addGoal(@RequestBody Goal gl){
         goalsService.addGoal(gl);
 
         if (goalsService.isGoalAdded(gl)) {
@@ -39,7 +39,7 @@ public class GoalsController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/goal/get/allGoal")
+    @GetMapping("/goal/get/all")
     @CrossOrigin(origins = "http://localhost:3000")
     private List<Goal> getAllGoals() {
         return goalsService.getAllGoals();
