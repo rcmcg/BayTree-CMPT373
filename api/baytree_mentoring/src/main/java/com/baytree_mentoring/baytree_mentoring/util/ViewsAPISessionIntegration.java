@@ -23,6 +23,11 @@ public class ViewsAPISessionIntegration {
             // TODO: Check that the mentee and mentor exist before creating the session,
             //  otherwise the session is created then fails to update attendance, creating a useless session upload.
             String viewsSessionId = uploadSessionInformationGetSessionId(ses);
+            if (!ses.isDidMenteeAttend() || !ses.isDidMentorAttend()) {
+                // Exactly both or 0 participants attended the session
+                ses.setDidMenteeAttend(false);
+                ses.setDidMentorAttend(false);
+            }
             String participantAttendanceURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/" +
                     viewsSessionId +
                     "/participants";
