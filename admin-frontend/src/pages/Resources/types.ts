@@ -1,5 +1,5 @@
 export interface Resource{
-    id: number;
+    resourceId: number;
     resourceName: string;
     resourceLink: string;
 }
