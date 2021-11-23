@@ -32,12 +32,11 @@ public class ViewsQuestionnaireService {
 
     public List<ViewsQuestionnaire> parseQuestionnaires(HttpResponse<String> response) throws UnirestException {
         List<ViewsQuestionnaire> questionnaireList = new ArrayList<>();
-
-        Object body = response.getBody();
-        if(body.equals("[]")) { //No questionnaires
+        
+        if(response.getBody().equals("[]")) { //No questionnaires
             return questionnaireList;
         }
-        JSONObject bodyObject = new JSONObject(body);
+        JSONObject bodyObject = new JSONObject(response.getBody());
 
         for(Object o: bodyObject.names()) {
             JSONObject questionnaireObject = bodyObject.getJSONObject(o.toString());
