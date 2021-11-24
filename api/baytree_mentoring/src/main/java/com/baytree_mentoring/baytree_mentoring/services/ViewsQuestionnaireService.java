@@ -53,12 +53,12 @@ public class ViewsQuestionnaireService {
         return questionnaireList;
     }
 
-    public ViewsQuestionnaire buildQuestionnaire(JSONObject quesitonnaire) throws UnirestException {
-        long questionnaireId = quesitonnaire.getLong("QuestionnaireID");
-        long answerSetId = quesitonnaire.getLong("AnswerSetID");
+    public ViewsQuestionnaire buildQuestionnaire(JSONObject questionnaire) throws UnirestException {
+        long questionnaireId = questionnaire.getLong("QuestionnaireID");
+        long answerSetId = questionnaire.getLong("AnswerSetID");
 
-        String questionnaireName = quesitonnaire.getString("Questionnaire");
-        String dateTime = quesitonnaire.getString("Date");
+        String questionnaireName = questionnaire.getString("Questionnaire");
+        String dateTime = questionnaire.getString("Date");
 
         List<String> questions = getQuestionnaireQuestions(questionnaireId);
         List<String> answers = getQuestionnaireAnswers(questionnaireId, answerSetId);
