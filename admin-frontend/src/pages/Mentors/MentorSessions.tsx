@@ -1,5 +1,5 @@
 import React from "react";
-import { MentorSessionInterface } from "./MentorInterface"
+import { MentorSessionInterface } from "./MentorInterfaces"
 
 function MentorSession(sessionData: MentorSessionInterface) {
     const date = new Date(sessionData.dateTime)

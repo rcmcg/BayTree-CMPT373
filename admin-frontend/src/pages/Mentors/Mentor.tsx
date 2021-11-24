@@ -6,17 +6,15 @@ import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
 import { useParams } from 'react-router-dom';
-import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire, emptyMentor } from './MentorInterface';
+import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire, emptyMentor } from './MentorInterfaces';
 import { backendApiURL } from "../../App";
 import axios from 'axios';
 
 function Mentor() {
-    console.log(useParams())
     const { id } = useParams() as { 
         id: string;
       }
 
-    //TODO fix bug where clicking on navbar crashes the page
     const [mentor, setMentor] = useState<MentorInterface> (emptyMentor);
 
     const getMentor = async() => {
@@ -24,7 +22,7 @@ function Mentor() {
       const response = await axios.get<MentorInterface>(url);
       return response.data;
     }
-  
+
     useEffect(() => {
       const fetchMentors = async () => {
         const mentorData = await getMentor()
@@ -32,6 +30,7 @@ function Mentor() {
       } 
       fetchMentors()
     }, []);
+
 
     const [sessions, setSessions] = useState<MentorSessionInterface[]> ([emptySession]);
 
@@ -48,6 +47,7 @@ function Mentor() {
         } 
         fetchSessions()
     }, []);
+
 
     const [questionnaires, setQuestionnaires] = useState<MentorQuestionnaireInterface[]> ([emptyQuestionnaire]);
 

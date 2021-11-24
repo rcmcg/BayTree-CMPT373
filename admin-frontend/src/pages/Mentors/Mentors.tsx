@@ -13,7 +13,7 @@ import axios from "axios";
 import { backendApiURL } from "../../App";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import {MentorInterface, emptyMentor} from "./MentorInterface";
+import {MentorInterface} from "./MentorInterfaces";
 
 const Mentors = () => {
   const [mentors, setMentors] = useState<MentorInterface[]> ([]);

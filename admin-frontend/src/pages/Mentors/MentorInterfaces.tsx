@@ -30,7 +30,7 @@ export interface MentorQuestionnaireInterface {
 
 export const emptyMentor: MentorInterface = {
     viewsId: 0,
-    firstName: "",
+    firstName: "Loading...",
     lastName: "", 
     email: "",
     status: "",
