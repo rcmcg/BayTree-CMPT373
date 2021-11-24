@@ -16,7 +16,6 @@ interface SessionState {
     didMentorAttend: boolean,
     clockInTimeLocal: string,
     clockOutTimeLocal: string,
-    leadStaffId: number,
     sessionNotes: string,
     menteesList: []
 }
@@ -83,17 +82,6 @@ class DidMentorAttendSession extends React.Component {
     }
 }
 
-class SelectLeadStaffId extends React.Component {
-    render () {
-        return (
-            <div>
-                <label form="selectLeadStaffId">Lead staff (supervisor) id </label>
-                <input type="number" id="selectLeadStaffId" name="leadStaffId" required/>
-            </div>
-        )
-    }
-}
-
 class ClockIn extends React.Component {
     render() {
         return (
@@ -152,7 +140,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
             didMentorAttend: true,
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
-            leadStaffId: -1,
             sessionNotes: '',
             menteesList: []
         }
@@ -182,7 +169,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
             didMentorAttend: event.target.didMentorAttend.checked,
             clockInTimeLocal: event.target.clockInId.value,
             clockOutTimeLocal: event.target.clockOutId.value,
-            leadStaffId: event.target.selectLeadStaffId.value,
             sessionNotes: event.target.sessionNotesId.value
         }, this.processUserSubmission)
         event.target.reset()
@@ -200,7 +186,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
             didMentorAttend: this.state.didMentorAttend,
             clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
             clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
-            leadStaffId: this.state.leadStaffId,
             sessionNotes: this.state.sessionNotes
         })
         .then(function (response: AxiosResponse) {
@@ -249,7 +234,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
                         <DidMentorAttendSession /> <br/>
                         <ClockIn /> <br/>
                         <ClockOut /> <br/>
-                        <SelectLeadStaffId /> <br/>
                         <SessionNotes /> <br/>
                         <span className={"submitButtonFormat"}>
                             <SessionSubmit /> <br />

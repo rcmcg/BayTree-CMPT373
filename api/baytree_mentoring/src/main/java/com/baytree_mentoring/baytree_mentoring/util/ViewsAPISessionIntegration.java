@@ -53,7 +53,7 @@ public class ViewsAPISessionIntegration {
     private String uploadSessionInformationGetSessionId(Session ses) throws UnirestException, ParseException {
         String venueId = getVenueIdForSessionGroupFromViews(String.valueOf(ses.getSessionGroupId()));
         String uploadJSON = viewsAPISessionJSONFormatter.createSessionUploadJSON(
-                ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), String.valueOf(ses.getLeadStaffId()), venueId);
+                ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), String.valueOf(ses.getMentorId()), venueId);
         String viewsSessionId = sendSessionPostRequestGetNewSessionId(uploadJSON, ses.getSessionGroupId());
         return viewsSessionId;
     }

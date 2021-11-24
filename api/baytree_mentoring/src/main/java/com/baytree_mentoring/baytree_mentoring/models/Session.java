@@ -33,7 +33,6 @@ public class Session {
     private String clockOutTimeLocal;
     private Instant clockInTimeUTC;
     private Instant clockOutTimeUTC;
-    private long leadStaffId;
 
     @NotNull
     private String sessionNotes;
@@ -48,7 +47,6 @@ public class Session {
         this.didMentorAttend = didMentorAttend;
         this.clockInTimeLocal = clockInTimeLocal;
         this.clockOutTimeLocal = clockOutTimeLocal;
-        this.leadStaffId = leadStaffId;
         this.sessionNotes = sessionNotes;
 
         this.clockInTimeUTC = convertToUTC(clockInTimeLocal);
