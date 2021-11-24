@@ -11,7 +11,14 @@ const createResource = async (resource:Resource): Promise<Resource> => {
     return data;
 }
 
+
+const deleteResource = async (resourceId: number) => {
+    const {data} = await Api.delete<Resource[]>(`/resource/delete/${resourceId}`);
+    return data
+  }
+
 export {
     getResourcesList,
-    createResource
+    createResource,
+    deleteResource,
  };
