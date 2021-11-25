@@ -8,7 +8,6 @@ import com.baytree_mentoring.baytree_mentoring.models.AppUser;
 import com.baytree_mentoring.baytree_mentoring.models.Authentication;
 import com.baytree_mentoring.baytree_mentoring.models.Role;
 import com.baytree_mentoring.baytree_mentoring.services.AppUserService;
-import com.baytree_mentoring.baytree_mentoring.services.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +36,6 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @Slf4j
 public class AppUserController {
     private final AppUserService appUserService;
-
-    private final UserServiceImpl userService;
 
     @GetMapping("/login")
     public boolean userExists(@RequestBody Authentication authentication) {
