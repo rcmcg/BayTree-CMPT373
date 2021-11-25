@@ -13,7 +13,7 @@ const DotWrapper = styled.div`
   align-items: flex-end;
 `;
 
-const Dot = styled.div`
+const Dot0s = styled.div`
   background-color: black;
   border-radius: 50%;
   width: 10px;
@@ -22,16 +22,40 @@ const Dot = styled.div`
   
   /* Animation */
   animation: ${BounceAnimation} 0.5s linear infinite;
-  animation-delay: ${props => props.delay}};
+  animation-delay: 0s;
+`;
+
+const Dot01s = styled.div`
+  background-color: black;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  
+  /* Animation */
+  animation: ${BounceAnimation} 0.5s linear infinite;
+  animation-delay: 0.1s;
+`;
+
+const Dot02s = styled.div`
+  background-color: black;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  
+  /* Animation */
+  animation: ${BounceAnimation} 0.5s linear infinite;
+  animation-delay: 0.2s;
 `;
 
 class LoadingDots extends Component {
     render() {
         return (
             <DotWrapper>
-                <Dot delay={"0s"} />
-                <Dot delay={"0.1s"} />
-                <Dot delay={"0.2s"} />
+                <Dot0s />
+                <Dot01s />
+                <Dot02s />
             </DotWrapper>
         )
     }
