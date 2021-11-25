@@ -54,7 +54,18 @@ export class LoginForm extends React.Component<{}, LoginState> {
     }
 
     processLogin() {
-        // TODO: Send Post Request to backend to retrieve a security token
+
+        const url = backendApiURL + '/api/login'
+        axios.post(url, {
+            username: this.state.username,
+            password: this.state.password
+        })
+            .then(function (response: AxiosResponse) {
+                console.log(response);
+            })
+            .error(function (error: AxiosError) {
+                console.log(error);
+            })
     }
 
     handleUsernameChange(event: any) {
