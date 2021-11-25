@@ -38,8 +38,7 @@ public class Session {
     private String sessionNotes;
 
     public Session(long menteeId, long mentorId, long sessionGroupId, boolean didMenteeAttend, boolean didMentorAttend,
-                   String clockInTimeLocal, String clockOutTimeLocal,
-                   long leadStaffId, String sessionNotes) {
+                   String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {
         this.menteeId = menteeId;
         this.mentorId = mentorId;
         this.sessionGroupId = sessionGroupId;

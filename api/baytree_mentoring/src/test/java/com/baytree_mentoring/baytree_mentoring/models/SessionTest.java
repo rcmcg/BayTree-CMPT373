@@ -15,7 +15,7 @@ class SessionTest {
                 true,
                 true,
                 "2021-09-28 20:12:12 -0800",
-                "2021-09-28 21:12:12 -0800", 42, "Notes"
+                "2021-09-28 21:12:12 -0800", "Notes"
         );
         assertEquals("2021-09-29 04:12:12", ses.getClockInTimeUTCString());
     }

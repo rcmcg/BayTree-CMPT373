@@ -28,7 +28,6 @@ class ViewsAPISessionIntegrationTest {
                 true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                28,
                 "Some notes");
         assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
@@ -44,7 +43,6 @@ class ViewsAPISessionIntegrationTest {
                 true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                28,
                 "Some notes");
         assertThrows(UnirestException.class, () -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
@@ -60,7 +58,6 @@ class ViewsAPISessionIntegrationTest {
                 true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                28,
                 "Some notes");
         assertThrows(UnirestException.class, () -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
@@ -75,7 +72,6 @@ class ViewsAPISessionIntegrationTest {
                 false,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                42,
                 "Mentor did not attend, but both mentee and mentor should be marked as not attended in Views");
         assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
@@ -90,7 +86,6 @@ class ViewsAPISessionIntegrationTest {
                 true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                42,
                 "Mentee did not attend, but both mentee and mentor should be marked as not attended in Views");
         assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
