@@ -60,14 +60,16 @@ function Resources() {
           .catch((error) => {
             console.log(error);
           });
+          window.location.reload();
     //const newResource = await createResource(game)
     
   }
 
   const onDelete = async (event: React.MouseEvent<HTMLButtonElement>, resourceId: number) => {
-    //const listAfterDelete = await deleteResource(resourceId);
-    axios.delete(`http://localhost:8080//resource/delete/${resourceId}`)
-    //setResources(listAfterDelete);
+    const listAfterDelete = await deleteResource(resourceId);
+    //axios.delete(`http://localhost:8080//resource/delete/${resourceId}`)
+    //window.location.reload();
+    setResources(listAfterDelete);
   }
   
   useEffect(() => {
