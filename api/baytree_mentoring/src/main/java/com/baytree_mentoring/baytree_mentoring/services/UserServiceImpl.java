@@ -93,7 +93,9 @@ public class UserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public boolean checkIfUserExists(String username, String password) {
-        return getUser(username) != null  && passwordEncoder.matches(password, getUser(username).getPassword());
+        AppUser user = getUser(username);
+
+        return user != null  && passwordEncoder.matches(password, user.getPassword());
     }
 }
 
