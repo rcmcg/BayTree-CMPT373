@@ -90,5 +90,10 @@ public class UserServiceImpl implements AppUserService, UserDetailsService {
         log.info("Fetching all users");
         return userRepo.findAll();
     }
+
+    @Override
+    public boolean checkIfUserExists(String username, String password) {
+        return getUser(username) != null;
+    }
 }
 

@@ -41,8 +41,8 @@ public class AppUserController {
     private final UserServiceImpl userService;
 
     @GetMapping("/login")
-    public AppUser userExists(@RequestBody Authentication authentication) {
-        return appUserService.getUser(authentication.getUsername());
+    public boolean userExists(@RequestBody Authentication authentication) {
+        return appUserService.checkIfUserExists(authentication.getUsername(), authentication.getPassword());
     }
 
     @GetMapping("/users")
