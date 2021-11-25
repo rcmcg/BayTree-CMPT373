@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baytree_mentoring.baytree_mentoring.models.AppUser;
+import com.baytree_mentoring.baytree_mentoring.models.Authentication;
 import com.baytree_mentoring.baytree_mentoring.models.Role;
 import com.baytree_mentoring.baytree_mentoring.services.AppUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,28 +35,33 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RequiredArgsConstructor
 @Slf4j
 public class AppUserController {
-    private final AppUserService userService;
+    private final AppUserService appUserService;
+
+    @GetMapping("/login")
+    public boolean userExists(@RequestBody Authentication authentication) {
+        return appUserService.checkIfUserExists(authentication.getUsername(), authentication.getPassword());
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<AppUser>> getUsers() {
-        return ResponseEntity.ok().body(userService.getUsers());
+        return ResponseEntity.ok().body(appUserService.getUsers());
     }
 
     @PostMapping("/user/save")
     public ResponseEntity<AppUser> saveUser(@RequestBody AppUser user) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+        return ResponseEntity.created(uri).body(appUserService.saveUser(user));
     }
 
     @PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toString());
-        return ResponseEntity.created(uri).body(userService.saveRole(role));
+        return ResponseEntity.created(uri).body(appUserService.saveRole(role));
     }
 
     @PostMapping("/role/addtouser")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form) {
-        userService.addRoleToUser(form.getUsername(), form.getRoleName());
+        appUserService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
 
@@ -69,7 +75,7 @@ public class AppUserController {
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
                 String username = decodedJWT.getSubject();
-                AppUser user = userService.getUser(username);
+                AppUser user = appUserService.getUser(username);
                 String access_token = JWT.create()
                         .withSubject(user.getUsername())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
@@ -81,7 +87,7 @@ public class AppUserController {
                 tokens.put("refresh_token", refresh_token);
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-            }catch (Exception exception){
+            } catch (Exception exception){
                 log.info("Error logging in: {}", exception.getMessage());
                 response.setHeader("error", exception.getMessage());
                 response.setStatus(FORBIDDEN.value());
