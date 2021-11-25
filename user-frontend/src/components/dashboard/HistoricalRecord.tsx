@@ -1,6 +1,7 @@
 import React from 'react';
 import "../../css/dashboard/HistoricalRecord.css"
 
+
 function HistoricalRecord() {
     return (
         <div className={"historicalRecord"}>

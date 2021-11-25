@@ -6,4 +6,12 @@ const getResourcesList = async() =>  {
     return response.data;
 }
 
-export {getResourcesList};
+const createResource = async (resource:Resource): Promise<Resource> => {
+    const {data} = await Api.post<Resource, Resource>('/resource/add');
+    return data;
+}
+
+export {
+    getResourcesList,
+    createResource
+ };
