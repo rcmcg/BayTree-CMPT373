@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.baytree_mentoring.baytree_mentoring.models.AppUser;
+import com.baytree_mentoring.baytree_mentoring.models.Authentication;
 import com.baytree_mentoring.baytree_mentoring.models.Role;
 import com.baytree_mentoring.baytree_mentoring.services.AppUserService;
 import com.baytree_mentoring.baytree_mentoring.services.UserServiceImpl;
@@ -40,10 +41,8 @@ public class AppUserController {
     private final UserServiceImpl userService;
 
     @GetMapping("/login")
-    public boolean exists(@RequestBody String username) {
-        String extractedUsername = username.substring(18).split("\"")[1];
-
-        return userService.loadUserByUsername(extractedUsername) != null;
+    public AppUser userExists(@RequestBody Authentication authentication) {
+        return appUserService.getUser(authentication.getUsername());
     }
 
     @GetMapping("/users")
