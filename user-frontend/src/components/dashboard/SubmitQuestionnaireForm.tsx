@@ -4,19 +4,6 @@ import axios, {AxiosResponse} from "axios";
 import {useState} from "react";
 import LoadingDots from "../LoadingDots";
 
-// const DynamicForm = ({ formData }: any) => {
-//     function onSubmit(e: any) {
-//         e.preventDefault();
-//     }
-//
-//     return (
-//         <form onSubmit={onSubmit}>
-//             {formData}
-//             <p>todo...</p>
-//         </form>
-//     )
-// }
-
 export class SubmitQuestionnaireForm extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -81,7 +68,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         let inputTypeArray = []
         let validationArray = []
         for (let key in questionnaireJSON) {
-            let questionsEntry = []
             // console.log(key + " -> " + questionnaireJSON[key])
             // console.log(questionnaireJSON[key]['Question'])
             questionsArray.push(questionnaireJSON[key]['Question'])
