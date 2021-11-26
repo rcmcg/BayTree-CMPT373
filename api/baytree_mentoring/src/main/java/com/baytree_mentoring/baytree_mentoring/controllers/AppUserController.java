@@ -37,7 +37,7 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 public class AppUserController {
     private final AppUserService appUserService;
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public boolean userExists(@RequestBody Authentication authentication) {
         return appUserService.checkIfUserExists(authentication.getUsername(), authentication.getPassword());
     }
