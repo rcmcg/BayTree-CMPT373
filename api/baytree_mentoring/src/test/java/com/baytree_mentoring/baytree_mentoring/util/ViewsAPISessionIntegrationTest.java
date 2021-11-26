@@ -63,6 +63,7 @@ class ViewsAPISessionIntegrationTest {
     }
 
     @Test
+    @Disabled
     void uploadSessionWhereMentorDidNotAttend() {
         Session ses = new Session(
                 39,
@@ -77,6 +78,7 @@ class ViewsAPISessionIntegrationTest {
     }
 
     @Test
+    @Disabled
     void uploadSessionWhereMenteeDidNotAttend() {
         Session ses = new Session(
                 39,

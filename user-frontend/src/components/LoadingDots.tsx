@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
-// Source: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
+// Source: https://medium.com/@chrisburgin95/using-react-and-styled-components-to-make-a-simple-loading-animation-df1330c652cb
 
 const BounceAnimation = keyframes`
   0% { margin-bottom: 0; }

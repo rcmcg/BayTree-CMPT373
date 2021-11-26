@@ -178,6 +178,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
     processUserSubmission() {
         // TODO: Verify clock in/out time is valid (in < out, total time less than some number of hours)
         const url = backendApiURL + '/session/add/'
+        alert('Submitting session upload. This may take a few minutes. Press okay to continue.')
         axios.post(url, {
             menteeId: this.state.menteeId,
             mentorId: this.state.mentorId,
@@ -236,8 +237,8 @@ export class SessionForm extends React.Component<{}, SessionState> {
                         <ClockOut /> <br/>
                         <SessionNotes /> <br/>
                         <span className={"submitButtonFormat"}>
-                            <SessionSubmit /> <br />
-                        </span>
+                        <SessionSubmit /> <br />
+                    </span>
                     </form>
                 </div>
             </main>
