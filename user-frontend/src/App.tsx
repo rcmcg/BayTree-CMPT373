@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/dashboard/App.css';
+
 import {NavigationBar} from "./components/dashboard/NavigationBar";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {Session} from "./pages/session";
@@ -12,7 +13,7 @@ import {SingleNotification} from "./pages/SingleNotification";
 import {FullHistoricalRecord} from "./pages/FullHistoricalRecord"
 import {SubmitQuestionnaire} from "./pages/submitquestionnaire";
 import {LoginPage} from "./pages/login-page";
-
+import {Goals} from "./pages/Goals"
 
 export const backendApiURL: string = "http://localhost:8080"
 export const HTTP_CREATED_STATUS_RESPONSE: number = 201
@@ -33,6 +34,7 @@ function App() {
                         <Route path={`/HistoricalRecord`} component={FullHistoricalRecord} />
                         <Route path={"/profile"} exact component={Profile}/>
                         <Route path={"/resources"} exact component={Resources}/>
+                        <Route path={"/goals"} exact component={Goals}/>
                     </div>
             </Switch>
         </Router>

@@ -50,6 +50,11 @@ const NavigationBar = () => {
                             <a href="/#">Profile</a>
                         </Link>
                     </li>
+                    <li className={"nav-item"}>
+                        <Link to={'/goals'} className="nav-links" onClick={closeMobileMenu}>
+                            <a href="/#">Goals</a>
+                        </Link>
+                    </li>
 
                 </ul>
 
