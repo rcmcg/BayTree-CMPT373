@@ -48,18 +48,7 @@ public class GoalsController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/goal/delete/{goalId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String deleteGoal(@PathVariable("goalId") Long gId){
-
-        List<Goal> goals = goalsService.getAllGoals();
-
-        for(Goal g : goals) {
-            if(g.getGoalId() == gId) {
-                goalsService.deleteGoalUsingId(gId);
-                return deleteSUCCESS;
-            }
-        }
-
-        String error = "Failed to Delete the Goal.";
-        throw new FailedAddingGoalException(error);
+    public void deleteGoal(@PathVariable("goalId") Long goalId){
+        goalsService.deleteGoalUsingId(goalId);
     }
 }
