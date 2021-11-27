@@ -54,7 +54,17 @@ export class LoginForm extends React.Component<{}, LoginState> {
     }
 
     processLogin() {
-        // TODO: Send Post Request to backend to retrieve a security token
+        const url = backendApiURL + '/api/login'
+        axios.post(url, {
+            username: this.state.username,
+            password: this.state.password
+        })
+            .then((response: AxiosResponse) => {
+                console.log(response.data);
+            })
+            .error((error: AxiosError) => {
+                console.log(error.name);
+            })
     }
 
     handleUsernameChange(event: any) {
@@ -84,12 +94,10 @@ export class LoginForm extends React.Component<{}, LoginState> {
                         <img className="password-text" src={passwordText} />
                         <img className="password-textbox" src={passwordTextBox} />
                         <div className="login-button" onClick={this.handleSubmit}>
-                            <Link to={"/dashboard"}>
                             <div className="overlap-login-button">
                                 <img className="login-button-border" src={loginButtonBorder} />
                                 <img className="login-text" src={loginButtonText} />
                             </div>
-                            </Link>
                         </div>
                         <img className="i-forgot-my-password-redirection" src={iForgotMyPasswordRedirection} />
                         <img className="mentorship-programme-text" src={mentorshipProgrammeText} />
