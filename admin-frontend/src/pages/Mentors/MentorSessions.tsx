@@ -1,26 +1,17 @@
 import React from "react";
+import { MentorSessionInterface } from "./MentorInterfaces"
 
-interface MentorSessionInterface {
-    session: {
-        title: string;
-        startDateTime: string;
-        duration: string;
-        status: string;
-        notes: string;
-    };
-}
-
-function MentorSession(sessionData: MentorSessionInterface["session"]) {
-    const date = new Date(sessionData.startDateTime)
+function MentorSession(sessionData: MentorSessionInterface) {
+    const date = new Date(sessionData.dateTime)
     return (
-        <p>
+        <div>
             <h3>{date.toDateString()}</h3>
-            <h4>{sessionData.title}</h4>
+            <h4>{sessionData.sessionGroup}</h4>
             <strong>Start Time: </strong> {date.toLocaleTimeString("en-US")} <br/>
             <strong>Duration: </strong> {sessionData.duration} <br/>
-            <strong>Attendance: </strong> {sessionData.status} <br/>
-            <strong>Notes: </strong> {sessionData.notes} <br/>
-        </p>
+            <strong>Attendance: </strong> {sessionData.attendance} <br/>
+            <strong>Notes: </strong> {sessionData.note} <br/>
+        </div>
     );
 }
 

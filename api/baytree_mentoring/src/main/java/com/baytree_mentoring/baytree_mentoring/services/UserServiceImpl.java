@@ -4,7 +4,6 @@ import com.baytree_mentoring.baytree_mentoring.models.AppUser;
 import com.baytree_mentoring.baytree_mentoring.models.Role;
 import com.baytree_mentoring.baytree_mentoring.repositories.AppUserRepo;
 import com.baytree_mentoring.baytree_mentoring.repositories.RoleRepo;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +17,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 //@RequiredArgsConstructor
@@ -91,6 +89,13 @@ public class UserServiceImpl implements AppUserService, UserDetailsService {
     public List<AppUser> getUsers() {
         log.info("Fetching all users");
         return userRepo.findAll();
+    }
+
+    @Override
+    public boolean checkIfUserExists(String username, String password) {
+        AppUser user = getUser(username);
+
+        return user != null  && passwordEncoder.matches(password, user.getPassword());
     }
 }
 
