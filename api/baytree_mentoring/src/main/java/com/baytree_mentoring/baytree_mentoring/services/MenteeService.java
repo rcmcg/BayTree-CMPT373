@@ -164,7 +164,7 @@ public class MenteeService {
         return new ViewsMentee(participantId, firstName, lastName);
     }
 
-    private String extractId(String id) {
+    public String extractId(String id) {
         id = id.replaceAll("participant id=", "");
         id = id.replaceAll("\"", "");
 
