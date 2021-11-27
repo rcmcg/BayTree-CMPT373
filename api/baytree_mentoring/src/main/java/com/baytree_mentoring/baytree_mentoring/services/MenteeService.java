@@ -156,7 +156,7 @@ public class MenteeService {
         return mentees;
     }
 
-    private ViewsMentee buildMentee(JSONObject mentee, Object id) {
+    public ViewsMentee buildMentee(JSONObject mentee, Object id) {
         long participantId = Long.parseLong(extractId(id.toString()));
         String firstName = mentee.getString("Forename");
         String lastName = mentee.getString("Surname");

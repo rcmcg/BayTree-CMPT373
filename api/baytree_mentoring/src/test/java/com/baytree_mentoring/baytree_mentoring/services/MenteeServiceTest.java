@@ -2,6 +2,9 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Mentee;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsMentee;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -72,6 +75,24 @@ public class MenteeServiceTest {
         assertThrows(NumberFormatException.class,
                 () -> menteeService.extractId(id)
         );
+    }
+
+    @DisplayName("should return true when valid views mentee is created")
+    @Test
+    public void shouldReturnTrueWhenValidViewsMenteeIsCreated() throws JSONException {
+        JSONObject menteeObject = new JSONObject(
+                "{" +
+                        "\"participant id\":\"3\"," +
+                        "\"Forename\":\"Team\", " +
+                        "\"Lastname\":\"Mercury\"" +
+                   "}"
+        );
+        ViewsMentee viewsMentee = new ViewsMentee(3, "Team", "Mercury");
+        Object id = "participant id=\"3\"";
+
+        doReturn(viewsMentee).when(menteeService).buildMentee(menteeObject, id);
+
+        assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id));
     }
 }
 
