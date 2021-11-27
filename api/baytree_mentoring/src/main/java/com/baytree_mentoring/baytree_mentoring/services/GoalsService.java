@@ -1,12 +1,10 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Goal;
-import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.repositories.GoalsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
