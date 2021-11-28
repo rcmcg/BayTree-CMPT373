@@ -65,16 +65,17 @@ public class MenteeServiceTest {
         assertEquals(3, Integer.parseInt(id));
     }
 
-    @DisplayName("should throw number format exception when string id is empty")
+    @DisplayName("should return null when string id is empty")
     @Test
-    public void shouldThrowNumberFormatExceptionWhenStringIdIsEmpty() {
+    public void shouldReturnNullWhenStringIdIsEmpty() {
         String id = "participant id=\"\"";
 
-        doThrow(NumberFormatException.class).when(menteeService).extractId(id);
-
-        assertThrows(NumberFormatException.class,
-                () -> menteeService.extractId(id)
-        );
+        /*
+            This case likely won't happen since each participant (who is a
+            volunteer) will have an Id (in this case, participant id) assigned
+            to them by Views itself
+         */
+        assertNull(menteeService.extractId(id));
     }
 
     @DisplayName("should return true when valid views mentee is created")
