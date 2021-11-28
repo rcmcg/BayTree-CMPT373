@@ -22,7 +22,7 @@ public class Notification {
     private String username;
 
     @NotNull
-    @Size(min = 1)
+    @Size(min = 10)
     private String messageBody;
 
     public Notification(String username, String messageBody) {

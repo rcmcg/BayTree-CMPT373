@@ -74,7 +74,9 @@ const Notifications = () => {
   const [messageError, setMessageError] = useState("");
   const [listError, setlistError] = useState("");
 
-  const handleMessageChange = (event: React.ChangeEvent<any>) => {
+  const handleMessageChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setMessage(event.target.value);
   };
 
@@ -93,7 +95,7 @@ const Notifications = () => {
     return true;
   };
 
-  const handleSubmit = (event: React.ChangeEvent<any>) => {
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     isValid = validate();
     if (isValid) {
