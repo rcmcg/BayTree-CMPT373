@@ -97,7 +97,6 @@ public class MenteeServiceTest {
         Object id = "participant id=\"3\"";
 
         // operate
-        assert menteeObject != null;
         doReturn(viewsMentee).when(menteeService).buildMentee(menteeObject, id);
 
         // check
