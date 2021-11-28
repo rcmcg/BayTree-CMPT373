@@ -24,9 +24,9 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/mentors" component={Mentors} />
-          <Route path="/mentor" component={Mentor} />
-          <Route path="/notifications" component={Notifications} />
+          <Route exact path="/mentor/:id" component={Mentor} />
           <Route path="/mentees" component={Mentees} />
+          <Route path="/notifications" component={Notifications} />
           <Route path="/add" component={AddMentor} />
           <Route path="/questionnaires" component={Questionnaires} />
           <Route path="/settings" component={Settings} />

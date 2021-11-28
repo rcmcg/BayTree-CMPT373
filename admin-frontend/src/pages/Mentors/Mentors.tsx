@@ -9,30 +9,18 @@ import {
 import { COLUMNS } from "./Columns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
-import Checkbox from "./Checkbox";
 import axios from "axios";
 import { backendApiURL } from "../../App";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { MentorInterface } from "./MentorInterfaces";
 
 const Mentors = () => {
-  interface Mentor {
-    viewsId: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    status: string;
-    startDate: string;
-    endDate: string;
-    phoneNumber: string;
-    ethnicity: string;
-    address: string;
-    role: string;
-  }
-
-  const [mentors, setMentors] = useState<Mentor[]>([]);
+  const [mentors, setMentors] = useState<MentorInterface[]>([]);
 
   const getMentors = async () => {
     let url = backendApiURL + "/user/get/mentors/all";
-    const response = await axios.get<Mentor[]>(url);
+    const response = await axios.get<MentorInterface[]>(url);
     return response.data;
   };
 
@@ -74,21 +62,7 @@ const Mentors = () => {
     useFilters,
     useSortBy,
     usePagination,
-    useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        {
-          id: "selection",
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <Checkbox name={""} {...getToggleAllRowsSelectedProps()} />
-          ),
-          Cell: ({ row }: { row: any }) => (
-            <Checkbox {...row.getToggleRowSelectedProps()} />
-          ),
-        },
-        ...columns,
-      ]);
-    }
+    useRowSelect
   );
 
   const { pageIndex, pageSize } = state;
@@ -139,6 +113,16 @@ const Mentors = () => {
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
                 })}
+                <Link
+                  to={{
+                    pathname: `/mentor/${row.original.viewsId}`,
+                    state: row.original,
+                  }}
+                >
+                  <td>
+                    <Button>Details</Button>
+                  </td>
+                </Link>
               </tr>
             );
           })}

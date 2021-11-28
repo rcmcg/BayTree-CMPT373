@@ -1,11 +1,5 @@
 import { ColumnFilter } from "./ColumnFilter";
-
 export const COLUMNS = [
-  {
-    Header: "ID",
-    accessor: "viewsId" as const,
-    Filter: ColumnFilter,
-  },
   {
     Header: "First Name",
     accessor: "firstName" as const,
@@ -34,21 +28,6 @@ export const COLUMNS = [
   {
     Header: "End Date",
     accessor: "endDate" as const,
-    Filter: ColumnFilter,
-  },
-  {
-    Header: "Phone Number",
-    accessor: "phoneNumber" as const,
-    Filter: ColumnFilter,
-  },
-  {
-    Header: "Ethnicity",
-    accessor: "ethnicity" as const,
-    Filter: ColumnFilter,
-  },
-  {
-    Header: "Address",
-    accessor: "address" as const,
     Filter: ColumnFilter,
   },
   {
