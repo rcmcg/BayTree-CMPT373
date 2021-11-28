@@ -82,20 +82,15 @@ public class MenteeServiceTest {
 
     @DisplayName("should return true when valid views mentee is created")
     @Test
-    public void shouldReturnTrueWhenValidViewsMenteeIsCreated() {
+    public void shouldReturnTrueWhenValidViewsMenteeIsCreated() throws JSONException {
         // build
-        JSONObject menteeObject = null;
-        try {
-            menteeObject = new JSONObject(
-                    "{" +
-                            "\"participant id\":\"3\"," +
-                            "\"Forename\":\"Team\", " +
-                            "\"Lastname\":\"Mercury\"" +
-                       "}"
-            );
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONObject menteeObject = new JSONObject(
+                "{" +
+                        "\"participant id\":\"3\"," +
+                        "\"Forename\":\"Team\", " +
+                        "\"Lastname\":\"Mercury\"" +
+                   "}"
+        );
 
         ViewsMentee viewsMentee = new ViewsMentee(3, "Team", "Mercury");
 
@@ -106,7 +101,10 @@ public class MenteeServiceTest {
         doReturn(viewsMentee).when(menteeService).buildMentee(menteeObject, id);
 
         // check
-        assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id));
+        assertAll(
+                () -> assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id))
+        );
+//        assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id));
     }
 
     @DisplayName("should return true when mentees are retrieved from views as baytree will have mentees in views")
