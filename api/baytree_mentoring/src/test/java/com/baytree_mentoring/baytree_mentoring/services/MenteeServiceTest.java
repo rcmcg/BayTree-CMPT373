@@ -10,9 +10,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
 public class MenteeServiceTest {
     private static MenteeService menteeService;
@@ -80,20 +82,39 @@ public class MenteeServiceTest {
 
     @DisplayName("should return true when valid views mentee is created")
     @Test
-    public void shouldReturnTrueWhenValidViewsMenteeIsCreated() throws JSONException {
-        JSONObject menteeObject = new JSONObject(
-                "{" +
-                        "\"participant id\":\"3\"," +
-                        "\"Forename\":\"Team\", " +
-                        "\"Lastname\":\"Mercury\"" +
-                   "}"
-        );
+    public void shouldReturnTrueWhenValidViewsMenteeIsCreated() {
+        // build
+        JSONObject menteeObject = null;
+        try {
+            menteeObject = new JSONObject(
+                    "{" +
+                            "\"participant id\":\"3\"," +
+                            "\"Forename\":\"Team\", " +
+                            "\"Lastname\":\"Mercury\"" +
+                       "}"
+            );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         ViewsMentee viewsMentee = new ViewsMentee(3, "Team", "Mercury");
+
         Object id = "participant id=\"3\"";
 
+        // operate
+        assert menteeObject != null;
         doReturn(viewsMentee).when(menteeService).buildMentee(menteeObject, id);
 
+        // check
         assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id));
+    }
+
+    @DisplayName("should return true when mentees are retrieved from views as baytree will have mentees in views")
+    @Test
+    public void shouldReturnTrueWhenMenteesAreRetrievedFromViewsAsBaytreeWillHaveMenteesInViews() {
+        List<Optional<ViewsMentee>> mentees = menteeService.getMenteesFromViews();
+
+        assertNotNull(mentees);
     }
 }
 
