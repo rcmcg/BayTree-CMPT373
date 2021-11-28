@@ -3,15 +3,6 @@ import React, { useState } from "react";
 import "../../css/dashboard/Notifications.css";
 import { ListNotifications } from "./NotificationsList";
 
-// export interface IState {
-//   messages: {
-//     id: number;
-//     subject: string;
-//     sender: string;
-//     body: string;
-//   }[];
-// }
-
 export interface IState {
   messages: {
     notificationId: number;
