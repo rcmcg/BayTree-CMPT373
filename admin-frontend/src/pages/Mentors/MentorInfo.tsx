@@ -11,6 +11,7 @@ function MentorInfo(mentorData: MentorInterface) {
         <strong>End Date:</strong> {mentorData.endDate} <br/> 
         <strong>Email:</strong> {mentorData.email} <br/>
         <strong>Phone Number:</strong> {mentorData.phoneNumber} <br/>
+        <strong>Session Group ID (replace with actual name):</strong> {mentorData.sessionGroupId} <br/>
     </div>
   );
 }

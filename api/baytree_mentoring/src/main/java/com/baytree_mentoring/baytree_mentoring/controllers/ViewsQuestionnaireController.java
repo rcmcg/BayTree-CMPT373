@@ -19,7 +19,7 @@ public class ViewsQuestionnaireController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/questionnaires/get/views/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     private List<ViewsQuestionnaire> getQuestionnairesFromViews(@PathVariable String id) {
         try {
             long mentorId = Long.parseLong(id);
@@ -32,7 +32,7 @@ public class ViewsQuestionnaireController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/questionnaires/get/views/{id}/count")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     private int getNumberOfQuestionnaires(@PathVariable String id) {
         try {
             long mentorId = Long.parseLong(id);

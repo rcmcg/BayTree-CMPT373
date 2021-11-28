@@ -49,14 +49,14 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/mentors/all")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     private List<User> getAllUsersFromDatabase() {
         return userService.getAllMentorsFromDatabase();
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user/get/mentors/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     private Optional<User> getUserById (@PathVariable String id) {
         return userService.getMentorById(Long.parseLong(id));
     }

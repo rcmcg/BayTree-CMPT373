@@ -9,8 +9,9 @@ export interface MentorInterface {
     phoneNumber: string, 
     ethnicity: string, 
     address: string, 
-    role: string
-};
+    role: string,
+    sessionGroupId: number
+}
 
 export interface MentorSessionInterface {
     mentorId: number,
@@ -19,14 +20,14 @@ export interface MentorSessionInterface {
     dateTime: string;
     duration: string;
     note: string;
-};
+}
 
 export interface MentorQuestionnaireInterface {
     questionnaireName: string;
     date: string;
     questions: string[];
     answers: string[];
-};
+}
 
 export const emptyMentor: MentorInterface = {
     viewsId: 0,
@@ -40,6 +41,7 @@ export const emptyMentor: MentorInterface = {
     ethnicity: "", 
     address: "", 
     role: "",
+    sessionGroupId: -1
 }
 
 export const emptySession: MentorSessionInterface = {
