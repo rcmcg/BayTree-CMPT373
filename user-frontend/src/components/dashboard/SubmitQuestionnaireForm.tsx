@@ -2,19 +2,7 @@ import * as React from 'react';
 import {backendApiURL} from "../../App";
 import axios, {AxiosResponse} from "axios";
 import {useState} from "react";
-
-// const DynamicForm = ({ formData }: any) => {
-//     function onSubmit(e: any) {
-//         e.preventDefault();
-//     }
-//
-//     return (
-//         <form onSubmit={onSubmit}>
-//             {formData}
-//             <p>todo...</p>
-//         </form>
-//     )
-// }
+import LoadingDots from "../LoadingDots";
 
 export class SubmitQuestionnaireForm extends React.Component<any, any> {
     constructor(props: any) {
@@ -66,6 +54,7 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
                 this.buildQuestionnaireForm(response.data)
             })
             .catch(function (error) {
+                alert('Failed to grab questionnaire. Please try again later or contact your administrator.')
                 console.log(error)
             })
     }
@@ -79,7 +68,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         let inputTypeArray = []
         let validationArray = []
         for (let key in questionnaireJSON) {
-            let questionsEntry = []
             // console.log(key + " -> " + questionnaireJSON[key])
             // console.log(questionnaireJSON[key]['Question'])
             questionsArray.push(questionnaireJSON[key]['Question'])
@@ -121,7 +109,10 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
     render() {
         if (this.state.loading) {
             return (
-                <div>Loading...</div>
+                <main>
+                    <span>Loading</span>
+                    <LoadingDots />
+                </main>
             )
         } else if (this.state.questions != null) {
             return (
