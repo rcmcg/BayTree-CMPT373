@@ -101,9 +101,11 @@ public class MenteeServiceTest {
 
         // check
         assertAll(
-                () -> assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id))
+                () -> assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id)),
+                () -> assertEquals(viewsMentee.getParticipantId(), menteeService.buildMentee(menteeObject, id).getParticipantId()),
+                () -> assertEquals(viewsMentee.getFirstName(), menteeService.buildMentee(menteeObject, id).getFirstName()),
+                () -> assertEquals(viewsMentee.getLastName(), menteeService.buildMentee(menteeObject, id).getLastName())
         );
-//        assertEquals(viewsMentee, menteeService.buildMentee(menteeObject, id));
     }
 
     @DisplayName("should return true when mentees are retrieved from views as baytree will have mentees in views")
