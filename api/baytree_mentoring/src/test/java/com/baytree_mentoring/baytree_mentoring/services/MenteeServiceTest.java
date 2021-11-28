@@ -73,10 +73,10 @@ public class MenteeServiceTest {
         String id = "participant id=\"\"";
 
         /*
-            This case likely won't happen since each participant (who is a
-            volunteer) will have an Id (in this case, participant id) assigned
-            to them by Views itself
-         */
+            Each participant (who is a volunteer) stored in Views has an
+            Id (in this case, participant id). This test ensures that if they
+            don't have one, it returns null
+        */
         assertNull(menteeService.extractId(id));
     }
 
