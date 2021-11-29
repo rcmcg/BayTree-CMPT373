@@ -33,6 +33,9 @@ interface LoginState {
     password: string
 }
 
+//if you want to use checkAuth functionality that I have call in App.tsx, than you need to wrap up the
+// LoginForm with observer (just how I did in App.tsx)
+
 export class LoginForm extends React.Component<{}, LoginState> {
     constructor(props: any) {
         super(props);
@@ -44,9 +47,13 @@ export class LoginForm extends React.Component<{}, LoginState> {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.resetForm = this.resetForm.bind(this);
+        //IMPORTANT: need to be changed to call format. Hooks are not allowed in classes.
+        const {store} = useContext(Context);
+
     }
 
     handleSubmit(event: any) {
+        // store.login(username, password)
         this.setState({
             username: this.state.username,
             password: this.state.password
