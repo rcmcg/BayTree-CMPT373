@@ -60,4 +60,11 @@ public class UserController {
     private Optional<User> getUserById (@PathVariable String id) {
         return userService.getMentorById(Long.parseLong(id));
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/user/get/mentors/{id}/xml")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    private String getXmlById(@PathVariable String id) {
+        return userService.convertIdToXml(Long.parseLong(id));
+    }
 }

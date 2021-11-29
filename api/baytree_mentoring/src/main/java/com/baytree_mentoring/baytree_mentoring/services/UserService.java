@@ -5,7 +5,9 @@ import com.baytree_mentoring.baytree_mentoring.repositories.UserRepository;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -123,5 +125,25 @@ public class UserService {
             }
         }
         return true;
+    }
+
+    public JSONObject convertToJsonById(long id) {
+        return new JSONObject(getMentorById(id).get());
+    }
+
+    public JSONArray convertListOfIdsToJson(List<Long> ids) {
+        List<JSONObject> jsonObjects = new ArrayList<>();
+        for (long id: ids) {
+            jsonObjects.add(new JSONObject(getMentorById(id)));
+        }
+        return new JSONArray(jsonObjects);
+    }
+
+    public String convertIdToXml(long id) {
+        return XML.toString(convertToJsonById(id));
+    }
+
+    public String convertListOfIdsToXML(List<Long> ids) {
+        return XML.toString(convertListOfIdsToJson(ids));
     }
 }
