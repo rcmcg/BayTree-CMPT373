@@ -53,15 +53,5 @@ public class Session {
         this.clockOutTimeLocal = clockOutTimeLocal;
         this.sessionNotes = sessionNotes;
     }
-
-    public String getClockInTimeUTCString() {
-        String time = clockInTimeUTC.toString();
-        return time.substring(0,10) + " " + time.substring(11,19);
-    }
-
-    public String getClockOutTimeUTCString() {
-        String time = clockOutTimeUTC.toString();
-        return time.substring(0,10) + " " + time.substring(11,19);
-    }
 }
 
