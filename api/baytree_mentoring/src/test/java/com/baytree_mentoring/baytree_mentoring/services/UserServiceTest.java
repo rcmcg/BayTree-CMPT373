@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
@@ -55,7 +56,7 @@ public class UserServiceTest {
 
     @DisplayName("should return a list of all mentors")
     @Test
-    public void shouldReturnAListOfAllMentees() {
+    public void shouldReturnAListOfAllMentors() {
         // build
         User user = new User();
 
@@ -68,5 +69,25 @@ public class UserServiceTest {
                 () -> assertEquals(userService.getAllMentorsFromDatabase().size(), List.of(user).size()),
                 () -> assertEquals(userService.getAllMentorsFromDatabase().get(0), user)
         );
+    }
+
+    @DisplayName("should return the converted csv of a particular mentor")
+    @Test
+    public void shouldReturnCsvOfMentor() {
+        // build
+        User user = new User(1L, "test", "mentor", "test@test.com", "active", "2000-01-01", "2099-12-31",
+                "123-456-7890", "human", "123 test street", "mentor");
+
+        userService.addMentorToDatabase(user);
+
+        String csv = "viewsId,firstName,lastName,email,status,startDate,endDate,phoneNumber,ethnicity,address,role\n" +
+                "1,test,mentor,test@test.com,active,2000-01-01,2099-12-31,123-456-7890,human,123 test street, mentor\n";
+
+        // operate
+        String serviceCsv = userService.getCsvById(1L);
+        doReturn(anyString()).when(userService).getCsvById(1L);
+
+        // check
+        assertTrue(csv.equals(serviceCsv));
     }
 }

@@ -132,24 +132,25 @@ public class UserService {
         return true;
     }
 
-    public void writeToCsvById(long id)  {
+    public String getCsvById(long id) {
         User user = getMentorById(id).get();
 
         CsvMapper mapper = new CsvMapper();
         mapper.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true);
         CsvSchema.Builder schemaBuilder = CsvSchema.builder().setUseHeader(true);
-        for (Field field: user.getClass().getDeclaredFields()) {
+        for (Field field : user.getClass().getDeclaredFields()) {
             schemaBuilder.addColumn(field.getName());
         }
         CsvSchema schema = schemaBuilder.build();
 
         ObjectWriter writer = mapper.writerFor(user.getClass()).with(schema);
         try {
-            writer.writeValue(System.out, user);
+            String result = writer.writeValueAsString(user);
+            return result;
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return e.toString();
         }
     }
 }
