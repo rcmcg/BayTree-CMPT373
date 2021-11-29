@@ -43,8 +43,7 @@ public class Session {
     private String sessionNotes;
 
     public Session(long menteeId, long mentorId, long sessionGroupId, boolean didMenteeAttend, boolean didMentorAttend,
-                   String clockInTimeLocal, String clockOutTimeLocal,
-                   long leadStaffId, String sessionNotes) {
+                   String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {
         this.menteeId = menteeId;
         this.mentorId = mentorId;
         this.sessionGroupId = sessionGroupId;
@@ -52,8 +51,17 @@ public class Session {
         this.didMentorAttend = didMentorAttend;
         this.clockInTimeLocal = clockInTimeLocal;
         this.clockOutTimeLocal = clockOutTimeLocal;
-        this.leadStaffId = leadStaffId;
         this.sessionNotes = sessionNotes;
+    }
+
+    public String getClockInTimeUTCString() {
+        String time = clockInTimeUTC.toString();
+        return time.substring(0,10) + " " + time.substring(11,19);
+    }
+
+    public String getClockOutTimeUTCString() {
+        String time = clockOutTimeUTC.toString();
+        return time.substring(0,10) + " " + time.substring(11,19);
     }
 }
 

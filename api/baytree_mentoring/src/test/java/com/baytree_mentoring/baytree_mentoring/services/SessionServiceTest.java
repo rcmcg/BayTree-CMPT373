@@ -38,7 +38,6 @@ public class SessionServiceTest {
                 true,
                 "2021-10-26 20:12:12 -0400",
                 "2021-10-26 21:12:12 -0400",
-                28,
                 "Some notes");
         assertDoesNotThrow(() -> sessionService.sendCompletedSessionFormToViews(ses));
     }
@@ -55,7 +54,6 @@ public class SessionServiceTest {
                 true,
                 "2021-10-26 20:12:12 -0400",
                 "2021-10-26 21:12:12 -0400",
-                28,
                 "Some notes");
         assertFalse(() -> sessionService.sendCompletedSessionFormToViews(ses));
     }
