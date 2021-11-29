@@ -62,9 +62,9 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/user/get/mentors/{id}/xml")
+    @GetMapping("/user/get/mentors/{id}/csv")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
-    private String getXmlById(@PathVariable String id) {
-        return userService.convertIdToXml(Long.parseLong(id));
+    private void getCsvById(@PathVariable String id) {
+        userService.writeToCsvById(Long.parseLong(id));
     }
 }

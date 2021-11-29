@@ -2,6 +2,11 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.repositories.UserRepository;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -10,6 +15,8 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -127,23 +134,24 @@ public class UserService {
         return true;
     }
 
-    public JSONObject convertToJsonById(long id) {
-        return new JSONObject(getMentorById(id).get());
-    }
+    public void writeToCsvById(long id)  {
+        User user = getMentorById(id).get();
 
-    public JSONArray convertListOfIdsToJson(List<Long> ids) {
-        List<JSONObject> jsonObjects = new ArrayList<>();
-        for (long id: ids) {
-            jsonObjects.add(new JSONObject(getMentorById(id)));
+        CsvMapper mapper = new CsvMapper();
+        mapper.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true);
+        CsvSchema.Builder schemaBuilder = CsvSchema.builder().setUseHeader(true);
+        for (Field field: user.getClass().getDeclaredFields()) {
+            schemaBuilder.addColumn(field.getName());
         }
-        return new JSONArray(jsonObjects);
-    }
+        CsvSchema schema = schemaBuilder.build();
 
-    public String convertIdToXml(long id) {
-        return XML.toString(convertToJsonById(id));
-    }
-
-    public String convertListOfIdsToXML(List<Long> ids) {
-        return XML.toString(convertListOfIdsToJson(ids));
+        ObjectWriter writer = mapper.writerFor(user.getClass()).with(schema);
+        try {
+            writer.writeValue(System.out, user);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
