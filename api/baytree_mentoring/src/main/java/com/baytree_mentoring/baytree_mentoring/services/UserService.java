@@ -10,9 +10,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
