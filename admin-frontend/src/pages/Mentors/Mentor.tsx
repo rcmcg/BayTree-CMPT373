@@ -8,7 +8,7 @@ import MentorQuestionnaire from './MentorQuestionnaires';
 import { useParams } from 'react-router-dom';
 import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire, emptyMentor } from './MentorInterfaces';
 import { backendApiURL } from "../../App";
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 
 function Mentor() {
     const { id } = useParams() as { 
@@ -29,8 +29,20 @@ function Mentor() {
         setMentor(mentorData);
       } 
       fetchMentors()
+        getSessionGroups()
     }, []);
 
+    const getSessionGroups = async() => {
+        let url = backendApiURL + "/sessiongroups/get";
+        await axios.get(url)
+            .then((response: AxiosResponse) => {
+                console.log(response)
+            })
+            .catch(function (error) {
+                alert('Failed to grab all session groups from Views. Please try again later')
+                console.log(error)
+            })
+    }
 
     const [sessions, setSessions] = useState<MentorSessionInterface[]> ([emptySession]);
 

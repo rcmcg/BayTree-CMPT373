@@ -11,7 +11,8 @@ export interface MentorInterface {
     address: string, 
     role: string,
     sessionGroupId: number,
-    sessionGroupName: string
+    sessionGroupName: string,
+    sessionGroups: []
 }
 
 export interface MentorSessionInterface {
@@ -43,7 +44,8 @@ export const emptyMentor: MentorInterface = {
     address: "", 
     role: "",
     sessionGroupId: -1,
-    sessionGroupName: ""
+    sessionGroupName: "",
+    sessionGroups: []
 }
 
 export const emptySession: MentorSessionInterface = {

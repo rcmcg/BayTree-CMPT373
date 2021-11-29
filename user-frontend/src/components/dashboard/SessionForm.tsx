@@ -151,7 +151,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
     componentDidMount() {
         axios.get('http://localhost:8080/fetchAllMentees')
             .then((res: any) => {
-                if(res.date !== null) {
+                if(res.data !== null) {
                     this.setState({ menteesList : res.data });
                 }
             })
