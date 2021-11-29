@@ -38,6 +38,9 @@ public class User {
     @Nullable
     int sessionGroupId;
 
+    @Nullable
+    String sessionGroupName;
+
     public User(long viewsId, String firstName, String lastName, String email, String status, String startDate,
                 String endDate, String phoneNumber, String ethnicity, String address, String role) {
         this.viewsId = viewsId;
@@ -51,6 +54,7 @@ public class User {
         this.ethnicity = ethnicity;
         this.address = address;
         this.role = role;
-        this.sessionGroupId = -1;
+        this.sessionGroupId = -1;   // Admin sets this value manually on the admin-frontend.
+        this.sessionGroupName = "";
     }
 }

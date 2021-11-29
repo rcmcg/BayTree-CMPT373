@@ -2,9 +2,12 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Session;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
 import com.baytree_mentoring.baytree_mentoring.services.SessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class SessionController {
@@ -28,6 +31,13 @@ public class SessionController {
             String error = "Failed to upload session to Views database";
             throw new FailedSessionAddingException(error);
         }
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/sessiongroups/get")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    private List<ViewsSessionGroup> getSessionGroupsFromViews() {
+        return sessionService.getSessionGroupsFromViews();
     }
 }
 

@@ -1,15 +1,25 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
 import com.baytree_mentoring.baytree_mentoring.util.ViewsAPISessionIntegration;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class SessionService {
     private final ViewsAPISessionIntegration viewsAPISessionIntegration = new ViewsAPISessionIntegration();
+    private final ViewsUnirest viewsUnirest = new ViewsUnirest();
 
     public SessionService() {}
 
@@ -24,5 +34,51 @@ public class SessionService {
             return false;
         }
     }
+
+    public List<ViewsSessionGroup> getSessionGroupsFromViews() {
+        String URL = "https://app.viewsapp.net/api/restful/work/sessiongroups/search?q=";
+        List<ViewsSessionGroup> sessionGroups;
+        try {
+            HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
+            sessionGroups = parseSessionGroupsGetList(response);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return sessionGroups;
+    }
+
+    private List<ViewsSessionGroup> parseSessionGroupsGetList(HttpResponse<String> response) {
+        JSONObject body = new JSONObject(response.getBody());
+        String key = body.names().getString(0);
+        JSONObject sessionGroups = body.getJSONObject(key);
+        List<ViewsSessionGroup> retList = new ArrayList<>();
+        Iterator<String> sessionGroupKeys = sessionGroups.keys();
+        while (sessionGroupKeys.hasNext()) {
+            key = sessionGroupKeys.next();
+            Object sessionGroup = sessionGroups.get(key);
+            if (sessionGroup instanceof JSONObject) {
+                ViewsSessionGroup viewsSessionGroup = buildSessionGroup(key, sessionGroup);
+                retList.add(viewsSessionGroup);
+            }
+        }
+        return retList;
+    }
+
+    public ViewsSessionGroup buildSessionGroup(String key, Object sessionGroup) {
+        int sessionGroupId = Integer.parseInt(parseIdFromKey(key));
+        JSONObject sessionGroupJSON = new JSONObject(URLDecoder.decode(sessionGroup.toString(), StandardCharsets.UTF_8));
+        String sessionGroupName = sessionGroupJSON.get("Title").toString();
+        ViewsSessionGroup viewsSessionGroup = new ViewsSessionGroup(sessionGroupId, sessionGroupName);
+        return viewsSessionGroup;
+    }
+
+    public String parseIdFromKey(String key) {
+        String id = key.replaceAll("sessiongroup id=", "");
+        id = id.replaceAll("\"", "");
+        return id;
+    }
 }
+
 

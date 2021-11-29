@@ -1,6 +1,7 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
@@ -56,5 +57,22 @@ public class SessionServiceTest {
                 "2021-10-26 21:12:12 -0400",
                 "Some notes");
         assertFalse(() -> sessionService.sendCompletedSessionFormToViews(ses));
+    }
+
+    @Test
+    void getSessionGroupsFromViews() {
+        List<ViewsSessionGroup> sessionGroups = sessionService.getSessionGroupsFromViews();
+        for (ViewsSessionGroup sessionGroup : sessionGroups) {
+            System.out.println(sessionGroup.getViewsSessionGroupId());
+            System.out.println(sessionGroup.getViewsSessionGroupName());
+        }
+    }
+
+    @Test
+    void parseIdFromKey() {
+        String key = "sessiongroup id=\"16\"";
+        String expectedSessionGroupId = "16";
+        String id = sessionService.parseIdFromKey(key);
+        assertEquals(expectedSessionGroupId, id);
     }
 }

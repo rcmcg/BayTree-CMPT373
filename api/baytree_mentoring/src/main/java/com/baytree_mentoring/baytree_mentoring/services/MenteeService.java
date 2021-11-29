@@ -167,7 +167,6 @@ public class MenteeService {
     private String extractId(String id) {
         id = id.replaceAll("participant id=", "");
         id = id.replaceAll("\"", "");
-
         return id;
     }
 }

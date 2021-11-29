@@ -11,7 +11,14 @@ function MentorInfo(mentorData: MentorInterface) {
         <strong>End Date:</strong> {mentorData.endDate} <br/> 
         <strong>Email:</strong> {mentorData.email} <br/>
         <strong>Phone Number:</strong> {mentorData.phoneNumber} <br/>
-        <strong>Session Group ID (replace with actual name):</strong> {mentorData.sessionGroupId} <br/>
+        <strong>Views session group (replace with actual name):</strong> ID (for testing): {mentorData.sessionGroupId} Name: {mentorData.sessionGroupName} <br/>
+        <div>
+            <label form={"selectSessionGroupId"}><strong>Views session group (replace with actual name) (ID for testing): {mentorData.sessionGroupId}</strong></label>
+            <select id={"selectSessionGroupId"} name={"sessionGroupId"}>
+                <option value={mentorData.sessionGroupId}>{mentorData.sessionGroupName}</option>
+
+            </select>
+        </div>
     </div>
   );
 }

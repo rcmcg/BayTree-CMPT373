@@ -60,4 +60,14 @@ public class UserController {
     private Optional<User> getUserById (@PathVariable String id) {
         return userService.getMentorById(Long.parseLong(id));
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    @PutMapping("/user/update/mentors/{id}/sessiongroupid/{sid}")
+    private String updateMentorSessionGroupIdAndSessionGroupName(@PathVariable String mentorId, @PathVariable int sessionGroupId) {
+        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): mentorId: " + mentorId);
+        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): sessionGroupId: " + sessionGroupId);
+        return "";
+    }
+
 }
