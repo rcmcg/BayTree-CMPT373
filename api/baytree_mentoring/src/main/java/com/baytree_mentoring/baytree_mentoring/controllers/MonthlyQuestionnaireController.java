@@ -46,17 +46,18 @@ public class MonthlyQuestionnaireController {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
-    private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) {
+    private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) throws Exception {
+        String error = "Error retrieving questionnaire for (" + year + "," + month + ") from Views";
         try {
             String monthlyQuestionnaire = monthlyQuestionnaireService
                     .getMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
             return monthlyQuestionnaire;
         } catch (UnirestException e) {
             e.printStackTrace();
-            return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
+            throw new UnirestException(error);
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
+            throw new Exception(error);
         }
     }
 }

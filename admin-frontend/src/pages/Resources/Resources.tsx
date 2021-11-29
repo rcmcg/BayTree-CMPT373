@@ -1,5 +1,5 @@
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { getResourcesList, createResource } from './Resources.api';
+import { getResourcesList, createResource, deleteResource } from './Resources.api';
 import { Resource } from './types';
 import { Box, IconButton, makeStyles, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
 import {Delete} from '@material-ui/icons'
@@ -60,8 +60,16 @@ function Resources() {
           .catch((error) => {
             console.log(error);
           });
+          window.location.reload();
     //const newResource = await createResource(game)
     
+  }
+
+  const onDelete = async (event: React.MouseEvent<HTMLButtonElement>, resourceId: number) => {
+    const listAfterDelete = await deleteResource(resourceId);
+    //axios.delete(`http://localhost:8080//resource/delete/${resourceId}`)
+    //window.location.reload();
+    setResources(listAfterDelete);
   }
   
   useEffect(() => {
@@ -99,7 +107,7 @@ function Resources() {
             {resource.resourceLink}
           </TableCell>
           <TableCell>
-            <IconButton>
+            <IconButton onClick={(event) => onDelete(event, resource.resourceId)}>
               <Delete />
             </IconButton>
           </TableCell>
