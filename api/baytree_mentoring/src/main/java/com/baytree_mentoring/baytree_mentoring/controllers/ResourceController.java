@@ -50,14 +50,14 @@ public class ResourceController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/resource/delete/{resourceId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String deleteResource(@PathVariable("resourceId") Long resId){
+    private List<Resource> deleteResource(@PathVariable("resourceId") Long resId){
 
         List<Resource> resources = resourceService.getAllResources();
 
         for(Resource s : resources) {
             if(s.getResourceId() == resId) {
                 resourceService.deleteResourceUsingId(resId);
-                return deleteSUCCESS;
+                return resourceService.getAllResources();
             }
         }
 

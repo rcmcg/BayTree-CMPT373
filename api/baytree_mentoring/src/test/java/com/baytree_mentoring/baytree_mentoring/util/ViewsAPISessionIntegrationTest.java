@@ -15,7 +15,7 @@ class ViewsAPISessionIntegrationTest {
 
     @Disabled
     @Test
-    void uploadSessionInformationTest() throws UnirestException, ParseException {
+    void uploadSessionInformationTest() {
         // Mercury Mentee2 participantId is 39
         // Mercury Mentor participantId is 42
         // Mercury Test Session Group is 10
@@ -28,14 +28,13 @@ class ViewsAPISessionIntegrationTest {
                 true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                28,
                 "Some notes");
         assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
 
     @Disabled
     @Test
-    void uploadSessionWhereMenteeIdDoesNotExist() throws UnirestException, ParseException {
+    void uploadSessionWhereMenteeIdDoesNotExist() {
         Session ses = new Session(
                 -1,
                 42,
@@ -44,14 +43,13 @@ class ViewsAPISessionIntegrationTest {
                 true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                28,
                 "Some notes");
         assertThrows(UnirestException.class, () -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
 
     @Disabled
     @Test
-    void uploadSessionWhereSessionGroupIdDoesNotExist() throws UnirestException, ParseException {
+    void uploadSessionWhereSessionGroupIdDoesNotExist() {
         Session ses = new Session(
                 39,
                 42,
@@ -60,8 +58,37 @@ class ViewsAPISessionIntegrationTest {
                 true,
                 "2021-10-15 20:12:12 -0400",
                 "2021-10-15 21:12:12 -0400",
-                28,
                 "Some notes");
         assertThrows(UnirestException.class, () -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
+    }
+
+    @Test
+    @Disabled
+    void uploadSessionWhereMentorDidNotAttend() {
+        Session ses = new Session(
+                39,
+                42,
+                10,
+                true,
+                false,
+                "2021-10-15 20:12:12 -0400",
+                "2021-10-15 21:12:12 -0400",
+                "Mentor did not attend, but both mentee and mentor should be marked as not attended in Views");
+        assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
+    }
+
+    @Test
+    @Disabled
+    void uploadSessionWhereMenteeDidNotAttend() {
+        Session ses = new Session(
+                39,
+                42,
+                10,
+                false,
+                true,
+                "2021-10-15 20:12:12 -0400",
+                "2021-10-15 21:12:12 -0400",
+                "Mentee did not attend, but both mentee and mentor should be marked as not attended in Views");
+        assertDoesNotThrow(() -> viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses));
     }
 }

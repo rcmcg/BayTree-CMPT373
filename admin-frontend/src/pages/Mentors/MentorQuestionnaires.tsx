@@ -1,18 +1,13 @@
-import assert from "assert";
 import React from "react";
 
-interface MentorQuestionnaireInterface {
-  questionnaire: {
-    date: string;
-    questionnaire: string;
-    questions: string[];
-    answers: string[];
-  };
-}
+import { MentorQuestionnaireInterface} from "./MentorInterfaces";
 
-function loadAnswers(questionnaireData: MentorQuestionnaireInterface["questionnaire"]) {
-    assert(questionnaireData.questions.length === questionnaireData.answers.length)
+function loadAnswers(questionnaireData: MentorQuestionnaireInterface) {
     var result = [];
+    if (questionnaireData.questions.length !== questionnaireData.answers.length) {
+        return [<div>Invalid questionnaire. Questionnaire could not be constructed because the number of questions does not match the number of answers.</div>];
+    }
+    
     const length = questionnaireData.questions.length;
     for(var i = 0; i < length; i++) {
         result.push(
@@ -24,15 +19,13 @@ function loadAnswers(questionnaireData: MentorQuestionnaireInterface["questionna
     return result;
 }
 
-function MentorQuestionnaire(questionnaireData: MentorQuestionnaireInterface["questionnaire"]) {
-    const month = new Date(questionnaireData.date).toLocaleString("en-us", { month: 'long' })
+function MentorQuestionnaire(questionnaireData: MentorQuestionnaireInterface) {
+    const month = new Date(questionnaireData.date).toLocaleString("en-us", { month: 'long' , year: 'numeric'})
     return(
         <div>
-            <h3>{questionnaireData.questionnaire}</h3>
-            <p>
-                <strong>Month:</strong> {month} <br/>
-                {loadAnswers(questionnaireData)}
-            </p>
+            <h3>{questionnaireData.questionnaireName}</h3>
+            <strong>Month:</strong> {month} <br/>
+            {loadAnswers(questionnaireData)}
         </div>
     )
 }
