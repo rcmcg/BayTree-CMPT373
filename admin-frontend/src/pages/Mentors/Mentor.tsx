@@ -6,9 +6,9 @@ import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
 import { useParams } from 'react-router-dom';
-import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire, emptyMentor } from './MentorInterfaces';
+import { MentorInterface, SessionGroupInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptySessionGroup, emptyQuestionnaire, emptyMentor } from './MentorInterfaces';
 import { backendApiURL } from "../../App";
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 
 function Mentor() {
     const { id } = useParams() as { 
@@ -27,21 +27,27 @@ function Mentor() {
       const fetchMentors = async () => {
         const mentorData = await getMentor()
         setMentor(mentorData);
+        console.log(mentorData)
       } 
       fetchMentors()
-        getSessionGroups()
     }, []);
+
+    const [sessionGroups, setSessionGroups] = useState<SessionGroupInterface[]>([emptySessionGroup])
+
+    useEffect(() => {
+        const fetchSessionGroups = async () => {
+            const allSessionGroups = await getSessionGroups()
+            setSessionGroups(allSessionGroups)
+            console.log("After setting sessionGroups")
+            console.log(sessionGroups)
+        }
+        fetchSessionGroups()
+    }, [])
 
     const getSessionGroups = async() => {
         let url = backendApiURL + "/sessiongroups/get";
-        await axios.get(url)
-            .then((response: AxiosResponse) => {
-                console.log(response)
-            })
-            .catch(function (error) {
-                alert('Failed to grab all session groups from Views. Please try again later')
-                console.log(error)
-            })
+        const response = await axios.get<SessionGroupInterface[]>(url);
+        return response.data;
     }
 
     const [sessions, setSessions] = useState<MentorSessionInterface[]> ([emptySession]);
@@ -82,7 +88,7 @@ function Mentor() {
             <h1>Mentor Overview</h1>
             <Tabs defaultActiveKey="info" className = 'tab'>
                 <Tab eventKey="info" title="Personal Information">
-                    {MentorInfo(mentor)}
+                    {MentorInfo(mentor, sessionGroups)}
                 </Tab>
 
                 <Tab eventKey="sessions" title="Sessions">

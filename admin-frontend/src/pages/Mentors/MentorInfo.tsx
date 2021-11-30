@@ -1,7 +1,7 @@
 import React from "react";
-import {MentorInterface} from "./MentorInterfaces"
+import {SessionGroupInterface, MentorInterface} from "./MentorInterfaces"
 
-function MentorInfo(mentorData: MentorInterface) {
+function MentorInfo(mentorData: MentorInterface, sessionGroups: SessionGroupInterface[]) {
   return (
     <div>
         <h3>{mentorData.firstName} {mentorData.lastName}</h3>
@@ -16,7 +16,7 @@ function MentorInfo(mentorData: MentorInterface) {
             <label form={"selectSessionGroupId"}><strong>Views session group (replace with actual name) (ID for testing): {mentorData.sessionGroupId}</strong></label>
             <select id={"selectSessionGroupId"} name={"sessionGroupId"}>
                 <option value={mentorData.sessionGroupId}>{mentorData.sessionGroupName}</option>
-
+                {sessionGroups.map(sessionGroup => <option value = {sessionGroup["viewsSessionGroupId"]}>{sessionGroup["viewsSessionGroupName"]}</option>)}
             </select>
         </div>
     </div>

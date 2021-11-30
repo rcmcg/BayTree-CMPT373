@@ -55,6 +55,6 @@ public class User {
         this.address = address;
         this.role = role;
         this.sessionGroupId = -1;   // Admin sets this value manually on the admin-frontend.
-        this.sessionGroupName = "";
+        this.sessionGroupName = ""; // Admin sets this value manually on the admin-frontend.
     }
 }
