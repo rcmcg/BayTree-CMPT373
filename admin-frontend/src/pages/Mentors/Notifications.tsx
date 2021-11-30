@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import {
   useTable,
   useFilters,
@@ -6,38 +6,20 @@ import {
   usePagination,
   useRowSelect,
 } from "react-table";
-import { COLUMNS } from "./Columns";
+import DATA from "./mockdata.json";
+import { MOCKCOLUMNS } from "./MockColumns";
 import CustomDatePicker from "./customDatePicker";
 import moment from "moment";
+import Checkbox from "./Checkbox";
 import axios from "axios";
-import { backendApiURL } from "../../App";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import { MentorInterface } from "./MentorInterfaces";
 
-const Mentors = () => {
-  const [mentors, setMentors] = useState<MentorInterface[]>([]);
-
-  const getMentors = async () => {
-    let url = backendApiURL + "/user/get/mentors/all";
-    const response = await axios.get<MentorInterface[]>(url);
-    return response.data;
-  };
-
-  useEffect(() => {
-    const fetchMentors = async () => {
-      const mentorData = await getMentors();
-      setMentors(mentorData);
-    };
-    fetchMentors();
-  }, []);
-
-  // Code below mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
+const Notifications = () => {
+  // Code mostly taken and based on // https://www.youtube.com/playlist?list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz
   // However, there do not seem to be many ways to modify the code as this is just how the library works
   // Code applied from various parts of the tutorial
   // -----
-  const columns = useMemo(() => COLUMNS, []);
-  var data = useMemo(() => mentors, [mentors]);
+  const columns = useMemo(() => MOCKCOLUMNS, []);
+  const data = useMemo(() => DATA, []);
 
   const {
     getTableProps,
@@ -54,6 +36,7 @@ const Mentors = () => {
     setPageSize,
     state,
     prepareRow,
+    selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -62,15 +45,74 @@ const Mentors = () => {
     useFilters,
     useSortBy,
     usePagination,
-    useRowSelect
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        {
+          id: "selection",
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <Checkbox name={""} {...getToggleAllRowsSelectedProps()} />
+          ),
+          Cell: ({ row }: { row: any }) => (
+            <Checkbox {...row.getToggleRowSelectedProps()} />
+          ),
+        },
+        ...columns,
+      ]);
+    }
   );
 
   const { pageIndex, pageSize } = state;
+  // -----
 
   const [startDate, setStartDate] = useState(new Date("2010-01-01T00:00:00"));
   const [finishDate, setFinishDate] = useState(
     new Date(moment().format("YYYY-MM-DDTHH:mm:ss"))
   );
+
+  const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState("");
+  const [listError, setlistError] = useState("");
+
+  const handleMessageChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setMessage(event.target.value);
+  };
+
+  let isValid: boolean = true;
+
+  const validate = () => {
+    if (selectedFlatRows.map((row) => row.original.username).length === 0) {
+      setlistError("No users selected");
+    }
+    if (message === "") {
+      setMessageError("Empty message body");
+    }
+    if (listError !== "" || messageError !== "") {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    isValid = validate();
+    if (isValid) {
+      axios
+        .post("http://localhost:8080/notifications/send", {
+          usernameList: selectedFlatRows.map((row) => row.original.username),
+          message: message,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      isValid = true;
+    }
+  };
 
   return (
     <>
@@ -113,16 +155,6 @@ const Mentors = () => {
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
                 })}
-                <Link
-                  to={{
-                    pathname: `/mentor/${row.original.viewsId}`,
-                    state: row.original,
-                  }}
-                >
-                  <td>
-                    <Button>Details</Button>
-                  </td>
-                </Link>
               </tr>
             );
           })}
@@ -169,8 +201,36 @@ const Mentors = () => {
           {">>"}
         </button>{" "}
       </div>
+      <pre>
+        <code>
+          {JSON.stringify(
+            {
+              "Selected users": selectedFlatRows.map(
+                (row) => row.original.username
+              ),
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
+      {/* ----- */}
+      <div style={{ color: "red" }}> {listError}</div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <textarea
+            value={message}
+            id="notifBody"
+            onChange={handleMessageChange}
+            rows={7}
+            cols={42}
+          ></textarea>
+        </div>
+        <div style={{ color: "red" }}>{messageError}</div>
+        <button type="submit">Submit</button>
+      </form>
     </>
   );
 };
 
-export default Mentors;
+export default Notifications;

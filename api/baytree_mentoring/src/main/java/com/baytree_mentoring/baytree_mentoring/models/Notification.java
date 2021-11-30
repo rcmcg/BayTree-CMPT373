@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -21,6 +22,7 @@ public class Notification {
     private String username;
 
     @NotNull
+    @Size(min = 10)
     private String messageBody;
 
     public Notification(String username, String messageBody) {
