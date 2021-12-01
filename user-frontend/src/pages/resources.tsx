@@ -7,6 +7,15 @@ import React, { FormEventHandler, useEffect, useState } from 'react';
 export const Resources = () => {
     const [resources, setResources] = useState<Resource[] | null>(null)
 
+    useEffect(() => {
+        const fetchResourceList = async () => {
+          const resourceList = await getResourcesList()
+          console.log(resourceList)
+          setResources(resourceList)
+        }
+        fetchResourceList()
+      },[])
+      
     return (<>
     <Typography variant="h3">Resources</Typography>
     <TableContainer>
