@@ -21,12 +21,25 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
                     console.log("numSessions: " + res.data.length);
                     setAttendedSessions(res.data.length);
                     // console.log("Attended Sessions: " +attendedSessions);
+
+
                 }
             })
             .catch((err: any) => {
                 console.log(err);
             })
     }
+
+    const getRemainingSessions =() => {
+        // mentoring session held once per week
+        let currentWeekNumber = require('current-week-number');
+        let current = currentWeekNumber();
+        const TOTAL_WEEKS_OF_A_YEAR = 52;
+        let remainingSessions = TOTAL_WEEKS_OF_A_YEAR - current;
+        console.log("current " +current);
+        return remainingSessions;
+    }
+    let remainingSessions = getRemainingSessions();
 
     // console.log(mentors);
     return (
@@ -44,7 +57,7 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
             </select>
 
             <p>Attended sessions : {attendedSessions}</p>
-
+            <p>Remaining sessions : {remainingSessions}</p>
         </div>
 
     );
