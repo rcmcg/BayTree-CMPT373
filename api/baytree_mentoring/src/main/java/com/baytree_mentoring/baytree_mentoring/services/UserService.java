@@ -124,4 +124,18 @@ public class UserService {
         }
         return true;
     }
+
+    public void updateMentorSessionGroup(int mentorId, long viewsSessionGroupId, String viewsSessionGroupName) throws Exception {
+        // Find the mentor by ID
+        Optional<User> user = getMentorById(mentorId);
+        if (!user.isPresent()) {
+            throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+        // Change the required values
+        user.get().setSessionGroupId((int) viewsSessionGroupId);
+        user.get().setSessionGroupName(viewsSessionGroupName);
+
+        // Save to DB
+        userRepository.save(user.get());
+    }
 }

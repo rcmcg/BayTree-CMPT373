@@ -3,7 +3,9 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.User;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
 import com.baytree_mentoring.baytree_mentoring.services.UserService;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,11 +65,20 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
-    @PutMapping("/user/update/mentors/{id}/sessiongroupid/{sid}")
-    private String updateMentorSessionGroupIdAndSessionGroupName(@PathVariable String mentorId, @PathVariable int sessionGroupId) {
+    @PutMapping("/user/mentors/{id}/sessiongroup")
+    private String updateMentorSessionGroupIdAndSessionGroupName(@PathVariable String id, @RequestBody ViewsSessionGroup viewsSessionGroup) {
+        int mentorId = Integer.parseInt(id);
+        long viewsSessionGroupId = viewsSessionGroup.getViewsSessionGroupId();
+        String viewsSessionGroupName = viewsSessionGroup.getViewsSessionGroupName();
         System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): mentorId: " + mentorId);
-        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): sessionGroupId: " + sessionGroupId);
-        return "";
+        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): sessionGroupId: " + viewsSessionGroupId);
+        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): sessionGroupId: " + viewsSessionGroupName);
+        try {
+            userService.updateMentorSessionGroup(mentorId, viewsSessionGroupId, viewsSessionGroupName);
+            return "Successfully updated mentor session group association";
+        } catch (Exception e) {
+            // todo return an exception
+            return "Failed to update mentor";
+        }
     }
-
 }
