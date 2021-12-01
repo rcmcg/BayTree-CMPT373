@@ -156,7 +156,7 @@ public class MenteeService {
         return mentees;
     }
 
-    private ViewsMentee buildMentee(JSONObject mentee, Object id) {
+    public ViewsMentee buildMentee(JSONObject mentee, Object id) {
         long participantId = Long.parseLong(extractId(id.toString()));
         String firstName = mentee.getString("Forename");
         String lastName = mentee.getString("Surname");
@@ -164,7 +164,7 @@ public class MenteeService {
         return new ViewsMentee(participantId, firstName, lastName);
     }
 
-    private String extractId(String id) {
+    public String extractId(String id) {
         id = id.replaceAll("participant id=", "");
         id = id.replaceAll("\"", "");
         return id;
