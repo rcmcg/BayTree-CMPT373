@@ -3,7 +3,9 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedSessionAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsVolunteeringRole;
 import com.baytree_mentoring.baytree_mentoring.services.SessionService;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +40,13 @@ public class SessionController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     private List<ViewsSessionGroup> getSessionGroupsFromViews() {
         return sessionService.getSessionGroupsFromViews();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/sessiongroups/volunteeringroles")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    private List<ViewsVolunteeringRole> getVolunteeringRolesFromViews() throws UnirestException {
+        return sessionService.getVolunteeringRolesFromViews();
     }
 }
 

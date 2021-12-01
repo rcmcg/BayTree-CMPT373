@@ -11,12 +11,17 @@ export interface MentorInterface {
     address: string, 
     role: string,
     sessionGroupId: number,
-    sessionGroupName: string
+    sessionGroupName: string,
+    volunteeringRoleName: string
 }
 
 export interface SessionGroupInterface {
     viewsSessionGroupId: number,
     viewsSessionGroupName: string
+}
+
+export interface VolunteeringRoleInterface {
+    volunteeringRoleName: string
 }
 
 export interface MentorSessionInterface {
@@ -49,11 +54,16 @@ export const emptyMentor: MentorInterface = {
     role: "",
     sessionGroupId: -1,
     sessionGroupName: "",
+    volunteeringRoleName: "",
 }
 
 export const emptySessionGroup: SessionGroupInterface = {
     viewsSessionGroupId: -1,
     viewsSessionGroupName: ""
+}
+
+export const emptyVolunteeringRole: VolunteeringRoleInterface = {
+    volunteeringRoleName: ""
 }
 
 export const emptySession: MentorSessionInterface = {

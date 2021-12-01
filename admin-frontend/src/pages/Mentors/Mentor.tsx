@@ -6,7 +6,17 @@ import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
 import { useParams } from 'react-router-dom';
-import { MentorInterface, SessionGroupInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptySessionGroup, emptyQuestionnaire, emptyMentor } from './MentorInterfaces';
+import {
+    MentorInterface,
+    SessionGroupInterface,
+    MentorQuestionnaireInterface,
+    MentorSessionInterface,
+    emptySession,
+    emptySessionGroup,
+    emptyQuestionnaire,
+    emptyMentor,
+    emptyVolunteeringRole, VolunteeringRoleInterface
+} from './MentorInterfaces';
 import { backendApiURL } from "../../App";
 import axios from 'axios';
 
@@ -50,6 +60,23 @@ function Mentor() {
         return response.data;
     }
 
+    const [volunteeringRoles, setVolunteeringRoles] = useState<VolunteeringRoleInterface[]>([emptyVolunteeringRole])
+
+    const getVolunteeringRoles = async() => {
+        // Get list of all volunteering roles from the backend
+        let url = backendApiURL + "/sessiongroups/volunteeringroles"
+        const response = await axios.get<VolunteeringRoleInterface[]>(url)
+        return response.data
+    }
+
+    useEffect(() => {
+        const fetchVolunteeringRoles = async () => {
+            const volunteeringData = await getVolunteeringRoles()
+            setVolunteeringRoles(volunteeringData)
+        }
+        fetchVolunteeringRoles()
+    }, []);
+
     const [sessions, setSessions] = useState<MentorSessionInterface[]> ([emptySession]);
 
     const getSessions = async() => {
@@ -88,7 +115,7 @@ function Mentor() {
             <h1>Mentor Overview</h1>
             <Tabs defaultActiveKey="info" className = 'tab'>
                 <Tab eventKey="info" title="Personal Information">
-                    {MentorInfo(mentor, sessionGroups)}
+                    {MentorInfo(mentor, sessionGroups, volunteeringRoles)}
                 </Tab>
 
                 <Tab eventKey="sessions" title="Sessions">

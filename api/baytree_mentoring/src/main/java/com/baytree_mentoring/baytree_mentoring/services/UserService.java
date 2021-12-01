@@ -8,8 +8,11 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -139,11 +142,44 @@ public class UserService {
         userRepository.save(user.get());
     }
 
-    public int getSessionGroupForMentor(int id) throws Exception {
-        Optional<User> user = getMentorById(id);
+    public int getSessionGroupForMentor(int mentorId) throws Exception {
+        Optional<User> user = getMentorById(mentorId);
         if (user.isEmpty()) {
-            throw new Exception("User by id " + id + " does not exist in database");
+            throw new Exception("User by id " + mentorId + " does not exist in database");
         }
         return user.get().getSessionGroupId();
+    }
+
+    public String getVolunteeringRoleForMentor(int mentorId) throws Exception {
+        Optional<User> user = getMentorById(mentorId);
+        if (user.isEmpty()) {
+            throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+        if (user.get().getVolunteeringRoleName() == null) {
+            throw new Exception("User " + mentorId + " has no volunteering role set");
+        }
+        return user.get().getVolunteeringRoleName();
+    }
+
+    public void updateVolunteeringRoleForMentor(int mentorId, String requestBody) throws Exception {
+        // Find mentor by ID in DB
+        Optional<User> user = getMentorById(mentorId);
+        if (user.isEmpty()) {
+            throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+
+        // Get name for volunteering role from request body
+        String volunteeringRoleName = parseVolunteeringRoleName(requestBody);
+
+        // Change required values
+        user.get().setVolunteeringRoleName(volunteeringRoleName);
+
+        // Save to DB
+        userRepository.save(user.get());
+    }
+
+    private String parseVolunteeringRoleName(String requestBody) {
+        JSONObject requestJSON = new JSONObject(URLDecoder.decode(requestBody, StandardCharsets.UTF_8));
+        return requestJSON.get("volunteeringRoleName").toString();
     }
 }

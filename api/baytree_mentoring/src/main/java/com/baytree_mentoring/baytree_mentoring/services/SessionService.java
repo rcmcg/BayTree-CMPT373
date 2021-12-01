@@ -2,6 +2,7 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsVolunteeringRole;
 import com.baytree_mentoring.baytree_mentoring.util.ViewsAPISessionIntegration;
 import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
 import com.mashape.unirest.http.HttpResponse;
@@ -15,6 +16,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class SessionService {
@@ -76,6 +79,41 @@ public class SessionService {
 
     public String parseIdFromKey(String key) {
         String id = key.replaceAll("sessiongroup id=", "");
+        id = id.replaceAll("\"", "");
+        return id;
+    }
+
+    public List<ViewsVolunteeringRole> getVolunteeringRolesFromViews() throws UnirestException {
+        String URL = "https://app.viewsapp.net/api/restful/admin/valuelists/sessiongroup/volunteeringtypes";
+        List<ViewsVolunteeringRole> volunteeringRoles;
+        try {
+            HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
+            System.out.println("After unirest send");
+            volunteeringRoles = parseResponseIntoVolunteeringRoles(response);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return volunteeringRoles;
+    }
+
+    private List<ViewsVolunteeringRole> parseResponseIntoVolunteeringRoles(HttpResponse<String> response) {
+        JSONObject body = new JSONObject(response.getBody());
+        JSONObject roles = body.getJSONObject("items");
+        List<ViewsVolunteeringRole> retList = new ArrayList<>();
+        Iterator<String> iter = roles.keys();
+        String roleKey;
+        while(iter.hasNext()) {
+            roleKey = iter.next();
+            String id = parseVolunteerRoleNameFromKey(roleKey);
+            ViewsVolunteeringRole viewsVolunteeringRole = new ViewsVolunteeringRole(id);
+            retList.add(viewsVolunteeringRole);
+        }
+        return retList;
+    }
+
+    public String parseVolunteerRoleNameFromKey(String key) {
+        String id = key.replaceAll("item id=", "");
         id = id.replaceAll("\"", "");
         return id;
     }

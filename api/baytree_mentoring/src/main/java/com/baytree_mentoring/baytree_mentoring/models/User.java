@@ -43,6 +43,9 @@ public class User {
     @Nullable
     String sessionGroupName;
 
+    @Nullable
+    String volunteeringRoleName;
+
     public User(long viewsId, String firstName, String lastName, String email, String status, String startDate,
                 String endDate, String phoneNumber, String ethnicity, String address, String role) {
         this.viewsId = viewsId;
@@ -56,7 +59,8 @@ public class User {
         this.ethnicity = ethnicity;
         this.address = address;
         this.role = role;
-        this.sessionGroupId = -1;   // Admin sets this value manually on the admin-frontend.
-        this.sessionGroupName = ""; // Admin sets this value manually on the admin-frontend.
+        this.sessionGroupId = -1;       // Admin sets this value manually on the admin-frontend.
+        this.sessionGroupName = "";     // Admin sets this value manually on the admin-frontend.
+        this.volunteeringRoleName = ""; // Admin sets this value manually on the admin-frontend
     }
 }

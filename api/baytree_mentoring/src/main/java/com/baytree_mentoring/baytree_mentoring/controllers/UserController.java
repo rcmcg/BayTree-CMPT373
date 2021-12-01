@@ -4,6 +4,7 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsVolunteeringRole;
 import com.baytree_mentoring.baytree_mentoring.services.UserService;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -70,9 +71,6 @@ public class UserController {
         int mentorId = Integer.parseInt(id);
         long viewsSessionGroupId = viewsSessionGroup.getViewsSessionGroupId();
         String viewsSessionGroupName = viewsSessionGroup.getViewsSessionGroupName();
-        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): mentorId: " + mentorId);
-        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): sessionGroupId: " + viewsSessionGroupId);
-        System.out.println("updateMentorSessionGroupIdAndSessionGroupName(): sessionGroupId: " + viewsSessionGroupName);
         try {
             userService.updateMentorSessionGroup(mentorId, viewsSessionGroupId, viewsSessionGroupName);
             return "Successfully updated mentor session group association";
@@ -84,6 +82,19 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    @PutMapping("/user/mentors/{id}/volunteeringrole")
+    private String updateVolunteeringRoleForMentor(@PathVariable String id, @RequestBody String requestBody) throws Exception {
+        int mentorId = Integer.parseInt(id);
+        try {
+            userService.updateVolunteeringRoleForMentor(mentorId, requestBody);
+            return "Successfully updated mentor volunteering role";
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @GetMapping("/user/mentors/{id}/sessiongroup")
     private int getSessionGroupForMentor(@PathVariable String id) throws Exception {
         int mentorId = Integer.parseInt(id);
@@ -91,7 +102,20 @@ public class UserController {
             int sessionGroup = userService.getSessionGroupForMentor(mentorId);
             return sessionGroup;
         } catch (Exception e) {
-            throw new Exception("Unable to get session group id for mentor");
+            throw new Exception("Unable to get session group id for mentor " + mentorId);
+        }
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    @GetMapping("/user/mentors/{id}/volunteeringrole")
+    private String getVolunteeringRoleForMentor(@PathVariable String id) throws Exception {
+        int mentorId = Integer.parseInt(id);
+        try {
+            String volunteeringRole = userService.getVolunteeringRoleForMentor(mentorId);
+            return volunteeringRole;
+        } catch (Exception e) {
+            throw new Exception(e);
         }
     }
 }
