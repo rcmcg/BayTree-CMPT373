@@ -3,18 +3,6 @@ import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
 import {useEffect, useState } from "react";
 import { MentorsMenu } from "./MentorsMenu";
 
-// const fetchSessions  = async () => {
-//     axios.get('http://localhost:8080/sessions/get/views/{id}')
-//         .then((res: any) => {
-//             if(res.date !== null) {
-//                 attendedSessions = res.attendance;
-//             }
-//         })
-//         .catch((err: any) => {
-//             console.log(err);
-//         })
-// }
-
 interface Mentor {
     id: number;
     firstName: String,
@@ -37,13 +25,14 @@ function Home() {
         await axios.get<Mentor[]>('http://localhost:8080/user/get/mentors/all')
             .then((response) => {
                 const mentorDB = response.data;
-                setMentors([])
+                setMentors([]);
+                setTempMentors([]);
                 mentorDB.map(mentor => {
                     tempMentors.push(mentor);
                 })
             })
         setMentors(tempMentors);
-        console.log(mentors);
+        // console.log(mentors);
     }
 
     useEffect (() => {
