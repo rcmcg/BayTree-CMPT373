@@ -26,16 +26,22 @@ public class SessionService {
 
     public SessionService() {}
 
-    public boolean sendCompletedSessionFormToViews(Session ses) {
+    public boolean sendCompletedSessionFormToViews(Session ses, UserService userService) {
         System.out.println("Sending session to Views database: " + ses.toString());
         try {
+            setVolunteeringRole(ses, userService);
             viewsAPISessionIntegration.sendCompletedSessionFormToViews(ses);
             return true;
-        } catch (UnirestException | ParseException e) {
+        } catch (Exception e) {
             System.out.println("Inside sendCompletedSessionFormToViews: Failed to upload session to Views.");
             e.printStackTrace();
             return false;
         }
+    }
+
+    private void setVolunteeringRole(Session ses, UserService userService) throws Exception {
+        String volunteeringRole = userService.getVolunteeringRoleForMentor((int) ses.getMentorId());
+        ses.setVolunteeringRole(volunteeringRole);
     }
 
     public List<ViewsSessionGroup> getSessionGroupsFromViews() {

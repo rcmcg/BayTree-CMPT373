@@ -50,13 +50,13 @@ public class ViewsAPISessionJSONFormatter {
         return viewsSessionId;
     }
 
-    public String createSessionAttendanceJSON(String viewsPersonId, String attended) {
+    public String createSessionAttendanceJSON(String viewsPersonId, String attended, String volunteeringRole) {
         // Required fields: viewsSessionId, viewsPersonId
         ObjectNode sessionJSON = mapper.createObjectNode();
         sessionJSON.put("ContactID", viewsPersonId);
         sessionJSON.put("Attended", attended);
         // TODO: Research how to properly use this Volunteering field
-        sessionJSON.put("Volunteering", "");
+        sessionJSON.put("Volunteering", volunteeringRole);
         return sessionJSON.toString();
     }
 

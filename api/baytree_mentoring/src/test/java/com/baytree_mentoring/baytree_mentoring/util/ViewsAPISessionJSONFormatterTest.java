@@ -28,10 +28,10 @@ class ViewsAPISessionJSONFormatterTest {
     void createSessionAttendanceJSONTest() {
         String viewsPersonId = "59";
         String attended = "1";
-        String volunteering = "";
+        String volunteering = "Into School";
         String correctString = "{\"ContactID\":\""+viewsPersonId+"\"," +
                 "\"Attended\":\""+attended+"\",\"Volunteering\":\""+volunteering+"\"}";
-        String body = viewsAPISessionJSONFormatter.createSessionAttendanceJSON(viewsPersonId, attended);
+        String body = viewsAPISessionJSONFormatter.createSessionAttendanceJSON(viewsPersonId, attended, volunteering);
         assertEquals(correctString, body);
     }
 
@@ -47,7 +47,7 @@ class ViewsAPISessionJSONFormatterTest {
                     .basicAuth(viewsAPISessionIntegration.getViewsAPIUsername(), viewsAPISessionIntegration.getViewsAPIPassword())
                     .asString();
             System.out.println("Response inside getVenueIdForSessionGroupFromViews: ");
-            System.out.println(response.getBody().toString());
+            System.out.println(response.getBody());
             String venueId = ViewsAPISessionJSONFormatter.parseVenueIdFromSessionGroupGetResponse(response);
             assertEquals("2", venueId);
         } catch (UnirestException e) {
