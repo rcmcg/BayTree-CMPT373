@@ -1,8 +1,21 @@
 import React, {useContext, useEffect, useState } from "react";
 import axios, {AxiosError, AxiosResponse} from "axios";
+import Paper from '@material-ui/core/Paper';
+import {
+    ArgumentAxis,
+    ValueAxis,
+    BarSeries,
+    Chart,
+} from '@devexpress/dx-react-chart-material-ui';
+import { ValueScale } from '@devexpress/dx-react-chart';
 
 interface Props {
     mentors: any
+}
+
+interface IDataItem {
+    numSessionType: string,
+    numberOfSessions: number
 }
 
 export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
@@ -35,11 +48,17 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
         let currentWeekNumber = require('current-week-number');
         let current = currentWeekNumber();
         const TOTAL_WEEKS_OF_A_YEAR = 52;
-        let remainingSessions = TOTAL_WEEKS_OF_A_YEAR - current;
-        console.log("current " +current);
-        return remainingSessions;
+        let upcomingSessions = TOTAL_WEEKS_OF_A_YEAR - current;
+        // console.log("current " +current);
+        return upcomingSessions;
     }
-    let remainingSessions = getRemainingSessions();
+    let upcomingSessions = getRemainingSessions();
+
+    const chartData: IDataItem[] = [
+        {numSessionType: "Attended Sessions", numberOfSessions: attendedSessions!},
+        {numSessionType: "Upcoming Sessions", numberOfSessions: upcomingSessions},
+        {numSessionType: "Total Sessions", numberOfSessions: attendedSessions!+upcomingSessions},
+    ]
 
     // console.log(mentors);
     return (
@@ -57,7 +76,26 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
             </select>
 
             <p>Attended sessions : {attendedSessions}</p>
-            <p>Remaining sessions : {remainingSessions}</p>
+            <p>Upcoming sessions : {upcomingSessions}</p>
+
+            <div style={{"height" : "20px", "width" : "400px"}}>
+                <Paper>
+                    <Chart data = {chartData}>
+                        <ValueScale name={"numberOfSessions"}/>
+                        <ArgumentAxis />
+                        <ValueAxis scaleName="numberOfSessions" showGrid={false} showLine={true} showTicks={true} />
+
+                        <BarSeries
+                            name="Number of Sessions Chart"
+                            valueField="numberOfSessions"
+                            argumentField="numSessionType"
+                            scaleName="numberOfSessions"
+                        />
+
+                    </Chart>
+                </Paper>
+            </div>
+
         </div>
 
     );
