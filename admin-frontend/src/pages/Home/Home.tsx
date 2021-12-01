@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
-
-interface mentorsList {
-    viewsId: number,
-    firstName: string,
-    lastName: string
-}
+import {useEffect, useState } from "react";
+import { MentorsMenu } from "./MentorsMenu";
 
 // const fetchSessions  = async () => {
 //     axios.get('http://localhost:8080/sessions/get/views/{id}')
@@ -20,6 +15,12 @@ interface mentorsList {
 //         })
 // }
 
+interface Mentor {
+    id: number;
+    firstName: String,
+    lastName: String
+}
+
 class SessionInfo {
     render() {
         return (
@@ -29,19 +30,19 @@ class SessionInfo {
 }
 
 function Home() {
-    const [mentors, setMentors] = useState<mentorsList[]>([]);
+    const [mentors, setMentors] = useState<Mentor[]>([]);
+    const [tempMentors, setTempMentors] = useState<Mentor[]>([]);
 
     const fetchMentor = async () => {
-
-        await axios.get<mentorsList[]>('http://localhost:8080/user/get/mentors/all')
+        await axios.get<Mentor[]>('http://localhost:8080/user/get/mentors/all')
             .then((response) => {
                 const mentorDB = response.data;
                 setMentors([])
                 mentorDB.map(mentor => {
-                    mentors.push(mentor);
-
+                    tempMentors.push(mentor);
                 })
             })
+        setMentors(tempMentors);
         console.log(mentors);
     }
 
@@ -50,20 +51,10 @@ function Home() {
     }, []);
 
     return (
+
         <div className='home'>
             <h1>Home</h1> <br/>
-
-            {console.log("HERE")}
-            {console.log(mentors)}
-
-            <div>
-                <label form="selectMentorId"> Mentor Name </label>
-                <select id={"selectMentorId"} name={"mentorId"}>
-                    <option value={""}>Select a mentor</option>
-                    {mentors.map(mentor => <option value = {mentor["viewsId"]}>{mentor["firstName"] + " " + mentor["lastName"]}</option>)}
-                </select>
-            </div>
-
+                <MentorsMenu mentors={mentors}/>
             <br/>
         </div>
     );
