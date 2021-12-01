@@ -48,7 +48,7 @@ public class MenteeController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @GetMapping("/fetchAllMentees")
     private List<Optional<ViewsMentee>> test() {
         return menteeService.getMenteesFromViews();

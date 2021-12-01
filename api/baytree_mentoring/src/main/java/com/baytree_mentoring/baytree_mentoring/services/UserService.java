@@ -128,7 +128,7 @@ public class UserService {
     public void updateMentorSessionGroup(int mentorId, long viewsSessionGroupId, String viewsSessionGroupName) throws Exception {
         // Find the mentor by ID
         Optional<User> user = getMentorById(mentorId);
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new Exception("User by id " + mentorId + " does not exist in database");
         }
         // Change the required values
@@ -137,5 +137,13 @@ public class UserService {
 
         // Save to DB
         userRepository.save(user.get());
+    }
+
+    public int getSessionGroupForMentor(int id) throws Exception {
+        Optional<User> user = getMentorById(id);
+        if (user.isEmpty()) {
+            throw new Exception("User by id " + id + " does not exist in database");
+        }
+        return user.get().getSessionGroupId();
     }
 }

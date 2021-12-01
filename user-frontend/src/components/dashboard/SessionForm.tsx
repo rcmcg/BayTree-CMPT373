@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AxiosError, AxiosResponse} from "axios";
+import {Axios, AxiosError, AxiosResponse} from "axios";
 import 'moment-timezone';
 import "../../css/dashboard/SessionForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
@@ -33,28 +33,6 @@ class SelectMentee extends React.Component<props> {
                     <option value={""}>Select a mentee</option>
                     {this.props.menteesList.map(mentee => <option value = {mentee["participantId"]}>{mentee["firstName"] + " " + mentee["lastName"]}</option>)}
                 </select>
-            </div>
-        )
-    }
-}
-
-class SelectMentor extends React.Component {
-    render () {
-        return (
-            <div>
-                <label form="selectMentorId">Mentor id </label>
-                <input type="number" id="selectMentorId" name="mentorId" required/>
-            </div>
-        )
-    }
-}
-
-class SelectSessionGroupId extends React.Component {
-    render () {
-        return (
-            <div>
-                <label form="selectSessionGroupId">Session group id </label>
-                <input type="number" id="selectSessionGroupId" name="sessionGroupId" required/>
             </div>
         )
     }
@@ -134,7 +112,7 @@ export class SessionForm extends React.Component<{}, SessionState> {
         super(props);
         this.state = {
             menteeId: '',
-            mentorId: -1,
+            mentorId: 42,   // Set this value to the mentor's ID when authentication is fully working
             sessionGroupId: -1,
             didMenteeAttend: true,
             didMentorAttend: true,
@@ -144,27 +122,47 @@ export class SessionForm extends React.Component<{}, SessionState> {
             menteesList: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getMenteesList = this.getMenteesList.bind(this);
+        this.getSessionGroupId = this.getSessionGroupId.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
     }
 
     componentDidMount() {
+        this.getMenteesList()
+        this.getSessionGroupId()
+    }
+
+    getMenteesList() {
         axios.get('http://localhost:8080/fetchAllMentees')
-            .then((res: any) => {
+            .then((res: AxiosResponse) => {
                 if(res.data !== null) {
                     this.setState({ menteesList : res.data });
                 }
             })
-            .catch((err: any) => {
+            .catch((err: AxiosError) => {
                 console.log(err);
+            })
+    }
+
+    getSessionGroupId() {
+        let url = backendApiURL + '/user/mentors/' + this.state.mentorId + '/sessiongroup'
+        console.log("Getting sessionGroupId with URL " + url)
+        axios.get(url)
+            .then((res: AxiosResponse) => {
+                console.log(res)
+                if (res.data !== null) {
+                    this.setState( {sessionGroupId : res.data })
+                }
+            })
+            .catch((err: AxiosError) => {
+            console.log(err);
             })
     }
 
     handleSubmit(event: any) {
         this.setState({
             menteeId: event.target.selectMenteeId.value,
-            mentorId: event.target.selectMentorId.value,
-            sessionGroupId: event.target.selectSessionGroupId.value,
             didMenteeAttend: event.target.didMenteeAttend.checked,
             didMentorAttend: event.target.didMentorAttend.checked,
             clockInTimeLocal: event.target.clockInId.value,
@@ -179,6 +177,8 @@ export class SessionForm extends React.Component<{}, SessionState> {
         // TODO: Verify clock in/out time is valid (in < out, total time less than some number of hours)
         const url = backendApiURL + '/session/add/'
         alert('Submitting session upload. This may take a few minutes. Press okay to continue.')
+        console.log("State being submitted to backend")
+        console.log(this.state)
         axios.post(url, {
             menteeId: this.state.menteeId,
             mentorId: this.state.mentorId,
@@ -229,8 +229,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
                 <div className={"ui form sessionForm"}>
                     <form onSubmit={this.handleSubmit}>
                         <SelectMentee menteesList={this.state.menteesList} /> <br/>
-                        <SelectMentor /> <br/>
-                        <SelectSessionGroupId /> <br/>
                         <DidMenteeAttendSession /> <br/>
                         <DidMentorAttendSession /> <br/>
                         <ClockIn /> <br/>

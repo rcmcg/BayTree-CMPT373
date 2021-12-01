@@ -2,10 +2,8 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
 import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

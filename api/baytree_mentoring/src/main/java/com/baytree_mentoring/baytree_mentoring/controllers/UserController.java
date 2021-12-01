@@ -81,4 +81,17 @@ public class UserController {
             return "Failed to update mentor";
         }
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    @GetMapping("/user/mentors/{id}/sessiongroup")
+    private int getSessionGroupForMentor(@PathVariable String id) throws Exception {
+        int mentorId = Integer.parseInt(id);
+        try {
+            int sessionGroup = userService.getSessionGroupForMentor(mentorId);
+            return sessionGroup;
+        } catch (Exception e) {
+            throw new Exception("Unable to get session group id for mentor");
+        }
+    }
 }
