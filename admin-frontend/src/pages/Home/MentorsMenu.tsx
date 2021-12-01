@@ -5,36 +5,33 @@ interface Props {
     mentors: any
 }
 
-let attendedSessions = 0;
-
-const fetchSessions  = async (id: String) => {
-    axios.get('http://localhost:8080/sessions/get/views/'+ id)
-        .then((res: any) => {
-            if(res.date !== null) {
-                attendedSessions = res.data.length;
-                console.log(res.data);
-                console.log(attendedSessions);
-            }
-        })
-        .catch((err: any) => {
-            console.log(err);
-        })
-}
-
-
-
 export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
+
+    let [attendedSessions, setAttendedSessions] = useState<number>();
 
     const handleSelectMentor = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.currentTarget.value;
         fetchSessions(value);
     }
+    const fetchSessions  = async (id: String) => {
+        axios.get('http://localhost:8080/sessions/get/views/'+ id)
+            .then((res: any) => {
+                if(res.date !== null) {
+                    console.log(res.data)
+                    console.log("numSessions: " + res.data.length);
+                    setAttendedSessions(res.data.length);
+                    // console.log("Attended Sessions: " +attendedSessions);
+                }
+            })
+            .catch((err: any) => {
+                console.log(err);
+            })
+    }
 
     // console.log(mentors);
     return (
         <div>
-            <label form="selectMentorId"> Mentor Name </label>
-
+            <label form="selectMentorId"> Mentor Name  </label>
             <select id={"selectMentorId"} name={"mentorId"}
                     onChange={handleSelectMentor}>
 
@@ -42,10 +39,12 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
 
                 {mentors.map((mentor: { [x: string]: string; }) =>
                     <option value = {mentor["viewsId"]} >
-                        {mentor["firstName"] + " " + mentor["lastName"]}
+                        {mentor["viewsId"]+" "+mentor["firstName"] + " " + mentor["lastName"]}
                     </option>)}
-
             </select>
+
+            <p>Attended sessions : {attendedSessions}</p>
+
         </div>
 
     );

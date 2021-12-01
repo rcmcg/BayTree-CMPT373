@@ -9,13 +9,6 @@ interface Mentor {
     lastName: String
 }
 
-class SessionInfo {
-    render() {
-        return (
-            <div> </div>
-        )
-    }
-}
 
 function Home() {
     const [mentors, setMentors] = useState<Mentor[]>([]);
