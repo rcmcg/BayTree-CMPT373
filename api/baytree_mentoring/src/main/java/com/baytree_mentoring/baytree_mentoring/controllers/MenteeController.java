@@ -20,26 +20,12 @@ public class MenteeController {
         this.menteeService = menteeService;
     }
 
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/get/views/mentees")
     public List<Mentee> getAllMenteesFromViewsAndUploadDatabase() {
         menteeService.getAllMenteesFromViewsThenUpdateDatabase();
         return menteeService.getAllMenteesFromDatabase();
     }
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping("/mentee/add")
-//    private String AddMentee(@RequestBody Mentee mte){
-//        menteeService.add(mte);
-//
-//        if (menteeService.isMenteeAdded(mte)) {
-//            return SUCCESS;
-//        }
-//
-//        String error = "Failed to add the Mentee.";
-//        throw new FailedUserAddingException(error);
-//
-//    }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/get/mentees/all")

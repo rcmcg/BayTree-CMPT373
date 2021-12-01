@@ -83,7 +83,6 @@ public class UserService {
         for(Object o: volunteers.names()) {
             if (o instanceof JSONObject) { //JSONArrays can only be iterated over Object, but they should all be JSONObjects
                 JSONObject volunteer = (JSONObject) o;
-
                 User mentor = buildMentor(volunteer);
                 users.add(mentor);
             }
@@ -129,16 +128,12 @@ public class UserService {
     }
 
     public void updateMentorSessionGroup(int mentorId, long viewsSessionGroupId, String viewsSessionGroupName) throws Exception {
-        // Find the mentor by ID
         Optional<User> user = getMentorById(mentorId);
         if (user.isEmpty()) {
             throw new Exception("User by id " + mentorId + " does not exist in database");
         }
-        // Change the required values
         user.get().setSessionGroupId((int) viewsSessionGroupId);
         user.get().setSessionGroupName(viewsSessionGroupName);
-
-        // Save to DB
         userRepository.save(user.get());
     }
 
@@ -146,6 +141,9 @@ public class UserService {
         Optional<User> user = getMentorById(mentorId);
         if (user.isEmpty()) {
             throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+        if (user.get().getSessionGroupId() == -1) {
+            throw new Exception("User " + mentorId + " has no session group id set");
         }
         return user.get().getSessionGroupId();
     }
@@ -162,19 +160,12 @@ public class UserService {
     }
 
     public void updateVolunteeringRoleForMentor(int mentorId, String requestBody) throws Exception {
-        // Find mentor by ID in DB
         Optional<User> user = getMentorById(mentorId);
         if (user.isEmpty()) {
             throw new Exception("User by id " + mentorId + " does not exist in database");
         }
-
-        // Get name for volunteering role from request body
         String volunteeringRoleName = parseVolunteeringRoleName(requestBody);
-
-        // Change required values
         user.get().setVolunteeringRoleName(volunteeringRoleName);
-
-        // Save to DB
         userRepository.save(user.get());
     }
 

@@ -94,7 +94,6 @@ public class SessionService {
         List<ViewsVolunteeringRole> volunteeringRoles;
         try {
             HttpResponse<String> response = viewsUnirest.sendUnirestGetRequestGetStringResponse(URL);
-            System.out.println("After unirest send");
             volunteeringRoles = parseResponseIntoVolunteeringRoles(response);
         } catch (UnirestException e) {
             e.printStackTrace();

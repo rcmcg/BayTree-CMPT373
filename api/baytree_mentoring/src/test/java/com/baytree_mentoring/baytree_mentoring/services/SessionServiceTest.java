@@ -67,7 +67,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    void parseIdFromKey() {
+    void parseSessionGroupIdFromKey() {
         String key = "sessiongroup id=\"16\"";
         String expectedSessionGroupId = "16";
         String id = sessionService.parseIdFromKey(key);
