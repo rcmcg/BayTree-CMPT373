@@ -45,7 +45,7 @@ public class GoalsController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/goal/delete/{goalId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String deleteGoal(@PathVariable("goalId") Long gId){
+    private String deleteGoal(@PathVariable("goalId") long gId){
 
         List<Goal> goals = goalsService.getAllGoals();
 
