@@ -45,13 +45,13 @@ public class GoalsController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/goal/delete/{goalId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String deleteGoal(@PathVariable("goalId") long gId){
+    private String deleteGoal(@PathVariable("goalId") long goalId){
 
         List<Goal> goals = goalsService.getAllGoals();
 
         for(Goal g : goals) {
-            if(g.getGoalId() == gId) {
-                goalsService.deleteGoalUsingId(gId);
+            if(g.getGoalId() == goalId) {
+                goalsService.deleteGoalUsingId(goalId);
                 return deleteSUCCESS;
             }
         }
