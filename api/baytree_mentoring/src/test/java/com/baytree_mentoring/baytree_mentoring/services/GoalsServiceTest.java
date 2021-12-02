@@ -23,7 +23,7 @@ public class GoalsServiceTest {
     @Test
     public void shouldReturnTrueWhenMentorIsSuccessfullyAdded() {
         // build
-        Goal goal = new Goal(1, "testUser", "initial test", "done");
+        Goal goal = new Goal(1L, "testUser", "initial test", "done");
 
         // operate
         goalsService.addGoal(goal);
