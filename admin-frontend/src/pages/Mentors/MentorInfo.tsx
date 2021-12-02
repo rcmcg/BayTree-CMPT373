@@ -5,14 +5,10 @@ import {backendApiURL} from "../../App";
 
 function MentorInfo(mentorData: MentorInterface, sessionGroups: SessionGroupInterface[], volunteeringRoles: VolunteeringRoleInterface[]) {
     function handleSessionGroupChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        // Get the value from the drop down
         let sessionIdSessionName: (number|string|null)[] = getValueIntNameFromDropdown(event);
         let selectedSessionGroupId: number | string | null = sessionIdSessionName[0]
         let selectedSessionGroupName: number | string | null = sessionIdSessionName[1]
-        console.log("selectedSessionGroupId: " + selectedSessionGroupId)
-        console.log("selectedSessionGroupName: " + selectedSessionGroupName)
-        // Send the new value to the backend
-        let boolSuccess = sendNewSessionAssociationToBackend(mentorData.viewsId, selectedSessionGroupId as number, selectedSessionGroupName as string)
+        sendNewSessionAssociationToBackend(mentorData.viewsId, selectedSessionGroupId as number, selectedSessionGroupName as string)
     }
 
     function sendNewSessionAssociationToBackend(mentorViewsId: number, sessionGroupId: number, sessionGroupName: string) {
@@ -25,25 +21,17 @@ function MentorInfo(mentorData: MentorInterface, sessionGroups: SessionGroupInte
                 console.log(response)
                 if (response.data != null) {
                     console.log("Successfully updated session group in Views")
-                    return true
                 }
             })
             .catch(function (error: AxiosError) {
                 alert('Failed to save your choice of session group for this mentor. Please try again later');
                 console.log(error)
-                return false
             })
-        return false
     }
 
     function handleVolunteeringRoleChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        // Get the value from the drop down
         let volunteerRoleName: number | string | null = getValueStringNameFromDropdown(event)[0];
-        console.log("handleVolunteeringRoleChange")
-        console.log(volunteerRoleName)
-
-        // Send the new value to the backend
-        let boolSuccess = sendNewVolunteerRoleToBackend(mentorData.viewsId, volunteerRoleName as string)
+        sendNewVolunteerRoleToBackend(mentorData.viewsId, volunteerRoleName as string)
     }
 
     function sendNewVolunteerRoleToBackend(mentorId: number, volunteerRoleName: string) {
@@ -53,15 +41,12 @@ function MentorInfo(mentorData: MentorInterface, sessionGroups: SessionGroupInte
                 console.log(response)
                 if (response.data != null) {
                     console.log("Successfully update volunteering role in Views")
-                    return true
                 }
             })
             .catch(function (error: AxiosError) {
                 alert('Failed to save your choice of volunteering role for this mentor. Please try again later');
                 console.log(error)
-                return false
             })
-        return false
     }
 
     function getValueIntNameFromDropdown(event: React.ChangeEvent<HTMLSelectElement>) {

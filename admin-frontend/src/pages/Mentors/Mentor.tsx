@@ -37,7 +37,6 @@ function Mentor() {
       const fetchMentors = async () => {
         const mentorData = await getMentor()
         setMentor(mentorData);
-        console.log(mentorData)
       } 
       fetchMentors()
     }, []);
@@ -48,8 +47,6 @@ function Mentor() {
         const fetchSessionGroups = async () => {
             const allSessionGroups = await getSessionGroups()
             setSessionGroups(allSessionGroups)
-            console.log("After setting sessionGroups")
-            console.log(sessionGroups)
         }
         fetchSessionGroups()
     }, [])
@@ -63,7 +60,6 @@ function Mentor() {
     const [volunteeringRoles, setVolunteeringRoles] = useState<VolunteeringRoleInterface[]>([emptyVolunteeringRole])
 
     const getVolunteeringRoles = async() => {
-        // Get list of all volunteering roles from the backend
         let url = backendApiURL + "/sessiongroups/volunteeringroles"
         const response = await axios.get<VolunteeringRoleInterface[]>(url)
         return response.data
