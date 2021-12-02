@@ -49,8 +49,8 @@ public class GoalsController {
 
         List<Goal> goals = goalsService.getAllGoals();
 
-        for(Goal g : goals) {
-            if(g.getGoalId() == goalId) {
+        for(Goal goal : goals) {
+            if(goal.getGoalId() == goalId) {
                 goalsService.deleteGoalUsingId(goalId);
                 return deleteSUCCESS;
             }
