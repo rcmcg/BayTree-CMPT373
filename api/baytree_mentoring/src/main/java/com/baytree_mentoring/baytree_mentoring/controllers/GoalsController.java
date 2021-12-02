@@ -46,14 +46,10 @@ public class GoalsController {
     @DeleteMapping("/goal/delete/{goalId}")
     @CrossOrigin(origins = "http://localhost:3000")
     private String deleteGoal(@PathVariable("goalId") long goalId){
+        goalsService.deleteGoalUsingId(goalId);
 
-        List<Goal> goals = goalsService.getAllGoals();
-
-        for(Goal goal : goals) {
-            if(goal.getGoalId() == goalId) {
-                goalsService.deleteGoalUsingId(goalId);
-                return DELETE_SUCCESS;
-            }
+        if(!goalsService.doesGoalExist(goalId)) {
+            return DELETE_SUCCESS;
         }
 
         String error = "Failed to Delete the Goal.";
