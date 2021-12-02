@@ -30,8 +30,12 @@ public class GoalsService {
         return goalsRepository.findAll();
     }
 
-    public void deleteGoalUsingId(long gId) {
-        goalsRepository.deleteAllById(Collections.singleton(gId));
+    public void deleteGoalUsingId(long goalId) {
+        boolean exist = goalsRepository.existsById(goalId);
+        if(!exist) {
+            throw new IllegalStateException("Goal with id " + goalId + " does not exists");
+        }
+        goalsRepository.deleteById(goalId);
     }
 
 }
