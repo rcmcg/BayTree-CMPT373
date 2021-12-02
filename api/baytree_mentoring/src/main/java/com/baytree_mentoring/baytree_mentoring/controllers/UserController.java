@@ -67,16 +67,16 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @PutMapping("/user/mentors/{id}/sessiongroup")
-    private String updateMentorSessionGroupIdAndSessionGroupName(@PathVariable String id, @RequestBody ViewsSessionGroup viewsSessionGroup) {
+    private String updateMentorSessionGroupIdAndSessionGroupName(@PathVariable String id, @RequestBody ViewsSessionGroup viewsSessionGroup) throws Exception {
         int mentorId = Integer.parseInt(id);
         long viewsSessionGroupId = viewsSessionGroup.getViewsSessionGroupId();
         String viewsSessionGroupName = viewsSessionGroup.getViewsSessionGroupName();
         try {
             userService.updateMentorSessionGroup(mentorId, viewsSessionGroupId, viewsSessionGroupName);
+            userService.associateMentorAndSessionGroupInViews(mentorId, (int) viewsSessionGroupId);
             return "Successfully updated mentor session group association";
         } catch (Exception e) {
-            // todo return an exception
-            return "Failed to update mentor";
+            throw new Exception("Failed to update mentor");
         }
     }
 
@@ -85,12 +85,8 @@ public class UserController {
     @PutMapping("/user/mentors/{id}/volunteeringrole")
     private String updateVolunteeringRoleForMentor(@PathVariable String id, @RequestBody String requestBody) throws Exception {
         int mentorId = Integer.parseInt(id);
-        try {
-            userService.updateVolunteeringRoleForMentor(mentorId, requestBody);
-            return "Successfully updated mentor volunteering role";
-        } catch (Exception e) {
-            throw e;
-        }
+        userService.updateVolunteeringRoleForMentor(mentorId, requestBody);
+        return "Successfully updated mentor volunteering role";
     }
 
     @ResponseStatus(HttpStatus.OK)

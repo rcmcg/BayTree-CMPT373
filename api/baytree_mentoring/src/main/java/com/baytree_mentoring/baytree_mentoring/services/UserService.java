@@ -2,6 +2,7 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.repositories.UserRepository;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -12,15 +13,14 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-
     private static final String viewsAPIUsername = "group.mercury";
     private static final String viewsAPIPassword = "Mercury!$%12";
+    private static final ViewsUnirest viewsUnirest = new ViewsUnirest();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -172,5 +172,11 @@ public class UserService {
     private String parseVolunteeringRoleName(String requestBody) {
         JSONObject requestJSON = new JSONObject(URLDecoder.decode(requestBody, StandardCharsets.UTF_8));
         return requestJSON.get("volunteeringRoleName").toString();
+    }
+
+    public HttpResponse<String> associateMentorAndSessionGroupInViews(int mentorId, int newSessionGroupId) throws UnirestException {
+        String url = "https://app.viewsapp.net/api/restful/work/sessiongroups/" + newSessionGroupId + "/staff/" + mentorId;
+        HttpResponse<String> response = viewsUnirest.sendUnirestPutRequestNoBodyNoExtraHeaders(url);
+        return response;
     }
 }

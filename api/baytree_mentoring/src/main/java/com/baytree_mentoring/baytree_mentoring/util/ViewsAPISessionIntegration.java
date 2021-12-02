@@ -94,7 +94,7 @@ public class ViewsAPISessionIntegration {
         }
         try {
             String uploadAttendanceJSON = viewsAPISessionJSONFormatter.createSessionAttendanceJSON
-                    (viewsParticipantId, stringAttended, "");
+                    (viewsParticipantId, stringAttended, volunteeringRole);
             viewsUnirest.sendUnirestPostRequest(URL, uploadAttendanceJSON);
         } catch (UnirestException e) {
             e.printStackTrace();
