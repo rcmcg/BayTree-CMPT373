@@ -15,7 +15,7 @@ public class GoalsController {
     private final GoalsService goalsService;
 
     private static final String SUCCESS = "Goal Added";
-    private static final String deleteSUCCESS = "Resource deleted";
+    private static final String DELETE_SUCCESS = "Resource deleted";
 
     public GoalsController(GoalsService goalsService) {
         this.goalsService = goalsService;
@@ -52,7 +52,7 @@ public class GoalsController {
         for(Goal goal : goals) {
             if(goal.getGoalId() == goalId) {
                 goalsService.deleteGoalUsingId(goalId);
-                return deleteSUCCESS;
+                return DELETE_SUCCESS;
             }
         }
 
