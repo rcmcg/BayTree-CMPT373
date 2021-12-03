@@ -30,7 +30,7 @@ public class ViewsAPIQuestionnaireJSONFormatter {
 
     public String convertQuestionnaireToXML(MonthlyQuestionnaireSubmit mqSubmit) {
         String xmlString = "<answers>\n";
-        xmlString += "\t<EntityType>" + "Volunteer" + "</EntityType>\n";
+        xmlString += "\t<EntityType>" + "Person" + "</EntityType>\n";
         xmlString += "\t<EntityId>" + mqSubmit.getMenteeId() + "</EntityId>\n";
         for (String key: mqSubmit.getAnswers().keySet()) {
             xmlString += "\t<answer id=" + "\"" + parseIdFromKey(key) + "\">\n";
