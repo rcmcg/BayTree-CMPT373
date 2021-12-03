@@ -8,10 +8,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import org.json.JSONObject;
 
-import javax.xml.bind.JAXB;
-import java.io.StringWriter;
-import java.util.Hashtable;
-
 public class ViewsAPIQuestionnaireJSONFormatter {
     private ObjectMapper mapper = new ObjectMapper();
 
