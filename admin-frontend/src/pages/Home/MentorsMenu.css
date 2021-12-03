@@ -1,0 +1,96 @@
+.home{
+    background-color: bisque;
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.home-text{
+    margin-left: 10px;
+}
+
+.home-box{
+    background-color: whitesmoke;
+    border-radius: 20px;
+    width: 170px;
+    height: 120px;
+    text-align: center;
+    padding-top: 25px;
+    /*margin-left: 15%;*/
+
+    margin-top: 20px;
+}
+
+
+.box {
+    float: left;
+    /*!*background-color: whitesmoke;*!*/
+    /*border-radius: 20px;*/
+    margin-left: 5%;
+}
+
+.select-box{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    width: 350px;
+    height: 70px;
+    text-align: center;
+    padding-top: 12px;
+    margin-top: 35px;
+
+    position: absolute;
+    right: 44%;
+}
+
+.top-child{
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.menu{
+    width: 90%;
+}
+
+.attend-box{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    width: 200px;
+    height: 70px;
+    text-align: center;
+    padding-top: 7px;
+    margin-top: 35px;
+
+    position: absolute;
+    right: 28.5%;
+}
+
+.box p{
+    margin: 4px;
+}
+
+.upcoming-box{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    width: 220px;
+    height: 70px;
+    text-align: center;
+    padding-top: 7px;
+    margin-top: 35px;
+
+    position: absolute;
+    right: 12%;
+
+}
+
+.chart{
+
+    margin-left: 83px;
+    margin-top: 100px;
+    margin-right: 20%;
+    padding: 5%;
+
+}

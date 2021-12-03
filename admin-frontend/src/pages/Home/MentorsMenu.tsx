@@ -2,12 +2,20 @@ import React, {useContext, useEffect, useState } from "react";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import Paper from '@material-ui/core/Paper';
 import {
-    ArgumentAxis,
+    ArgumentAxis, Title,
     ValueAxis,
     BarSeries,
     Chart,
 } from '@devexpress/dx-react-chart-material-ui';
-import { ValueScale } from '@devexpress/dx-react-chart';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import { ValueScale, Animation } from '@devexpress/dx-react-chart';
+
+const theme = createMuiTheme({
+    palette: {
+        type: "dark",
+    }
+});
 
 interface Props {
     mentors: any
@@ -15,12 +23,12 @@ interface Props {
 
 interface IDataItem {
     numSessionType: string,
-    numberOfSessions: number
+    numberOfSessions: number,
 }
 
 export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
 
-    let [attendedSessions, setAttendedSessions] = useState<number>();
+    let [attendedSessions, setAttendedSessions] = useState<number>(0);
 
     const handleSelectMentor = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.currentTarget.value;
@@ -30,11 +38,10 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
         axios.get('http://localhost:8080/sessions/get/views/'+ id)
             .then((res: any) => {
                 if(res.date !== null) {
-                    console.log(res.data)
-                    console.log("numSessions: " + res.data.length);
+                    // console.log(res.data)
+                    // console.log("numSessions: " + res.data.length);
                     setAttendedSessions(res.data.length);
                     // console.log("Attended Sessions: " +attendedSessions);
-
 
                 }
             })
@@ -62,41 +69,63 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
 
     // console.log(mentors);
     return (
-        <div>
-            <label form="selectMentorId"> Mentor Name  </label>
-            <select id={"selectMentorId"} name={"mentorId"}
-                    onChange={handleSelectMentor}>
+        <div className={"menu"}>
+            <div>
 
-                <option selected disabled>Select a mentor</option>
+                <div className={"box"}>
+                    <div className={"select-box"}>
+                        <label className={"top-child"} form="selectMentorId"> Mentor Name  </label>
+                        <select className={"top-child"} name={"mentorId"}
+                                onChange={handleSelectMentor}>
+                            <option> Select a mentor</option>
+                            {mentors.map((mentor: { [x: string]: string; }) =>
+                                <option key={mentor["viewsId"]} value = {mentor["viewsId"]} >
+                                    {mentor["firstName"] + " " + mentor["lastName"]}
+                                </option>)}
+                        </select>
+                    </div>
+                </div>
 
-                {mentors.map((mentor: { [x: string]: string; }) =>
-                    <option value = {mentor["viewsId"]} >
-                        {mentor["viewsId"]+" "+mentor["firstName"] + " " + mentor["lastName"]}
-                    </option>)}
-            </select>
-
-            <p>Attended sessions : {attendedSessions}</p>
-            <p>Upcoming sessions : {upcomingSessions}</p>
-
-            <div style={{"height" : "20px", "width" : "400px"}}>
-                <Paper>
-                    <Chart data = {chartData}>
-                        <ValueScale name={"numberOfSessions"}/>
-                        <ArgumentAxis />
-                        <ValueAxis scaleName="numberOfSessions" showGrid={false} showLine={true} showTicks={true} />
-
-                        <BarSeries
-                            name="Number of Sessions Chart"
-                            valueField="numberOfSessions"
-                            argumentField="numSessionType"
-                            scaleName="numberOfSessions"
-                        />
-
-                    </Chart>
-                </Paper>
+                <div className={"box"}>
+                    <div className={"attend-box"}>
+                        <p>Attended sessions</p>
+                        <p>{attendedSessions}</p>
+                    </div>
+                </div>
+                <div className={"box"}>
+                    <div className={"upcoming-box"}>
+                        <p>Upcoming sessions</p>
+                        <p>{upcomingSessions}</p>
+                    </div>
+                </div>
             </div>
+
+            <ThemeProvider theme={theme}>
+                <div className={"chart"}>
+                    <Paper>
+                        <Chart data = {chartData}
+                            width={600} height={300}>
+                            <ValueScale name={"numberOfSessions"}/>
+                            <ArgumentAxis />
+                            <ValueAxis scaleName="numberOfSessions" showGrid={false} showLine={true} showTicks={true} />
+
+                            <BarSeries
+                                name="Number of Sessions Bar"
+                                valueField="numberOfSessions"
+                                argumentField="numSessionType"
+                                scaleName="numberOfSessions"
+
+                            />
+                            <Animation/>
+                            <Title text="Number of sessions" />
+                        </Chart>
+                    </Paper>
+                </div>
+            </ThemeProvider>
 
         </div>
 
     );
 }
+
+
