@@ -1,7 +1,6 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Goal;
-import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.repositories.GoalsRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +31,10 @@ public class GoalsService {
 
     public void deleteGoalUsingId(long gId) {
         goalsRepository.deleteAllById(Collections.singleton(gId));
+    }
+
+    public boolean doesGoalExist(long id) {
+        return goalsRepository.findById(id).isPresent();
     }
 
 }

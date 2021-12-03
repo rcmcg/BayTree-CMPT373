@@ -1,10 +1,7 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedAddingGoalException;
-import com.baytree_mentoring.baytree_mentoring.exceptions.FailedResourceAddingException;
-import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Goal;
-import com.baytree_mentoring.baytree_mentoring.models.Resource;
 import com.baytree_mentoring.baytree_mentoring.services.GoalsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +15,7 @@ public class GoalsController {
     private final GoalsService goalsService;
 
     private static final String SUCCESS = "Goal Added";
-    private static final String deleteSUCCESS = "Resource deleted";
+    private static final String DELETE_SUCCESS = "Resource deleted";
 
     public GoalsController(GoalsService goalsService) {
         this.goalsService = goalsService;
@@ -27,10 +24,10 @@ public class GoalsController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/goal/add")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String addGoal(@RequestBody Goal gl){
-        goalsService.addGoal(gl);
+    private String addGoal(@RequestBody Goal goal){
+        goalsService.addGoal(goal);
 
-        if (goalsService.isGoalAdded(gl)) {
+        if (goalsService.isGoalAdded(goal)) {
             return SUCCESS;
         }
 
@@ -48,15 +45,11 @@ public class GoalsController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/goal/delete/{goalId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String deleteGoal(@PathVariable("goalId") Long gId){
+    private String deleteGoal(@PathVariable("goalId") long goalId){
+        goalsService.deleteGoalUsingId(goalId);
 
-        List<Goal> goals = goalsService.getAllGoals();
-
-        for(Goal g : goals) {
-            if(g.getGoalId() == gId) {
-                goalsService.deleteGoalUsingId(gId);
-                return deleteSUCCESS;
-            }
+        if(!goalsService.doesGoalExist(goalId)) {
+            return DELETE_SUCCESS;
         }
 
         String error = "Failed to Delete the Goal.";
