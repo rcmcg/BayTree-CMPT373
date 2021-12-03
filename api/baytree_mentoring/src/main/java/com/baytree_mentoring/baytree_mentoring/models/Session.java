@@ -42,6 +42,8 @@ public class Session {
     @NotNull
     private String sessionNotes;
 
+    private String volunteeringRole;
+
     public Session(long menteeId, long mentorId, long sessionGroupId, boolean didMenteeAttend, boolean didMentorAttend,
                    String clockInTimeLocal, String clockOutTimeLocal, String sessionNotes) {
         this.menteeId = menteeId;

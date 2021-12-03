@@ -2,12 +2,15 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.User;
 import com.baytree_mentoring.baytree_mentoring.repositories.UserRepository;
+import com.baytree_mentoring.baytree_mentoring.util.ViewsUnirest;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +18,9 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-
     private static final String viewsAPIUsername = "group.mercury";
     private static final String viewsAPIPassword = "Mercury!$%12";
+    private static final ViewsUnirest viewsUnirest = new ViewsUnirest();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -80,7 +83,6 @@ public class UserService {
         for(Object o: volunteers.names()) {
             if (o instanceof JSONObject) { //JSONArrays can only be iterated over Object, but they should all be JSONObjects
                 JSONObject volunteer = (JSONObject) o;
-
                 User mentor = buildMentor(volunteer);
                 users.add(mentor);
             }
@@ -123,5 +125,58 @@ public class UserService {
             }
         }
         return true;
+    }
+
+    public void updateMentorSessionGroup(int mentorId, long viewsSessionGroupId, String viewsSessionGroupName) throws Exception {
+        Optional<User> user = getMentorById(mentorId);
+        if (user.isEmpty()) {
+            throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+        user.get().setSessionGroupId((int) viewsSessionGroupId);
+        user.get().setSessionGroupName(viewsSessionGroupName);
+        userRepository.save(user.get());
+    }
+
+    public int getSessionGroupForMentor(int mentorId) throws Exception {
+        Optional<User> user = getMentorById(mentorId);
+        if (user.isEmpty()) {
+            throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+        if (user.get().getSessionGroupId() == -1) {
+            throw new Exception("User " + mentorId + " has no session group id set");
+        }
+        return user.get().getSessionGroupId();
+    }
+
+    public String getVolunteeringRoleForMentor(int mentorId) throws Exception {
+        Optional<User> user = getMentorById(mentorId);
+        if (user.isEmpty()) {
+            throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+        if (user.get().getVolunteeringRoleName() == null) {
+            throw new Exception("User " + mentorId + " has no volunteering role set");
+        }
+        return user.get().getVolunteeringRoleName();
+    }
+
+    public void updateVolunteeringRoleForMentor(int mentorId, String requestBody) throws Exception {
+        Optional<User> user = getMentorById(mentorId);
+        if (user.isEmpty()) {
+            throw new Exception("User by id " + mentorId + " does not exist in database");
+        }
+        String volunteeringRoleName = parseVolunteeringRoleName(requestBody);
+        user.get().setVolunteeringRoleName(volunteeringRoleName);
+        userRepository.save(user.get());
+    }
+
+    private String parseVolunteeringRoleName(String requestBody) {
+        JSONObject requestJSON = new JSONObject(URLDecoder.decode(requestBody, StandardCharsets.UTF_8));
+        return requestJSON.get("volunteeringRoleName").toString();
+    }
+
+    public HttpResponse<String> associateMentorAndSessionGroupInViews(int mentorId, int newSessionGroupId) throws UnirestException {
+        String url = "https://app.viewsapp.net/api/restful/work/sessiongroups/" + newSessionGroupId + "/staff/" + mentorId;
+        HttpResponse<String> response = viewsUnirest.sendUnirestPutRequestNoBodyNoExtraHeaders(url);
+        return response;
     }
 }
