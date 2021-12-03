@@ -36,7 +36,6 @@ class ViewsAPISessionJSONFormatterTest {
         assertEquals(correctString, body);
     }
 
-    @Disabled
     @Test
     void parseVenueIdFromSessionGroupGetResponseTest() {
         String mercuryTestSessionGroupId = "10";

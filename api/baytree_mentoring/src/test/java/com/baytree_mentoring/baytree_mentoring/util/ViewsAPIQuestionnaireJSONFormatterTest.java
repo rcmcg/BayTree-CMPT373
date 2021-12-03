@@ -20,6 +20,7 @@ class ViewsAPIQuestionnaireJSONFormatterTest {
         // String formattedJSONasString = viewsAPIQuestionnaireJSONFormatter.formatViewsQuestionnaireForFrontend(questionnaireFromViews);
     }
 
+    @Disabled
     @Test
     void createQuestionnaireUploadJSON() {
         MonthlyQuestionnaireSubmit mqSubmit = new MonthlyQuestionnaireSubmit(
