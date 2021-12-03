@@ -91,6 +91,25 @@ public class ViewsUnirest {
         }
     }
 
+    public HttpResponse<String> sendUnirestPutRequestNoBodyNoExtraHeaders(String URL) throws UnirestException {
+        // Passing headers Accept and Content-Type along with an empty body will cause Views to return null
+        Unirest.setTimeouts(0,0);
+        try {
+            HttpResponse<String> response = Unirest.put(URL)
+                    .basicAuth(viewsAPIUsername, viewsAPIPassword)
+                    .asString();
+            if (httpResponseIsNotOk(response.getStatus())) {
+                String error = "Put request to " + URL + " failed";
+                throw new UnirestException(error);
+            } else {
+                return response;
+            }
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     private boolean httpResponseIsNotOk(int statusCode) {
         return statusCode < 200 || statusCode >= 300;
     }
