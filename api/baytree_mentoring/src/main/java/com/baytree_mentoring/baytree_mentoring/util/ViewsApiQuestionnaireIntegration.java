@@ -30,10 +30,8 @@ public class ViewsApiQuestionnaireIntegration {
                 mqSubmit.getMenteeId() + "/questionnaires/" + questionnaireId;
         System.out.println("URL for POST request: " + url);
         // form JSON payload
-//        String questionnaireJSON = viewsAPIQuestionnaireJSONFormatter.createQuestionnaireUploadJSON(mqSubmit);
         String questionnaireXML = viewsAPIQuestionnaireJSONFormatter.convertQuestionnaireToXML(mqSubmit);
-        System.out.println("sendCompletedQuestionnaireToViews(): questionnaireJSON");
-        System.out.println(questionnaireXML);
+
         // send the post request
         viewsUnirest.sendUnirestXmlPostRequest(url, questionnaireXML);
     }
