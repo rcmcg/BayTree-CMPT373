@@ -8,6 +8,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import org.json.JSONObject;
 
+import javax.xml.bind.JAXB;
+import java.io.StringWriter;
 import java.util.Hashtable;
 
 public class ViewsAPIQuestionnaireJSONFormatter {
@@ -24,6 +26,14 @@ public class ViewsAPIQuestionnaireJSONFormatter {
         System.out.println("formatViewsQuestionnaireForFrontend: Finished conversion");
         System.out.println(questionnaireJSONObject);
         return questions.toString();
+    }
+
+    public String convertQuestionnaireToXML(MonthlyQuestionnaireSubmit mqSubmit) {
+        StringWriter sw = new StringWriter();
+        JAXB.marshal(mqSubmit, sw);
+        String xmlString = sw.toString();
+        System.out.println(xmlString);
+        return xmlString;
     }
 
     public String createQuestionnaireUploadJSON(MonthlyQuestionnaireSubmit mqSubmit) {
