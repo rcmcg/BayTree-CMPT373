@@ -20,27 +20,29 @@ import userTypeUnselected from "../../resources/Static/Images/user-type-not-sele
 import adminText from "../../resources/Static/Images/admin-text.png"
 import mentorText from "../../resources/Static/Images/mentor-text.png"
 import loginPageText from "../../resources/Static/Images/login-page-text.png"
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 import {Context} from '../../index'
 import {useContext, useState} from "react";
 import {observer} from "mobx-react-lite";
+import {FC} from 'react'
 
 
 //if you want to use checkAuth functionality that I have call in App.tsx, than you need to wrap up the
 // LoginForm with observer (just how I did in App.tsx)
 
-export function LoginForm() {
+export const LoginBox: FC = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
 
     //IMPORTANT: need to be changed to call format. Hooks are not allowed in classes.
     const {store} = useContext(Context);
 
     const handleSubmit = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
-        store.login(username,password);
-        setUsername("");
-        setPassword("");
+        store.login(username,password).then(() => history.push('/dashboard'));
+        // setUsername("");
+        // setPassword("");
     }
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,5 +101,5 @@ export function LoginForm() {
     );
 }
 
-export default observer(LoginForm);
+export default observer(LoginBox);
 

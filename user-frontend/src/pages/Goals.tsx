@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useState } from "react";
 import Header from '../components/goal/Header'
 import Tasks from '../components/goal/Tasks'
 import AddTask from '../components/goal/AddTask'
+import $api from "../http";
 
 export const Goals = () => {
     const [showAddTask, setShowAddTask] = useState(false)
@@ -26,6 +27,16 @@ export const Goals = () => {
             reminder: false,
         },
     ])
+
+    useEffect(()=> {
+        $api.get('/api/goal/get/all').then((res) => {
+            setTasks(res.data)
+        })
+    }, [])
+
+    // useEffect(() => {
+    //     $api.post('api/goal/add')
+    // }, [])
 
     // Add task
     const addTask = (task:any) => {

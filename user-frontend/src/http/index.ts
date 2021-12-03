@@ -13,11 +13,13 @@ $api.interceptors.request.use((config:any) => {
     return config;
 })
 
+
+//this function check whether token is expired, and if so refreshes it
 $api.interceptors.response.use((config) => {
     return config;
 }, async (error) => {
     const originalRequest = error.config;
-    if(error.response.status == 401 && error.config && !error.config.retry) {
+    if(error.response.status === 401 && error.config && !error.config.retry) {
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/api/token/refresh`,
                 {withCredentials: true});

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, FC} from 'react';
 import './css/dashboard/App.css';
 
 import {NavigationBar} from "./components/dashboard/NavigationBar";
@@ -20,7 +20,7 @@ import {observer} from "mobx-react-lite";
 export const backendApiURL: string = "http://localhost:8080"
 export const HTTP_CREATED_STATUS_RESPONSE: number = 201
 
-function App() {
+const App: FC = () => {
     const {store} = useContext(Context)
 
     useEffect( () => {
