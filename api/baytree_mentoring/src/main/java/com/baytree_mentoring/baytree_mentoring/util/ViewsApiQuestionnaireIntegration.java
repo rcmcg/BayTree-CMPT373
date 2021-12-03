@@ -31,10 +31,10 @@ public class ViewsApiQuestionnaireIntegration {
         System.out.println("URL for POST request: " + url);
         // form JSON payload
 //        String questionnaireJSON = viewsAPIQuestionnaireJSONFormatter.createQuestionnaireUploadJSON(mqSubmit);
-        String questionnaireJSON = viewsAPIQuestionnaireJSONFormatter.convertQuestionnaireToXML(mqSubmit);
+        String questionnaireXML = viewsAPIQuestionnaireJSONFormatter.convertQuestionnaireToXML(mqSubmit);
         System.out.println("sendCompletedQuestionnaireToViews(): questionnaireJSON");
-        System.out.println(questionnaireJSON);
+        System.out.println(questionnaireXML);
         // send the post request
-        viewsUnirest.sendUnirestPostRequest(url, questionnaireJSON);
+        viewsUnirest.sendUnirestXmlPostRequest(url, questionnaireXML);
     }
 }

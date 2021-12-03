@@ -29,9 +29,16 @@ public class ViewsAPIQuestionnaireJSONFormatter {
     }
 
     public String convertQuestionnaireToXML(MonthlyQuestionnaireSubmit mqSubmit) {
-        StringWriter sw = new StringWriter();
-        JAXB.marshal(mqSubmit, sw);
-        String xmlString = sw.toString();
+        String xmlString = "<answers>\n";
+        xmlString += "\t<EntityType>" + "Volunteer" + "</EntityType>\n";
+        xmlString += "\t<EntityId>" + mqSubmit.getMenteeId() + "</EntityId>\n";
+        for (String key: mqSubmit.getAnswers().keySet()) {
+            xmlString += "\t<answer id=" + "\"" + parseIdFromKey(key) + "\">\n";
+            xmlString += "\t\t<QuestionID>" + parseIdFromKey(key) + "</QuestionID>\n";
+            xmlString += "\t\t<Answer>" + mqSubmit.getAnswers().get(key) + "</Answer>\n";
+            xmlString += "\t</answer>\n";
+        }
+        xmlString += "</answers>\n";
         System.out.println(xmlString);
         return xmlString;
     }
