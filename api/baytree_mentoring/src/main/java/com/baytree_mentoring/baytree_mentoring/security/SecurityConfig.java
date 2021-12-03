@@ -15,6 +15,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -44,28 +49,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // We need to specify the authentication level for specific endpoints.
         http
                 .authorizeRequests()
-                        .antMatchers(
-                                "/",
-                                "/user/add/", "/user/get/all/",
-                                "/get/views/mentees/", "/get/mentees/all/",
-                                "/questionnaire/add/", "/monthlyquestionnaire/**",
-                                "/notifications/send/", "/notifications/get/{username}/", "/notifications/get/all/",
-                                "/resource/add/", "/resource/get/all/", "/resource/delete/{resourceId}/",
-                                "/session/add/",
-                                "/user/add/mentor/", "/user/get/views/mentors/", "/user/get/mentors/all/")
-                        .permitAll()
-                        .anyRequest().authenticated();
+                .antMatchers(
+                        "/",
+                        "/user/add/", "/user/get/all/",
+                        "/get/views/mentees/", "/get/mentees/all/",
+                        "/questionnaire/add/", "/monthlyquestionnaire/**",
+                        "/notifications/send/", "/notifications/get/{username}/", "/notifications/get/all/",
+                        "/resource/add/", "/resource/get/all/", "/resource/delete/{resourceId}/",
+                        "/session/add/",
+                        "/user/add/mentor/", "/user/get/views/mentors/", "/user/get/mentors/all/")
+                .permitAll()
+                .anyRequest().authenticated();
 //         This basically says all URLs are permitted without authentication. Really, should be authenticated to view
 //         the above URLs but to get the project working leaving it for now .
 //        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
-         http.addFilter(customAuthenticationFilter);
-         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-//        http.cors();
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.cors();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        var corsConfig = new CorsConfiguration();
+        corsConfig.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:3001"));
+        corsConfig.setAllowedMethods(List.of("GET", "POST", "DELETE", "PUT"));
+        corsConfig.setAllowedHeaders(List.of("*"));
+        corsConfig.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
+        src.registerCorsConfiguration("/**", corsConfig);
+        return src;
+
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 }

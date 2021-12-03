@@ -32,11 +32,9 @@ public class GoalsService {
 
     public void deleteGoalUsingId(long gId) {
         boolean exists = goalsRepository.existsById(gId);
-
         if(!exists) {
             throw new IllegalStateException("goal with id " + gId + " does not exists");
         }
-
         goalsRepository.deleteById(gId);
     }
 
