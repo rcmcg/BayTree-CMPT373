@@ -27,40 +27,19 @@ public class ViewsAPIQuestionnaireJSONFormatter {
     public String convertQuestionnaireToXML(MonthlyQuestionnaireSubmit mqSubmit) {
         String xmlString = "<answers>\n";
         xmlString += "\t<EntityType>" + "Person" + "</EntityType>\n";
-        xmlString += "\t<EntityId>" + mqSubmit.getMenteeId() + "</EntityId>\n";
-        for (String key: mqSubmit.getAnswers().keySet()) {
-            xmlString += "\t<answer id=" + "\"" + parseIdFromKey(key) + "\">\n";
-            xmlString += "\t\t<QuestionID>" + parseIdFromKey(key) + "</QuestionID>\n";
-            xmlString += "\t\t<Answer>" + mqSubmit.getAnswers().get(key) + "</Answer>\n";
+        xmlString += "\t<EntityID>" + mqSubmit.getMenteeId() + "</EntityID>\n";
+        for (int i = 0; i < mqSubmit.getQuestionIds().size(); i++) {
+            String questionId = mqSubmit.getQuestionIds().get(i);
+            String answer = mqSubmit.getAnswers().get(i);
+
+            xmlString += "\t<answer id=" + "\"" + parseIdFromKey(questionId) + "\">\n";
+            xmlString += "\t\t<QuestionID>" + parseIdFromKey(questionId) + "</QuestionID>\n";
+            xmlString += "\t\t<Answer>" + answer + "</Answer>\n";
             xmlString += "\t</answer>\n";
         }
         xmlString += "</answers>\n";
         System.out.println(xmlString);
         return xmlString;
-    }
-
-    public String createQuestionnaireUploadJSON(MonthlyQuestionnaireSubmit mqSubmit) {
-        ObjectNode questionnaireJSON = mapper.createObjectNode();
-        // questionnaireJSON.put("Date", mqSubmit.getDateSubmitted());
-        System.out.println("Hashtable for reference");
-        System.out.println(mqSubmit.getAnswers().toString());
-        ArrayNode answersNode = mapper.createArrayNode();
-        // ObjectNode answersNode = mapper.createObjectNode();
-        for (String key : mqSubmit.getAnswers().keySet()) {
-            System.out.println("Creating node for key: " + key);
-            System.out.println("value for key: " + mqSubmit.getAnswers().get(key));
-            ObjectNode answerNode = mapper.createObjectNode();
-            answerNode.put("QuestionID", parseIdFromKey(key));
-            answerNode.put("Answer", mqSubmit.getAnswers().get(key));
-//            System.out.println(answerNode.toPrettyString());
-            // answersNode.put("answer id=\"" + parseIdFromKey(key) + "\"", answerNode);
-            answersNode.addObject().put("answer id=\"" + parseIdFromKey(key) + "\"", answerNode);
-        }
-//        System.out.println("Answers node");
-//        System.out.println(answersNode);
-        // answersNode.addAll(answersNode);
-        questionnaireJSON.put("answers", answersNode);
-        return questionnaireJSON.toString();
     }
 
     private String parseIdFromKey(String key) {

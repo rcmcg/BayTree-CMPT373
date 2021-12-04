@@ -20,23 +20,57 @@ class ViewsAPIQuestionnaireJSONFormatterTest {
         // String formattedJSONasString = viewsAPIQuestionnaireJSONFormatter.formatViewsQuestionnaireForFrontend(questionnaireFromViews);
     }
 
-    @Disabled
+//    @Disabled
+//    @Test
+//    void createQuestionnaireUploadJSON() {
+//        MonthlyQuestionnaireSubmit mqSubmit = new MonthlyQuestionnaireSubmit(
+//               4,
+//               "12",
+//               "21",
+//                "2021-11-12T17:14:00",
+//                new String[]{"question id=\"63\"", "question id=\"9\"", "question id=\"101\"", "question id=\"66\""},
+//                new String[]{"1", "2", "3", "4"}
+//        );
+//        String correctJSON = "{\"Date\":\"2021-11-12T17:14:00\",\"answers\":" +
+//                "{\"answer id=\\\"63\\\"\":{\"QuestionID\":63,\"Answer\":\"1\"}," +
+//                "\"answer id=\\\"64\\\"\":{\"QuestionID\":64,\"Answer\":\"2\"}," +
+//                "\"answer id=\\\"65\\\"\":{\"QuestionID\":65,\"Answer\":\"3\"}," +
+//                "\"answer id=\\\"66\\\"\":{\"QuestionID\":66,\"Answer\":\"4\"}}}";
+//        String uploadJSON = viewsAPIQuestionnaireJSONFormatter.createQuestionnaireUploadJSON(mqSubmit);
+//        assertEquals(correctJSON, uploadJSON);
+//    }
+
     @Test
-    void createQuestionnaireUploadJSON() {
+    void createQuestionnaireUploadXML() {
         MonthlyQuestionnaireSubmit mqSubmit = new MonthlyQuestionnaireSubmit(
-               4,
-               "12",
-               "21",
+                4,
+                "12",
+                "21",
                 "2021-11-12T17:14:00",
                 new String[]{"question id=\"63\"", "question id=\"9\"", "question id=\"101\"", "question id=\"66\""},
                 new String[]{"1", "2", "3", "4"}
         );
-        String correctJSON = "{\"Date\":\"2021-11-12T17:14:00\",\"answers\":" +
-                "{\"answer id=\\\"63\\\"\":{\"QuestionID\":63,\"Answer\":\"1\"}," +
-                "\"answer id=\\\"64\\\"\":{\"QuestionID\":64,\"Answer\":\"2\"}," +
-                "\"answer id=\\\"65\\\"\":{\"QuestionID\":65,\"Answer\":\"3\"}," +
-                "\"answer id=\\\"66\\\"\":{\"QuestionID\":66,\"Answer\":\"4\"}}}";
-        String uploadJSON = viewsAPIQuestionnaireJSONFormatter.createQuestionnaireUploadJSON(mqSubmit);
-        assertEquals(correctJSON, uploadJSON);
+        String correctXML = "<answers>\n" +
+                                "\t<EntityType>Person</EntityType>\n" +
+                                "\t<EntityID>4</EntityID>\n" +
+                                "\t<answer id=\"63\"\n" +
+                                    "\t\t<QuestionID>63</QuestionID>\n" +
+                                    "\t\t<Answer>1</Answer>\n" +
+                                "\t</answer>\n" +
+                                "\t<answer id=\"9\"\n" +
+                                    "\t\t<QuestionID>9</QuestionID>\n" +
+                                    "\t\t<Answer>2</Answer>\n" +
+                                "\t</answer>\n" +
+                                "\t<answer id=\"101\"\n" +
+                                    "\t\t<QuestionID>101</QuestionID>\n" +
+                                    "\t\t<Answer>3</Answer>\n" +
+                                "\t</answer>\n" +
+                                "\t<answer id=\"66\"\n" +
+                                    "\t\t<QuestionID>66</QuestionID>\n" +
+                                    "\t\t<Answer>4</Answer>\n" +
+                                "\t</answer>\n" +
+                            "</answers>\n";
+        String uploadXML = viewsAPIQuestionnaireJSONFormatter.convertQuestionnaireToXML(mqSubmit);
+        assertEquals(correctXML, uploadXML);
     }
 }
