@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface Button {
+interface ButtonInterface {
     color?: string,
     text?: string,
     onClick?: any
 }
 
-const Button = (props:Button) => {
+const Button = (props:ButtonInterface) => {
     return (
         <button
             onClick={props.onClick}
