@@ -10,7 +10,6 @@ interface Mentor {
     lastName: String
 }
 
-
 function Home() {
     const [mentors, setMentors] = useState<Mentor[]>([]);
     const [tempMentors, setTempMentors] = useState<Mentor[]>([]);
@@ -26,7 +25,6 @@ function Home() {
                 })
             })
         setMentors(tempMentors);
-        // console.log(mentors);
     }
 
     useEffect (() => {
@@ -34,7 +32,6 @@ function Home() {
     }, []);
 
     return (
-
         <div className='home'>
             <div className={"box"}>
                 <div className={"home-box"}>

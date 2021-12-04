@@ -8,7 +8,6 @@ import {
     Chart,
 } from '@devexpress/dx-react-chart-material-ui';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
 import { ValueScale, Animation } from '@devexpress/dx-react-chart';
 
 const theme = createMuiTheme({
@@ -38,11 +37,7 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
         axios.get('http://localhost:8080/sessions/get/views/'+ id)
             .then((res: any) => {
                 if(res.date !== null) {
-                    // console.log(res.data)
-                    // console.log("numSessions: " + res.data.length);
                     setAttendedSessions(res.data.length);
-                    // console.log("Attended Sessions: " +attendedSessions);
-
                 }
             })
             .catch((err: any) => {
@@ -56,7 +51,6 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
         let current = currentWeekNumber();
         const TOTAL_WEEKS_OF_A_YEAR = 52;
         let upcomingSessions = TOTAL_WEEKS_OF_A_YEAR - current;
-        // console.log("current " +current);
         return upcomingSessions;
     }
     let upcomingSessions = getRemainingSessions();
@@ -67,7 +61,6 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
         {numSessionType: "Total Sessions", numberOfSessions: attendedSessions!+upcomingSessions},
     ]
 
-    // console.log(mentors);
     return (
         <div className={"menu"}>
             <div>
@@ -114,7 +107,6 @@ export const MentorsMenu:  React.FC<Props> = ({mentors})=> {
                                 valueField="numberOfSessions"
                                 argumentField="numSessionType"
                                 scaleName="numberOfSessions"
-
                             />
                             <Animation/>
                             <Title text="Number of sessions" />
