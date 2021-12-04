@@ -4,8 +4,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONObject;
-import org.json.JSONString;
 
 public class ViewsUnirest {
     private static final String viewsAPIUsername = "group.mercury";

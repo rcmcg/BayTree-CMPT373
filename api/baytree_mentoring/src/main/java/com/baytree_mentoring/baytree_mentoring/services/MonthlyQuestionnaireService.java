@@ -39,7 +39,7 @@ public class MonthlyQuestionnaireService {
         return true;
     }
 
-    public String getMonthlyQuestionnaireForFrontend(int year, int month) throws UnirestException, Exception {
+    public String getMonthlyQuestionnaireForFrontend(int year, int month) throws Exception {
         int mqViewsId = getMonthlyQuestionnaireViewsId(year, month);
         String questionnaire = viewsApiQuestionnaireIntegration.getMonthlyQuestionnaire(mqViewsId);
         return questionnaire;
