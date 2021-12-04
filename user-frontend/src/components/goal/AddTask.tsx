@@ -6,8 +6,8 @@ interface AddTask {
 
 const AddTask = ( props : AddTask) => {
     const [text, setText] = useState('')
-    const [day, setDay] = useState('')
-    const [reminder, setReminder] = useState(false)
+    // const [day, setDay] = useState('')
+    // const [reminder, setReminder] = useState(false)
 
     const onSubmit = (e:any) => {
         e.preventDefault()
@@ -17,11 +17,11 @@ const AddTask = ( props : AddTask) => {
             return
         }
 
-        props.onAdd({ text, day, reminder })
+        props.onAdd({ text/*, day, reminder*/ })
 
         setText('')
-        setDay('')
-        setReminder(false)
+        // setDay('')
+        // setReminder(false)
     }
 
     return (
@@ -35,23 +35,23 @@ const AddTask = ( props : AddTask) => {
                     onChange={(e) => setText(e.target.value)}
                 />
             </div>
-            <div className='form-control'>
-                <label>Day & Time</label>
-                <input
-                    type="text"
-                    placeholder='Add Day & Time'
-                    value={day}
-                    onChange={(e) => setDay(e.target.value)}
-                />
-            </div>
-            <div className='form-control form-control-check'>
-                <label>Set Reminder</label>
-                <input
-                    type="checkbox"
-                    checked={reminder}
-                    onChange={(e) => setReminder(e.currentTarget.checked)}
-                />
-            </div>
+            {/*<div className='form-control'>*/}
+            {/*    <label>Day & Time</label>*/}
+            {/*    <input*/}
+            {/*        type="text"*/}
+            {/*        placeholder='Add Day & Time'*/}
+            {/*        value={day}*/}
+            {/*        onChange={(e) => setDay(e.target.value)}*/}
+            {/*    />*/}
+            {/*</div>*/}
+            {/*<div className='form-control form-control-check'>*/}
+            {/*    <label>Set Reminder</label>*/}
+            {/*    <input*/}
+            {/*        type="checkbox"*/}
+            {/*        checked={reminder}*/}
+            {/*        onChange={(e) => setReminder(e.currentTarget.checked)}*/}
+            {/*    />*/}
+            {/*</div>*/}
 
             <input type="submit" value='Save Task' className='btn-block'/>
         </form>

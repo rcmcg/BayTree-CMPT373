@@ -19,10 +19,11 @@ $api.interceptors.response.use((config) => {
     return config;
 }, async (error) => {
     const originalRequest = error.config;
-    if(error.response.status === 401 && error.config && !error.config.retry) {
+    if(error.response.status === 403 && error.config && !error.config._isRetry) {
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/api/token/refresh`,
                 {withCredentials: true});
+            console.log("ACCESS TOKEN:", response.data.accessToken)
             localStorage.setItem('token', response.data.accessToken);
             return $api.request(originalRequest);
         } catch (e){

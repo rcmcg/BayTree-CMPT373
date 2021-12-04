@@ -3,15 +3,15 @@ import {FaTimes} from 'react-icons/fa'
 interface Task {
     id: number,
     text: string,
-    day: string,
-    reminder: boolean
+    // day: string,
+    // reminder: boolean
     onDelete: any
-    onToggle: any
+    // onToggle: any
 }
 
 const Task = (props:Task) => {
     return (
-        <div className={`task ${props.reminder ? 'reminder' : ''}`} onDoubleClick={() => props.onToggle(props.id)}>
+        <div className="task" /*className={`task ${props.reminder ? 'reminder' : ''}`} onDoubleClick={() => props.onToggle(props.id)}*/>
             <h3>
                 {props.text}
                 <FaTimes
@@ -19,7 +19,7 @@ const Task = (props:Task) => {
                     onClick={() => props.onDelete(props.id)}
                 />
             </h3>
-            <p>{props.day}</p>
+            {/*<p>{props.day}</p>*/}
         </div>
     );
 };

@@ -1,36 +1,27 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { useState } from "react";
 import Header from '../components/goal/Header'
 import Tasks from '../components/goal/Tasks'
 import AddTask from '../components/goal/AddTask'
 import $api from "../http";
+import {Context} from "../index";
+
+interface Goal {
+    id: number,
+    username: string,
+    text: string,
+    state: string
+}
 
 export const Goals = () => {
     const [showAddTask, setShowAddTask] = useState(false)
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            text: 'Doctors Appointment',
-            day: 'Feb 5th at 2:30pm',
-            reminder: true,
-        },
-        {
-            id: 2,
-            text: 'Meeting at School',
-            day: 'Feb 6th at 1:30pm',
-            reminder: true,
-        },
-        {
-            id: 3,
-            text: 'Food Shopping',
-            day: 'Feb 7th at 2:30pm',
-            reminder: false,
-        },
-    ])
+    const [tasks, setTasks] = useState<Goal[]>([])
+    // const {store} = useContext(Context)
 
     useEffect(()=> {
         $api.get('/api/goal/get/all').then((res) => {
             setTasks(res.data)
+            console.log(res.data)
         })
     }, [])
 
@@ -40,10 +31,13 @@ export const Goals = () => {
 
     // Add task
     const addTask = (task:any) => {
-        const id = Math.floor(Math.random() * 10000) + 1
+        $api.post('api/goal/add', {}).then((res) => {
 
-        const newTask = { id, ...task }
-        setTasks([...tasks, newTask])
+        })
+        // const id = Math.floor(Math.random() * 10000) + 1
+        //
+        // const newTask = { id, ...task }
+        // setTasks([...tasks, newTask])
     }
 
     // Delete task
@@ -52,15 +46,15 @@ export const Goals = () => {
     }
 
     // Toggle Reminder
-    const toggleReminder = (id:number) => {
-        setTasks(
-            tasks.map((task) =>
-                task.id === id
-                    ? { ...task, reminder: !task.reminder }
-                    : task
-            )
-        )
-    }
+    // const toggleReminder = (id:number) => {
+    //     setTasks(
+    //         tasks.map((task) =>
+    //             task.id === id
+    //                 ? { ...task, reminder: !task.reminder }
+    //                 : task
+    //         )
+    //     )
+    // }
 
     return (
         <div className="containerGoal">
@@ -72,7 +66,7 @@ export const Goals = () => {
             {tasks.length > 0 ? <Tasks
                 tasks={tasks}
                 onDelete={deleteTask}
-                onToggle={toggleReminder}
+                // onToggle={toggleReminder}
             /> : 'No Tasks to Show'}
         </div>
     );
