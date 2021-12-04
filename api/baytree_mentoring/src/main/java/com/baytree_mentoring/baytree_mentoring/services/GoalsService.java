@@ -38,4 +38,8 @@ public class GoalsService {
         goalsRepository.deleteById(gId);
     }
 
+    public boolean doesGoalExist(long id) {
+        return goalsRepository.findById(id).isPresent();
+    }
+
 }

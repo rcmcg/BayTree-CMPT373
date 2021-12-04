@@ -9,8 +9,20 @@ export interface MentorInterface {
     phoneNumber: string, 
     ethnicity: string, 
     address: string, 
-    role: string
-};
+    role: string,
+    sessionGroupId: number,
+    sessionGroupName: string,
+    volunteeringRoleName: string
+}
+
+export interface SessionGroupInterface {
+    viewsSessionGroupId: number,
+    viewsSessionGroupName: string
+}
+
+export interface VolunteeringRoleInterface {
+    volunteeringRoleName: string
+}
 
 export interface MentorSessionInterface {
     mentorId: number,
@@ -19,14 +31,14 @@ export interface MentorSessionInterface {
     dateTime: string;
     duration: string;
     note: string;
-};
+}
 
 export interface MentorQuestionnaireInterface {
     questionnaireName: string;
     date: string;
     questions: string[];
     answers: string[];
-};
+}
 
 export const emptyMentor: MentorInterface = {
     viewsId: 0,
@@ -40,6 +52,18 @@ export const emptyMentor: MentorInterface = {
     ethnicity: "", 
     address: "", 
     role: "",
+    sessionGroupId: -1,
+    sessionGroupName: "",
+    volunteeringRoleName: "",
+}
+
+export const emptySessionGroup: SessionGroupInterface = {
+    viewsSessionGroupId: -1,
+    viewsSessionGroupName: ""
+}
+
+export const emptyVolunteeringRole: VolunteeringRoleInterface = {
+    volunteeringRoleName: ""
 }
 
 export const emptySession: MentorSessionInterface = {

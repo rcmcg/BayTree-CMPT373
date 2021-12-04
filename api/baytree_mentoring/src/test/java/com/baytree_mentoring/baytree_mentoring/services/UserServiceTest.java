@@ -1,7 +1,10 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.User;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -68,5 +71,12 @@ public class UserServiceTest {
                 () -> assertEquals(userService.getAllMentorsFromDatabase().size(), List.of(user).size()),
                 () -> assertEquals(userService.getAllMentorsFromDatabase().get(0), user)
         );
+    }
+
+    @Test
+    @Disabled
+    void associateMentorAndSessionGroupInViews() throws UnirestException {
+        HttpResponse<String> response = userService.associateMentorAndSessionGroupInViews(42,18);
+        System.out.println(response.getBody());
     }
 }

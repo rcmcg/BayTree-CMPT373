@@ -6,7 +6,17 @@ import MentorInfo from './MentorInfo';
 import MentorSession from './MentorSessions';
 import MentorQuestionnaire from './MentorQuestionnaires';
 import { useParams } from 'react-router-dom';
-import { MentorInterface, MentorQuestionnaireInterface, MentorSessionInterface, emptySession, emptyQuestionnaire, emptyMentor } from './MentorInterfaces';
+import {
+    MentorInterface,
+    SessionGroupInterface,
+    MentorQuestionnaireInterface,
+    MentorSessionInterface,
+    emptySession,
+    emptySessionGroup,
+    emptyQuestionnaire,
+    emptyMentor,
+    emptyVolunteeringRole, VolunteeringRoleInterface
+} from './MentorInterfaces';
 import { backendApiURL } from "../../App";
 import axios from 'axios';
 
@@ -31,6 +41,37 @@ function Mentor() {
       fetchMentors()
     }, []);
 
+    const [sessionGroups, setSessionGroups] = useState<SessionGroupInterface[]>([emptySessionGroup])
+
+    useEffect(() => {
+        const fetchSessionGroups = async () => {
+            const allSessionGroups = await getSessionGroups()
+            setSessionGroups(allSessionGroups)
+        }
+        fetchSessionGroups()
+    }, [])
+
+    const getSessionGroups = async() => {
+        let url = backendApiURL + "/sessiongroups/get";
+        const response = await axios.get<SessionGroupInterface[]>(url);
+        return response.data;
+    }
+
+    const [volunteeringRoles, setVolunteeringRoles] = useState<VolunteeringRoleInterface[]>([emptyVolunteeringRole])
+
+    const getVolunteeringRoles = async() => {
+        let url = backendApiURL + "/sessiongroups/volunteeringroles"
+        const response = await axios.get<VolunteeringRoleInterface[]>(url)
+        return response.data
+    }
+
+    useEffect(() => {
+        const fetchVolunteeringRoles = async () => {
+            const volunteeringData = await getVolunteeringRoles()
+            setVolunteeringRoles(volunteeringData)
+        }
+        fetchVolunteeringRoles()
+    }, []);
 
     const [sessions, setSessions] = useState<MentorSessionInterface[]> ([emptySession]);
 
@@ -70,7 +111,7 @@ function Mentor() {
             <h1>Mentor Overview</h1>
             <Tabs defaultActiveKey="info" className = 'tab'>
                 <Tab eventKey="info" title="Personal Information">
-                    {MentorInfo(mentor)}
+                    {MentorInfo(mentor, sessionGroups, volunteeringRoles)}
                 </Tab>
 
                 <Tab eventKey="sessions" title="Sessions">

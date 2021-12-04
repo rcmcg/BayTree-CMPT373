@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AxiosError, AxiosResponse} from "axios";
+import {Axios, AxiosError, AxiosResponse} from "axios";
 import 'moment-timezone';
 import "../../css/dashboard/SessionForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
@@ -16,7 +16,6 @@ interface SessionState {
     didMentorAttend: boolean,
     clockInTimeLocal: string,
     clockOutTimeLocal: string,
-    leadStaffId: number,
     sessionNotes: string,
     menteesList: []
 }
@@ -39,28 +38,6 @@ class SelectMentee extends React.Component<props> {
     }
 }
 
-class SelectMentor extends React.Component {
-    render () {
-        return (
-            <div>
-                <label form="selectMentorId">Mentor id </label>
-                <input type="number" id="selectMentorId" name="mentorId" required/>
-            </div>
-        )
-    }
-}
-
-class SelectSessionGroupId extends React.Component {
-    render () {
-        return (
-            <div>
-                <label form="selectSessionGroupId">Session group id </label>
-                <input type="number" id="selectSessionGroupId" name="sessionGroupId" required/>
-            </div>
-        )
-    }
-}
-
 class DidMenteeAttendSession extends React.Component {
     render () {
         return (
@@ -78,17 +55,6 @@ class DidMentorAttendSession extends React.Component {
             <div>
                 <label form="didMentorAttend">Did the mentor attend the session?</label>
                 <input type="checkbox" id="didMentorAttend" name="didMentorAttend" defaultChecked/>
-            </div>
-        )
-    }
-}
-
-class SelectLeadStaffId extends React.Component {
-    render () {
-        return (
-            <div>
-                <label form="selectLeadStaffId">Lead staff (supervisor) id </label>
-                <input type="number" id="selectLeadStaffId" name="leadStaffId" required/>
             </div>
         )
     }
@@ -146,43 +112,61 @@ export class SessionForm extends React.Component<{}, SessionState> {
         super(props);
         this.state = {
             menteeId: '',
-            mentorId: -1,
+            mentorId: 42,   // Set this value to the mentor's ID when authentication is fully working
             sessionGroupId: -1,
             didMenteeAttend: true,
             didMentorAttend: true,
             clockInTimeLocal: '',
             clockOutTimeLocal: '',
-            leadStaffId: -1,
             sessionNotes: '',
             menteesList: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getMenteesList = this.getMenteesList.bind(this);
+        this.getSessionGroupId = this.getSessionGroupId.bind(this);
         this.formatLocalDateTimeForBackend = this.formatLocalDateTimeForBackend.bind(this);
         this.processUserSubmission = this.processUserSubmission.bind(this);
     }
 
     componentDidMount() {
+        this.getMenteesList()
+        this.getSessionGroupId()
+    }
+
+    getMenteesList() {
         axios.get('http://localhost:8080/fetchAllMentees')
-            .then((res: any) => {
-                if(res.date !== null) {
+            .then((res: AxiosResponse) => {
+                if(res.data !== null) {
                     this.setState({ menteesList : res.data });
                 }
             })
-            .catch((err: any) => {
+            .catch((err: AxiosError) => {
                 console.log(err);
+            })
+    }
+
+    getSessionGroupId() {
+        let url = backendApiURL + '/user/mentors/' + this.state.mentorId + '/sessiongroup'
+        console.log("Getting sessionGroupId with URL " + url)
+        axios.get(url)
+            .then((res: AxiosResponse) => {
+                console.log(res)
+                if (res.data !== null) {
+                    this.setState( {sessionGroupId : res.data })
+                }
+            })
+            .catch((err: AxiosError) => {
+            console.log(err);
             })
     }
 
     handleSubmit(event: any) {
         this.setState({
             menteeId: event.target.selectMenteeId.value,
-            mentorId: event.target.selectMentorId.value,
-            sessionGroupId: event.target.selectSessionGroupId.value,
             didMenteeAttend: event.target.didMenteeAttend.checked,
             didMentorAttend: event.target.didMentorAttend.checked,
             clockInTimeLocal: event.target.clockInId.value,
             clockOutTimeLocal: event.target.clockOutId.value,
-            leadStaffId: event.target.selectLeadStaffId.value,
             sessionNotes: event.target.sessionNotesId.value
         }, this.processUserSubmission)
         event.target.reset()
@@ -192,6 +176,9 @@ export class SessionForm extends React.Component<{}, SessionState> {
     processUserSubmission() {
         // TODO: Verify clock in/out time is valid (in < out, total time less than some number of hours)
         const url = backendApiURL + '/session/add/'
+        alert('Submitting session upload. This may take a few minutes. Press okay to continue.')
+        console.log("State being submitted to backend")
+        console.log(this.state)
         axios.post(url, {
             menteeId: this.state.menteeId,
             mentorId: this.state.mentorId,
@@ -200,7 +187,6 @@ export class SessionForm extends React.Component<{}, SessionState> {
             didMentorAttend: this.state.didMentorAttend,
             clockInTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockInTimeLocal),
             clockOutTimeLocal: this.formatLocalDateTimeForBackend(this.state.clockOutTimeLocal),
-            leadStaffId: this.state.leadStaffId,
             sessionNotes: this.state.sessionNotes
         })
         .then(function (response: AxiosResponse) {
@@ -243,17 +229,14 @@ export class SessionForm extends React.Component<{}, SessionState> {
                 <div className={"ui form sessionForm"}>
                     <form onSubmit={this.handleSubmit}>
                         <SelectMentee menteesList={this.state.menteesList} /> <br/>
-                        <SelectMentor /> <br/>
-                        <SelectSessionGroupId /> <br/>
                         <DidMenteeAttendSession /> <br/>
                         <DidMentorAttendSession /> <br/>
                         <ClockIn /> <br/>
                         <ClockOut /> <br/>
-                        <SelectLeadStaffId /> <br/>
                         <SessionNotes /> <br/>
                         <span className={"submitButtonFormat"}>
-                            <SessionSubmit /> <br />
-                        </span>
+                        <SessionSubmit /> <br />
+                    </span>
                     </form>
                 </div>
             </main>

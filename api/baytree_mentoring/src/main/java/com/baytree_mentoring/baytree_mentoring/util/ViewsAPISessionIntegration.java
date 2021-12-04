@@ -23,10 +23,21 @@ public class ViewsAPISessionIntegration {
             // TODO: Check that the mentee and mentor exist before creating the session,
             //  otherwise the session is created then fails to update attendance, creating a useless session upload.
             String viewsSessionId = uploadSessionInformationGetSessionId(ses);
+            if (!ses.isDidMenteeAttend() || !ses.isDidMentorAttend()) {
+                // Exactly both or 0 participants attended the session
+                ses.setDidMenteeAttend(false);
+                ses.setDidMentorAttend(false);
+            }
+            String participantAttendanceURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/" +
+                    viewsSessionId +
+                    "/participants";
+            String mentorAttendanceURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/" +
+                    viewsSessionId +
+                    "/staff";
             uploadSessionAttendanceInformation(
-                    String.valueOf(ses.getMenteeId()), viewsSessionId, ses.isDidMenteeAttend());
+                    String.valueOf(ses.getMenteeId()), ses.isDidMenteeAttend(), participantAttendanceURL, "");
             uploadSessionAttendanceInformation(
-                    String.valueOf(ses.getMentorId()), viewsSessionId, ses.isDidMentorAttend());
+                    String.valueOf(ses.getMentorId()), ses.isDidMentorAttend(), mentorAttendanceURL, ses.getVolunteeringRole());
             uploadSessionNotes(ses, viewsSessionId);
         } catch (UnirestException e) {
             System.out.println("sendCompletedSessionFormToViews: Failed to upload session to Views database");
@@ -42,13 +53,12 @@ public class ViewsAPISessionIntegration {
     private String uploadSessionInformationGetSessionId(Session ses) throws UnirestException, ParseException {
         String venueId = getVenueIdForSessionGroupFromViews(String.valueOf(ses.getSessionGroupId()));
         String uploadJSON = viewsAPISessionJSONFormatter.createSessionUploadJSON(
-                ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), String.valueOf(ses.getLeadStaffId()), venueId);
+                ses.getClockInTimeLocal(), ses.getClockOutTimeLocal(), String.valueOf(ses.getMentorId()), venueId);
         String viewsSessionId = sendSessionPostRequestGetNewSessionId(uploadJSON, ses.getSessionGroupId());
         return viewsSessionId;
     }
 
-    String getVenueIdForSessionGroupFromViews(String sessionGroupId) throws UnirestException {
-        // Make a call to the Views API to find the venueId associated with the session group.
+    private String getVenueIdForSessionGroupFromViews(String sessionGroupId) throws UnirestException {
         String viewsSessionGetURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/" + sessionGroupId;
         try {
             HttpResponse<String> sessionGroupGetResponse = viewsUnirest.sendUnirestGetRequestGetStringResponse(viewsSessionGetURL);
@@ -74,7 +84,7 @@ public class ViewsAPISessionIntegration {
         }
     }
 
-    private void uploadSessionAttendanceInformation(String viewsParticipantId, String viewsSessionId, boolean attended)
+    private void uploadSessionAttendanceInformation(String viewsParticipantId, boolean attended, String URL, String volunteeringRole)
             throws UnirestException {
         String stringAttended;
         if (attended) {
@@ -84,11 +94,8 @@ public class ViewsAPISessionIntegration {
         }
         try {
             String uploadAttendanceJSON = viewsAPISessionJSONFormatter.createSessionAttendanceJSON
-                    (viewsParticipantId, stringAttended);
-            String viewsSessionAttendancePostURL = "https://app.viewsapp.net/api/restful/work/sessiongroups/sessions/" +
-                            viewsSessionId +
-                            "/participants";
-            viewsUnirest.sendUnirestPostRequest(viewsSessionAttendancePostURL, uploadAttendanceJSON);
+                    (viewsParticipantId, stringAttended, volunteeringRole);
+            viewsUnirest.sendUnirestPostRequest(URL, uploadAttendanceJSON);
         } catch (UnirestException e) {
             e.printStackTrace();
             throw e;

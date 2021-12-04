@@ -16,8 +16,6 @@ public class NotificationService {
     }
 
     public void addNotificationsFromAdmin(List<String> usernameList, String message) {
-        assert(usernameList != null);
-        assert(!message.equals(""));
         for (String username : usernameList) {
             Notification notification = new Notification(username, message);
             notificationRepository.save(notification);

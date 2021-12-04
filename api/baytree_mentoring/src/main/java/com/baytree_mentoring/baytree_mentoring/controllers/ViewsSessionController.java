@@ -19,7 +19,7 @@ public class ViewsSessionController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/sessions/get/views/{id}")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     private List<ViewsSession> getSessionsFromViews(@PathVariable String id) {
         try {
             long mentorId = Long.parseLong(id);

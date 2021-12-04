@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './css/dashboard/App.css';
 import App from './App';
 import Store from "./store/store";
+import Api from './pages/api';
 
 interface State {
     store: Store;
@@ -14,6 +15,9 @@ export const Context = createContext<State>({
     store,
 })
 
+const runApp = async () => {
+  Api.init();
+
 ReactDOM.render(
     <Context.Provider value={{
         store
@@ -24,4 +28,6 @@ ReactDOM.render(
     </Context.Provider>,
   document.getElementById('root')
 );
+}
 
+runApp()
