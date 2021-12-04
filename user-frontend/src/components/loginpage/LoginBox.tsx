@@ -21,10 +21,6 @@ import adminText from "../../resources/Static/Images/admin-text.png"
 import mentorText from "../../resources/Static/Images/mentor-text.png"
 import loginPageText from "../../resources/Static/Images/login-page-text.png"
 import {Link} from "react-router-dom"
-import {AxiosError, AxiosResponse} from "axios";
-import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
-
-const axios = require('axios').default;
 
 interface LoginState {
     username: string,
@@ -77,28 +73,28 @@ export class LoginForm extends React.Component<{}, LoginState> {
             <div className="container-center-horizontal">
                 <div className="loginpage">
                     <div className="baytree-leaf-background" style={{ backgroundImage: `url(${baytreeLeafBackground})` }}>
-                        <img className="login-window" src={loginWindowBorder} />
-                        <img className="baytree-logo" src={baytreeLogo} />
-                        <img className="username-textbox" src={usernameTextBox}/>
-                        <img className="username-text" src={usernameText}/>
-                        <img className="password-text" src={passwordText} />
-                        <img className="password-textbox" src={passwordTextBox} />
+                        <img className="login-window" src={loginWindowBorder} alt={""}/>
+                        <img className="baytree-logo" src={baytreeLogo} alt={""}/>
+                        <img className="username-textbox" src={usernameTextBox} alt={""}/>
+                        <img className="username-text" src={usernameText} alt={""}/>
+                        <img className="password-text" src={passwordText} alt={""}/>
+                        <img className="password-textbox" src={passwordTextBox} alt={""}/>
                         <div className="login-button" onClick={this.handleSubmit}>
                             <Link to={"/dashboard"}>
                             <div className="overlap-login-button">
-                                <img className="login-button-border" src={loginButtonBorder} />
-                                <img className="login-text" src={loginButtonText} />
+                                <img className="login-button-border" src={loginButtonBorder} alt={""}/>
+                                <img className="login-text" src={loginButtonText} alt={""}/>
                             </div>
                             </Link>
                         </div>
-                        <img className="i-forgot-my-password-redirection" src={iForgotMyPasswordRedirection} />
-                        <img className="mentorship-programme-text" src={mentorshipProgrammeText} />
-                        <img className="what-type-of-user-text" src={whatTypeOfUsersText} />
-                        <img className="account-type-selected" src={userTypeSelected} />
-                        <img className="account-type-unselected" src={userTypeUnselected} />
-                        <img className="admin-text" src={adminText} />
-                        <img className="mentor-text" src={mentorText} />
-                        <img className="login-page-text" src={loginPageText} />
+                        <img className="i-forgot-my-password-redirection" src={iForgotMyPasswordRedirection} alt={""}/>
+                        <img className="mentorship-programme-text" src={mentorshipProgrammeText} alt={""}/>
+                        <img className="what-type-of-user-text" src={whatTypeOfUsersText} alt={""}/>
+                        <img className="account-type-selected" src={userTypeSelected} alt={""}/>
+                        <img className="account-type-unselected" src={userTypeUnselected} alt={""}/>
+                        <img className="admin-text" src={adminText} alt={""}/>
+                        <img className="mentor-text" src={mentorText} alt={""}/>
+                        <img className="login-page-text" src={loginPageText} alt={""}/>
                         <input
                             className="username helvetica-extra-light-mountain-mist"
                             name="userNameBox"
