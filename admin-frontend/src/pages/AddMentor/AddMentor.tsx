@@ -13,7 +13,7 @@ function AddMentor() {
 
     const fetchData = async () => {
 
-        await axios.get<User[]>("http://localhost:8080/user/get/all")
+        await axios.get<User[]>("http://localhost:8080/api/users")
             .then((response) => {
                 const usersDB = response.data;
                 setUsers([])
