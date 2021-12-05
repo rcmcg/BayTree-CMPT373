@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-interface AddTask {
+interface AddTaskInterface {
     onAdd(task:any): any
 }
 
-const AddTask = ( props : AddTask) => {
+const AddTask = ( props : AddTaskInterface) => {
     const [text, setText] = useState('')
     // const [day, setDay] = useState('')
     // const [reminder, setReminder] = useState(false)

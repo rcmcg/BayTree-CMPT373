@@ -1,6 +1,6 @@
 import {FaTimes} from 'react-icons/fa'
 
-interface Task {
+interface TaskInterface {
     id: number,
     text: string,
     // day: string,
@@ -9,7 +9,7 @@ interface Task {
     // onToggle: any
 }
 
-const Task = (props:Task) => {
+const Task = (props:TaskInterface) => {
     return (
         <div className="task" /*className={`task ${props.reminder ? 'reminder' : ''}`} onDoubleClick={() => props.onToggle(props.id)}*/>
             <h3>

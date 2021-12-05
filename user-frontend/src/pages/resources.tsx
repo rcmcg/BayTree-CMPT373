@@ -1,8 +1,8 @@
 // @flow
 import { Resource } from './types';
-import { getResourcesList, createResource, deleteResource } from './resources.api';
-import { Box, IconButton, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import { getResourcesList} from './resources.api';
+import { makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core/';
+import React, { useEffect, useState } from 'react';
 
 
 const useStyles = makeStyles({
