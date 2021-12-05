@@ -1,5 +1,4 @@
-import axios, {Axios, AxiosInstance, AxiosResponse} from "axios";
-
+import axios, {AxiosInstance, AxiosResponse} from "axios";
 
 class Api{
     private static axiosInstance: AxiosInstance;
@@ -10,11 +9,11 @@ class Api{
         })
     }
 
-    static async get<ResponseType>(url: string){
+    static async get<ResponseType>(url: string) {
         return await Api.axiosInstance.get<ResponseType>(url);
     }
 
-    static async post<ResponseType, DataType>(url: string, data?:DataType){
+    static async post<ResponseType, DataType>(url: string, data?:DataType) {
         return Api.axiosInstance.post<DataType,AxiosResponse<ResponseType>>(url, data);
     }
 
