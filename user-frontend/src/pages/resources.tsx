@@ -1,8 +1,9 @@
 // @flow
 import { Resource } from './types';
 import { getResourcesList, createResource, deleteResource } from './resources.api';
-import { Box, IconButton, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
+import { Box, IconButton, Link, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@material-ui/core/';
 import React, { FormEventHandler, useEffect, useState } from 'react';
+import { useNavigate } from '@reach/router';
 
 
 const useStyles = makeStyles({
@@ -16,9 +17,16 @@ const useStyles = makeStyles({
   })
 
 
+
 export const Resources = () => {
     const classes = useStyles();
     const [resources, setResources] = useState<Resource[] | null>(null)
+    const navigate = useNavigate();
+    
+
+    const onRowClick = (resourceLink: string) => navigate(resourceLink)
+
+
 
     useEffect(() => {
         const fetchResourceList = async () => {
@@ -42,7 +50,7 @@ export const Resources = () => {
     </TableHead>
     <TableBody>
       {resources && resources.map(resource => (
-        <TableRow className={classes.tableRow} hover key={resource.resourceId}>
+        <TableRow className={classes.tableRow} hover key={resource.resourceId} onClick={() => onRowClick(resource.resourceLink)}>
           <TableCell>
             {resource.resourceId}
           </TableCell>
