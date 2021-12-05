@@ -4,7 +4,6 @@ import Header from '../components/goal/Header'
 import Tasks from '../components/goal/Tasks'
 import AddTask from '../components/goal/AddTask'
 import $api from "../http";
-import {Context} from "../index";
 
 interface Goal {
     id: number,
@@ -16,7 +15,6 @@ interface Goal {
 export const Goals = () => {
     const [showAddTask, setShowAddTask] = useState(false)
     const [tasks, setTasks] = useState<Goal[]>([])
-    // const {store} = useContext(Context)
 
     useEffect(()=> {
         $api.get('/api/goal/get/all').then((res) => {
