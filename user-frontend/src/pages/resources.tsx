@@ -16,9 +16,11 @@ const useStyles = makeStyles({
   })
 
 
+
 export const Resources = () => {
     const classes = useStyles();
     const [resources, setResources] = useState<Resource[] | null>(null)
+   
 
     useEffect(() => {
         const fetchResourceList = async () => {
@@ -38,11 +40,12 @@ export const Resources = () => {
         <TableCell>ID</TableCell>
         <TableCell>Resource Name</TableCell>
         <TableCell>Resource Link</TableCell>
+        <TableCell></TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
       {resources && resources.map(resource => (
-        <TableRow className={classes.tableRow} hover key={resource.resourceId}>
+        <TableRow className={classes.tableRow} hover key={resource.resourceId} >
           <TableCell>
             {resource.resourceId}
           </TableCell>
@@ -51,6 +54,9 @@ export const Resources = () => {
           </TableCell>
           <TableCell>
             {resource.resourceLink}
+          </TableCell>
+          <TableCell>
+          <a href={resource.resourceLink} target="_blank">click here</a>
           </TableCell>
         </TableRow>
       ))}
