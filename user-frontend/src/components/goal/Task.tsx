@@ -11,7 +11,7 @@ interface TaskInterface {
 
 const Task = (props:TaskInterface) => {
     return (
-        <div className={`task ${props.reminder ? 'reminder' : ''}`} onDoubleClick={() => props.onToggle(props.id)}>
+        <div /*className="task"*/ className={`task ${props.reminder ? 'reminder' : ''}`} onDoubleClick={() => props.onToggle(props.id)}>
             <h3>
                 {props.text}
                 <FaTimes

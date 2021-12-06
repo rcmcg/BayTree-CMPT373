@@ -1,34 +1,34 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import { useState } from "react";
 import Header from '../components/goal/Header'
 import Tasks from '../components/goal/Tasks'
 import AddTask from '../components/goal/AddTask'
+import $api from "../http";
+
+interface Goal {
+    id: number,
+    username: string,
+    text: string,
+    state: string,
+    reminder: boolean
+}
 
 export const Goals = () => {
     const [showAddTask, setShowAddTask] = useState(false)
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            text: 'Doctors Appointment',
-            day: 'Feb 5th at 2:30pm',
-            reminder: true,
-        },
-        {
-            id: 2,
-            text: 'Meeting at School',
-            day: 'Feb 6th at 1:30pm',
-            reminder: true,
-        },
-        {
-            id: 3,
-            text: 'Food Shopping',
-            day: 'Feb 7th at 2:30pm',
-            reminder: false,
-        },
-    ])
+    const [tasks, setTasks] = useState<Goal[]>([])
+
+    useEffect(()=> {
+        $api.get('/api/goal/get/all').then((res) => {
+            setTasks(res.data)
+            console.log(res.data)
+        })
+    }, [])
 
     // Add task
     const addTask = (task:any) => {
+        $api.post('api/goal/add', {}).then((res) => {
+
+        })
         const id = Math.floor(Math.random() * 10000) + 1
 
         const newTask = { id, ...task }

@@ -1,7 +1,10 @@
 package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedAddingGoalException;
+import com.baytree_mentoring.baytree_mentoring.exceptions.FailedResourceAddingException;
+import com.baytree_mentoring.baytree_mentoring.exceptions.FailedUserAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.Goal;
+import com.baytree_mentoring.baytree_mentoring.models.Resource;
 import com.baytree_mentoring.baytree_mentoring.services.GoalsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +18,7 @@ public class GoalsController {
     private final GoalsService goalsService;
 
     private static final String SUCCESS = "Goal Added";
-    private static final String DELETE_SUCCESS = "Resource deleted";
+    private static final String deleteSUCCESS = "Resource deleted";
 
     public GoalsController(GoalsService goalsService) {
         this.goalsService = goalsService;
@@ -24,10 +27,10 @@ public class GoalsController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/goal/add")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String addGoal(@RequestBody Goal goal){
-        goalsService.addGoal(goal);
+    private String addGoal(@RequestBody Goal gl){
+        goalsService.addGoal(gl);
 
-        if (goalsService.isGoalAdded(goal)) {
+        if (goalsService.isGoalAdded(gl)) {
             return SUCCESS;
         }
 
@@ -45,14 +48,7 @@ public class GoalsController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/goal/delete/{goalId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    private String deleteGoal(@PathVariable("goalId") long goalId){
+    public void deleteGoal(@PathVariable("goalId") Long goalId){
         goalsService.deleteGoalUsingId(goalId);
-
-        if(!goalsService.doesGoalExist(goalId)) {
-            return DELETE_SUCCESS;
-        }
-
-        String error = "Failed to Delete the Goal.";
-        throw new FailedAddingGoalException(error);
     }
 }

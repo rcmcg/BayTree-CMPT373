@@ -20,102 +20,86 @@ import userTypeUnselected from "../../resources/Static/Images/user-type-not-sele
 import adminText from "../../resources/Static/Images/admin-text.png"
 import mentorText from "../../resources/Static/Images/mentor-text.png"
 import loginPageText from "../../resources/Static/Images/login-page-text.png"
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
+import {Context} from '../../index'
+import {useContext, useState} from "react";
+import {observer} from "mobx-react-lite";
+import {FC} from 'react'
 
-interface LoginState {
-    username: string,
-    password: string
-}
 
-export class LoginForm extends React.Component<{}, LoginState> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            username: '',
-            password: ''
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.resetForm = this.resetForm.bind(this);
+//if you want to use checkAuth functionality that I have call in App.tsx, than you need to wrap up the
+// LoginForm with observer (just how I did in App.tsx)
+
+export const LoginBox: FC = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const history = useHistory();
+
+    //IMPORTANT: need to be changed to call format. Hooks are not allowed in classes.
+    const {store} = useContext(Context);
+
+    const handleSubmit = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        store.login(username,password).then(() => history.push('/dashboard'));
+        // setUsername("");
+        // setPassword("");
     }
 
-    handleSubmit(event: any) {
-        this.setState({
-            username: this.state.username,
-            password: this.state.password
-        }, this.processLogin)
-        this.resetForm(event)
-        event.preventDefault()
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
+        console.log(e.target.value);
     }
 
-    processLogin() {
-        // TODO: Send Post Request to backend to retrieve a security token
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+        console.log(e.target.value);
     }
 
-    handleUsernameChange(event: any) {
-        this.setState({username: event.target.value});
-    }
-
-    handlePasswordChange(event: any) {
-        this.setState({password: event.target.value});
-    }
-
-    resetForm(event: any) {
-        this.setState({
-            username: "",
-            password: ""
-        })
-    }
-
-    render() {
-        return (
-            <div className="container-center-horizontal">
-                <div className="loginpage">
-                    <div className="baytree-leaf-background" style={{ backgroundImage: `url(${baytreeLeafBackground})` }}>
-                        <img className="login-window" src={loginWindowBorder} alt={""}/>
-                        <img className="baytree-logo" src={baytreeLogo} alt={""}/>
-                        <img className="username-textbox" src={usernameTextBox} alt={""}/>
-                        <img className="username-text" src={usernameText} alt={""}/>
-                        <img className="password-text" src={passwordText} alt={""}/>
-                        <img className="password-textbox" src={passwordTextBox} alt={""}/>
-                        <div className="login-button" onClick={this.handleSubmit}>
-                            <Link to={"/dashboard"}>
-                            <div className="overlap-login-button">
-                                <img className="login-button-border" src={loginButtonBorder} alt={""}/>
-                                <img className="login-text" src={loginButtonText} alt={""}/>
-                            </div>
-                            </Link>
+    return (
+        <div className="container-center-horizontal">
+            <div className="loginpage">
+                <div className="baytree-leaf-background" style={{backgroundImage: `url(${baytreeLeafBackground})`}}>
+                    <img className="login-window" src={loginWindowBorder}/>
+                    <img className="baytree-logo" src={baytreeLogo}/>
+                    <img className="username-textbox" src={usernameTextBox}/>
+                    <img className="username-text" src={usernameText}/>
+                    <img className="password-text" src={passwordText}/>
+                    <img className="password-textbox" src={passwordTextBox}/>
+                    <div className="login-button" onClick={handleSubmit}>
+                        <div className="overlap-login-button">
+                            <img className="login-button-border" src={loginButtonBorder}/>
+                            <img className="login-text" src={loginButtonText}/>
                         </div>
-                        <img className="i-forgot-my-password-redirection" src={iForgotMyPasswordRedirection} alt={""}/>
-                        <img className="mentorship-programme-text" src={mentorshipProgrammeText} alt={""}/>
-                        <img className="what-type-of-user-text" src={whatTypeOfUsersText} alt={""}/>
-                        <img className="account-type-selected" src={userTypeSelected} alt={""}/>
-                        <img className="account-type-unselected" src={userTypeUnselected} alt={""}/>
-                        <img className="admin-text" src={adminText} alt={""}/>
-                        <img className="mentor-text" src={mentorText} alt={""}/>
-                        <img className="login-page-text" src={loginPageText} alt={""}/>
-                        <input
-                            className="username helvetica-extra-light-mountain-mist"
-                            name="userNameBox"
-                            value={this.state.username}
-                            onChange = {this.handleUsernameChange}
-                            placeholder="Username"
-                            type="text"
-                        />
-                        <input
-                            className="password helvetica-extra-light-mountain-mist"
-                            name="passwordBox"
-                            value={this.state.password}
-                            onChange = {this.handlePasswordChange}
-                            placeholder="Password"
-                            type="password"
-                        />
                     </div>
+                    <img className="i-forgot-my-password-redirection" src={iForgotMyPasswordRedirection}/>
+                    <img className="mentorship-programme-text" src={mentorshipProgrammeText}/>
+                    <img className="what-type-of-user-text" src={whatTypeOfUsersText}/>
+                    <img className="account-type-selected" src={userTypeSelected}/>
+                    <img className="account-type-unselected" src={userTypeUnselected}/>
+                    <img className="admin-text" src={adminText}/>
+                    <img className="mentor-text" src={mentorText}/>
+                    <img className="login-page-text" src={loginPageText}/>
+                    <input
+                        className="username helvetica-extra-light-mountain-mist"
+                        name="userNameBox"
+                        value={username}
+                        onChange={handleUsernameChange}
+                        placeholder="Username"
+                        type="text"
+                    />
+                    <input
+                        className="password helvetica-extra-light-mountain-mist"
+                        name="passwordBox"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        placeholder="Password"
+                        type="password"
+                    />
                 </div>
             </div>
-
-        );
-    }
+        </div>
+    );
 }
+
+export default observer(LoginBox);
 

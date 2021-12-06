@@ -1,12 +1,12 @@
 import Task from './Task'
 
-interface TasksInterface {
+interface Tasks {
     tasks: any,
     onDelete: any,
     onToggle: any
 }
 
-const Tasks = ({tasks, onDelete, onToggle}:TasksInterface) => {
+const Tasks = ({tasks, onDelete, onToggle}:Tasks) => {
     return (
         <>
             {tasks.map((task:any) => {
