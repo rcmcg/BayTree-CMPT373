@@ -9,11 +9,11 @@ export const Profile = () => {
 
             <h4> Name </h4>
             <div className={"info-container"}>
-                Jason
+                Arnold
             </div>
             <h4> Email </h4>
             <div className={"info-container"}>
-                jasondev@gmai.com
+                arnold1234@gmai.com
             </div>
             <h4> Mentor type </h4>
             <div className={"info-container"}>
