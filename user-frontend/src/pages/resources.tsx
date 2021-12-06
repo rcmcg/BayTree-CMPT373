@@ -21,10 +21,11 @@ const useStyles = makeStyles({
 export const Resources = () => {
     const classes = useStyles();
     const [resources, setResources] = useState<Resource[] | null>(null)
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     
 
-    const onRowClick = (resourceLink: string) => navigate(resourceLink)
+    //const onRowClick = (resourceLink: string) => navigate(resourceLink)
+    //onClick={() => onRowClick(resource.resourceLink)}
 
 
 
@@ -46,11 +47,12 @@ export const Resources = () => {
         <TableCell>ID</TableCell>
         <TableCell>Resource Name</TableCell>
         <TableCell>Resource Link</TableCell>
+        <TableCell></TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
       {resources && resources.map(resource => (
-        <TableRow className={classes.tableRow} hover key={resource.resourceId} onClick={() => onRowClick(resource.resourceLink)}>
+        <TableRow className={classes.tableRow} hover key={resource.resourceId} >
           <TableCell>
             {resource.resourceId}
           </TableCell>
@@ -59,6 +61,9 @@ export const Resources = () => {
           </TableCell>
           <TableCell>
             {resource.resourceLink}
+          </TableCell>
+          <TableCell>
+          <a href={resource.resourceLink} target="_blank">click here</a>
           </TableCell>
         </TableRow>
       ))}
