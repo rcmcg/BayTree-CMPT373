@@ -24,15 +24,10 @@ public class ViewsApiQuestionnaireIntegration {
     }
 
     public void sendCompletedQuestionnaireToViews(MonthlyQuestionnaireSubmit mqSubmit, int questionnaireId) throws UnirestException {
-        System.out.println("sendCompletedQuestionnaireToViews():");
         // create URL for the questionnaire submission
         String url = "https://app.viewsapp.net/api/restful/contacts/participants/" +
                 mqSubmit.getMenteeId() + "/questionnaires/" + questionnaireId;
-        System.out.println("URL for POST request: " + url);
-        // form JSON payload
         String questionnaireXML = viewsAPIQuestionnaireJSONFormatter.convertQuestionnaireToXML(mqSubmit);
-
-        // send the post request
         viewsUnirest.sendUnirestXmlPostRequest(url, questionnaireXML);
     }
 }

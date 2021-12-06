@@ -55,12 +55,11 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
         console.log("Sending axios get request with URL: " + url);
         axios.get(url)
             .then((response:AxiosResponse) => {
-                console.log("Inside axios get .then")
                 console.log(response);
                 console.log(response.data);
                 this.setState({
                     questionsResponse: response.data
-                }, this.buildQuestionnaireForm)
+                }, this.setLoadingFalseAfterAxiosGetCompletes)
 
             })
             .catch(function (error) {
@@ -68,7 +67,7 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
             })
     }
 
-    private buildQuestionnaireForm() {
+    private setLoadingFalseAfterAxiosGetCompletes() {
         this.setState({
             loading: false,
         })
@@ -83,9 +82,7 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
 
     handleSubmit(event: any) {
         event.preventDefault()
-        console.log("handleSubmit():")
         let element = null;
-        // let answers: { [key: string]: string } = {};
         let answers = new Map<string, string>();
         Object.keys(this.state.questionsResponse).map((key) => {
             console.log("Key: " + key)
@@ -102,7 +99,7 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
 
     submitQuestionnaire(answers: Map<string, string>) {
         const url = backendApiURL + '/monthlyquestionnaire/submit';
-        console.log("Submitting answesr to " + url)
+        console.log("Submitting answers to " + url)
         let questionIds = Array.from(answers.keys());
         let answerValues = Array.from(answers.values());
         axios.post(url, {
@@ -132,10 +129,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
                     <div className={"ui form sessionForm"}>
                         <form onSubmit={this.handleSubmit} id={"questionnaire-form"}>
                             {Object.keys(this.state.questionsResponse).map((key) => {
-                                console.log("Creating input for key: " + key)
-                                console.log("Response: " + this.state.questionsResponse)
-                                console.log("Response data: " + this.state.questionsResponse[key].Question)
-                                // console.log("Questions: " + this.state.questions)
                                 return (
                                     <div>
                                         <div>
@@ -143,7 +136,6 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
                                                 {this.state.questionsResponse[key].Question} (Enter value 1 to 5)
                                             </label>
                                             <input
-                                                // type={this.state.questionsResponse[parseInt(key)]}
                                                 type={this.state.questionsResponse[key].inputType}
                                                 id={key} name={key}/>
                                         </div>
