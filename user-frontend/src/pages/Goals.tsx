@@ -9,7 +9,8 @@ interface Goal {
     id: number,
     username: string,
     text: string,
-    state: string
+    state: string,
+    reminder: boolean
 }
 
 export const Goals = () => {
@@ -23,19 +24,15 @@ export const Goals = () => {
         })
     }, [])
 
-    // useEffect(() => {
-    //     $api.post('api/goal/add')
-    // }, [])
-
     // Add task
     const addTask = (task:any) => {
         $api.post('api/goal/add', {}).then((res) => {
 
         })
-        // const id = Math.floor(Math.random() * 10000) + 1
-        //
-        // const newTask = { id, ...task }
-        // setTasks([...tasks, newTask])
+        const id = Math.floor(Math.random() * 10000) + 1
+
+        const newTask = { id, ...task }
+        setTasks([...tasks, newTask])
     }
 
     // Delete task
@@ -44,15 +41,15 @@ export const Goals = () => {
     }
 
     // Toggle Reminder
-    // const toggleReminder = (id:number) => {
-    //     setTasks(
-    //         tasks.map((task) =>
-    //             task.id === id
-    //                 ? { ...task, reminder: !task.reminder }
-    //                 : task
-    //         )
-    //     )
-    // }
+    const toggleReminder = (id:number) => {
+        setTasks(
+            tasks.map((task) =>
+                task.id === id
+                    ? { ...task, reminder: !task.reminder }
+                    : task
+            )
+        )
+    }
 
     return (
         <div className="containerGoal">
@@ -64,7 +61,7 @@ export const Goals = () => {
             {tasks.length > 0 ? <Tasks
                 tasks={tasks}
                 onDelete={deleteTask}
-                // onToggle={toggleReminder}
+                onToggle={toggleReminder}
             /> : 'No Tasks to Show'}
         </div>
     );
