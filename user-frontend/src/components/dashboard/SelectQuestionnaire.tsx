@@ -8,17 +8,6 @@ interface MonthlyQuestionnaireState {
     month: number
 }
 
-class SelectMentor extends React.Component {
-    render () {
-        return (
-            <div>
-                <label htmlFor="mentorId">Mentor Id (remove when app knows which mentor is logged in) </label>
-                <input type="number" id="mentorId" name="mentorId" required/>
-            </div>
-        )
-    }
-}
-
 class SelectMentee extends React.Component {
     render () {
         return (
@@ -72,7 +61,7 @@ export class SelectQuestionnaire extends React.Component<{}, MonthlyQuestionnair
         let yearInputInt: number = parseInt(yearInput);
         let monthInputInt: number = parseInt(monthInput);
         this.setState({
-            mentorId: event.target.mentorId.value,
+            mentorId: 42,   // hard-coded until application knows which mentor is logged in
             menteeId: event.target.menteeId.value,
             year: yearInputInt,
             month: monthInputInt
@@ -95,7 +84,6 @@ export class SelectQuestionnaire extends React.Component<{}, MonthlyQuestionnair
             <main>
                 <div className={"ui form monthlyQuestionnaire"}>
                     <form onSubmit={this.handleSubmit} action={"/submitquestionnaire"} method={"GET"}>
-                        <SelectMentor /> <br/>
                         <SelectMentee /> <br/>
                         <SelectYearMonth /> <br/>
                         <span className={"submitButtonFormat"}>

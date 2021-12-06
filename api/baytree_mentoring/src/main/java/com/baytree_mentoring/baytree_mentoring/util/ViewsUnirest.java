@@ -91,6 +91,27 @@ public class ViewsUnirest {
         }
     }
 
+    public HttpResponse<String> sendUnirestXmlPostRequest(String URL, String body) throws UnirestException {
+        Unirest.setTimeouts(0,0);
+        try {
+            HttpResponse<String> response = Unirest.post(URL)
+                    .header("Content-Type", "text/xml")
+                    .basicAuth(viewsAPIUsername, viewsAPIPassword)
+                    .body(body)
+                    .asString();
+            System.out.println(response.getBody());
+            if (httpResponseIsNotOk(response.getStatus())) {
+                String error = "Post request to " + URL + " failed";
+                throw new UnirestException(error);
+            } else {
+                return response;
+            }
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     public HttpResponse<String> sendUnirestPutRequestNoBodyNoExtraHeaders(String URL) throws UnirestException {
         // Passing headers Accept and Content-Type along with an empty body will cause Views to return null
         Unirest.setTimeouts(0,0);

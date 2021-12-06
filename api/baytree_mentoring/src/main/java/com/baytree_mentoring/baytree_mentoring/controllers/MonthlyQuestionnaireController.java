@@ -2,6 +2,7 @@ package com.baytree_mentoring.baytree_mentoring.controllers;
 
 import com.baytree_mentoring.baytree_mentoring.exceptions.FailedMonthlyQuestionnaireAddingException;
 import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaire;
+import com.baytree_mentoring.baytree_mentoring.models.MonthlyQuestionnaireSubmit;
 import com.baytree_mentoring.baytree_mentoring.services.MonthlyQuestionnaireService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.http.HttpStatus;
@@ -52,12 +53,22 @@ public class MonthlyQuestionnaireController {
             String monthlyQuestionnaire = monthlyQuestionnaireService
                     .getMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
             return monthlyQuestionnaire;
-        } catch (UnirestException e) {
-            e.printStackTrace();
-            throw new UnirestException(error);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception(error);
         }
+    }
+
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    @RequestMapping(value = "/monthlyquestionnaire/submit", method = RequestMethod.POST)
+    private String submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) throws Exception {
+        String error = "Error submitting questionnaire for (" + mqSubmit.getQuestionnaireYear() + "," + mqSubmit.getQuestionnaireMonth();
+        try {
+            monthlyQuestionnaireService.submitMonthlyQuestionnaireToViews(mqSubmit);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(error);
+        }
+        return "Questionnaire submitted";
     }
 }
