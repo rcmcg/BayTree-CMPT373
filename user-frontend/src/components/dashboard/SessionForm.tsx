@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Axios, AxiosError, AxiosResponse} from "axios";
+import {AxiosError, AxiosResponse} from "axios";
 import 'moment-timezone';
 import "../../css/dashboard/SessionForm.css"
 import {backendApiURL, HTTP_CREATED_STATUS_RESPONSE} from "../../App";
@@ -218,9 +218,8 @@ export class SessionForm extends React.Component<{}, SessionState> {
         }
         let offsetUTCHoursAndMinutesString = offsetHoursString + offsetMinutes.toString();
 
-        let formattedTime = timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
+        return timeLocal.slice(0, 10) + ' ' + timeLocal.slice(11, 16) + ':00'
             + ' ' + offsetUTCHoursAndMinutesString;
-        return formattedTime;
     }
 
     render() {
