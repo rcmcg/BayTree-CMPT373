@@ -30,6 +30,8 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public User getMentorByName(String name) { return userRepository.findByFirstName(name); }
+
     public List<User> getAllMentorsFromDatabase(){
         return userRepository.findAll();
     }

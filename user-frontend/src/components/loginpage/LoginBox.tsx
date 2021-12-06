@@ -41,8 +41,6 @@ export const LoginBox: FC = () => {
     const handleSubmit = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         store.login(username,password).then(() => history.push('/dashboard'));
-        // setUsername("");
-        // setPassword("");
     }
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
