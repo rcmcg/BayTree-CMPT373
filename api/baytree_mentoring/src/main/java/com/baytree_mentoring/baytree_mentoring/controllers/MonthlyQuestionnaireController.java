@@ -47,41 +47,26 @@ public class MonthlyQuestionnaireController {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
-    private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) {
+    private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) throws Exception {
         try {
             String monthlyQuestionnaire = monthlyQuestionnaireService
                     .getMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
             return monthlyQuestionnaire;
-        } catch (UnirestException e) {
-            e.printStackTrace();
-            return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error retrieving questionnaire for (" + year + "," + month + "from Views";
+            throw new Exception("Error retrieving questionnaire for (" + year + "," + month + "from Views");
         }
     }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/submit", method = RequestMethod.POST)
-    private String submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) {
+    private String submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) throws Exception {
         try {
-            System.out.println("Answers after creation");
-            System.out.println(mqSubmit.getAnswers().toString());
             monthlyQuestionnaireService.submitMonthlyQuestionnaireToViews(mqSubmit);
-        } catch (UnirestException e) {
-            e.printStackTrace();
-            return "Error submitting questionnaire for (" + mqSubmit.getQuestionnaireYear() + "," + mqSubmit.getQuestionnaireMonth();
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error submitting questionnaire for (" + mqSubmit.getQuestionnaireYear() + "," + mqSubmit.getQuestionnaireMonth();
+            throw new Exception("Error submitting questionnaire for (" + mqSubmit.getQuestionnaireYear() + "," + mqSubmit.getQuestionnaireMonth());
         }
-//        System.out.println("submitQuestionnaireToViews():");
-//        System.out.println(mqSubmit.toString());
-//        System.out.println(mqSubmit.getMenteeId());
-//        System.out.println(mqSubmit.getQuestionnaireMonth());
-//        System.out.println(mqSubmit.getQuestionnaireYear());
-//        System.out.println(mqSubmit.getDateSubmitted());
-//        System.out.println(mqSubmit.getAnswers());
         return "Questionnaire submitted";
     }
 }

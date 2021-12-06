@@ -13,14 +13,10 @@ public class MonthlyQuestionnaireSubmit {
     private String questionnaireMonth;
     private String questionnaireYear;
     private String dateSubmitted;
-    private List<String> questionIds = new ArrayList<>();;
-    private List<String> answers = new ArrayList<>();;
-//    Hashtable<String, String> answers = new Hashtable<String, String>();
+    private List<String> questionIds = new ArrayList<>();
+    private List<String> answers = new ArrayList<>();
 
     public MonthlyQuestionnaireSubmit(int menteeId, String questionnaireMonth, String questionnaireYear, String date, String[] questionIds, String[] answers) {
-//        System.out.println("MonthlyQuestionnaireSubmit()");
-//        System.out.println("questionIds: " + Arrays.toString(questionIds));
-//        System.out.println("answers: " + Arrays.toString(answers));
         this.menteeId = menteeId;
         this.questionnaireMonth = questionnaireMonth;
         this.questionnaireYear = questionnaireYear;
@@ -30,9 +26,5 @@ public class MonthlyQuestionnaireSubmit {
             this.questionIds.add(questionIds[i]);
             this.answers.add(answers[i]);
         }
-        // Generate Hashtable answers
-//        for (int i = 0; i < questionIds.length; i++) {
-//            this.answers.put(questionIds[i], answers[i]);
-//        }
     }
 }
