@@ -21,13 +21,7 @@ const useStyles = makeStyles({
 export const Resources = () => {
     const classes = useStyles();
     const [resources, setResources] = useState<Resource[] | null>(null)
-    //const navigate = useNavigate();
-    
-
-    //const onRowClick = (resourceLink: string) => navigate(resourceLink)
-    //onClick={() => onRowClick(resource.resourceLink)}
-
-
+   
 
     useEffect(() => {
         const fetchResourceList = async () => {
