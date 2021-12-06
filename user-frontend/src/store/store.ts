@@ -27,6 +27,7 @@ export default class Store {
             const response = await AuthService.login(username, password);
             console.log("ACCESS TOKEN:", response.data.accessToken)
             localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem('username', username);
             this.setAuth(true);
         } catch (e:any) {
             console.log(e.response?.data?.message)

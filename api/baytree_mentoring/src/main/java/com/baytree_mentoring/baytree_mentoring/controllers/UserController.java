@@ -64,6 +64,13 @@ public class UserController {
         return userService.getMentorById(Long.parseLong(id));
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/user/get/mentors/{firstName}")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+    private User getUserByFirstName(@PathVariable String firstName) {
+        return userService.getMentorByName(firstName);
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @PutMapping("/user/mentors/{id}/sessiongroup")
