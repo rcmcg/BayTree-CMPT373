@@ -42,30 +42,22 @@ public class ViewsAPISessionJSONFormatter {
     }
 
     public String parseNewSessionIdFromSessionUploadResponse(HttpResponse<String> response) {
-        System.out.println("Inside parseNewSessionIdFromSessionUploadResponse");
-        System.out.println(response.getBody());
         JSONObject responseJSON = new JSONObject(URLDecoder.decode(response.getBody(), StandardCharsets.UTF_8));
         String viewsSessionId = responseJSON.get("SessionID").toString();
-        System.out.println("viewsSessionID: " + viewsSessionId);
         return viewsSessionId;
     }
 
-    public String createSessionAttendanceJSON(String viewsPersonId, String attended) {
-        // Required fields: viewsSessionId, viewsPersonId
+    public String createSessionAttendanceJSON(String viewsPersonId, String attended, String volunteeringRole) {
         ObjectNode sessionJSON = mapper.createObjectNode();
         sessionJSON.put("ContactID", viewsPersonId);
         sessionJSON.put("Attended", attended);
-        // TODO: Research how to properly use this Volunteering field
-        sessionJSON.put("Volunteering", "");
+        sessionJSON.put("Volunteering", volunteeringRole);
         return sessionJSON.toString();
     }
 
     public static String parseVenueIdFromSessionGroupGetResponse(HttpResponse<String> response) {
-        System.out.println("Inside parseVenueIdFromSessionGroupGetResponse");
-        System.out.println(response.getBody());
         JSONObject responseJSON = new JSONObject(URLDecoder.decode(response.getBody(), StandardCharsets.UTF_8));
         String venueId = responseJSON.get("VenueID").toString();
-        System.out.println("venueId: " + venueId);
         return venueId;
     }
 

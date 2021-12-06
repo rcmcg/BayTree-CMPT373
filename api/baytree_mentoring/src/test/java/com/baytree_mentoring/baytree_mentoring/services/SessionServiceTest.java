@@ -1,10 +1,9 @@
 package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Session;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import com.baytree_mentoring.baytree_mentoring.models.ViewsSessionGroup;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -38,9 +37,8 @@ public class SessionServiceTest {
                 true,
                 "2021-10-26 20:12:12 -0400",
                 "2021-10-26 21:12:12 -0400",
-                28,
                 "Some notes");
-        assertDoesNotThrow(() -> sessionService.sendCompletedSessionFormToViews(ses));
+        assertDoesNotThrow(() -> sessionService.sendCompletedSessionFormToViews(ses, null));
     }
 
     @Disabled
@@ -55,8 +53,24 @@ public class SessionServiceTest {
                 true,
                 "2021-10-26 20:12:12 -0400",
                 "2021-10-26 21:12:12 -0400",
-                28,
                 "Some notes");
-        assertFalse(() -> sessionService.sendCompletedSessionFormToViews(ses));
+        assertFalse(() -> sessionService.sendCompletedSessionFormToViews(ses, null));
+    }
+
+    @Test
+    void getSessionGroupsFromViews() {
+        List<ViewsSessionGroup> sessionGroups = sessionService.getSessionGroupsFromViews();
+        for (ViewsSessionGroup sessionGroup : sessionGroups) {
+            System.out.println(sessionGroup.getViewsSessionGroupId());
+            System.out.println(sessionGroup.getViewsSessionGroupName());
+        }
+    }
+
+    @Test
+    void parseSessionGroupIdFromKey() {
+        String key = "sessiongroup id=\"16\"";
+        String expectedSessionGroupId = "16";
+        String id = sessionService.parseIdFromKey(key);
+        assertEquals(expectedSessionGroupId, id);
     }
 }

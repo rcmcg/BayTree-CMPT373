@@ -3,18 +3,8 @@ import {backendApiURL} from "../../App";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {useState} from "react";
 
-// const DynamicForm = ({ formData }: any) => {
-//     function onSubmit(e: any) {
-//         e.preventDefault();
-//     }
-//
-//     return (
-//         <form onSubmit={onSubmit}>
-//             {formData}
-//             <p>todo...</p>
-//         </form>
-//     )
-// }
+import axios, {AxiosResponse} from "axios";
+import LoadingDots from "../LoadingDots";
 
 export class SubmitQuestionnaireForm extends React.Component<any, any> {
     constructor(props: any) {
@@ -63,6 +53,7 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
 
             })
             .catch(function (error) {
+                alert('Failed to grab questionnaire. Please try again later or contact your administrator.')
                 console.log(error)
             })
     }
@@ -121,7 +112,10 @@ export class SubmitQuestionnaireForm extends React.Component<any, any> {
     render() {
         if (this.state.loading) {
             return (
-                <div>Loading...</div>
+                <main>
+                    <span>Loading</span>
+                    <LoadingDots />
+                </main>
             )
         } else if (this.state.questionsResponse != null) {
             return (
