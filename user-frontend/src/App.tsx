@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, FC} from 'react';
 import './css/dashboard/App.css';
 
 import {NavigationBar} from "./components/dashboard/NavigationBar";
@@ -14,11 +14,25 @@ import {FullHistoricalRecord} from "./pages/FullHistoricalRecord"
 import {SubmitQuestionnaire} from "./pages/submitquestionnaire";
 import {LoginPage} from "./pages/login-page";
 import {Goals} from "./pages/Goals"
+import {Context} from "./index";
+import {observer} from "mobx-react-lite";
 
 export const backendApiURL: string = "http://localhost:8080"
 export const HTTP_CREATED_STATUS_RESPONSE: number = 201
 
-function App() {
+const App: FC = () => {
+    const {store} = useContext(Context)
+
+    useEffect( () => {
+        if(localStorage.getItem('token')){
+            store.checkAuth()
+        }
+    }, [])
+
+    if(store.isLoading) {
+        return <div>Loading...</div>
+    }
+
     return(
         <Router>
             <Switch>
@@ -41,4 +55,4 @@ function App() {
     )
 }
 
-export default App;
+export default observer(App);

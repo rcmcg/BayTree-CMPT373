@@ -2,12 +2,13 @@ package com.baytree_mentoring.baytree_mentoring.services;
 
 import com.baytree_mentoring.baytree_mentoring.models.Goal;
 import com.baytree_mentoring.baytree_mentoring.repositories.GoalsRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
+@Slf4j
 public class GoalsService {
 
     private final GoalsRepository goalsRepository;
@@ -30,7 +31,11 @@ public class GoalsService {
     }
 
     public void deleteGoalUsingId(long gId) {
-        goalsRepository.deleteAllById(Collections.singleton(gId));
+        boolean exists = goalsRepository.existsById(gId);
+        if(!exists) {
+            throw new IllegalStateException("goal with id " + gId + " does not exists");
+        }
+        goalsRepository.deleteById(gId);
     }
 
     public boolean doesGoalExist(long id) {
