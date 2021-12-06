@@ -85,8 +85,7 @@ public class ViewsUnirest {
         Unirest.setTimeouts(0,0);
         try {
             HttpResponse<String> response = Unirest.post(URL)
-                    .header("Content-Type", "/")
-                    .header("Accept", "text/xml")
+                    .header("Content-Type", "text/xml")
                     .basicAuth(viewsAPIUsername, viewsAPIPassword)
                     .body(body)
                     .asString();

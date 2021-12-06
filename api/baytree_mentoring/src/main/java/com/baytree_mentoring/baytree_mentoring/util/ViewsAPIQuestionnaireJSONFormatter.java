@@ -25,7 +25,7 @@ public class ViewsAPIQuestionnaireJSONFormatter {
     public String convertQuestionnaireToXML(MonthlyQuestionnaireSubmit mqSubmit) {
         String xmlString ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         xmlString += "<answers>\n";
-        xmlString += "\t<EntityType>" + "Person" + "</EntityType>\n";
+        xmlString += "\t<EntityType>" + "Participant" + "</EntityType>\n";
         xmlString += "\t<EntityID>" + mqSubmit.getMenteeId() + "</EntityID>\n";
         for (int i = 0; i < mqSubmit.getQuestionIds().size(); i++) {
             String questionId = mqSubmit.getQuestionIds().get(i);
