@@ -1,9 +1,6 @@
 import * as React from 'react';
 import {backendApiURL} from "../../App";
 import axios, {AxiosError, AxiosResponse} from "axios";
-import {useState} from "react";
-
-import axios, {AxiosResponse} from "axios";
 import LoadingDots from "../LoadingDots";
 
 export class SubmitQuestionnaireForm extends React.Component<any, any> {

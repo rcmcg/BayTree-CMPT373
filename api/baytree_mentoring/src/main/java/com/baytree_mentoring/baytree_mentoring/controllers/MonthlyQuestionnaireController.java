@@ -49,20 +49,20 @@ public class MonthlyQuestionnaireController {
     @RequestMapping(value = "/monthlyquestionnaire/", method = RequestMethod.GET)
     private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) throws Exception {
         String error = "Error retrieving questionnaire for (" + year + "," + month + ") from Views";
-    private String getMonthlyQuestionnaireFromViews(@RequestParam("year") String year, @RequestParam("month") String month) throws Exception {
         try {
             String monthlyQuestionnaire = monthlyQuestionnaireService
                     .getMonthlyQuestionnaireForFrontend(Integer.parseInt(year), Integer.parseInt(month));
             return monthlyQuestionnaire;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Error retrieving questionnaire for (" + year + "," + month + "from Views");
+            throw new Exception(error);
         }
     }
 
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
     @RequestMapping(value = "/monthlyquestionnaire/submit", method = RequestMethod.POST)
     private String submitQuestionnaireToViews(@RequestBody MonthlyQuestionnaireSubmit mqSubmit) throws Exception {
+        String error = "Error submitting questionnaire for (" + mqSubmit.getQuestionnaireYear() + "," + mqSubmit.getQuestionnaireMonth();
         try {
             monthlyQuestionnaireService.submitMonthlyQuestionnaireToViews(mqSubmit);
         } catch (Exception e) {
