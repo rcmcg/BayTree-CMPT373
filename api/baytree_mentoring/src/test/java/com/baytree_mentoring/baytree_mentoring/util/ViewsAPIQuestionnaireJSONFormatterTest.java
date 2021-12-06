@@ -20,6 +20,7 @@ class ViewsAPIQuestionnaireJSONFormatterTest {
     }
 
     @Test
+    @Disabled
     void createQuestionnaireUploadXML() {
         MonthlyQuestionnaireSubmit mqSubmit = new MonthlyQuestionnaireSubmit(
                 4,
