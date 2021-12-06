@@ -45,8 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(POST, "/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
-        // Leaving this code here commented out because I think the actual fix should look something like this.
-        // We need to specify the authentication level for specific endpoints.
         http
                 .authorizeRequests()
                 .antMatchers(
@@ -60,9 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/user/add/mentor/", "/user/get/views/mentors/", "/user/get/mentors/all/")
                 .permitAll()
                 .anyRequest().authenticated();
-//         This basically says all URLs are permitted without authentication. Really, should be authenticated to view
-//         the above URLs but to get the project working leaving it for now .
-//        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
         http.cors();
