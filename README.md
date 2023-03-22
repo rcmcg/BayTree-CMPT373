@@ -1,5 +1,9 @@
 **Intro**
 
+<p> 
+This application was a collaboration between myself and other team members for CMPT 373 - Software Development Methods at Simon Fraser University. My commits are under rcmcg, reecem, or Reece McGowan.
+</p>
+
 <p>
 An application for managing mentor/mentee relationships at the Baytree
 Centre in London. There are 3 components to the application. The
